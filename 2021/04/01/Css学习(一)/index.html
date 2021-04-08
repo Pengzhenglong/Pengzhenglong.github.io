@@ -18,7 +18,7 @@
   <meta name="author" content="DragonPeng">
   <meta name="keywords" content="">
   
-  <title>Git(SSH本地免密)+Github迁移到Gitee - DragonPeng的博客</title>
+  <title>CSS学习(一) - DragonPeng的博客</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -163,7 +163,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="Git(SSH本地免密)+Github迁移到Gitee">
+            <span class="h2" id="subtitle" title="CSS学习(一)">
               
             </span>
 
@@ -173,8 +173,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-03-31 19:15" pubdate>
-        March 31, 2021 pm
+      <time datetime="2021-04-01 20:15" pubdate>
+        April 1, 2021 pm
       </time>
     </span>
   
@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      888 字
+      612 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      11
+      7
        分钟
     </span>
   
@@ -225,39 +225,30 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Git(SSH本地免密)+Github迁移到Gitee</h1>
+            <h1 style="display: none">CSS学习(一)</h1>
             
             <div class="markdown-body">
-              <p>Git上传到Github每次都要密码验证，很麻烦，想一下可以使用SSH免密操作，同时上传到Github和Gitee,也可以将项目迁移至Gitee.</p>
-<hr>
-<h2 id="Github配置-SSH-key"><a href="#Github配置-SSH-key" class="headerlink" title="Github配置 SSH key"></a>Github配置 SSH key</h2><p>window10系统桌面右键<code>Git Bash Here</code></p>
-<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs elixir"><span class="hljs-variable">$ </span>ssh-keygen -t rsa -C <span class="hljs-string">&quot;youremail@example.com&quot;</span><br></code></pre></td></tr></table></figure>
-<p>注：<strong>后面的 <code>your_email@youremail.com</code> 改为你在 Github 上注册的邮箱</strong>，之后会要求确认路径和输入密码，我们这使用默认的一路回车就行。<br>成功的话会在 ~/ 下生成 .ssh 文件夹，进去，打开 id_rsa.pub，复制里面的 key。<br>之后进入Github中自己的设置中，左边选择 SSH and GPG keys，然后点击 New SSH key 按钮,title 设置标题，可以随便填，粘贴在你电脑上生成的 key。<br>验证：为了验证是否成功，输入以下命令：</p>
-<figure class="highlight vhdl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs vhdl">$ ssh -T git@github.com<br>The authenticity <span class="hljs-keyword">of</span> host <span class="hljs-symbol">&#x27;github</span>.com (<span class="hljs-number">52.74</span>.<span class="hljs-number">223.119</span>)&#x27; can<span class="hljs-symbol">&#x27;t</span> be established.<br>RSA key fingerprint <span class="hljs-keyword">is</span> SHA256:nThbg6kXUpJWGl7E1IGOCspRomTxdCARLviKw6E5SY8.<br>Are you sure you want <span class="hljs-keyword">to</span> continue connecting (yes/no/[fingerprint])? yes                   # 输入 yes<br><span class="hljs-literal">Warning</span>: Permanently added <span class="hljs-symbol">&#x27;github</span>.com,<span class="hljs-number">52.74</span>.<span class="hljs-number">223.119</span>&#x27; (RSA) <span class="hljs-keyword">to</span> the list <span class="hljs-keyword">of</span> known hosts.<br>Hi tianqixin! You<span class="hljs-symbol">&#x27;ve</span> successfully authenticated, but GitHub does <span class="hljs-keyword">not</span> provide shell <span class="hljs-keyword">access</span>. # 成功信息<br></code></pre></td></tr></table></figure>
-<h2 id="Gitee-配置-SSH-key"><a href="#Gitee-配置-SSH-key" class="headerlink" title="Gitee 配置 SSH key"></a>Gitee 配置 SSH key</h2><figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs clean">登陆Gitee的账号：<br>点击用户头像-&gt;进入个人设置<br>选择安全设置-&gt;SSH公钥<br>选择新增公钥<br>填写标题：公钥标题key<br>填写公钥：把我们刚刚复制的公钥粘贴到这里(刚刚Github生成的密钥)<br>添加后输入输入账号密码进行确认<br></code></pre></td></tr></table></figure>
-<p>验证：</p>
-<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs coffeescript">使用Git Bash输入：<br>ssh -T git@github.com<br>第一次连接时会问你是否继续连接，输入 <span class="hljs-literal">yes</span> 即可；<br>接下来验证Gitee的ssh连接：<br>ssh -T git@gitee.com<br>同样输入 <span class="hljs-literal">yes</span> 即可。<br></code></pre></td></tr></table></figure>
-<p>参考链接：</p>
-<blockquote>
-<p><a target="_blank" rel="noopener" href="https://www.runoob.com/git/git-remote-repo.html">https://www.runoob.com/git/git-remote-repo.html</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/pilihaotian/article/details/103337959">https://blog.csdn.net/pilihaotian/article/details/103337959</a></p>
-</blockquote>
-<h2 id="Github迁移到Gitee"><a href="#Github迁移到Gitee" class="headerlink" title="Github迁移到Gitee"></a>Github迁移到Gitee</h2><h3 id="1-直接从Github中导入到Gitee"><a href="#1-直接从Github中导入到Gitee" class="headerlink" title="1.直接从Github中导入到Gitee"></a>1.直接从Github中导入到Gitee</h3><p><img src="/image/3.png" srcset="/img/loading.gif" lazyload alt="Gitee迁移"></p>
-<h3 id="2-Gitee上新建一个项目将本地项目上传。"><a href="#2-Gitee上新建一个项目将本地项目上传。" class="headerlink" title="2.Gitee上新建一个项目将本地项目上传。"></a>2.Gitee上新建一个项目将本地项目上传。</h3><p>修改配置文件：<br>在站点根目录下找到_config.yml文件，将里边的deploy节点修改成下边的形式，其中repository等于username ，即</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs stylus">deploy:<br>  type: git<br>  repo: <br>    github: git@github<span class="hljs-selector-class">.com</span>:<span class="hljs-selector-attr">[username]</span>/<span class="hljs-selector-attr">[username]</span><span class="hljs-selector-class">.github</span><span class="hljs-selector-class">.io</span><span class="hljs-selector-class">.git</span>,master<br>    gitee: git@gitee<span class="hljs-selector-class">.com</span>:<span class="hljs-selector-attr">[username]</span>/<span class="hljs-selector-attr">[username]</span><span class="hljs-selector-class">.git</span>,master<br></code></pre></td></tr></table></figure>
-<p>配置了这后免密了能同时上传到Github和Gitee</p>
-<h3 id="1-注：配置文件的缩进很重要"><a href="#1-注：配置文件的缩进很重要" class="headerlink" title="1.注：配置文件的缩进很重要"></a>1.注：配置文件的缩进很重要</h3><p><img src="/image/3.1.png" srcset="/img/loading.gif" lazyload alt="配置文件">  </p>
-<h3 id="2-名字一样很重要！！！不然页面渲染加载不出来。"><a href="#2-名字一样很重要！！！不然页面渲染加载不出来。" class="headerlink" title="2.名字一样很重要！！！不然页面渲染加载不出来。"></a>2.名字一样很重要！！！不然页面渲染加载不出来。</h3><p>对于 Gitee，你可以选择建立一个私人仓库来部署自己的Hexo博客，不过和 Github 不同的地方在于：<br>Github 的仓库名要命名为： {username}.github.io<br>而 Coding.net 的仓库名要命名为：{username}<br>这里的 username 指的是你在这两个网站上的用户名，只有以这种命名形式的仓库，才能够不通过子域名的形式来访问我们的博客。<br>比如说，我的 Github 和Gitee 的账号都是jack，那么在部署博客成功后，我就可以通过下边的url来访问我的Hexo博客：</p>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs awk">https:<span class="hljs-regexp">//</span>jack.github.io/<br>https:<span class="hljs-regexp">//</span>jack.gitee.io<br></code></pre></td></tr></table></figure>
-<ol>
-<li>一开始我的个人空间地址与username不一样，导致网页加载不出来  </li>
+              <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs css">css的优势：<br><span class="hljs-number">1</span>.内容和表现分离<br><span class="hljs-number">2</span>.网页结构表现统一，可以实现复用。<br><span class="hljs-number">3</span>.样式十分丰富。<br><span class="hljs-number">4</span>.建议使用独立于<span class="hljs-selector-tag">html</span>的css文件。<br><span class="hljs-number">5</span>.利用SEO,容易被搜索引擎收录。<br></code></pre></td></tr></table></figure>
+<h2 id="以下是对Css的学习"><a href="#以下是对Css的学习" class="headerlink" title="以下是对Css的学习"></a>以下是对Css的学习</h2><h2 id="基于B站视频学习-特别感谢up主-遇见狂神说"><a href="#基于B站视频学习-特别感谢up主-遇见狂神说" class="headerlink" title="基于B站视频学习 特别感谢up主 遇见狂神说"></a>基于<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1YJ411a7dy?p=1">B站视频</a>学习 特别感谢up主 <a target="_blank" rel="noopener" href="https://space.bilibili.com/95256449?spm_id_from=333.788.b_765f7570696e666f.1">遇见狂神说</a></h2><h2 id="CSS导入方式-三种"><a href="#CSS导入方式-三种" class="headerlink" title="CSS导入方式(三种)"></a>CSS导入方式(三种)</h2><ol>
+<li>行内样式<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!-- 行内样式：在标签元素中，编写一个style属性，编写样式即可 --&gt;</span><br>   <span class="hljs-tag">&lt;<span class="hljs-name">h1</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;color: red;&quot;</span>&gt;</span>我是标题<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span><br></code></pre></td></tr></table></figure></li>
+<li>内部样式<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!-- 内部样式 --&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><br><span class="css">        <span class="hljs-selector-tag">h1</span>&#123;</span><br><span class="css">            <span class="hljs-attribute">color</span>:green;</span><br>        &#125;<br>    <span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br></code></pre></td></tr></table></figure></li>
+<li>外部样式–1.链接式<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!-- 外部样式 --&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">&quot;stylesheet&quot;</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;/css/style.css&quot;</span>&gt;</span><br></code></pre></td></tr></table></figure></li>
+<li>外部样式–2.导入式(不常用，以前网页先加载框架Html，后渲染出页面)<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs xml">@import是CSS2.1特有的<br><span class="hljs-comment">&lt;!-- 导入式 --&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><br><span class="css"><span class="hljs-keyword">@import</span> url(css/style.css);</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<h3 id="对比"><a href="#对比" class="headerlink" title="对比"></a>对比</h3><strong>优先级:就近原则</strong><br><strong>优先级:行内样式&gt;内部样式&gt;外部样式</strong></li>
 </ol>
-<p><img src="/image/3.2.png" srcset="/img/loading.gif" lazyload alt="网站加载页面"><br>2. 最终将Gitee个人中心修改和username一致才成功加载页面 </p>
-<p><img src="/image/3.3.png" srcset="/img/loading.gif" lazyload alt="修改地址"></p>
-<ol start="3">
-<li>Git上传更新到Gitee和Github上发现Github博客更新了，但是Gitee页面没有更新。<br>解决方法：<br>打开博客的仓库 -&gt; 服务 -&gt; 点击 Gitee Pages-&gt; 点击【更新】即可    </li>
+<h2 id="三种基本选择器"><a href="#三种基本选择器" class="headerlink" title="三种基本选择器"></a>三种基本选择器</h2><ol>
+<li>标签选择器<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><br><span class="css">    <span class="hljs-comment">/* 标签选择器，会选择到页面所有的这个标签的元素 */</span></span><br><span class="css">    <span class="hljs-selector-tag">h1</span> &#123;</span><br><span class="css">        <span class="hljs-attribute">background</span>: blue;</span><br><span class="css">        <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">24px</span>;</span><br><span class="css">        <span class="hljs-attribute">color</span>: hotpink;</span><br>    &#125;<br><span class="css">    <span class="hljs-selector-tag">p</span>&#123;</span><br><span class="css">        <span class="hljs-attribute">font-size</span>: <span class="hljs-number">80px</span>;</span><br>    &#125;<br><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span><br></code></pre></td></tr></table></figure></li>
+<li>类选择器<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><br>    /*  类选择器的格式，.class的名称&#123;&#125;<br>    好处，可以多个标签归类，是同一个class,可以复用<br>      */<br>    .aa.cc&#123;<br><span class="css">        <span class="hljs-attribute">color</span>:hotpink;</span><br>    &#125;<br>    .bb&#123;<br><span class="css">        <span class="hljs-attribute">color</span>: indianred;</span><br>    &#125;<br><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span><br></code></pre></td></tr></table></figure></li>
+<li>id选择器(全局唯一)<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><br>/*   id选择器  ：id必须保证全局唯一<br>  #id名称&#123;&#125;*/<br>#aa&#123;<br><span class="css">   <span class="hljs-attribute">color</span>: lawngreen; </span><br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="对比-1"><a href="#对比-1" class="headerlink" title="对比"></a>对比</h3>优先级:不遵循就近原则，固定的<br><strong>id选择器&gt;class选择器&gt;标签选择器</strong></li>
 </ol>
-<p><img src="/image/3.5.png" srcset="/img/loading.gif" lazyload alt="修改地址"></p>
-<h3 id="总结：配置文件格式很重要，缩进及编码要注意，否者项目启动不了。博客命名和Github-Gitee的命名一致很重要，不然也会报错。"><a href="#总结：配置文件格式很重要，缩进及编码要注意，否者项目启动不了。博客命名和Github-Gitee的命名一致很重要，不然也会报错。" class="headerlink" title="总结：配置文件格式很重要，缩进及编码要注意，否者项目启动不了。博客命名和Github,Gitee的命名一致很重要，不然也会报错。"></a>总结：配置文件格式很重要，缩进及编码要注意，否者项目启动不了。博客命名和Github,Gitee的命名一致很重要，不然也会报错。</h3>
+<h2 id="层次选择器"><a href="#层次选择器" class="headerlink" title="层次选择器"></a>层次选择器</h2><ol>
+<li>后代选择器：在某个元素的后面(都会作用)<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs css">    <span class="hljs-comment">/* body  p&#123;</span><br><span class="hljs-comment">        background: red;</span><br><span class="hljs-comment">    &#125; */</span><br>例：<span class="hljs-selector-tag">body</span>后的所有<span class="hljs-selector-tag">p</span>标签背景都会变为红色<br></code></pre></td></tr></table></figure></li>
+<li>子选择器：(就作用一代)<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs css">   <span class="hljs-comment">/* body&gt;p&#123;</span><br><span class="hljs-comment">       background:blue;</span><br><span class="hljs-comment">   &#125; */</span><br>例：<span class="hljs-selector-tag">body</span>后面的第一代<span class="hljs-selector-tag">p</span>标签才有效果，其他嵌套的没有<br></code></pre></td></tr></table></figure></li>
+<li>相邻兄弟选择器：只有一个，相邻(向下)<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs css">    <span class="hljs-comment">/* .active+p&#123;</span><br><span class="hljs-comment">        background:blue;</span><br><span class="hljs-comment">    &#125; */</span><br>例：类active标签的向下的一个<span class="hljs-selector-tag">P</span>标签才会作用<br></code></pre></td></tr></table></figure></li>
+<li>通用兄弟选择器<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs css">当前选中元素的向下的所有兄弟元素 */<br>    <span class="hljs-selector-class">.active</span> ~ <span class="hljs-selector-tag">p</span> &#123;<br>      <span class="hljs-attribute">background</span>: tomato;<br>    &#125;<br>例：类active后面向下的所有<span class="hljs-selector-tag">P</span>标签都会作用<br></code></pre></td></tr></table></figure></li>
+</ol>
+
             </div>
             <hr>
             <div>
@@ -266,7 +257,7 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/Git/">Git</a>
+                      <a class="hover-with-bg" href="/categories/CSS/">CSS</a>
                     
                   </div>
                 
@@ -274,9 +265,9 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/Git/">Git</a>
+                      <a class="hover-with-bg" href="/tags/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/">前端基础</a>
                     
-                      <a class="hover-with-bg" href="/tags/Hexo/">Hexo</a>
+                      <a class="hover-with-bg" href="/tags/CSS/">CSS</a>
                     
                   </div>
                 
@@ -293,9 +284,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/04/01/Css%E5%AD%A6%E4%B9%A0(%E4%B8%80)/">
+                      <a href="/2021/04/01/CSS%E5%AD%A6%E4%B9%A0(%E4%BA%8C)/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">CSS学习(一)</span>
+                        <span class="hidden-mobile">CSS学习(二)</span>
                         <span class="visible-mobile">Previous</span>
                       </a>
                     
@@ -303,8 +294,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/03/30/%E9%87%8D%E5%AD%A6Html(%E4%BA%8C)/">
-                        <span class="hidden-mobile">重学Html(二)</span>
+                      <a href="/2021/03/31/Git(SSH%E6%9C%AC%E5%9C%B0%E5%85%8D%E5%AF%86)+Github%E8%BF%81%E7%A7%BB%E5%88%B0Gitee/">
+                        <span class="hidden-mobile">Git(SSH本地免密)+Github迁移到Gitee</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
