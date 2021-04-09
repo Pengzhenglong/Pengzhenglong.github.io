@@ -18,7 +18,7 @@
   <meta name="author" content="DragonPeng">
   <meta name="keywords" content="">
   
-  <title>CSS学习(一) - DragonPeng的博客</title>
+  <title>CSS学习(三) - DragonPeng的博客</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -163,7 +163,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="CSS学习(一)">
+            <span class="h2" id="subtitle" title="CSS学习(三)">
               
             </span>
 
@@ -173,8 +173,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-04-01 20:15" pubdate>
-        April 1, 2021 pm
+      <time datetime="2021-04-02 19:15" pubdate>
+        April 2, 2021 pm
       </time>
     </span>
   
@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      612 字
+      419 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      7
+      6
        分钟
     </span>
   
@@ -225,30 +225,20 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">CSS学习(一)</h1>
+            <h1 style="display: none">CSS学习(三)</h1>
             
             <div class="markdown-body">
-              <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs css">css的优势：<br><span class="hljs-number">1</span>.内容和表现分离<br><span class="hljs-number">2</span>.网页结构表现统一，可以实现复用。<br><span class="hljs-number">3</span>.样式十分丰富。<br><span class="hljs-number">4</span>.建议使用独立于<span class="hljs-selector-tag">html</span>的css文件。<br><span class="hljs-number">5</span>.利用SEO,容易被搜索引擎收录。<br></code></pre></td></tr></table></figure>
-<h2 id="以下是对CSS的学习"><a href="#以下是对CSS的学习" class="headerlink" title="以下是对CSS的学习"></a>以下是对CSS的学习</h2><h2 id="基于B站视频学习-特别感谢up主-遇见狂神说"><a href="#基于B站视频学习-特别感谢up主-遇见狂神说" class="headerlink" title="基于B站视频学习 特别感谢up主 遇见狂神说"></a>基于<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1YJ411a7dy?p=1">B站视频</a>学习 特别感谢up主 <a target="_blank" rel="noopener" href="https://space.bilibili.com/95256449?spm_id_from=333.788.b_765f7570696e666f.1">遇见狂神说</a></h2><h2 id="CSS导入方式-三种"><a href="#CSS导入方式-三种" class="headerlink" title="CSS导入方式(三种)"></a>CSS导入方式(三种)</h2><ol>
-<li>行内样式<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!-- 行内样式：在标签元素中，编写一个style属性，编写样式即可 --&gt;</span><br>   <span class="hljs-tag">&lt;<span class="hljs-name">h1</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;color: red;&quot;</span>&gt;</span>我是标题<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span><br></code></pre></td></tr></table></figure></li>
-<li>内部样式<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!-- 内部样式 --&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><br><span class="css">        <span class="hljs-selector-tag">h1</span>&#123;</span><br><span class="css">            <span class="hljs-attribute">color</span>:green;</span><br>        &#125;<br>    <span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br></code></pre></td></tr></table></figure></li>
-<li>外部样式–1.链接式<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!-- 外部样式 --&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">&quot;stylesheet&quot;</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;/css/style.css&quot;</span>&gt;</span><br></code></pre></td></tr></table></figure></li>
-<li>外部样式–2.导入式(不常用，以前网页先加载框架Html，后渲染出页面)<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs xml">@import是CSS2.1特有的<br><span class="hljs-comment">&lt;!-- 导入式 --&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><br><span class="css"><span class="hljs-keyword">@import</span> url(css/style.css);</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span><br></code></pre></td></tr></table></figure>
-<h3 id="对比"><a href="#对比" class="headerlink" title="对比"></a>对比</h3><strong>优先级:就近原则</strong><br><strong>优先级:行内样式&gt;内部样式&gt;外部样式</strong></li>
-</ol>
-<h2 id="三种基本选择器"><a href="#三种基本选择器" class="headerlink" title="三种基本选择器"></a>三种基本选择器</h2><ol>
-<li>标签选择器<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><br><span class="css">    <span class="hljs-comment">/* 标签选择器，会选择到页面所有的这个标签的元素 */</span></span><br><span class="css">    <span class="hljs-selector-tag">h1</span> &#123;</span><br><span class="css">        <span class="hljs-attribute">background</span>: blue;</span><br><span class="css">        <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">24px</span>;</span><br><span class="css">        <span class="hljs-attribute">color</span>: hotpink;</span><br>    &#125;<br><span class="css">    <span class="hljs-selector-tag">p</span>&#123;</span><br><span class="css">        <span class="hljs-attribute">font-size</span>: <span class="hljs-number">80px</span>;</span><br>    &#125;<br><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span><br></code></pre></td></tr></table></figure></li>
-<li>类选择器<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><br>    /*  类选择器的格式，.class的名称&#123;&#125;<br>    好处，可以多个标签归类，是同一个class,可以复用<br>      */<br>    .aa.cc&#123;<br><span class="css">        <span class="hljs-attribute">color</span>:hotpink;</span><br>    &#125;<br>    .bb&#123;<br><span class="css">        <span class="hljs-attribute">color</span>: indianred;</span><br>    &#125;<br><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span><br></code></pre></td></tr></table></figure></li>
-<li>id选择器(全局唯一)<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><br>/*   id选择器  ：id必须保证全局唯一<br>  #id名称&#123;&#125;*/<br>#aa&#123;<br><span class="css">   <span class="hljs-attribute">color</span>: lawngreen; </span><br>&#125;<br></code></pre></td></tr></table></figure>
-<h3 id="对比-1"><a href="#对比-1" class="headerlink" title="对比"></a>对比</h3>优先级:不遵循就近原则，固定的<br><strong>id选择器&gt;class选择器&gt;标签选择器</strong></li>
-</ol>
-<h2 id="层次选择器"><a href="#层次选择器" class="headerlink" title="层次选择器"></a>层次选择器</h2><ol>
-<li>后代选择器：在某个元素的后面(都会作用)<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs css">    <span class="hljs-comment">/* body  p&#123;</span><br><span class="hljs-comment">        background: red;</span><br><span class="hljs-comment">    &#125; */</span><br>例：<span class="hljs-selector-tag">body</span>后的所有<span class="hljs-selector-tag">p</span>标签背景都会变为红色<br></code></pre></td></tr></table></figure></li>
-<li>子选择器：(就作用一代)<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs css">   <span class="hljs-comment">/* body&gt;p&#123;</span><br><span class="hljs-comment">       background:blue;</span><br><span class="hljs-comment">   &#125; */</span><br>例：<span class="hljs-selector-tag">body</span>后面的第一代<span class="hljs-selector-tag">p</span>标签才有效果，其他嵌套的没有<br></code></pre></td></tr></table></figure></li>
-<li>相邻兄弟选择器：只有一个，相邻(向下)<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs css">    <span class="hljs-comment">/* .active+p&#123;</span><br><span class="hljs-comment">        background:blue;</span><br><span class="hljs-comment">    &#125; */</span><br>例：类active标签的向下的一个<span class="hljs-selector-tag">P</span>标签才会作用<br></code></pre></td></tr></table></figure></li>
-<li>通用兄弟选择器<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs css">当前选中元素的向下的所有兄弟元素 */<br>    <span class="hljs-selector-class">.active</span> ~ <span class="hljs-selector-tag">p</span> &#123;<br>      <span class="hljs-attribute">background</span>: tomato;<br>    &#125;<br>例：类active后面向下的所有<span class="hljs-selector-tag">P</span>标签都会作用<br></code></pre></td></tr></table></figure></li>
-</ol>
-
+              <p>以下是对CSS的学习</p>
+<hr>
+<h2 id="基于B站视频学习-特别感谢up主-遇见狂神说"><a href="#基于B站视频学习-特别感谢up主-遇见狂神说" class="headerlink" title="基于B站视频学习 特别感谢up主 遇见狂神说"></a>基于<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1YJ411a7dy?p=1">B站视频</a>学习 特别感谢up主 <a target="_blank" rel="noopener" href="https://space.bilibili.com/95256449?spm_id_from=333.788.b_765f7570696e666f.1">遇见狂神说</a></h2><h2 id="边框"><a href="#边框" class="headerlink" title="边框"></a>边框</h2><p>边框的粗细，样式，颜色( border: 1px solid red;)</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><br><span class="css">  <span class="hljs-comment">/* body 总有以一个默认的外边距margin:0 常见操作 */</span></span><br><span class="css"><span class="hljs-selector-tag">h1</span>, <span class="hljs-selector-tag">ul</span>, <span class="hljs-selector-tag">li</span>, <span class="hljs-selector-tag">a</span>,<span class="hljs-selector-tag">body</span> &#123;</span><br><span class="css">    <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span>;</span><br><span class="css">    <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span>;</span><br><span class="css">    <span class="hljs-attribute">text-decoration</span>: none;</span><br>  &#125;<br><span class="css">  <span class="hljs-comment">/* border: 粗细，样式，颜色 */</span></span><br>  #box &#123;<br><span class="css">    <span class="hljs-attribute">width</span>: <span class="hljs-number">300px</span>;</span><br><span class="css">    <span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> solid red;</span><br>  &#125;<br><span class="css">  <span class="hljs-selector-tag">h2</span> &#123;</span><br><span class="css">    <span class="hljs-attribute">font-size</span>: <span class="hljs-number">16px</span>;</span><br><span class="css">    <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#3cbda6</span>;</span><br><span class="css">    <span class="hljs-attribute">line-height</span>: <span class="hljs-number">30px</span>;</span><br><span class="css">    <span class="hljs-attribute">color</span>: white;</span><br>  &#125;<br><span class="css">  <span class="hljs-selector-tag">form</span> &#123;</span><br><span class="css">    <span class="hljs-attribute">background</span>: <span class="hljs-number">#3cbda6</span>;</span><br>  &#125;<br><span class="css">  <span class="hljs-selector-tag">div</span><span class="hljs-selector-pseudo">:nth-of-type</span>(<span class="hljs-number">1</span>) <span class="hljs-selector-tag">input</span> &#123;</span><br><span class="css">    <span class="hljs-attribute">border</span>: <span class="hljs-number">3px</span> solid black;</span><br>  &#125;<br><span class="css">  <span class="hljs-selector-tag">div</span>:<span class="hljs-built_in">neh-of-type</span>(<span class="hljs-number">2</span>) iniput &#123;</span><br><span class="css">    <span class="hljs-attribute">border</span>: <span class="hljs-number">3px</span> dashed <span class="hljs-number">#4d0b8c</span>;</span><br>  &#125;<br><span class="css">  <span class="hljs-selector-tag">div</span>:<span class="hljs-built_in">neh-of-type</span>(<span class="hljs-number">3</span>) iniput &#123;</span><br><span class="css">    <span class="hljs-attribute">border</span>: <span class="hljs-number">2px</span> dashed <span class="hljs-number">#008c27</span>;</span><br>  &#125;<br><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<h2 id="内外边距及边框居中"><a href="#内外边距及边框居中" class="headerlink" title="内外边距及边框居中"></a>内外边距及边框居中</h2>  <figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span> auto;外边距的妙用，居中元素<br><span class="hljs-attribute">margin</span>:<span class="hljs-number">10</span>px <span class="hljs-number">5</span>px <span class="hljs-number">15</span>px <span class="hljs-number">20</span>px;(上右下左)--顺时针<br><span class="hljs-attribute">margin</span>:<span class="hljs-number">10</span>px <span class="hljs-number">5</span>px;上下<span class="hljs-number">10</span>px,左右 <span class="hljs-number">5</span>px <br><span class="hljs-attribute">margin</span>:<span class="hljs-number">10</span>px <span class="hljs-number">5</span>px <span class="hljs-number">15</span>px;上外边距是<span class="hljs-number">10</span>px，左右<span class="hljs-number">5</span>px，下外边距是<span class="hljs-number">15</span>px<br><span class="hljs-attribute">margin</span>:<span class="hljs-number">10</span>px;所有 <span class="hljs-number">4</span> 个外边距都是 <span class="hljs-number">10</span>px<br></code></pre></td></tr></table></figure>
+<p>盒子大小计算方式<br><img src="/image/5.1.PNG" srcset="/img/loading.gif" lazyload alt="盒子大小"></p>
+<h2 id="圆角边框"><a href="#圆角边框" class="headerlink" title="圆角边框"></a>圆角边框</h2><p>4个角</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!--  border-radius  左上  右上  右下  左下 ，顺时针方向 --&gt;</span><br><span class="hljs-comment">&lt;!-- </span><br><span class="hljs-comment">  圆圈  = 半径+边距!</span><br><span class="hljs-comment"> --&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><br><span class="css">  <span class="hljs-selector-tag">div</span> &#123;</span><br><span class="css">    <span class="hljs-attribute">width</span>: <span class="hljs-number">100px</span>;</span><br><span class="css">    <span class="hljs-attribute">height</span>: <span class="hljs-number">100px</span>;</span><br><span class="css">    <span class="hljs-attribute">border</span>: <span class="hljs-number">10px</span> solid red;</span><br><span class="css">    <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">100px</span>;</span><br>  &#125;<br><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<h2 id="盒子阴影-box-shadow"><a href="#盒子阴影-box-shadow" class="headerlink" title="盒子阴影(box-shadow)"></a>盒子阴影(box-shadow)</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs xml">  <span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><br><span class="css">    <span class="hljs-selector-tag">div</span> &#123;</span><br><span class="css">      <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span> auto;</span><br><span class="css">      <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">50px</span>;</span><br><span class="css">      <span class="hljs-attribute">box-shadow</span>: <span class="hljs-number">10px</span> <span class="hljs-number">10px</span> <span class="hljs-number">1px</span> yellow;</span><br>    &#125;<br>  <span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span><br>box-shadow: h-shadow v-shadow blur spread color inset;<br>h-shadow	必需。水平阴影的位置。允许负值。	<br>v-shadow	必需。垂直阴影的位置。允许负值。	<br>blur	    可选。模糊距离。	<br>spread	    可选。阴影的尺寸。	<br>color	    可选。阴影的颜色。请参阅 CSS 颜色值。	<br>inset	    可选。将外部阴影 (outset) 改为内部阴影。<br></code></pre></td></tr></table></figure>
+<h2 id="模仿网站思路"><a href="#模仿网站思路" class="headerlink" title="模仿网站思路"></a>模仿网站思路</h2><p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1YJ411a7dy?p=16">网页链接</a><br>视频后半部分讲解</p>
+<h2 id="浮动"><a href="#浮动" class="headerlink" title="浮动"></a>浮动</h2>
             </div>
             <hr>
             <div>
@@ -284,9 +274,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/04/01/CSS%E5%AD%A6%E4%B9%A0(%E4%BA%8C)/">
+                      <a href="/2021/04/02/Javascript%E5%85%A5%E9%97%A8(%E4%B8%80)/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">CSS学习(二)</span>
+                        <span class="hidden-mobile">Javascript入门(一)</span>
                         <span class="visible-mobile">Previous</span>
                       </a>
                     
@@ -294,8 +284,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/03/31/Git(SSH%E6%9C%AC%E5%9C%B0%E5%85%8D%E5%AF%86)+Github%E8%BF%81%E7%A7%BB%E5%88%B0Gitee/">
-                        <span class="hidden-mobile">Git(SSH本地免密)+Github迁移到Gitee</span>
+                      <a href="/2021/04/01/CSS%E5%AD%A6%E4%B9%A0(%E4%BA%8C)/">
+                        <span class="hidden-mobile">CSS学习(二)</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
