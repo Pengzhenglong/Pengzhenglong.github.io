@@ -158,7 +158,7 @@
 </nav>
 
     <div class="banner" id="banner" parallax=true
-         style="background: url('/img/index9.jpg') no-repeat center center;
+         style="background: url('/img/page1.jpg') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.3k 字
+      1.4k 字
     </span>
   
 
@@ -228,7 +228,9 @@
             <h1 style="display: none">CSS学习(二)</h1>
             
             <div class="markdown-body">
-              <h2 id="以下是对CSS的学习"><a href="#以下是对CSS的学习" class="headerlink" title="以下是对CSS的学习"></a>以下是对CSS的学习</h2><h2 id="结构伪类选择器-避免使用，class-id选择器"><a href="#结构伪类选择器-避免使用，class-id选择器" class="headerlink" title="结构伪类选择器(避免使用，class,id选择器)"></a>结构伪类选择器(避免使用，class,id选择器)</h2><p>带冒号都是伪类选择器<br>1 ul li:first-child</p>
+              <p>以下是对CSS(结构伪类选择器(避免使用，class,id选择器),属性选择器(重要)等)的学习</p>
+<hr>
+<h2 id="结构伪类选择器-避免使用，class-id选择器"><a href="#结构伪类选择器-避免使用，class-id选择器" class="headerlink" title="结构伪类选择器(避免使用，class,id选择器)"></a>结构伪类选择器(避免使用，class,id选择器)</h2><p>带冒号都是伪类选择器<br>1 ul li:first-child</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-comment">/* ul的第一个子元素 */</span><br><span class="hljs-selector-tag">ul</span> <span class="hljs-selector-tag">li</span><span class="hljs-selector-pseudo">:first</span>-child &#123;<br>  <span class="hljs-attribute">background</span>: tomato;<br>&#125;<br><span class="hljs-comment">/* ul的最后一个元素 */</span><br><span class="hljs-selector-tag">ul</span> <span class="hljs-selector-tag">li</span><span class="hljs-selector-pseudo">:last-child</span> &#123;<br>  <span class="hljs-attribute">background</span>: turquoise;<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>2  p:nth-child(1) (nth父元素)</p>
 <figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs actionscript">    <span class="hljs-comment">/* 选中p1: 定位到父元素，选择当前的第一个元素 </span><br><span class="hljs-comment">选择当前p元素的父级元素，选择父级元素的第一个,并且是当前元素才生效</span><br><span class="hljs-comment">*/</span><br>    <span class="hljs-comment">/* p:nth-child(1)&#123;</span><br><span class="hljs-comment">      background: violet;</span><br><span class="hljs-comment">  &#125; */</span><br></code></pre></td></tr></table></figure>

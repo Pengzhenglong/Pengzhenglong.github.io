@@ -158,7 +158,7 @@
 </nav>
 
     <div class="banner" id="banner" parallax=true
-         style="background: url('/img/index9.jpg') no-repeat center center;
+         style="background: url('/img/page1.jpg') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      612 字
+      632 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      7
+      8
        分钟
     </span>
   
@@ -229,7 +229,9 @@
             
             <div class="markdown-body">
               <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs css">css的优势：<br><span class="hljs-number">1</span>.内容和表现分离<br><span class="hljs-number">2</span>.网页结构表现统一，可以实现复用。<br><span class="hljs-number">3</span>.样式十分丰富。<br><span class="hljs-number">4</span>.建议使用独立于<span class="hljs-selector-tag">html</span>的css文件。<br><span class="hljs-number">5</span>.利用SEO,容易被搜索引擎收录。<br></code></pre></td></tr></table></figure>
-<h2 id="以下是对CSS的学习"><a href="#以下是对CSS的学习" class="headerlink" title="以下是对CSS的学习"></a>以下是对CSS的学习</h2><h2 id="CSS导入方式-三种"><a href="#CSS导入方式-三种" class="headerlink" title="CSS导入方式(三种)"></a>CSS导入方式(三种)</h2><ol>
+<p>以下是对CSS(CSS导入方式(三种),三种基本选择器,层次选择器)的学习</p>
+<hr>
+<h2 id="CSS导入方式-三种"><a href="#CSS导入方式-三种" class="headerlink" title="CSS导入方式(三种)"></a>CSS导入方式(三种)</h2><ol>
 <li>行内样式<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!-- 行内样式：在标签元素中，编写一个style属性，编写样式即可 --&gt;</span><br>   <span class="hljs-tag">&lt;<span class="hljs-name">h1</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;color: red;&quot;</span>&gt;</span>我是标题<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span><br></code></pre></td></tr></table></figure></li>
 <li>内部样式<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!-- 内部样式 --&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><br><span class="css">        <span class="hljs-selector-tag">h1</span>&#123;</span><br><span class="css">            <span class="hljs-attribute">color</span>:green;</span><br>        &#125;<br>    <span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br></code></pre></td></tr></table></figure></li>
 <li>外部样式–1.链接式<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!-- 外部样式 --&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">&quot;stylesheet&quot;</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;/css/style.css&quot;</span>&gt;</span><br></code></pre></td></tr></table></figure></li>

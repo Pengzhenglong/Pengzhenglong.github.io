@@ -158,7 +158,7 @@
 </nav>
 
     <div class="banner" id="banner" parallax=true
-         style="background: url('/img/index9.jpg') no-repeat center center;
+         style="background: url('/img/page1.jpg') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      831 字
+      836 字
     </span>
   
 
@@ -228,7 +228,9 @@
             <h1 style="display: none">Javascript函数与面向对象(四)</h1>
             
             <div class="markdown-body">
-              <h2 id="以下是对JavaScript函数的学习"><a href="#以下是对JavaScript函数的学习" class="headerlink" title="以下是对JavaScript函数的学习"></a>以下是对JavaScript函数的学习</h2><h2 id="内部对象"><a href="#内部对象" class="headerlink" title="内部对象"></a>内部对象</h2><p>标准对象</p>
+              <p>以下是对JavaScript函数与面向对象的学习</p>
+<hr>
+<h2 id="内部对象"><a href="#内部对象" class="headerlink" title="内部对象"></a>内部对象</h2><p>标准对象</p>
 <figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs coffeescript"><span class="hljs-keyword">typeof</span> <span class="hljs-number">123</span>o<br><span class="hljs-string">&quot;number&quot;</span><br><span class="hljs-keyword">typeof</span> <span class="hljs-string">&#x27;123&#x27;</span><br><span class="hljs-string">&quot;string&quot;</span><br><span class="hljs-keyword">typeof</span> <span class="hljs-literal">true</span><br><span class="hljs-string">&quot;boolean&quot;</span><br><span class="hljs-keyword">typeof</span>  <span class="hljs-literal">NaN</span><br><span class="hljs-string">&quot;number&quot;</span><br><span class="hljs-keyword">typeof</span> []<br><span class="hljs-string">&quot;object&quot;</span><br><span class="hljs-keyword">typeof</span> &#123;&#125;<br><span class="hljs-string">&quot;object&quot;</span><br><span class="hljs-keyword">typeof</span> <span class="hljs-built_in">Math</span>.abs<br><span class="hljs-string">&quot;function&quot;</span><br><span class="hljs-keyword">typeof</span> <span class="hljs-literal">undefined</span><br><span class="hljs-string">&quot;undefined&quot;</span><br></code></pre></td></tr></table></figure>
 <ol>
 <li>Date<br>基本使用<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">var now = <span class="hljs-keyword">new</span> <span class="hljs-constructor">Date()</span>; <span class="hljs-comment">//Mon Apr 12 2021 18:27:49 GMT+0800 (中国标准时间)</span><br>now.get<span class="hljs-constructor">FullYear()</span>; <span class="hljs-comment">//年</span><br>now.get<span class="hljs-constructor">Month()</span>; <span class="hljs-comment">//月  0~11月</span><br>now.get<span class="hljs-constructor">Date()</span>; <span class="hljs-comment">//日</span><br>now.get<span class="hljs-constructor">Day()</span>; <span class="hljs-comment">//星期几</span><br>now.get<span class="hljs-constructor">Hours()</span>; <span class="hljs-comment">//时</span><br>now.get<span class="hljs-constructor">Minutes()</span>; <span class="hljs-comment">//分</span><br>now.get<span class="hljs-constructor">Seconds()</span>; <span class="hljs-comment">//秒</span><br>now.get<span class="hljs-constructor">Time()</span>; <span class="hljs-comment">//时间戳  全世界统一 1970  1.1 0：00：00</span><br>console.log(<span class="hljs-keyword">new</span> <span class="hljs-constructor">Date(1618223269100)</span>); <span class="hljs-comment">//时间戳转为时间</span><br></code></pre></td></tr></table></figure>
