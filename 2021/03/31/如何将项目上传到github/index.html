@@ -18,7 +18,7 @@
   <meta name="author" content="DragonPeng">
   <meta name="keywords" content="">
   
-  <title>CSS学习(一) - DragonPeng的博客</title>
+  <title>Git的使用--如何将本地项目上传到Github（两种简单、方便的方法） - DragonPeng的博客</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -163,7 +163,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="CSS学习(一)">
+            <span class="h2" id="subtitle" title="Git的使用--如何将本地项目上传到Github（两种简单、方便的方法）">
               
             </span>
 
@@ -173,8 +173,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-04-01 20:15" pubdate>
-        April 1, 2021 pm
+      <time datetime="2021-03-31 20:15" pubdate>
+        March 31, 2021 pm
       </time>
     </span>
   
@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      632 字
+      597 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      8
+      7
        分钟
     </span>
   
@@ -225,32 +225,64 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">CSS学习(一)</h1>
+            <h1 style="display: none">Git的使用--如何将本地项目上传到Github（两种简单、方便的方法）</h1>
             
             <div class="markdown-body">
-              <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs css">css的优势：<br><span class="hljs-number">1</span>.内容和表现分离<br><span class="hljs-number">2</span>.网页结构表现统一，可以实现复用。<br><span class="hljs-number">3</span>.样式十分丰富。<br><span class="hljs-number">4</span>.建议使用独立于<span class="hljs-selector-tag">html</span>的css文件。<br><span class="hljs-number">5</span>.利用SEO,容易被搜索引擎收录。<br></code></pre></td></tr></table></figure>
-<p>以下是对CSS(CSS导入方式(三种),三种基本选择器,层次选择器)的学习</p>
+              <p>如何将本地项目上传到Github（两种简单、方便的方法）</p>
 <hr>
-<h2 id="CSS导入方式-三种"><a href="#CSS导入方式-三种" class="headerlink" title="CSS导入方式(三种)"></a>CSS导入方式(三种)</h2><ol>
-<li>行内样式<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!-- 行内样式：在标签元素中，编写一个style属性，编写样式即可 --&gt;</span><br>   <span class="hljs-tag">&lt;<span class="hljs-name">h1</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;color: red;&quot;</span>&gt;</span>我是标题<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span><br></code></pre></td></tr></table></figure></li>
-<li>内部样式<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!-- 内部样式 --&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><br><span class="css">        <span class="hljs-selector-tag">h1</span>&#123;</span><br><span class="css">            <span class="hljs-attribute">color</span>:green;</span><br>        &#125;<br>    <span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br></code></pre></td></tr></table></figure></li>
-<li>外部样式–1.链接式<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!-- 外部样式 --&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">&quot;stylesheet&quot;</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;/css/style.css&quot;</span>&gt;</span><br></code></pre></td></tr></table></figure></li>
-<li>外部样式–2.导入式(不常用，以前网页先加载框架Html，后渲染出页面)<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs xml">@import是CSS2.1特有的<br><span class="hljs-comment">&lt;!-- 导入式 --&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><br><span class="css"><span class="hljs-keyword">@import</span> url(css/style.css);</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span><br></code></pre></td></tr></table></figure>
-<h3 id="对比"><a href="#对比" class="headerlink" title="对比"></a>对比</h3><strong>优先级:就近原则</strong><br><strong>优先级:行内样式&gt;内部样式&gt;外部样式</strong></li>
+<h3 id="第一种-已尝试"><a href="#第一种-已尝试" class="headerlink" title="第一种(已尝试)"></a>第一种(已尝试)</h3><ol>
+<li><p>Github上新建一个仓库<br><img src="/image/8.png" srcset="/img/loading.gif" lazyload alt="新建一个仓库">          </p>
+</li>
+<li><p>复制仓库地址先(两个都行)<br><img src="/image/8.1.png" srcset="/img/loading.gif" lazyload alt="仓库地址">        </p>
+</li>
 </ol>
-<h2 id="三种基本选择器"><a href="#三种基本选择器" class="headerlink" title="三种基本选择器"></a>三种基本选择器</h2><ol>
-<li>标签选择器<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><br><span class="css">    <span class="hljs-comment">/* 标签选择器，会选择到页面所有的这个标签的元素 */</span></span><br><span class="css">    <span class="hljs-selector-tag">h1</span> &#123;</span><br><span class="css">        <span class="hljs-attribute">background</span>: blue;</span><br><span class="css">        <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">24px</span>;</span><br><span class="css">        <span class="hljs-attribute">color</span>: hotpink;</span><br>    &#125;<br><span class="css">    <span class="hljs-selector-tag">p</span>&#123;</span><br><span class="css">        <span class="hljs-attribute">font-size</span>: <span class="hljs-number">80px</span>;</span><br>    &#125;<br><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span><br></code></pre></td></tr></table></figure></li>
-<li>类选择器<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><br>    /*  类选择器的格式，.class的名称&#123;&#125;<br>    好处，可以多个标签归类，是同一个class,可以复用<br>      */<br>    .aa.cc&#123;<br><span class="css">        <span class="hljs-attribute">color</span>:hotpink;</span><br>    &#125;<br>    .bb&#123;<br><span class="css">        <span class="hljs-attribute">color</span>: indianred;</span><br>    &#125;<br><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span><br></code></pre></td></tr></table></figure></li>
-<li>id选择器(全局唯一)<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span><br>/*   id选择器  ：id必须保证全局唯一<br>  #id名称&#123;&#125;*/<br>#aa&#123;<br><span class="css">   <span class="hljs-attribute">color</span>: lawngreen; </span><br>&#125;<br></code></pre></td></tr></table></figure>
-<h3 id="对比-1"><a href="#对比-1" class="headerlink" title="对比"></a>对比</h3>优先级:不遵循就近原则，固定的<br><strong>id选择器&gt;class选择器&gt;标签选择器</strong></li>
+<ol start="3">
+<li><p>桌面右键Git进入文件夹目录<br><img src="/image/8.2.png" srcset="/img/loading.gif" lazyload alt="Git">       </p>
+</li>
+<li><p>接下来输入如下代码（关键步骤），把github上面的仓库克隆到本地 </p>
+<pre><code>git  clone  git@github.com:Pengzhenglong/html-css-js.git
+(git@github.com:Pengzhenglong/html-css-js.git换成你第二步复制的地址链接)
+</code></pre>
+<p><img src="/image/8.3.png" srcset="/img/loading.gif" lazyload alt="克隆仓库"><br>这个步骤以后你的本地项目文件夹下面就会多出个文件夹，该文件夹名即为你github上面的项目名，如图我多出了个html-css-js文件夹，我们把本地项目文件夹下的所有文件（除了新多出的那个文件夹不用），其余都复制到那个新多出的文件夹下。</p>
+</li>
 </ol>
-<h2 id="层次选择器"><a href="#层次选择器" class="headerlink" title="层次选择器"></a>层次选择器</h2><ol>
-<li>后代选择器：在某个元素的后面(都会作用)<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs css">    <span class="hljs-comment">/* body  p&#123;</span><br><span class="hljs-comment">        background: red;</span><br><span class="hljs-comment">    &#125; */</span><br>例：<span class="hljs-selector-tag">body</span>后的所有<span class="hljs-selector-tag">p</span>标签背景都会变为红色<br></code></pre></td></tr></table></figure></li>
-<li>子选择器：(就作用一代)<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs css">   <span class="hljs-comment">/* body&gt;p&#123;</span><br><span class="hljs-comment">       background:blue;</span><br><span class="hljs-comment">   &#125; */</span><br>例：<span class="hljs-selector-tag">body</span>后面的第一代<span class="hljs-selector-tag">p</span>标签才有效果，其他嵌套的没有<br></code></pre></td></tr></table></figure></li>
-<li>相邻兄弟选择器：只有一个，相邻(向下)<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs css">    <span class="hljs-comment">/* .active+p&#123;</span><br><span class="hljs-comment">        background:blue;</span><br><span class="hljs-comment">    &#125; */</span><br>例：类active标签的向下的一个<span class="hljs-selector-tag">P</span>标签才会作用<br></code></pre></td></tr></table></figure></li>
-<li>通用兄弟选择器<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs css">当前选中元素的向下的所有兄弟元素 */<br>    <span class="hljs-selector-class">.active</span> ~ <span class="hljs-selector-tag">p</span> &#123;<br>      <span class="hljs-attribute">background</span>: tomato;<br>    &#125;<br>例：类active后面向下的所有<span class="hljs-selector-tag">P</span>标签都会作用<br></code></pre></td></tr></table></figure></li>
+<p><img src="/image/8.4.png" srcset="/img/loading.gif" lazyload alt="文件图片">   </p>
+<ol start="5">
+<li>接着继续输入命令 cd html-css-js，进入html-css-js文件夹              </li>
 </ol>
-<h4 id="基于B站视频学习-特别感谢up主-遇见狂神说"><a href="#基于B站视频学习-特别感谢up主-遇见狂神说" class="headerlink" title="基于B站视频学习 特别感谢up主 遇见狂神说"></a>基于<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1YJ411a7dy?p=1">B站视频</a>学习 特别感谢up主 <a target="_blank" rel="noopener" href="https://space.bilibili.com/95256449?spm_id_from=333.788.b_765f7570696e666f.1">遇见狂神说</a></h4>
+<ol start="6">
+<li>接下来依次输入以下代码即可完成其他剩余操作</li>
+</ol>
+<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs maxima">git add . （注：别忘记后面的.，此操作是把Test文件夹下面的文件都添加进来）           <br><br>git commit  -m  ”提交信息”  （注：“提交信息”里面换成你需要，如“<span class="hljs-built_in">first</span> commit”）       <br><br>git <span class="hljs-built_in">push</span> -u <span class="hljs-built_in">origin</span> master   （注：此操作目的是把本地仓库<span class="hljs-built_in">push</span>到github上面，此步骤需要你输入帐号和密码）(由于我之前设置了免密操作所以我这台电脑不需要输入账号密码)<br></code></pre></td></tr></table></figure>
+
+<p><img src="/image/8.5.png" srcset="/img/loading.gif" lazyload alt="Git操作">   </p>
+<p><img src="/image/8.6.png" srcset="/img/loading.gif" lazyload alt="上传成功">   </p>
+<h3 id="第二种-未尝试"><a href="#第二种-未尝试" class="headerlink" title="第二种(未尝试)"></a>第二种(未尝试)</h3><blockquote>
+<p>参考链接:<br><code>https://blog.csdn.net/u014135752/article/details/79951802</code></p>
+</blockquote>
+<h3 id="Git创建新分支并提交到github"><a href="#Git创建新分支并提交到github" class="headerlink" title="Git创建新分支并提交到github"></a>Git创建新分支并提交到github</h3><p>因为需求的变更，需要把原来的代码做一下备份，再进行下一步的开发，所以 这是就将原来的代码创建一个新的分支来保存原来的代码，以防后面需要回滚，这里记录一下操作的步骤             </p>
+<ol>
+<li> 可以先查看一下当前所在分支</li>
+</ol>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">git branch</span><br></code></pre></td></tr></table></figure>
+<ol start="2">
+<li>创建本地分支并切换到新创建的分支</li>
+</ol>
+<figure class="highlight isbl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs isbl"><span class="hljs-variable">git</span> <span class="hljs-variable">checkout</span> -<span class="hljs-variable">b</span> <span class="hljs-function"><span class="hljs-title">dev</span>(<span class="hljs-variable">dev</span> 可以命名为自己想取的名字)</span><br></code></pre></td></tr></table></figure>
+<ol start="3">
+<li>已经创建成功了，可以看一下</li>
+</ol>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">git branch</span><br></code></pre></td></tr></table></figure>
+<ol start="4">
+<li><p>将新创建的分支信息推送到github</p>
+<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs maxima">git <span class="hljs-built_in">push</span> <span class="hljs-built_in">origin</span> HEAD -u<br></code></pre></td></tr></table></figure></li>
+<li><p>可以到github看一下<br><img src="/image/8.8.png" srcset="/img/loading.gif" lazyload alt="Github">   </p>
+</li>
+</ol>
+<blockquote>
+<p>参考链接<br><code>https://blog.csdn.net/daerzei/article/details/79530418?utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Edefault-6.control&amp;dist_request_id=1331968.157.16184975146025075&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Edefault-6.control</code></p>
+</blockquote>
+
             </div>
             <hr>
             <div>
@@ -259,7 +291,7 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/CSS/">CSS</a>
+                      <a class="hover-with-bg" href="/categories/Git/">Git</a>
                     
                   </div>
                 
@@ -267,9 +299,9 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/">前端基础</a>
+                      <a class="hover-with-bg" href="/tags/Git/">Git</a>
                     
-                      <a class="hover-with-bg" href="/tags/CSS/">CSS</a>
+                      <a class="hover-with-bg" href="/tags/Github/">Github</a>
                     
                   </div>
                 
@@ -286,9 +318,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/04/01/CSS%E5%AD%A6%E4%B9%A0(%E4%BA%8C)/">
+                      <a href="/2021/04/01/Css%E5%AD%A6%E4%B9%A0(%E4%B8%80)/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">CSS学习(二)</span>
+                        <span class="hidden-mobile">CSS学习(一)</span>
                         <span class="visible-mobile">Previous</span>
                       </a>
                     
@@ -296,8 +328,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/03/31/%E5%A6%82%E4%BD%95%E5%B0%86%E9%A1%B9%E7%9B%AE%E4%B8%8A%E4%BC%A0%E5%88%B0github/">
-                        <span class="hidden-mobile">Git的使用--如何将本地项目上传到Github（两种简单、方便的方法）</span>
+                      <a href="/2021/03/31/Git(SSH%E6%9C%AC%E5%9C%B0%E5%85%8D%E5%AF%86)+Github%E8%BF%81%E7%A7%BB%E5%88%B0Gitee/">
+                        <span class="hidden-mobile">Git(SSH本地免密)+Github迁移到Gitee</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
