@@ -18,7 +18,7 @@
   <meta name="author" content="DragonPeng">
   <meta name="keywords" content="">
   
-  <title>Git的使用--如何将本地项目上传到Github（两种简单、方便的方法） - DragonPeng的博客</title>
+  <title>ES6-解构&amp;字符串 - DragonPeng的博客</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -163,7 +163,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="Git的使用--如何将本地项目上传到Github（两种简单、方便的方法）">
+            <span class="h2" id="subtitle" title="ES6-解构&字符串">
               
             </span>
 
@@ -173,8 +173,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-03-31 20:15" pubdate>
-        March 31, 2021 pm
+      <time datetime="2021-04-12 21:15" pubdate>
+        April 12, 2021 pm
       </time>
     </span>
   
@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      597 字
+      407 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      7
+      5
        分钟
     </span>
   
@@ -225,63 +225,32 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Git的使用--如何将本地项目上传到Github（两种简单、方便的方法）</h1>
+            <h1 style="display: none">ES6-解构&amp;字符串</h1>
             
             <div class="markdown-body">
-              <p>如何将本地项目上传到Github（两种简单、方便的方法）</p>
+              <p>以下是对解构&amp;字符串的学习</p>
 <hr>
-<h3 id="第一种-已尝试"><a href="#第一种-已尝试" class="headerlink" title="第一种(已尝试)"></a>第一种(已尝试)</h3><ol>
-<li><p>Github上新建一个仓库<br><img src="/image/8.png" srcset="/img/loading.gif" lazyload alt="新建一个仓库">          </p>
-</li>
-<li><p>复制仓库地址先(两个都行)<br><img src="/image/8.1.png" srcset="/img/loading.gif" lazyload alt="仓库地址">        </p>
-</li>
-</ol>
-<ol start="3">
-<li><p>桌面右键Git进入文件夹目录<br><img src="/image/8.2.png" srcset="/img/loading.gif" lazyload alt="Git">       </p>
-</li>
-<li><p>接下来输入如下代码（关键步骤），把github上面的仓库克隆到本地 </p>
-<pre><code>git  clone  git@github.com:Pengzhenglong/html-css-js.git
-(git@github.com:Pengzhenglong/html-css-js.git换成你第二步复制的地址链接)
-</code></pre>
-<p><img src="/image/8.3.png" srcset="/img/loading.gif" lazyload alt="克隆仓库"><br>这个步骤以后你的本地项目文件夹下面就会多出个文件夹，该文件夹名即为你github上面的项目名，如图我多出了个html-css-js文件夹，我们把本地项目文件夹下的所有文件（除了新多出的那个文件夹不用），其余都复制到那个新多出的文件夹下。</p>
-</li>
-</ol>
-<p><img src="/image/8.4.png" srcset="/img/loading.gif" lazyload alt="文件图片">   </p>
-<ol start="5">
-<li>接着继续输入命令 cd html-css-js，进入html-css-js文件夹              </li>
-</ol>
-<ol start="6">
-<li>接下来依次输入以下代码即可完成其他剩余操作</li>
-</ol>
-<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs maxima">git add . （注：别忘记后面的.，此操作是把Test文件夹下面的文件都添加进来）           <br><br>git commit  -m  ”提交信息”  （注：“提交信息”里面换成你需要，如“<span class="hljs-built_in">first</span> commit”）       <br><br>git <span class="hljs-built_in">push</span> -u <span class="hljs-built_in">origin</span> master   （注：此操作目的是把本地仓库<span class="hljs-built_in">push</span>到github上面，此步骤需要你输入帐号和密码）(由于我之前设置了免密操作所以我这台电脑不需要输入账号密码)<br></code></pre></td></tr></table></figure>
+<p>解构赋值是对赋值运算符的扩展。<br>他是一种针对数组或者对象进行模式匹配，然后对其中的变量进行赋值。在代码书写上简洁且易读，语义更加清晰明了；也方便了复杂对象中数据字段获取。</p>
+<p>解构的源，解构赋值表达式的右边部分。<br>解构的目标，解构赋值表达式的左边部分。</p>
+<h3 id="数组模型的解构（Array）"><a href="#数组模型的解构（Array）" class="headerlink" title="数组模型的解构（Array）"></a>数组模型的解构（Array）</h3><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs awk">let arr = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>];<br><span class="hljs-regexp">//</span>以前我们想获取其中的值，只能通过角标。ES6可以这样。<br><span class="hljs-regexp">//</span>   let a = arr[<span class="hljs-number">0</span>];<br><span class="hljs-regexp">//</span>   let b = arr[<span class="hljs-number">1</span>];<br><span class="hljs-regexp">//</span>   let c = arr[<span class="hljs-number">2</span>];<br>let [a, b, c] = arr; <span class="hljs-regexp">//</span>x,y,z将与arr中的每个位置对应来取值<br>console.log(a, b, c);<br></code></pre></td></tr></table></figure>
 
-<p><img src="/image/8.5.png" srcset="/img/loading.gif" lazyload alt="Git操作">   </p>
-<p><img src="/image/8.6.png" srcset="/img/loading.gif" lazyload alt="上传成功">   </p>
-<h3 id="第二种-未尝试"><a href="#第二种-未尝试" class="headerlink" title="第二种(未尝试)"></a>第二种(未尝试)</h3><blockquote>
-<p>参考链接:<br><code>https://blog.csdn.net/u014135752/article/details/79951802</code></p>
-</blockquote>
-<h3 id="Git创建新分支并提交到github"><a href="#Git创建新分支并提交到github" class="headerlink" title="Git创建新分支并提交到github"></a>Git创建新分支并提交到github</h3><p>因为需求的变更，需要把原来的代码做一下备份，再进行下一步的开发，所以 这是就将原来的代码创建一个新的分支来保存原来的代码，以防后面需要回滚，这里记录一下操作的步骤             </p>
-<ol>
-<li> 可以先查看一下当前所在分支</li>
+<h3 id="对象模型的解构（Object）"><a href="#对象模型的解构（Object）" class="headerlink" title="对象模型的解构（Object）"></a>对象模型的解构（Object）</h3><figure class="highlight sqf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs sqf">const person = &#123;<br>  <span class="hljs-built_in">name</span>: <span class="hljs-string">&#x27;jack&#x27;</span>,<br>  age: <span class="hljs-number">21</span>,<br>  <span class="hljs-built_in">language</span>: [<span class="hljs-string">&#x27;java&#x27;</span>, <span class="hljs-string">&#x27;js&#x27;</span>, <span class="hljs-string">&#x27;css&#x27;</span>],<br>&#125;;<br><span class="hljs-comment">// const  name=person.name;</span><br><span class="hljs-comment">// const  age=person.age;</span><br><span class="hljs-comment">// const  language=person.language;</span><br><span class="hljs-comment">//对象结构</span><br>const &#123; <span class="hljs-built_in">name</span>, age, <span class="hljs-built_in">language</span> &#125; = person; <span class="hljs-comment">//方法一</span><br>const &#123; <span class="hljs-built_in">name</span>: abc, age, <span class="hljs-built_in">language</span> &#125; = person; <span class="hljs-comment">//方法二</span><br>console.<span class="hljs-built_in">log</span>(abc, age, <span class="hljs-built_in">language</span>);<br></code></pre></td></tr></table></figure>
+
+<h3 id="字符串扩展"><a href="#字符串扩展" class="headerlink" title="字符串扩展"></a>字符串扩展</h3><ol>
+<li>扩展的方法，子串的识别<figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs processing">let <span class="hljs-built_in">str</span> = <span class="hljs-string">&#x27;hello.vue&#x27;</span>;<br>console.<span class="hljs-built_in">log</span>(<span class="hljs-built_in">str</span>.startsWith(<span class="hljs-string">&#x27;hello&#x27;</span>)); <span class="hljs-comment">//true</span><br>console.<span class="hljs-built_in">log</span>(<span class="hljs-built_in">str</span>.endsWith(<span class="hljs-string">&#x27;.vue&#x27;</span>)); <span class="hljs-comment">//true</span><br>console.<span class="hljs-built_in">log</span>(<span class="hljs-built_in">str</span>.includes(<span class="hljs-string">&#x27;e&#x27;</span>)); <span class="hljs-comment">//true</span><br>console.<span class="hljs-built_in">log</span>(<span class="hljs-built_in">str</span>.includes(<span class="hljs-string">&#x27;hello&#x27;</span>)); <span class="hljs-comment">//true</span><br><br></code></pre></td></tr></table></figure></li>
 </ol>
-<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">git branch</span><br></code></pre></td></tr></table></figure>
 <ol start="2">
-<li>创建本地分支并切换到新创建的分支</li>
+<li>字符串模板</li>
 </ol>
-<figure class="highlight isbl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs isbl"><span class="hljs-variable">git</span> <span class="hljs-variable">checkout</span> -<span class="hljs-variable">b</span> <span class="hljs-function"><span class="hljs-title">dev</span>(<span class="hljs-variable">dev</span> 可以命名为自己想取的名字)</span><br></code></pre></td></tr></table></figure>
+<pre><code>      let ss = `&lt;div&gt;
+                  &lt;span&gt;hello world&lt;span&gt;
+                  &lt;/div&gt;`;
+      console.log(ss);//空格也能打印
+</code></pre>
+<p><img src="/image/9.1.png" srcset="/img/loading.gif" lazyload alt="运行效果"></p>
 <ol start="3">
-<li>已经创建成功了，可以看一下</li>
+<li>符串插入变量和表达式。变量名写在${}中，${}中可以放入javascript表达式。<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs kotlin">function <span class="hljs-function"><span class="hljs-title">fun</span><span class="hljs-params">()</span></span> &#123;<br>  <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;这是一个函数&#x27;</span>;<br>&#125;<br><br>let info = `我是$&#123;abc&#125;，今年$&#123;age + <span class="hljs-number">10</span>&#125;了，我想说： $&#123;<span class="hljs-function"><span class="hljs-title">fun</span><span class="hljs-params">()</span></span>&#125;`;<br>console.log(info);<br></code></pre></td></tr></table></figure></li>
 </ol>
-<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">git branch</span><br></code></pre></td></tr></table></figure>
-<ol start="4">
-<li><p>将新创建的分支信息推送到github</p>
-<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs maxima">git <span class="hljs-built_in">push</span> <span class="hljs-built_in">origin</span> HEAD -u<br></code></pre></td></tr></table></figure></li>
-<li><p>可以到github看一下<br><img src="/image/8.8.png" srcset="/img/loading.gif" lazyload alt="Github">   </p>
-</li>
-</ol>
-<blockquote>
-<p>参考链接<br><code>https://blog.csdn.net/daerzei/article/details/79530418?utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Edefault-6.control&amp;dist_request_id=1331968.157.16184975146025075&amp;depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Edefault-6.control</code></p>
-</blockquote>
 
             </div>
             <hr>
@@ -291,7 +260,7 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/Git/">Git</a>
+                      <a class="hover-with-bg" href="/categories/ES6/">ES6</a>
                     
                   </div>
                 
@@ -299,9 +268,9 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/Git/">Git</a>
+                      <a class="hover-with-bg" href="/tags/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/">前端基础</a>
                     
-                      <a class="hover-with-bg" href="/tags/Github/">Github</a>
+                      <a class="hover-with-bg" href="/tags/ES6/">ES6</a>
                     
                   </div>
                 
@@ -318,18 +287,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/04/01/Css%E5%AD%A6%E4%B9%A0(%E4%B8%80)/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">CSS学习(一)</span>
-                        <span class="visible-mobile">Previous</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/03/31/Git%E7%9A%84%E4%BD%BF%E7%94%A8--%E5%A6%82%E4%BD%95%E5%B0%86%E6%9C%AC%E5%9C%B0%E9%A1%B9%E7%9B%AE%E4%B8%8A%E4%BC%A0%E5%88%B0Github%EF%BC%88%E4%B8%A4%E7%A7%8D%E7%AE%80%E5%8D%95%E3%80%81%E6%96%B9%E4%BE%BF%E7%9A%84%E6%96%B9%E6%B3%95%EF%BC%89/">
-                        <span class="hidden-mobile">Git的使用--如何将本地项目上传到Github（两种简单、方便的方法）</span>
+                      <a href="/2021/04/12/ES6(%E4%B8%80)/">
+                        <span class="hidden-mobile">ES6-let&const</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
