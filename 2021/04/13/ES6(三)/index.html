@@ -18,7 +18,7 @@
   <meta name="author" content="DragonPeng">
   <meta name="keywords" content="">
   
-  <title>ES6-解构&amp;字符串 - DragonPeng的博客</title>
+  <title>ES6-函数优化 - DragonPeng的博客</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -163,7 +163,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="ES6-解构&字符串">
+            <span class="h2" id="subtitle" title="ES6-函数优化">
               
             </span>
 
@@ -173,8 +173,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-04-12 21:15" pubdate>
-        April 12, 2021 pm
+      <time datetime="2021-04-13 21:15" pubdate>
+        April 13, 2021 pm
       </time>
     </span>
   
@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      412 字
+      682 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      5
+      9
        分钟
     </span>
   
@@ -225,26 +225,30 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">ES6-解构&amp;字符串</h1>
+            <h1 style="display: none">ES6-函数优化</h1>
             
             <div class="markdown-body">
-              <p>以下是对解构&amp;字符串的学习</p>
+              <p>以下是对函数,不定参数,箭头函数的学习</p>
 <hr>
-<p>解构赋值是对赋值运算符的扩展。<br>他是一种针对数组或者对象进行模式匹配，然后对其中的变量进行赋值。在代码书写上简洁且易读，语义更加清晰明了；也方便了复杂对象中数据字段获取。</p>
-<p>解构的源，解构赋值表达式的右边部分。<br>解构的目标，解构赋值表达式的左边部分。</p>
-<h3 id="数组模型的解构（Array）"><a href="#数组模型的解构（Array）" class="headerlink" title="数组模型的解构（Array）"></a>数组模型的解构（Array）</h3><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs awk">let arr = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>];<br><span class="hljs-regexp">//</span>以前我们想获取其中的值，只能通过角标。ES6可以这样。<br><span class="hljs-regexp">//</span>   let a = arr[<span class="hljs-number">0</span>];<br><span class="hljs-regexp">//</span>   let b = arr[<span class="hljs-number">1</span>];<br><span class="hljs-regexp">//</span>   let c = arr[<span class="hljs-number">2</span>];<br>let [a, b, c] = arr; <span class="hljs-regexp">//</span>x,y,z将与arr中的每个位置对应来取值<br>console.log(a, b, c);<br></code></pre></td></tr></table></figure>
-
-<h3 id="对象模型的解构（Object）"><a href="#对象模型的解构（Object）" class="headerlink" title="对象模型的解构（Object）"></a>对象模型的解构（Object）</h3><figure class="highlight sqf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs sqf">const person = &#123;<br>  <span class="hljs-built_in">name</span>: <span class="hljs-string">&#x27;jack&#x27;</span>,<br>  age: <span class="hljs-number">21</span>,<br>  <span class="hljs-built_in">language</span>: [<span class="hljs-string">&#x27;java&#x27;</span>, <span class="hljs-string">&#x27;js&#x27;</span>, <span class="hljs-string">&#x27;css&#x27;</span>],<br>&#125;;<br><span class="hljs-comment">// const  name=person.name;</span><br><span class="hljs-comment">// const  age=person.age;</span><br><span class="hljs-comment">// const  language=person.language;</span><br><span class="hljs-comment">//对象结构</span><br>const &#123; <span class="hljs-built_in">name</span>, age, <span class="hljs-built_in">language</span> &#125; = person; <span class="hljs-comment">//方法一</span><br>const &#123; <span class="hljs-built_in">name</span>: abc, age, <span class="hljs-built_in">language</span> &#125; = person; <span class="hljs-comment">//方法二</span><br>console.<span class="hljs-built_in">log</span>(abc, age, <span class="hljs-built_in">language</span>);<br></code></pre></td></tr></table></figure>
-
-<h3 id="字符串扩展"><a href="#字符串扩展" class="headerlink" title="字符串扩展"></a>字符串扩展</h3><ol>
-<li>扩展的方法，子串的识别<figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs processing">let <span class="hljs-built_in">str</span> = <span class="hljs-string">&#x27;hello.vue&#x27;</span>;<br>console.<span class="hljs-built_in">log</span>(<span class="hljs-built_in">str</span>.startsWith(<span class="hljs-string">&#x27;hello&#x27;</span>)); <span class="hljs-comment">//true</span><br>console.<span class="hljs-built_in">log</span>(<span class="hljs-built_in">str</span>.endsWith(<span class="hljs-string">&#x27;.vue&#x27;</span>)); <span class="hljs-comment">//true</span><br>console.<span class="hljs-built_in">log</span>(<span class="hljs-built_in">str</span>.includes(<span class="hljs-string">&#x27;e&#x27;</span>)); <span class="hljs-comment">//true</span><br>console.<span class="hljs-built_in">log</span>(<span class="hljs-built_in">str</span>.includes(<span class="hljs-string">&#x27;hello&#x27;</span>)); <span class="hljs-comment">//true</span><br><br></code></pre></td></tr></table></figure></li>
-<li>字符串模板<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs dts">let ss = `<span class="hljs-params">&lt;div&gt;</span><br>                  <span class="hljs-params">&lt;span&gt;</span>hello world<span class="hljs-params">&lt;span&gt;</span><br>                  <span class="hljs-params">&lt;/div&gt;</span>`;<br>      console.log(ss);<span class="hljs-comment">//空格也能打印</span><br></code></pre></td></tr></table></figure></li>
-</ol>
-<p>控制台效果：</p>
-<p><img src="/image/9.1.png" srcset="/img/loading.gif" lazyload alt="运行效果"></p>
-<ol>
-<li>符串插入变量和表达式。变量名写在${}中，${}中可以放入javascript表达式。<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs kotlin">function <span class="hljs-function"><span class="hljs-title">fun</span><span class="hljs-params">()</span></span> &#123;<br>  <span class="hljs-keyword">return</span> <span class="hljs-string">&#x27;这是一个函数&#x27;</span>;<br>&#125;<br><br>let info = `我是$&#123;abc&#125;，今年$&#123;age + <span class="hljs-number">10</span>&#125;了，我想说： $&#123;<span class="hljs-function"><span class="hljs-title">fun</span><span class="hljs-params">()</span></span>&#125;`;<br>console.log(info);<br></code></pre></td></tr></table></figure></li>
-</ol>
+<h3 id="函数参数的默认值"><a href="#函数参数的默认值" class="headerlink" title="函数参数的默认值"></a>函数参数的默认值</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">//在ES6以前，我们无法给一个函数参数设置默认值，只能采用变通写法；</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">add</span>(<span class="hljs-params">a, b</span>) </span>&#123;<br>  <span class="hljs-comment">//判断是否为空，为空就给默认值；</span><br>  b = b || <span class="hljs-number">1</span>;<br>  <span class="hljs-keyword">return</span> a + b;<br>&#125;<br><span class="hljs-comment">//传一个参数</span><br><span class="hljs-built_in">console</span>.log(add(<span class="hljs-number">10</span>));<br><span class="hljs-comment">//现在可以这么写，直接给参数写上默认值，没传给会自动使用默认值</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">add2</span>(<span class="hljs-params">a, b = <span class="hljs-number">1</span></span>) </span>&#123;<br>  <span class="hljs-keyword">return</span> a + b;<br>&#125;<br><span class="hljs-built_in">console</span>.log(add2(<span class="hljs-number">20</span>));<br></code></pre></td></tr></table></figure>
+<p>注意点：使用函数默认参数时，不允许有同名参数。</p>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs fortran">// 不报错<br><span class="hljs-function"><span class="hljs-keyword">function</span></span> fn(<span class="hljs-keyword">name</span>,<span class="hljs-keyword">name</span>)&#123;<br> console.<span class="hljs-built_in">log</span>(<span class="hljs-keyword">name</span>);<br>&#125;<br> <br>// 报错<br>//SyntaxError: Duplicate <span class="hljs-keyword">parameter</span> <span class="hljs-keyword">name</span> not allowed <span class="hljs-keyword">in</span> this context<br><span class="hljs-function"><span class="hljs-keyword">function</span></span> fn(<span class="hljs-keyword">name</span>,<span class="hljs-keyword">name</span>,age=<span class="hljs-number">17</span>)&#123;<br> console.<span class="hljs-built_in">log</span>(<span class="hljs-keyword">name</span>+<span class="hljs-string">&quot;,&quot;</span>+age);<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>只有在未传递参数，或者参数为 undefined 时，才会使用默认参数，null 值被认为是有效的值传递。</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs pgsql"><span class="hljs-keyword">function</span> fn(<span class="hljs-type">name</span>,age=<span class="hljs-number">17</span>)&#123;<br>    console.log(<span class="hljs-type">name</span>+&quot;,&quot;+age);<br>&#125;<br>fn(&quot;Amy&quot;,<span class="hljs-keyword">null</span>); // Amy,<span class="hljs-keyword">null</span><br></code></pre></td></tr></table></figure>
+<h3 id="不定参数"><a href="#不定参数" class="headerlink" title="不定参数"></a>不定参数</h3><p>不定参数用来表示不确定参数个数，形如，…变量名，由…加上一个具名参数标识符组成。具名参数只能放在参数组的最后，并且有且只有一个不定参数。</p>
+<p>基本用法</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs actionscript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">f</span><span class="hljs-params">(<span class="hljs-rest_arg">...values</span>)</span></span>&#123;<br>    console.log(values.length);<br>&#125;<br>f(<span class="hljs-number">1</span>,<span class="hljs-number">2</span>);      <span class="hljs-comment">//2</span><br>f(<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>);  <span class="hljs-comment">//4</span><br></code></pre></td></tr></table></figure>
+<h3 id="箭头函数-使用较多"><a href="#箭头函数-使用较多" class="headerlink" title="箭头函数(使用较多)"></a>箭头函数(使用较多)</h3><figure class="highlight arcade"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs arcade">      <span class="hljs-comment">//以前声明一个方法</span><br>      <span class="hljs-comment">// var  print=function(obj)&#123;</span><br>      <span class="hljs-comment">//     console.log(obj);</span><br>      <span class="hljs-comment">// &#125;</span><br>      <span class="hljs-keyword">var</span> print = <span class="hljs-function">(<span class="hljs-params">obj</span>) =&gt;</span> console.log(obj);<br>      print(<span class="hljs-string">&#x27;hello&#x27;</span>);<span class="hljs-comment">//hello</span><br>或<br><span class="hljs-keyword">var</span> f = <span class="hljs-function"><span class="hljs-params">v</span> =&gt;</span> v;<br><span class="hljs-comment">//等价于</span><br><span class="hljs-keyword">var</span> f = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">a</span>)</span>&#123;<br> <span class="hljs-keyword">return</span> a;<br>&#125;<br>f(<span class="hljs-number">1</span>);  <span class="hljs-comment">//1</span><br></code></pre></td></tr></table></figure>
+<p>当箭头函数没有参数或者有多个参数，要用 () 括起来。</p>
+<figure class="highlight arcade"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs arcade"><span class="hljs-keyword">var</span> f = <span class="hljs-function">(<span class="hljs-params">a,b</span>) =&gt;</span> a+b;<br>f(<span class="hljs-number">6</span>,<span class="hljs-number">2</span>);  <span class="hljs-comment">//8</span><br></code></pre></td></tr></table></figure>
+<p>当箭头函数函数体有多行语句，用 {} 包裹起来，表示代码块，当只有一行语句，并且需要返回结果时，可以省略 {} , 结果会自动返回。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> f = <span class="hljs-function">(<span class="hljs-params">a,b</span>) =&gt;</span> &#123;<br> <span class="hljs-keyword">let</span> result = a+b;<br> <span class="hljs-keyword">return</span> result;<br>&#125;<br>f(<span class="hljs-number">6</span>,<span class="hljs-number">2</span>);  <span class="hljs-comment">// 8</span><br></code></pre></td></tr></table></figure>
+<p>当箭头函数要返回对象的时候，为了区分于代码块，要用 () 将对象包裹起来</p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs xquery">// 报错<br>var f = <span class="hljs-built_in">(id</span><span class="hljs-built_in">,name</span>) =&gt; <span class="hljs-built_in">&#123;id</span>:<span class="hljs-built_in"> id</span>,<span class="hljs-built_in"> name</span>:<span class="hljs-built_in"> name</span>&#125;;<br>f(<span class="hljs-number">6</span>,<span class="hljs-number">2</span>);  // SyntaxError: Unexpected token :<br> <br>// 不报错<br>var f = <span class="hljs-built_in">(id</span><span class="hljs-built_in">,name</span>) =&gt; (<span class="hljs-built_in">&#123;id</span>:<span class="hljs-built_in"> id</span>,<span class="hljs-built_in"> name</span>:<span class="hljs-built_in"> name</span>&#125;);<br>f(<span class="hljs-number">6</span>,<span class="hljs-number">2</span>);  // <span class="hljs-built_in">&#123;id</span>: <span class="hljs-number">6</span>,<span class="hljs-built_in"> name</span>: <span class="hljs-number">2</span>&#125;<br></code></pre></td></tr></table></figure>
+<p>注意点：没有 this、super、arguments 和 new.target 绑定。<br>箭头函数体中的 this 对象，是定义函数时的对象，而不是使用函数时的对象。<br>不可以作为构造函数，也就是不能使用 new 命令，否则会报错</p>
+<ul>
+<li>箭头函数+解构<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> person = &#123;<br>  name: <span class="hljs-string">&#x27;jack&#x27;</span>,<br>  age: <span class="hljs-number">21</span>,<br>  language: [<span class="hljs-string">&#x27;java&#x27;</span>, <span class="hljs-string">&#x27;js&#x27;</span>, <span class="hljs-string">&#x27;css&#x27;</span>],<br>&#125;;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">hello</span>(<span class="hljs-params">person</span>) </span>&#123;<br>  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;hello&#x27;</span>, person.name);<br>&#125;<br><span class="hljs-comment">//箭头函数+解构</span><br><span class="hljs-keyword">var</span> hello2 = <span class="hljs-function">(<span class="hljs-params">&#123; name &#125;</span>) =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;hello&#x27;</span>, name);<br>hello2(person);<br></code></pre></td></tr></table></figure></li>
+</ul>
 
             </div>
             <hr>
@@ -281,9 +285,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/04/13/ES6(%E4%B8%89)/">
+                      <a href="/2021/04/13/javascript%20%E5%85%B3%E4%BA%8E%E8%B5%8B%E5%80%BC%E3%80%81%E6%B5%85%E6%8B%B7%E8%B4%9D%E3%80%81%E6%B7%B1%E6%8B%B7%E8%B4%9D%E7%9A%84%E4%B8%AA%E4%BA%BA%E7%90%86%E8%A7%A3/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">ES6-函数优化</span>
+                        <span class="hidden-mobile">javascript 关于赋值、浅拷贝、深拷贝的个人理解</span>
                         <span class="visible-mobile">Previous</span>
                       </a>
                     
@@ -291,8 +295,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/04/12/ES6(%E4%B8%80)/">
-                        <span class="hidden-mobile">ES6-let&const</span>
+                      <a href="/2021/04/12/ES6(%E4%BA%8C)/">
+                        <span class="hidden-mobile">ES6-解构&字符串</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
