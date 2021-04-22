@@ -18,7 +18,7 @@
   <meta name="author" content="DragonPeng">
   <meta name="keywords" content="">
   
-  <title>ES6-map&amp;reduce - DragonPeng的博客</title>
+  <title>Vue入门学习(一) - DragonPeng的博客</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -163,7 +163,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="ES6-map&reduce">
+            <span class="h2" id="subtitle" title="Vue入门学习(一)">
               
             </span>
 
@@ -173,8 +173,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-04-14 22:15" pubdate>
-        April 14, 2021 pm
+      <time datetime="2021-04-16 19:15" pubdate>
+        April 16, 2021 pm
       </time>
     </span>
   
@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      308 字
+      991 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      4
+      12
        分钟
     </span>
   
@@ -225,18 +225,67 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">ES6-map&amp;reduce</h1>
+            <h1 style="display: none">Vue入门学习(一)</h1>
             
             <div class="markdown-body">
-              <p>以下是对 map&amp;reduce  的学习</p>
+              <p>以下是对Vue入门的学习(安装Vue,v-text,v-html  )</p>
 <hr>
-<h3 id="map-接受一个函数，将原数组中的所有元素用这个函数处理后放入新数组返回"><a href="#map-接受一个函数，将原数组中的所有元素用这个函数处理后放入新数组返回" class="headerlink" title="map() 接受一个函数，将原数组中的所有元素用这个函数处理后放入新数组返回"></a>map() 接受一个函数，将原数组中的所有元素用这个函数处理后放入新数组返回</h3><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs awk">let arr = [<span class="hljs-string">&#x27;1&#x27;</span>, <span class="hljs-string">&#x27;2&#x27;</span>, <span class="hljs-string">&#x27;3&#x27;</span>, <span class="hljs-string">&#x27;5&#x27;</span>];<br><span class="hljs-regexp">//</span> 方法一<br><span class="hljs-regexp">//</span>  arr   =arr.map((item)=&gt;&#123;<br><span class="hljs-regexp">//</span>        return  item*<span class="hljs-number">2</span><br><span class="hljs-regexp">//</span>  &#125;);<br><span class="hljs-regexp">//</span>方法二<br>arr = arr.map((item) =&gt; item * <span class="hljs-number">2</span>);<br>console.log(arr); <span class="hljs-regexp">//</span>Array(<span class="hljs-number">4</span>)<span class="hljs-number">0</span>: <span class="hljs-number">2</span> <span class="hljs-number">1</span>: <span class="hljs-number">4</span> <span class="hljs-number">2</span>: <span class="hljs-number">6</span> <span class="hljs-number">3</span>: <span class="hljs-number">10</span><br></code></pre></td></tr></table></figure>
-
-<ol>
-<li> =&gt; 则是一种简写方法。   <figure class="highlight llvm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs llvm"><span class="hljs-keyword">x</span> <span class="hljs-operator">=</span>&gt; <span class="hljs-keyword">x</span> * <span class="hljs-keyword">x</span> <br>相当于：<br>function(<span class="hljs-keyword">x</span>)&#123;return <span class="hljs-keyword">x</span>*<span class="hljs-keyword">x</span>&#125;<br></code></pre></td></tr></table></figure>
-<h3 id="reduce-方法接收一个函数作为累加器，数组中的每个值（从左到右）开始缩减，最终计算为一个值。"><a href="#reduce-方法接收一个函数作为累加器，数组中的每个值（从左到右）开始缩减，最终计算为一个值。" class="headerlink" title="reduce() 方法接收一个函数作为累加器，数组中的每个值（从左到右）开始缩减，最终计算为一个值。"></a>reduce() 方法接收一个函数作为累加器，数组中的每个值（从左到右）开始缩减，最终计算为一个值。</h3></li>
+<h3 id="MVVM思想-重要"><a href="#MVVM思想-重要" class="headerlink" title="MVVM思想(重要)"></a>MVVM思想(重要)</h3><ol>
+<li>M：即Model模型，包括数据和一些基本操作</li>
+<li>V：即View，视图，页面渲染结果</li>
+<li>VM： 即View-Model，模型于视图间的双向操作(无需开发人员干涉)</li>
 </ol>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">//</span>reduce()为数组中的每一个元素一次执行回调函数，不包括数组中被删除或从未被赋值的元素<br><span class="hljs-regexp">//</span>[<span class="hljs-string">&#x27;1&#x27;</span>,<span class="hljs-string">&#x27;2&#x27;</span>,<span class="hljs-string">&#x27;3&#x27;</span>,<span class="hljs-string">&#x27;5&#x27;</span>]<br><span class="hljs-regexp">//</span>arr.reduce(callback,[initialValue])<br>/**四个参数<br>    <span class="hljs-number">1</span>.previousValue(上一次调用回调返回的值，或者是提供的初始值(initialValue))<br>    <span class="hljs-number">2</span>.currenValue(数组中当前被处理的元素)<br>    <span class="hljs-number">3</span>.index  (当前元素在数组中的元素)<br>    <span class="hljs-number">4</span>.array  (调用reduce的数组)   */<br>let result = arr.reduce((a, b) =&gt; &#123;<br>  console.log(<span class="hljs-string">&#x27;上一次处理后：&#x27;</span> + a);<br>  console.log(<span class="hljs-string">&#x27;当前正在处理：&#x27;</span> + b);<br>  return a + b;<br>&#125;, <span class="hljs-number">100</span>); <span class="hljs-regexp">//</span>初始值<span class="hljs-number">100</span><br>console.log(result);<br></code></pre></td></tr></table></figure>
+<p>在MVVM之前，开发人员从后端获取需要的数据模型，然后要通过DOM操作Model渲染到View中。而后当用户操作视图，我们还需要通过DOM获取View中的数据，然后同步到Model中。</p>
+<p>而MVVM中的VM要做的事情就是把DOM操作完全封装起来，开发人员不再关心Model和View之间的如何相互影响的</p>
+<h3 id="安装Vue"><a href="#安装Vue" class="headerlink" title="安装Vue"></a>安装Vue</h3><ol>
+<li>方法一 直接<code>&lt;script&gt;</code>引入     </li>
+</ol>
+<p>CDN<br>对于制作原型或学习，你可以这样使用最新版本：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://cdn.jsdelivr.net/npm/vue/dist/vue.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<ol>
+<li>方法二  NPM</li>
+</ol>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs awk">npm  init -y  <span class="hljs-regexp">//</span>初始化项目，项目路径多了一个package.json文件，代表是一个npm来管理的项目<br>npm install vue  <span class="hljs-regexp">//</span>安装Vue   <br></code></pre></td></tr></table></figure>
+<p>由于 npm 安装速度慢，本教程使用了淘宝的镜像及其命令 cnpm，安装使用介绍参照：使用<a target="_blank" rel="noopener" href="https://www.runoob.com/nodejs/nodejs-npm.html#taobaonpm">淘宝 NPM 镜像</a>。</p>
+<p>npm 版本需要大于 3.0，如果低于此版本需要升级它：</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm"><span class="hljs-comment"># 查看版本</span><br>$ npm -v<br><span class="hljs-number">2</span>.<span class="hljs-number">3</span>.<span class="hljs-number">0</span><br><br><span class="hljs-comment">#升级 npm</span><br>cnpm <span class="hljs-keyword">install </span>npm -g<br><br><br><span class="hljs-comment"># 升级或安装 cnpm</span><br>npm <span class="hljs-keyword">install </span>cnpm -g<br><br>在用 Vue.<span class="hljs-keyword">js </span>构建大型应用时推荐使用 cnpm 安装：<br><span class="hljs-comment"># 最新稳定版</span><br>$ cnpm <span class="hljs-keyword">install </span>vue<br></code></pre></td></tr></table></figure>
+<ol start="3">
+<li>命令行工具<br>Vue.js 提供一个官方命令行工具，可用于快速搭建大型单页应用。<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs cmake"><span class="hljs-comment"># 全局安装 vue-cli</span><br>$ cnpm <span class="hljs-keyword">install</span> --global vue-cli<br><span class="hljs-comment"># 创建一个基于 webpack 模板的新项目</span><br>$ vue init webpack my-<span class="hljs-keyword">project</span><br><span class="hljs-comment"># 这里需要进行一些配置，默认回车即可</span><br>This will <span class="hljs-keyword">install</span> Vue <span class="hljs-number">2</span>.x version of the template.<br><br>For Vue <span class="hljs-number">1</span>.x use: vue init webpack<span class="hljs-comment">#1.0 my-project</span><br><br>? <span class="hljs-keyword">Project</span> name my-<span class="hljs-keyword">project</span><br>? <span class="hljs-keyword">Project</span> description A Vue.js <span class="hljs-keyword">project</span><br>? Author runoob &lt;<span class="hljs-keyword">test</span>@runoob.com&gt;<br>? Vue build standalone<br>? Use ESLint to lint your code? Yes<br>? Pick an ESLint preset Standard<br>? Setup unit tests with Karma + Mocha? Yes<br>? Setup e2e tests with Nightwatch? Yes<br><br>   vue-cli · Generated <span class="hljs-string">&quot;my-project&quot;</span>.<br><br>   To get started:<br>   <br>     cd my-<span class="hljs-keyword">project</span><br>     npm <span class="hljs-keyword">install</span><br>     npm run dev<br>   <br>   Documentation can be found at https://vuejs-templates.github.io/webpack<br></code></pre></td></tr></table></figure>
+进入项目，安装并运行：<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta">$</span><span class="bash"> <span class="hljs-built_in">cd</span> my-project</span><br><span class="hljs-meta">$</span><span class="bash"> cnpm install</span><br><span class="hljs-meta">$</span><span class="bash"> cnpm run dev</span><br> DONE  Compiled successfully in 4388ms<br><br><span class="hljs-meta">&gt;</span><span class="bash"> Listening at http://localhost:8080</span><br></code></pre></td></tr></table></figure>
+成功执行以上命令后访问 <a target="_blank" rel="noopener" href="http://localhost:8080/%EF%BC%8C%E8%BE%93%E5%87%BA%E7%BB%93%E6%9E%9C%E5%A6%82%E4%B8%8B%E6%89%80%E7%A4%BA%EF%BC%9Aimage/">http://localhost:8080/，输出结果如下所示：image/</a></li>
+</ol>
+<!-- ![运行效果](/image/11.1.PNG)  -->
+<p>注意：Vue.js 不支持 IE8 及其以下 IE 版本。</p>
+<h3 id="Vue-js-目录结构"><a href="#Vue-js-目录结构" class="headerlink" title="Vue.js 目录结构"></a>Vue.js 目录结构</h3><p>我们使用了 npm安装项目，我们在 IDE(visual code) 中打开该目录，结构如下所示:<br><img src="/image/11.2.png" srcset="/img/loading.gif" lazyload alt="Vue项目目录结构"></p>
+<h3 id="VUE简介"><a href="#VUE简介" class="headerlink" title="VUE简介"></a>VUE简介</h3><ol>
+<li>JavaScript框架</li>
+<li>简化Dom操作</li>
+<li>响应式数据驱动</li>
+</ol>
+<h3 id="Vue基础-el-挂载点，data-数据对象"><a href="#Vue基础-el-挂载点，data-数据对象" class="headerlink" title="Vue基础(el:挂载点，data:数据对象)"></a>Vue基础(el:挂载点，data:数据对象)</h3><h4 id="el-挂载点—用来设置Vue实例挂载-管理-的元素"><a href="#el-挂载点—用来设置Vue实例挂载-管理-的元素" class="headerlink" title="el:挂载点—用来设置Vue实例挂载(管理)的元素"></a>el:挂载点—用来设置Vue实例挂载(管理)的元素</h4><ol>
+<li>Vue实例的作用范围是什么呢？<br>Vue会管理el选项<strong>命中的元素</strong>及其内部的<strong>后代元素</strong></li>
+<li>是否可以使用其他的选择器？<br>可以使用其他的选择器，但是建议使用<strong>id选择器</strong>(一般建议使用id选择器(唯一)，因为类选择器和标签选择器都可以命中多个元素)</li>
+<li>是否可以设置其他dom元素呢？<br>可以使用其他的双标签，不能使用<strong>HTML</strong>和<strong>Body</strong><br><img src="/image/11.3.png" srcset="/img/loading.gif" lazyload alt="不能使用body"></li>
+</ol>
+<h4 id="data-数据对象"><a href="#data-数据对象" class="headerlink" title="data:数据对象"></a>data:数据对象</h4><ol>
+<li>Vue中用到的数据定义在data中</li>
+<li>data中可以写复杂类型的数据</li>
+<li>渲染复杂数据类型时，遵守js的语法即可</li>
+</ol>
+<h3 id="v-text"><a href="#v-text" class="headerlink" title="v-text"></a>v-text</h3><ol>
+<li>该指令的作用的：设置标签的内容(textContent)</li>
+<li>默认写法会<strong>替换全部内容</strong>，使用<strong>差值表达式<code>&#123;&#123;&#125;&#125;</code></strong>可以替换指定内容</li>
+<li>内部支持写表达式</li>
+</ol>
+<p><img src="/image/11.4.PNG" srcset="/img/loading.gif" lazyload alt="效果"></p>
+<h3 id="v-html"><a href="#v-html" class="headerlink" title="v-html"></a>v-html</h3><ol>
+<li>该指令的作用是：设置元素的innerHTML</li>
+<li>内容中有html结构会被解析为标签</li>
+<li>v-text指令无论内容是什么，只会被解析为文本</li>
+<li>解析文本使用v-text,需要解析html结构使用v-html</li>
+</ol>
+<p><img src="/image/11.5.PNG" srcset="/img/loading.gif" lazyload alt="如图"></p>
+
             </div>
             <hr>
             <div>
@@ -245,7 +294,7 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/ES6/">ES6</a>
+                      <a class="hover-with-bg" href="/categories/Vue/">Vue</a>
                     
                   </div>
                 
@@ -255,7 +304,7 @@
                     
                       <a class="hover-with-bg" href="/tags/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/">前端基础</a>
                     
-                      <a class="hover-with-bg" href="/tags/ES6/">ES6</a>
+                      <a class="hover-with-bg" href="/tags/Vue/">Vue</a>
                     
                   </div>
                 
@@ -272,9 +321,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/04/16/Vue%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0(%E4%B8%80)/">
+                      <a href="/2021/04/16/Vue%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0(%E4%BA%8C)/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Vue入门学习(一)</span>
+                        <span class="hidden-mobile">Vue入门学习(二)</span>
                         <span class="visible-mobile">Previous</span>
                       </a>
                     
@@ -282,8 +331,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/04/14/CSS3flex%E5%B8%83%E5%B1%80/">
-                        <span class="hidden-mobile">CSS3--flex布局</span>
+                      <a href="/2021/04/14/ES(%E4%BA%94)/">
+                        <span class="hidden-mobile">ES6-map&reduce</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
