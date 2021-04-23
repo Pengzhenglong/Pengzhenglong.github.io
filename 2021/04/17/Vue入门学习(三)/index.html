@@ -18,7 +18,7 @@
   <meta name="author" content="DragonPeng">
   <meta name="keywords" content="">
   
-  <title>Vue入门学习(三) - DragonPeng的博客</title>
+  <title>Vue&amp; axios的基本使用 - DragonPeng的博客</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -163,7 +163,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="Vue入门学习(三)">
+            <span class="h2" id="subtitle" title="Vue& axios的基本使用">
               
             </span>
 
@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      0 字
+      694 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      1
+      10
        分钟
     </span>
   
@@ -225,10 +225,31 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Vue入门学习(三)</h1>
+            <h1 style="display: none">Vue&amp; axios的基本使用</h1>
             
             <div class="markdown-body">
-              <h3 id=""><a href="#" class="headerlink" title=""></a></h3>
+              <h3 id="Vue-js-Ajax-axios"><a href="#Vue-js-Ajax-axios" class="headerlink" title="Vue.js Ajax(axios)"></a>Vue.js Ajax(axios)</h3><p>Vue.js 2.0 版本推荐使用 axios 来完成 ajax 请求。</p>
+<p>Axios 是一个基于 Promise 的 HTTP 库，可以用在浏览器和 node.js 中。</p>
+<p>Github开源地址： <a target="_blank" rel="noopener" href="https://github.com/axios/axios">https://github.com/axios/axios</a></p>
+<h4 id="安装方法"><a href="#安装方法" class="headerlink" title="安装方法"></a>安装方法</h4><ol>
+<li>使用 cdn:<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://unpkg.com/axios/dist/axios.min.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure></li>
+<li>使用 npm:<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cmake">npm <span class="hljs-keyword">install</span> axios<br></code></pre></td></tr></table></figure></li>
+<li>其他</li>
+</ol>
+<h3 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h3><ol>
+<li>axios必须先导入才可以使用</li>
+<li>使用get或post方法即可发送对应的请求</li>
+<li>then方法中的回调函数会在请求成功或失败时触发</li>
+<li>通过回调函数的形参可以获取响应内容，或错误信息</li>
+</ol>
+<p>示例：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;button&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;get请求&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;get&quot;</span> /&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;button&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;post请求&quot;</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;post&quot;</span> /&gt;</span><br>  <span class="hljs-comment">&lt;!-- 官网提供的axios在线地址 --&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://unpkg.com/axios/dist/axios.min.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><br>    /*<br>        接口1：随机笑话<br><span class="javascript">        请求地址：https:<span class="hljs-comment">//autumnfish.cn/api/joke/list</span></span><br>        请求方法：get<br>        请求参数：num(笑话条数，数字)<br>        响应内容：随机笑话<br>        */<br><span class="javascript">    <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&quot;.get&quot;</span>).onclick = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;</span><br>      axios<br><span class="javascript">        .get(<span class="hljs-string">&quot;https://autumnfish.cn/api/joke/list?num=6&quot;</span>)</span><br><span class="javascript">        .then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">response</span>) </span>&#123;</span><br><span class="javascript">          <span class="hljs-built_in">console</span>.log(response);</span><br>        &#125;),<br><span class="javascript">        <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err</span>) </span>&#123;</span><br><span class="javascript">          <span class="hljs-built_in">console</span>.log(err);</span><br>        &#125;;<br>    &#125;;<br>    /*<br>        接口2：用户注册<br><span class="javascript">        请求地址：https:<span class="hljs-comment">//autumnfish.cn/api/user/reg</span></span><br>        请求方法：post<br>        请求参数：username(用户名，字符串)<br>        响应内容：注册成功失败<br>        */<br><span class="javascript">    <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&quot;.post&quot;</span>).onclick = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;</span><br>      axios<br><span class="javascript">        .post(<span class="hljs-string">&quot;https://autumnfish.cn/api/user/reg&quot;</span>, &#123; <span class="hljs-attr">username</span>: <span class="hljs-string">&quot;jack&quot;</span> &#125;)</span><br><span class="javascript">        .then(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">response</span>) </span>&#123;</span><br><span class="javascript">          <span class="hljs-built_in">console</span>.log(response);</span><br>        &#125;),<br><span class="javascript">        <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">err</span>) </span>&#123;</span><br><span class="javascript">          <span class="hljs-built_in">console</span>.log(err);</span><br>        &#125;;<br>    &#125;;<br>  <span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<p>querySelector() 方法返回文档中匹配指定 CSS 选择器的一个元素。</p>
+<p>注意： querySelector() 方法仅仅返回匹配指定选择器的第一个元素。如果你需要返回所有的元素，请使用 querySelectorAll() 方法替代。</p>
+<h3 id="axios-vue"><a href="#axios-vue" class="headerlink" title="axios+vue"></a>axios+vue</h3><p>例子：</p>
+<figure class="highlight handlebars"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs handlebars"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span></span><br><span class="xml">  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;app&quot;</span>&gt;</span></span><br><span class="xml">    <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;button&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;获取笑话&quot;</span> <span class="hljs-attr">v-on:click</span>=<span class="hljs-string">&quot;getJoke&quot;</span> /&gt;</span></span><br><span class="xml">    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span></span><span class="hljs-template-variable">&#123;&#123;<span class="hljs-name">joke</span>&#125;&#125;</span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span><br><span class="xml">  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="xml">  <span class="hljs-comment">&lt;!-- 开发环境版本，包含了有帮助的命令行警告 --&gt;</span></span><br><span class="xml">  <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://cdn.jsdelivr.net/npm/vue/dist/vue.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span><br><span class="xml">  <span class="hljs-comment">&lt;!-- 官网提供的axios在线地址 --&gt;</span></span><br><span class="xml">  <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;https://unpkg.com/axios/dist/axios.min.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span><br><span class="xml">  <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span></span><br><span class="xml">    /*</span><br><span class="xml">        接口1：随机笑话</span><br><span class="xml">        请求地址：https://autumnfish.cn/api/joke/list</span><br><span class="xml">        请求方法：get</span><br><span class="xml">        请求参数：num(笑话条数，数字)</span><br><span class="xml">        响应内容：随机笑话</span><br><span class="xml">        */</span><br><span class="xml">    var app = new Vue(&#123;</span><br><span class="xml">      el: &quot;#app&quot;,</span><br><span class="xml">      data: &#123;</span><br><span class="xml">        joke: &quot;很好笑的笑话&quot;,</span><br><span class="xml">      &#125;,</span><br><span class="xml">      methods: &#123;</span><br><span class="xml">        getJoke: function () &#123;</span><br><span class="xml">          console.log(this.joke);</span><br><span class="xml">          var that = this;</span><br><span class="xml">          axios</span><br><span class="xml">            .get(&quot;https://autumnfish.cn/api/joke&quot;)</span><br><span class="xml">            .then(function (response) &#123;</span><br><span class="xml">              // console.log(response);</span><br><span class="xml">              console.log(response.data);</span><br><span class="xml">              // console.log(this.joke);</span><br><span class="xml">              that.joke = response.data;</span><br><span class="xml">            &#125;),</span><br><span class="xml">            function (err) &#123;&#125;;</span><br><span class="xml">        &#125;,</span><br><span class="xml">      &#125;,</span><br><span class="xml">    &#125;);</span><br><span class="xml">  <span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span><br><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span></span><br></code></pre></td></tr></table></figure>
+
+
             </div>
             <hr>
             <div>
@@ -275,7 +296,7 @@
                     
                     
                       <a href="/2021/04/16/Vue%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0(%E4%BA%8C)/">
-                        <span class="hidden-mobile">Vue入门学习(二)</span>
+                        <span class="hidden-mobile">Vue&v-on&v-show&v-if&v-bind&v-for&v-model</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      738 字
+      1.3k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      8
+      14
        分钟
     </span>
   
@@ -245,11 +245,32 @@
 <ol>
 <li>b.引用数据类型–名存在栈内存中，值存在于堆内存中，但是栈内存会提供一个引用的地址指向堆内存中的值<br><img src="/image/14.3.PNG" srcset="/img/loading.gif" lazyload alt="如图"><br>而对于引用类型的变量，新的变量复制的是那个对象在堆中的地址，这两个变量指向的是同一个对象。        </li>
 </ol>
-<p>而当我们a[0]=1时进行数组修改时，由于a与b指向的是同一个地址，所以自然b也受了影响，这就是所谓的浅拷贝了。<br><img src="/image/14.4.PNG" srcset="/img/loading.gif" lazyload alt="如图">        </p>
 <p>例子：简单的引用拷贝(浅拷贝)</p>
-<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">var obj = &#123;<span class="hljs-type">name</span>: <span class="hljs-string">&#x27;Yecao&#x27;</span>&#125;;<br>var obj2 = obj;<br>console.log(obj2.name); // <span class="hljs-string">&#x27;Yecao&#x27;</span><br>obj2.name = <span class="hljs-string">&#x27;Claire&#x27;</span>;<br>console.log(obj.name); //<span class="hljs-string">&#x27;Claire&#x27;</span><br></code></pre></td></tr></table></figure>
-<p>以上是个很简单的例子，obj2复制了obj之后，两个其实指向的是同一个对象。</p>
-<h4 id="JS的基本类型不存在浅拷贝还是深拷贝的问题-深拷贝与浅拷贝的概念只存在于引用类型"><a href="#JS的基本类型不存在浅拷贝还是深拷贝的问题-深拷贝与浅拷贝的概念只存在于引用类型" class="headerlink" title="JS的基本类型不存在浅拷贝还是深拷贝的问题,深拷贝与浅拷贝的概念只存在于引用类型"></a>JS的基本类型不存在浅拷贝还是深拷贝的问题,深拷贝与浅拷贝的概念只存在于引用类型</h4>
+<pre><code>var obj = &#123;name: &#39;Yecao&#39;&#125;;
+var obj2 = obj;
+console.log(obj2.name); // &#39;Yecao&#39;
+obj2.name = &#39;Claire&#39;;
+console.log(obj.name); //&#39;Claire&#39;
+</code></pre>
+<p>以上是个很简单的例子，obj2复制了obj之后，两个其实指向的是同一个对象。           </p>
+<p>而当我们a[0]=1时进行数组修改时，由于a与b指向的是同一个地址，所以自然b也受了影响，这就是所谓的浅拷贝了。             </p>
+<p><img src="/image/14.4.PNG" srcset="/img/loading.gif" lazyload alt="如图">        </p>
+<p>实现简单的深拷贝<br>这么我们封装一个深拷贝的函数(PS：只是一个基本实现的展示，并非最佳实践)</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs reasonml"><span class="hljs-keyword">function</span> deep<span class="hljs-constructor">Clone(<span class="hljs-params">obj</span>)</span>&#123;<br>    <span class="hljs-keyword">let</span> objClone = <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Array</span>.</span></span>is<span class="hljs-constructor">Array(<span class="hljs-params">obj</span>)</span>?<span class="hljs-literal">[]</span>:&#123;&#125;;<br>    <span class="hljs-keyword">if</span>(obj<span class="hljs-operator"> &amp;&amp; </span>typeof obj===<span class="hljs-string">&quot;object&quot;</span>)&#123;<br>        <span class="hljs-keyword">for</span>(key <span class="hljs-keyword">in</span> obj)&#123;<br>            <span class="hljs-keyword">if</span>(obj.has<span class="hljs-constructor">OwnProperty(<span class="hljs-params">key</span>)</span>)&#123;<br>                <span class="hljs-comment">//判断ojb子元素是否为对象，如果是，递归复制</span><br>                <span class="hljs-keyword">if</span>(obj<span class="hljs-literal">[<span class="hljs-identifier">key</span>]</span>&amp;&amp;typeof obj<span class="hljs-literal">[<span class="hljs-identifier">key</span>]</span> ===<span class="hljs-string">&quot;object&quot;</span>)&#123;<br>                    objClone<span class="hljs-literal">[<span class="hljs-identifier">key</span>]</span> = deep<span class="hljs-constructor">Clone(<span class="hljs-params">obj</span>[<span class="hljs-params">key</span>])</span>;<br>                &#125;<span class="hljs-keyword">else</span>&#123;<br>                    <span class="hljs-comment">//如果不是，简单复制</span><br>                    objClone<span class="hljs-literal">[<span class="hljs-identifier">key</span>]</span> = obj<span class="hljs-literal">[<span class="hljs-identifier">key</span>]</span>;<br>                &#125;<br>            &#125;<br>        &#125;<br>    &#125;<br>    return objClone;<br>&#125;    <br><span class="hljs-keyword">let</span> a=<span class="hljs-literal">[<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>]</span>,<br>    b=deep<span class="hljs-constructor">Clone(<span class="hljs-params">a</span>)</span>;<br>a<span class="hljs-literal">[<span class="hljs-number">0</span>]</span>=<span class="hljs-number">2</span>;<br>console.log(a,b);<br></code></pre></td></tr></table></figure>
+<p>可以看到<br><img src="/image/14.5.PNG" srcset="/img/loading.gif" lazyload alt="如图">        </p>
+<p>跟之前想象的一样，现在b脱离了a的控制，不再受a影响了。</p>
+<p>这里再次强调，深拷贝，是拷贝对象各个层级的属性<br><img src="/image/14.6.PNG" srcset="/img/loading.gif" lazyload alt="如图">   </p>
+<p>第一层的属性确实深拷贝，拥有了独立的内存，但更深的属性却仍然公用了地址，所以才会造成上面的问题。</p>
+<p>同理，concat方法与slice也存在这样的情况，他们都不是真正的深拷贝，这里需要注意。  </p>
+<h4 id="slice-和-concat"><a href="#slice-和-concat" class="headerlink" title="slice 和 concat"></a>slice 和 concat</h4><p>Array 的 slice 和 concat 方法 和 jQuery 中的 extend 复制方法，他们都会复制第一层的值，对于 第一层 的值都是 深拷贝，而到 第二层 的时候 Array 的 slice 和 concat 方法就是 复制引用 ，jQuery 中的 extend 复制方法 则 取决于 你的 第一个参数， 也就是是否进行递归复制。所谓第一层 就是 key 所对应的 value 值是基本数据类型，也就像上面栗子中的name、age，而对于 value 值是引用类型 则为第二层，也就像上面栗子中的 company。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ol>
+<li>JS的基本类型不存在浅拷贝还是深拷贝的问题,深拷贝与浅拷贝的概念只存在于引用类型。</li>
+<li>对于仅仅是复制了引用（地址），换句话说，复制了之后，原来的变量和新的变量指向同一个东西，彼此之间的操作会互相影响，为 浅拷贝。<br>而如果是在堆中重新分配内存，拥有不同的地址，但是值是一样的，复制后的对象与原来的对象是完全隔离，互不影响，为 深拷贝。</li>
+<li>深浅拷贝 的主要区别就是：复制的是引用(地址)还是复制的是实例。</li>
+</ol>
+<h4 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h4><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/echolun/p/7889848.html">博客圆</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/26282765">知乎</a></p>
+
             </div>
             <hr>
             <div>
@@ -284,6 +305,12 @@
                 <div class="post-prevnext">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2021/04/23/Vue%E6%B7%B1%E5%85%A5%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
