@@ -179,19 +179,28 @@
   <div class="row mx-auto index-card">
     
     
-    <article class="col-12 col-md-12 mx-auto index-info">
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2021/04/18/Vue&computed%E8%AE%A1%E7%AE%97%E5%B1%9E%E6%80%A7/" target="_self">
+          <img src="/image/11.PNG" srcset="/img/loading.gif" lazyload alt="Vue&amp;计算属性&amp;计算属性缓存vs方法methods&amp;Vue侦听器">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2021/04/23/Vue%E6%B7%B1%E5%85%A5%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/"></a>
+        <a href="/2021/04/18/Vue&computed%E8%AE%A1%E7%AE%97%E5%B1%9E%E6%80%A7/">Vue&amp;计算属性&amp;计算属性缓存vs方法methods&amp;Vue侦听器</a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2021/04/23/Vue%E6%B7%B1%E5%85%A5%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/">
+        <a href="/2021/04/18/Vue&computed%E8%AE%A1%E7%AE%97%E5%B1%9E%E6%80%A7/">
           
           
             
           
-          
+          前言：插值表达式的语法相当简洁，使用起来也很方便。但是也不免暴露出它的一些缺点，最典型的就是无法进行复杂逻辑运算。所以，Vue才会自带计算属性的功能。
+
+计算属性模板内的表达式非常便利，但是设计它们的初衷是用于简单运算的。在模板中放入太多的逻辑会让模板过重且难以维护。例如：
+123456&lt;div id=&quot;example&quot;&gt;  &#123;&#123; message
         </a>
       </p>
 
@@ -199,12 +208,28 @@
         
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
-            <time datetime="2021-04-23 20:21" pubdate>
-              2021-04-23
+            <time datetime="2021-04-18 20:15" pubdate>
+              2021-04-18
             </time>
           </div>
         
         
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Vue/">Vue</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/">前端基础</a>
+            
+              <a href="/tags/Vue/">Vue</a>
+            
+          </div>
         
       </div>
     </article>
@@ -330,7 +355,7 @@
     
       <div class="col-12 col-md-4 m-auto index-img">
         <a href="/2021/04/17/ES6%E6%A8%A1%E5%9D%97%E5%8C%96/" target="_self">
-          <img src="/image/12.3.PNG" srcset="/img/loading.gif" lazyload alt="ES6-模块化">
+          <img src="/image/9.PNG" srcset="/img/loading.gif" lazyload alt="ES6-模块化">
         </a>
       </div>
     
@@ -471,15 +496,11 @@ Github开源地址： https://github.com/axios/axios
           
             
           
-          
-v-on
-该指令的作用是：为元素绑定事件
-事件名不需要写on
-指令可以简写为@
-绑定的方法定义在methods属性中
-方法内部通过this关键字可以访问定义在data中的数据
+          模板语法Vue.js 使用了基于 HTML 的模板语法，允许开发者声明式地将 DOM 绑定至底层 Vue 实例的数据。所有 Vue.js 的模板都是合法的 HTML，所以能被遵循规范的浏览器和 HTML 解析器解析。
+在底层的实现上，Vue 将模板编译成虚拟 DOM 渲染函数。结合响应系统，Vue 能够智能地计算出最少需要重新渲染多少组件，并把 DOM 操作次数减到最少。
 
-1234567891011121314151617181920212223242526&lt;body&gt;  &lt;div id=&quot;app&quot;&gt;    &lt;input type=&quo
+v-on
+该指令的作用
         </a>
       </p>
 
