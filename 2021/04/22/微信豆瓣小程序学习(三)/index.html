@@ -1,0 +1,659 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/2.jpg">
+  <link rel="icon" href="/img/2.jpg">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="DragonPeng">
+  <meta name="keywords" content="">
+  
+  <title>豆瓣&amp;itemview重构&amp;列表数据渲染成真实数据 - DragonPeng的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>DragonPeng' blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/page1.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="豆瓣&itemview重构&列表数据渲染成真实数据">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-04-22 20:15" pubdate>
+        April 22, 2021 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      25
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">豆瓣&amp;itemview重构&amp;列表数据渲染成真实数据</h1>
+            
+            <div class="markdown-body">
+              <hr>
+<h3 id="电影列表页面布局"><a href="#电影列表页面布局" class="headerlink" title="电影列表页面布局"></a>电影列表页面布局</h3><h4 id="itemview重构"><a href="#itemview重构" class="headerlink" title="itemview重构"></a>itemview重构</h4><p>分析：首页和更多页面的布局基本一样，所以我们可以将首页布局代码拿过来直接用         </p>
+<p>(我们在代码的时候发现有些东西是重复的，我们可以将代码单独抽取出来，然后再哪个地方需要使用的时候再引用，这样相当于对代码进行了重构，方便后期对代码进行管理)</p>
+<p><img src="/image/17.1.png" srcset="/img/loading.gif" lazyload alt="首页代码"></p>
+<ol>
+<li>首页代码在indexmodul组件中，所以我们去该组价中再进行代码优化</li>
+</ol>
+<ol start="2">
+<li><p>在components中新建一个itemview组件</p>
+</li>
+<li><p>将indexmodule.wxml中的代码剪切到itemview.wxml中</p>
+</li>
+</ol>
+<p>navigator也可以拿过去，因为后期我们点击一个电影也会跳转到详情页面中</p>
+<p><img src="/image/17.2.png" srcset="/img/loading.gif" lazyload alt="itemview.wxml"></p>
+<ol start="4">
+<li>将样式代码页抽取到itemview.wxss中</li>
+</ol>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs css"> <span class="hljs-selector-class">.item-navigator</span>&#123;<br>  <span class="hljs-attribute">width</span>:<span class="hljs-number">200</span>rpx;<br>  <span class="hljs-attribute">margin-right</span>: <span class="hljs-number">20</span>rpx;<br>  <span class="hljs-attribute">display</span>: inline-block;<br>&#125;<br><br><span class="hljs-selector-class">.item-navigator</span>  <span class="hljs-selector-class">.item-group</span>&#123;<br>  <span class="hljs-attribute">width</span>: <span class="hljs-number">100px</span>;<br>&#125;<br><span class="hljs-selector-class">.item-group</span> <span class="hljs-selector-class">.thumbnail-group</span>&#123;<br>  <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;<br>  <span class="hljs-attribute">height</span>: <span class="hljs-number">284</span>rpx;<br>&#125;<br><span class="hljs-selector-class">.thumbnail-group</span> <span class="hljs-selector-class">.thumbnail</span>&#123;<br>  <span class="hljs-attribute">width</span>: <span class="hljs-number">100px</span>;<br>  <span class="hljs-attribute">height</span>: <span class="hljs-number">100%</span>;<br>&#125;<br><span class="hljs-selector-class">.item-group</span> <span class="hljs-selector-class">.item-title</span>&#123;<br>  <span class="hljs-attribute">font-size</span>: <span class="hljs-number">28</span>rpx;<br>  <span class="hljs-attribute">text-align</span>: center;<br>  <span class="hljs-attribute">margin-top</span>: <span class="hljs-number">20</span>rpx;<br>  <span class="hljs-comment">/* 文本过长处理 */</span><br>  <span class="hljs-attribute">text-overflow</span>:ellipsis;<br>  <span class="hljs-attribute">overflow</span>: hidden;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<ol start="5">
+<li>展示items，应该要传一个items属性过来</li>
+</ol>
+<p><img src="/image/17.3.png" srcset="/img/loading.gif" lazyload alt="问题"></p>
+<p>解决： 在itemsview.js文件中</p>
+<p><img src="/image/17.4.png" srcset="/img/loading.gif" lazyload alt="属性"></p>
+<ol start="6">
+<li>注册组件</li>
+</ol>
+<p><img src="/image/17.5.png" srcset="/img/loading.gif" lazyload alt="注册组件"></p>
+<ol start="7">
+<li>使用组件</li>
+</ol>
+<p><img src="/image/17.6.png" srcset="/img/loading.gif" lazyload alt="使用组件"></p>
+<ol start="8">
+<li>问题</li>
+</ol>
+<p>右边距没有了</p>
+<p><img src="/image/17.7.png" srcset="/img/loading.gif" lazyload alt="问题"></p>
+<p>解决：我们把itemview单独放在一个当中使用了，所以item-navigator只有一个则last-of-type就是它本身<br>将该代码删除就可以了</p>
+<p><img src="/image/17.8.png" srcset="/img/loading.gif" lazyload alt="解决"></p>
+<ol start="9">
+<li>此时星星组件不见了，将星星组件放到itemview.json文件中使用</li>
+</ol>
+<p><img src="/image/17.9.png" srcset="/img/loading.gif" lazyload alt="解决"></p>
+<p>以上操作方便了我们后期布局</p>
+<h4 id="创建列表页"><a href="#创建列表页" class="headerlink" title="创建列表页"></a>创建列表页</h4><ol>
+<li>创建列表页面</li>
+</ol>
+<p>在app.json中添加该行代码保存就会自动创建页面</p>
+<p><img src="/image/17.10.png" srcset="/img/loading.gif" lazyload alt="创建页面"></p>
+<ol start="2">
+<li><p>分析：电影，电视剧，综艺三个列表页面都是相同的样式，唯独不一样的是数据，所以我们完全没有必要为这三个弄三个单独的页面。我们完全可以使用同一个页面，后期我们传不同的参数过去，告诉它我现在要获取电影，电视剧，综艺.这样可以达到重用。</p>
+</li>
+<li><p>列表页入口</p>
+</li>
+</ol>
+<p>应该有一个入口可以来到列表页–更多</p>
+<p>在首页添加url</p>
+<p><img src="/image/17.11.png" srcset="/img/loading.gif" lazyload alt="moreurl"></p>
+<ol start="4">
+<li>列表页搜索栏<br>列表页也应该有搜索栏,将之前的searchbar组件拿过来使用</li>
+</ol>
+<p>注册list.json</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs json">&#123;<br>  <span class="hljs-attr">&quot;usingComponents&quot;</span>: &#123;<br>    <span class="hljs-attr">&quot;searchbar&quot;</span>:<span class="hljs-string">&quot;/components/searchbar/searchbar&quot;</span><br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>使用 list.wxml</p>
+<figure class="highlight handlebars"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs handlebars"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">searchbar</span>  <span class="hljs-attr">isnavigator</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-template-variable">&#123;&#123;<span class="hljs-name">true</span>&#125;&#125;</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">searchbar</span>&gt;</span></span><br></code></pre></td></tr></table></figure>
+
+<p>这时候列表页出现了搜索栏</p>
+<ol start="5">
+<li>电影排列–flex布局</li>
+</ol>
+<figure class="highlight handlebars"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs handlebars"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">view</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;container&quot;</span>&gt;</span></span><br><span class="xml">  <span class="hljs-tag">&lt;<span class="hljs-name">itemview</span>  <span class="hljs-attr">wx:for</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-template-variable">&#123;&#123;<span class="hljs-name">items</span>&#125;&#125;</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span>  <span class="hljs-attr">wx:key</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-template-variable">&#123;&#123;<span class="hljs-name">item.title</span>&#125;&#125;</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span>  <span class="hljs-attr">item</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-template-variable">&#123;&#123;<span class="hljs-name">item</span>&#125;&#125;</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">itemview</span>&gt;</span></span><br><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">view</span>&gt;</span></span><br></code></pre></td></tr></table></figure>
+<p>由于.container在app.wxss中存在，这里我们将app.wxss代码删除掉</p>
+<ol start="6">
+<li>电影数据获取</li>
+</ol>
+<p>在list.js的onLoad函数中调用电影列表数据</p>
+<ul>
+<li>导入network.js</li>
+</ul>
+<figure class="highlight capnproto"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs capnproto"><span class="hljs-keyword">import</span> &#123;network&#125;  <span class="hljs-keyword">from</span>  <span class="hljs-string">&quot;../../utils/network.js&quot;</span>;<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><p>请求数据</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs actionscript">onLoad: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(options)</span> </span>&#123;<br>    <span class="hljs-keyword">var</span>  that= <span class="hljs-keyword">this</span>;<br>          <span class="hljs-comment">// 请求的电影数据</span><br>      network.getMovieList(&#123;<br>        success:<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(items)</span></span>&#123;<br>          that.setData(&#123;<br>            items: items<br>          &#125;);    <br>        &#125;&#125;<br></code></pre></td></tr></table></figure></li>
+<li><p>css样式</p>
+</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-class">.container</span>&#123;<br>  <span class="hljs-attribute">display</span>: flex;<br>  <span class="hljs-attribute">justify-content</span>: space-between;<br>  <span class="hljs-attribute">flex-wrap</span>: wrap;<br>  <span class="hljs-attribute">padding</span>: <span class="hljs-number">30</span>rpx;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+<h3 id="列表数据渲染成真实数据"><a href="#列表数据渲染成真实数据" class="headerlink" title="列表数据渲染成真实数据"></a>列表数据渲染成真实数据</h3><ol>
+<li>分析：电影，电视剧，综艺用的都是list页面中的，这时候我们要怎么去区分它呢？</li>
+</ol>
+<p>我们可以在首页index中传一个参数过去，当点击更多的时候，我们list页面得到这个参数就可以根据参数发送不同的请求</p>
+<p>传递参数</p>
+<p><img src="/image/17.12.png" srcset="/img/loading.gif" lazyload alt="type"></p>
+<p>list.js中接收参数</p>
+<p><img src="/image/17.13.png" srcset="/img/loading.gif" lazyload alt="接收"></p>
+<ol start="2">
+<li>怎么能够获取所有正在热映的电影，电视剧，综艺？</li>
+</ol>
+<p>分析：我们在首页中就已经写过网络请求的代码，不过我们写的count=7,我们现在要获取所有的数据，之前的代码也可以重用。</p>
+<figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs lasso"> wx.request(&#123;<br>   <span class="hljs-comment">//  豆瓣电影接口</span><br>    url: globalurls.movieList,<br>    <span class="hljs-built_in">data</span>:&#123;<br>      count:count<br>     &#125;,<br>    success:function(res)&#123;<br>     <span class="hljs-comment">// console.log(res)</span><br>      <span class="hljs-built_in">var</span>   movies = res.<span class="hljs-built_in">data</span>.subjects;<br>       <span class="hljs-keyword">if</span>(<span class="hljs-keyword">params</span> &amp;&amp; <span class="hljs-keyword">params</span>.success)&#123;<br>         <span class="hljs-keyword">params</span>.success(movies)<br>       &#125;<br>    &#125;<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<p>解决：将network.js文件进行重构<br>我们network.js 文件在list文件中也用的到，所以放在全局文件中比较合适，可以放在utils中。网络请求代码不是很多，所以我们这里放在一个文件中是可以的。</p>
+<ol start="3">
+<li>在utils中新建一个network.js文件</li>
+</ol>
+<p>将原来的network.js文件代码拷贝过来，原来文件可以删除了</p>
+<p>此时将所有相关引用路径更改</p>
+<p>network.js代码</p>
+<figure class="highlight sqf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><code class="hljs sqf">import  &#123;globalurls&#125;  <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;urls.js&quot;</span><br><br>const  network=&#123;<br>  <br>getMovieList:function(<span class="hljs-built_in">params</span>)&#123;<br><span class="hljs-built_in">params</span>.<span class="hljs-built_in">type</span>= <span class="hljs-string">&quot;movie&quot;</span>;<br>this.getItemList(<span class="hljs-built_in">params</span>);<br>&#125;,<br>getTVList:function(<span class="hljs-built_in">params</span>)&#123;<br>    <span class="hljs-built_in">params</span>.<span class="hljs-built_in">type</span>= <span class="hljs-string">&quot;tv&quot;</span>;<br>    this.getItemList(<span class="hljs-built_in">params</span>);<br>     &#125; ,<br>getShowList: function(<span class="hljs-built_in">params</span>)&#123;<br>    <span class="hljs-built_in">params</span>.<span class="hljs-built_in">type</span>= <span class="hljs-string">&quot;show&quot;</span>;<br>    this.getItemList(<span class="hljs-built_in">params</span>);<br>&#125;,<br><br><br><span class="hljs-comment">// 获取item列表 params获取传递参数type</span><br>getItemList:function(<span class="hljs-built_in">params</span>)&#123;<br>  <span class="hljs-comment">// 获取不同url</span><br>  var  url=<span class="hljs-string">&quot;&quot;</span>;<br>  <span class="hljs-keyword">if</span>(<span class="hljs-built_in">params</span>.<span class="hljs-built_in">type</span> === <span class="hljs-string">&quot;movie&quot;</span>)&#123;<br>    url= globalurls.movieList;<br>  &#125;<span class="hljs-keyword">else</span>  <span class="hljs-keyword">if</span>(<span class="hljs-built_in">params</span>.<span class="hljs-built_in">type</span>===<span class="hljs-string">&quot;tv&quot;</span>)&#123;<br>    url = globalurls.tvList;<br>  &#125;<span class="hljs-keyword">else</span>&#123;<br>    url= globalurls.showList;<br>  &#125;<br>  var <span class="hljs-built_in">count</span> = <span class="hljs-built_in">params</span>.<span class="hljs-built_in">count</span> ? <span class="hljs-built_in">params</span>.<span class="hljs-built_in">count</span> : <span class="hljs-number">7</span>;<br>  wx.request(&#123;<br>    <span class="hljs-comment">//  豆瓣电影接口</span><br>     url: url,<br>     data:&#123;<br>       <span class="hljs-built_in">count</span>:<span class="hljs-built_in">count</span><br>     &#125;,<br>     success:function(res)&#123;<br>    <span class="hljs-comment">// item代表所有的项</span><br>       var   <span class="hljs-built_in">items</span> =res.data.subject_collection_items;<br>       var  itemsCount = <span class="hljs-built_in">items</span>.length;<br>       var  left = itemsCount%<span class="hljs-number">3</span>;<br>       <span class="hljs-keyword">if</span>(left===<span class="hljs-number">2</span>)&#123;<br>         <span class="hljs-built_in">items</span>.push(null);<br>       &#125;<br>       <span class="hljs-keyword">if</span>(<span class="hljs-built_in">params</span> &amp;&amp; <span class="hljs-built_in">params</span>.success)&#123;<br>        <span class="hljs-comment">//  将items传出</span><br>        <span class="hljs-built_in">params</span>.success( <span class="hljs-built_in">items</span>)<br>      &#125;<br>     &#125;,<br> &#125;);<br>&#125;<br>&#125;<br><br>export  &#123;network&#125;<br></code></pre></td></tr></table></figure>
+
+
+<ol start="4">
+<li>在list.js中请求网络</li>
+</ol>
+<p>修改引入路径<br>import {network}  from  “../../utils/network.js”;</p>
+<p>list.js代码</p>
+<figure class="highlight sqf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><code class="hljs sqf">onLoad: function (options) &#123;<br>   var  that= this;<br>   var  <span class="hljs-built_in">type</span> = options.<span class="hljs-built_in">type</span>;<br>   var  title =<span class="hljs-string">&quot;&quot;</span>;<br>   <span class="hljs-comment">// 数据加载前</span><br>   wx.showLoading(&#123;<br>     title: <span class="hljs-string">&#x27;正在加载中...&#x27;</span>,<br>   &#125;)<br>   <span class="hljs-keyword">if</span>(<span class="hljs-built_in">type</span> === <span class="hljs-string">&quot;movie&quot;</span>)&#123;<br>     <span class="hljs-comment">// 请求的电影数据</span><br>     network.getMovieList(&#123;<br>       success:function(<span class="hljs-built_in">items</span>)&#123;<br>         that.setData(&#123;<br>           <span class="hljs-built_in">items</span>: <span class="hljs-built_in">items</span><br>         &#125;);<br>         <span class="hljs-comment">// 数据加载完成</span><br>           wx.hideLoading();<br>       &#125;,<br>       <span class="hljs-comment">// 确保获取到所有数据</span><br>             <span class="hljs-built_in">count</span>:<span class="hljs-number">1000</span><br>     &#125;)<br>    title= <span class="hljs-string">&quot;电影&quot;</span><br>   &#125;<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(<span class="hljs-built_in">type</span>=== <span class="hljs-string">&quot;tv&quot;</span>)&#123;<br>     <span class="hljs-comment">// 请求电视剧的数据</span><br>     network.getTVList(&#123;<br>       success:function(<span class="hljs-built_in">items</span>)&#123;<br>         that.setData(&#123;<br>           <span class="hljs-built_in">items</span>: <span class="hljs-built_in">items</span><br>         &#125;);<br>         wx.hideLoading();<br>       &#125;,<br>       <span class="hljs-built_in">count</span>:<span class="hljs-number">1000</span><br>     &#125;);<br>     title = <span class="hljs-string">&quot;电视剧&quot;</span><br>   &#125;<span class="hljs-keyword">else</span>  &#123;<br>     <span class="hljs-comment">//请求综艺的数据</span><br>     network.getShowList(&#123;<br>       success:function(<span class="hljs-built_in">items</span>)&#123;<br>         that.setData(&#123;<br>           <span class="hljs-built_in">items</span>: <span class="hljs-built_in">items</span><br>         &#125;);<br>         wx.hideLoading();<br>       &#125;,<br>       <span class="hljs-built_in">count</span>:<span class="hljs-number">1000</span><br>     &#125;);<br>     title=<span class="hljs-string">&quot;综艺&quot;</span>;<br>   &#125;<br>   wx.setNavigationBarTitle(&#123;<br>     title:title,<br>   &#125;)<br> &#125;<br></code></pre></td></tr></table></figure>
+
+<p>问题：发现页面不显示但是也没有报错，说明数据获取了但是没有渲染</p>
+<p>问题：将原来的movies修改为items</p>
+<p><img src="/image/17.14.png" srcset="/img/loading.gif" lazyload alt="问题"></p>
+<ol start="5">
+<li>优化</li>
+</ol>
+<p>当点击更多之后(电影，电视剧，综艺)三个上方均显示为豆瓣评分，这时候我们需要考虑到用户体验，将上面的数据进行修改。</p>
+<p><img src="/image/17.15.png" srcset="/img/loading.gif" lazyload alt="优化"></p>
+<p>解决：在list.js文件中</p>
+<p>微信的函数设置</p>
+<figure class="highlight gauss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs gauss">wx.setNavigationBarTitle(&#123;<br>  <span class="hljs-built_in">title</span>:<span class="hljs-built_in">title</span>,<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<p>函数上面定义一个title</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">var  title</span> =<span class="hljs-string">&quot;&quot;</span>;<br></code></pre></td></tr></table></figure>
+
+<p><img src="/image/17.16.png" srcset="/img/loading.gif" lazyload alt="根据请求数据改变title"></p>
+<h4 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h4><ol>
+<li>如果底部剩余两个item就会出现一下情况，因为是flex布局</li>
+</ol>
+<p><img src="/image/17.17.png" srcset="/img/loading.gif" lazyload alt="左右各一个,中间空"></p>
+<ol start="2">
+<li>分析：</li>
+</ol>
+<ul>
+<li>在主轴上的那布局排列总共有5中</li>
+<li>1从左到右排列，最下面的可以但是上面的可能排列就不那么好看了，因为它的中间的间距你不好掌握</li>
+<li>2中间间距相等的方式也不这么好，页面排列也不那么好看</li>
+</ul>
+<p>什么时候会产生这个问题，就是底部余2个，余1余活3个都不会产生</p>
+<p>解决：这时候我们要迎合flex布局方式，在数据渲染的时候判断数据对3取余是不是等于2</p>
+<p>当然我们还要对index页面进行分析，因为index页面也调用了network.js,因为首页是得到了7个数据，对3取余为1，所以对network.js处理是不会对页面有影响的。</p>
+<p>代码解决network.js</p>
+<p>如果余2就添加一个空的数据</p>
+<figure class="highlight excel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs excel"><span class="hljs-built_in">var</span>  itemsCount = items.length;<br><span class="hljs-built_in">var</span>  <span class="hljs-built_in">left</span> = itemsCount%<span class="hljs-number">3</span>;<br><span class="hljs-built_in">if</span>(<span class="hljs-built_in">left</span>===<span class="hljs-number">2</span>)&#123;<br>  items.push(null);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>新问题：出现一个未评分</p>
+<p><img src="/image/17.18.png" srcset="/img/loading.gif" lazyload alt="新问题"></p>
+<p>解决：在itemview中判断是否传入值</p>
+<p><img src="/image/17.19.png" srcset="/img/loading.gif" lazyload alt="item解决"></p>
+<ol start="3">
+<li>页面加载优化</li>
+</ol>
+<p>数据加载需要时间，如果长时间没有加载出来，用户体验会不好，会损失用户。</p>
+<p>处理：调用小程序Api实现，</p>
+<p><img src="/image/17.20.png" srcset="/img/loading.gif" lazyload alt="三个同时作用"></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/WX/">WX</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/">前端基础</a>
+                    
+                      <a class="hover-with-bg" href="/tags/WX/">WX</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/04/23/%E5%BE%AE%E4%BF%A1%E8%B1%86%E7%93%A3%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%AD%A6%E4%B9%A0(%E5%9B%9B)/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">豆瓣&</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/04/21/%E5%BE%AE%E4%BF%A1%E8%B1%86%E7%93%A3%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%AD%A6%E4%B9%A0(%E4%BA%8C)/">
+                        <span class="hidden-mobile">豆瓣&首页布局和数据获取&首页模块重构&网络请求模块重构</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
