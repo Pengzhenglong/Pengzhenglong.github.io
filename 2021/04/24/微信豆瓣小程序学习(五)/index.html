@@ -1,0 +1,648 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/2.jpg">
+  <link rel="icon" href="/img/2.jpg">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="DragonPeng">
+  <meta name="keywords" content="">
+  
+  <title>豆瓣&amp;评论列表页实现 - DragonPeng的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>DragonPeng' blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/page1.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="豆瓣&评论列表页实现">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-04-24 20:15" pubdate>
+        April 24, 2021 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.7k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      27
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">豆瓣&amp;评论列表页实现</h1>
+            
+            <div class="markdown-body">
+              <hr>
+<h2 id="评论列表页实现"><a href="#评论列表页实现" class="headerlink" title="评论列表页实现"></a>评论列表页实现</h2><p><img src="/image/19.png" srcset="/img/loading.gif" lazyload alt="实现点击该页面跳转后"></p>
+<h3 id="完成布局和样式"><a href="#完成布局和样式" class="headerlink" title="完成布局和样式"></a>完成布局和样式</h3><ol>
+<li>先创建comment页面app.json中</li>
+</ol>
+<p>可以将该页面放在第一位,这样方便后面调试页面在第一页</p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs 1c"><span class="hljs-string">&quot;pages/comment/comment&quot;</span>,<br></code></pre></td></tr></table></figure>
+
+<p>ctrl+s保存后生成页面</p>
+<ol start="2">
+<li>comment.wxml代码</li>
+</ol>
+<figure class="highlight handlebars"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs handlebars"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">view</span>  <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;container&quot;</span>&gt;</span></span><br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">view</span>  <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;item-group&quot;</span></span></span><br><span class="xml">bindtap=&quot;onItemTapEvent&quot;&gt;</span><br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">image</span>    <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;thumbnail&quot;</span>  <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-template-variable">&#123;&#123;<span class="hljs-name">thumbnail</span>&#125;&#125;</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">image</span>&gt;</span></span><br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">text</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;item-title&quot;</span>&gt;</span></span><span class="hljs-template-variable">&#123;&#123;<span class="hljs-name">title</span>&#125;&#125;</span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">text</span>&gt;</span></span><br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">text</span>   <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;item-rate&quot;</span>&gt;</span></span><span class="hljs-template-variable">&#123;&#123;<span class="hljs-name">rate</span>&#125;&#125;</span><span class="xml">分<span class="hljs-tag">&lt;/<span class="hljs-name">text</span>&gt;</span></span><br><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">view</span>&gt;</span></span><br><br></code></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>comment.wxss样式</li>
+</ol>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-class">.container</span>&#123;<br>  <span class="hljs-attribute">padding</span>:<span class="hljs-number">20</span>rpx  <span class="hljs-number">30</span>rpx;<br>&#125;<br><br><span class="hljs-selector-class">.item-group</span>&#123;<br>  <span class="hljs-attribute">display</span>: flex;<br>  <span class="hljs-attribute">justify-content</span>: flex-start;<br>  <span class="hljs-attribute">align-items</span>: center;<br>&#125;<br><br><span class="hljs-selector-class">.item-group</span> <span class="hljs-selector-class">.thumbnail</span>&#123;<br>  <span class="hljs-attribute">width</span>: <span class="hljs-number">40</span>rpx;<br>  <span class="hljs-attribute">height</span>: <span class="hljs-number">50</span>rpx;<br>  <span class="hljs-attribute">margin-left</span>: <span class="hljs-number">10</span>rpx;<br>  <span class="hljs-attribute">margin-right</span>: <span class="hljs-number">10</span>rpx;<br>&#125;<br><br><span class="hljs-selector-class">.item-group</span>  <span class="hljs-selector-class">.item-title</span>&#123;<br>  <span class="hljs-attribute">font-size</span>: <span class="hljs-number">32</span>rpx;<br>  <span class="hljs-attribute">color</span> : <span class="hljs-number">#41be57</span>;<br>  <span class="hljs-attribute">margin-left</span>: <span class="hljs-number">10</span>rpx;<br>  <span class="hljs-attribute">margin-right</span>: <span class="hljs-number">10</span>rpx;<br>&#125;<br><br><span class="hljs-selector-class">.item-group</span>  <span class="hljs-selector-class">.item-rate</span>&#123;<br>    <span class="hljs-attribute">font-size</span>: <span class="hljs-number">28</span>rpx;<br>    <span class="hljs-attribute">color</span>: <span class="hljs-number">#ccc</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>完成后效果</p>
+<p><img src="/image/19.1.png" srcset="/img/loading.gif" lazyload alt="样式"></p>
+<ol start="4">
+<li>将comment页面降级，实现跳转功能</li>
+</ol>
+<p>app.json</p>
+<figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs n1ql">&quot;pages/<span class="hljs-keyword">index</span>/<span class="hljs-keyword">index</span><span class="hljs-string">&quot;,</span><br><span class="hljs-string">&quot;</span>pages/comment/comment<span class="hljs-string">&quot;,</span><br></code></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>detail.wxml中实现跳转url</li>
+</ol>
+<p>url 中接收了从上一页传递到下一页的一些参数?后面的</p>
+<figure class="highlight handlebars"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs handlebars"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">navigator</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;more-comment&quot;</span> </span></span><br><span class="xml">url=&quot;/pages/comment/comment?id=</span><span class="hljs-template-variable">&#123;&#123;<span class="hljs-name">id</span>&#125;&#125;</span><span class="xml">&amp;type=</span><span class="hljs-template-variable">&#123;&#123;<span class="hljs-name">type</span>&#125;&#125;</span><span class="xml">&amp;thumbnail=</span><span class="hljs-template-variable">&#123;&#123;<span class="hljs-name">item.cover.image.small.url</span>&#125;&#125;</span><span class="xml">&amp;title=</span><span class="hljs-template-variable">&#123;&#123;<span class="hljs-name">item.title</span>&#125;&#125;</span><span class="xml">&amp;rate=</span><span class="hljs-template-variable">&#123;&#123;<span class="hljs-name">item.rating.value</span>&#125;&#125;</span><span class="xml">&quot; &gt;查看更多短评<span class="hljs-tag">&lt;/<span class="hljs-name">navigator</span>&gt;</span></span><br><br></code></pre></td></tr></table></figure>
+
+<p>此时我们在comment.js中打印一下数据</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">onLoad: <span class="hljs-keyword">function</span> (<span class="hljs-keyword">options</span>) &#123;<br>  console.log(<span class="hljs-keyword">options</span>)<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>问题：没有打印id和type</p>
+<p><img src="/image/19.2.png" srcset="/img/loading.gif" lazyload alt="问题"></p>
+<p>解决：detail.js中虽然获取到了type和id，但是没有保存</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python">that.setData(&#123;<br><span class="hljs-built_in">id</span>:<span class="hljs-built_in">id</span>,<br><span class="hljs-built_in">type</span>:<span class="hljs-built_in">type</span><br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<ol start="6">
+<li>comment.js中保存数据</li>
+</ol>
+<figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs livescript">onLoad: <span class="hljs-keyword">function</span> (options) &#123;<br>   <span class="hljs-keyword">var</span>  <span class="hljs-literal">that</span>=<span class="hljs-built_in">this</span>;<br>   <span class="hljs-literal">that</span>.setData(options);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+<ol start="7">
+<li>渲染数据</li>
+</ol>
+<p>修改以下数据，从url中获取的参数，渲染到页面，会根据点击实现数据的改变</p>
+<p><img src="/image/19.3.png" srcset="/img/loading.gif" lazyload alt="修改"></p>
+<h3 id="点击完成页面跳转"><a href="#点击完成页面跳转" class="headerlink" title="点击完成页面跳转"></a>点击完成页面跳转</h3><ol>
+<li>能够点击头像完成上一页的跳转</li>
+</ol>
+<p><img src="/image/19.4.png" srcset="/img/loading.gif" lazyload alt="能够点击跳转"></p>
+<p>分析：能够通过rul或js实现</p>
+<ol start="2">
+<li>这里我们通过js实现,绑定一个点击事件</li>
+</ol>
+<p><img src="/image/19.5.png" srcset="/img/loading.gif" lazyload alt="绑定一个点击事件"></p>
+<ol start="3">
+<li>comment.js函数实现</li>
+</ol>
+<p>这里我们调用的是微信的Api,返回到上一页</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs css">onItemTapEvent:<span class="hljs-built_in">function</span>(event)&#123;<br>  wx.<span class="hljs-built_in">navigateBack</span>(&#123;&#125;)<br>&#125;,<br><br></code></pre></td></tr></table></figure>
+
+<p>问题，这里返回到的是上一页的最下面，不是很好</p>
+<p>解决： 在detail界面中加上一个滚动事件，一旦页面show出来了，就展示在最上面</p>
+<p>detail.js</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs actionscript"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 生命周期函数--监听页面显示</span><br><span class="hljs-comment"> */</span><br>onShow: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>&#123;<br>    wx.pageScrollTo(&#123;<br>      scrollTop:<span class="hljs-number">0</span>,<br>    &#125;)<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>问题解决。</p>
+<h3 id="加载评论数据"><a href="#加载评论数据" class="headerlink" title="加载评论数据"></a>加载评论数据</h3><ol>
+<li><p>分析，影评和上面的标题的左右间距都一样，所以可以将它放在.container中</p>
+</li>
+<li><p>wxml代码</p>
+</li>
+</ol>
+<figure class="highlight handlebars"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs handlebars"><span class="xml"><span class="hljs-comment">&lt;!-- 影评 --&gt;</span></span><br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">view</span>  <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;comment-title&quot;</span>&gt;</span>全部影评(</span><span class="hljs-template-variable">&#123;&#123;<span class="hljs-name">total</span>&#125;&#125;</span><span class="xml">)<span class="hljs-tag">&lt;/<span class="hljs-name">view</span>&gt;</span></span><br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">onecomment</span> <span class="hljs-attr">wx:for</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-template-variable">&#123;&#123;<span class="hljs-name">comments</span>&#125;&#125;</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span> <span class="hljs-attr">item</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-template-variable">&#123;&#123;<span class="hljs-name">item</span>&#125;&#125;</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span> &gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">onecomment</span>&gt;</span></span><br></code></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>wxss代码</li>
+</ol>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-class">.comment-title</span>&#123;<br>  <span class="hljs-attribute">margin-top</span>: <span class="hljs-number">60</span>rpx;<br>  <span class="hljs-attribute">font-size</span>: <span class="hljs-number">40</span>rpx;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="评论列表页面抽取注册成组件"><a href="#评论列表页面抽取注册成组件" class="headerlink" title="评论列表页面抽取注册成组件"></a>评论列表页面抽取注册成组件</h3><p><img src="/image/19.6.png" srcset="/img/loading.gif" lazyload alt="分析"></p>
+<p>评论的样式和布局之前已经在详情页中已经做了，我们在这里没有必要再写一遍，我们可以将之前评论的样式和布局单独抽取出来，做成一个组件，然后直接使用组件，非常方便。</p>
+<ol>
+<li><p>创建一个onecomment组件</p>
+</li>
+<li><p>将detail中的comment代码剪切到onecomment中</p>
+</li>
+</ol>
+<p><img src="/image/19.7.png" srcset="/img/loading.gif" lazyload alt="代码"></p>
+<ol start="3">
+<li>将css代码剪切到onecomment中</li>
+</ol>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-comment">/* 左边固定，右边内容适配 */</span><br> <span class="hljs-selector-class">.comment-group</span>&#123;<br>  <span class="hljs-attribute">display</span>: flex;<br>  <span class="hljs-attribute">justify-content</span>: flex-start;<br>  <span class="hljs-attribute">padding-top</span>: <span class="hljs-number">40</span>rpx;<br>&#125;<br><span class="hljs-selector-class">.comment-group</span> <span class="hljs-selector-class">.left-comment</span>&#123;<br>  <span class="hljs-attribute">width</span>: <span class="hljs-number">70</span>rpx;<br>  <span class="hljs-attribute">margin-right</span>: <span class="hljs-number">20</span>rpx;<br>&#125;<br><span class="hljs-selector-class">.left-comment</span>  <span class="hljs-selector-class">.avatar</span>&#123;<br>  <span class="hljs-attribute">width</span>: <span class="hljs-number">70</span>rpx;<br>  <span class="hljs-attribute">height</span>: <span class="hljs-number">70</span>rpx;<br>  <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">50%</span>;<br>&#125;<br><span class="hljs-selector-class">.comment-group</span>  <span class="hljs-selector-class">.right-comment</span>&#123;<br>  <span class="hljs-attribute">flex</span>:<span class="hljs-number">1</span>;<br>&#125;<br><span class="hljs-selector-class">.right-comment</span>   <span class="hljs-selector-class">.username-rate</span>&#123;<br>  <span class="hljs-attribute">display</span>: flex;<br>  <span class="hljs-attribute">justify-content</span>: flex-start;<br>  <span class="hljs-attribute">align-items</span>: center;<br>&#125;<br><span class="hljs-selector-class">.username-rate</span> <span class="hljs-selector-class">.username</span>&#123;<br>  <span class="hljs-attribute">font-size</span>: <span class="hljs-number">36</span>rpx;<br>  <span class="hljs-attribute">margin-right</span>: <span class="hljs-number">20</span>rpx;<br>&#125;<br><span class="hljs-selector-class">.release-time</span>&#123;<br>  <span class="hljs-attribute">color</span>: <span class="hljs-number">#b3b3b3</span>;<br>  <span class="hljs-attribute">font-size</span>: <span class="hljs-number">32</span>rpx;<br>  <span class="hljs-attribute">margin-top</span>: <span class="hljs-number">10</span>rpx;<br>&#125;<br><span class="hljs-selector-class">.content</span>&#123;<br>  <span class="hljs-attribute">font-size</span>: <span class="hljs-number">32</span>rpx;<br>  <span class="hljs-attribute">color</span>: <span class="hljs-number">#353535</span>;<br>  <span class="hljs-attribute">margin-top</span>:<span class="hljs-number">10</span>rpx;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>再onecomment中设置一个属性，这样我们可以使用使数据显示</li>
+</ol>
+<p>onecomment.js</p>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs dts"><span class="hljs-symbol">properties:</span> &#123;<br><span class="hljs-symbol">      item:</span>&#123;<br><span class="hljs-symbol">        type:</span>Object,<br><span class="hljs-symbol">        value:</span>&#123;&#125;<br>      &#125;<br>&#125;,<br></code></pre></td></tr></table></figure>
+
+<p>onecomment.wxml代码</p>
+<figure class="highlight handlebars"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs handlebars"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">view</span>  <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;comment-group&quot;</span> &gt;</span></span><br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">view</span>  <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;left-comment&quot;</span>&gt;</span></span><br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">image</span>  <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;avatar&quot;</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-template-variable">&#123;&#123;<span class="hljs-name">item.user.avatar</span>&#125;&#125;</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">image</span>&gt;</span></span><br><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">view</span>&gt;</span></span><br><span class="xml"> <span class="hljs-tag">&lt;<span class="hljs-name">view</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;right-comment&quot;</span>&gt;</span></span><br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">view</span>  <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;username-rate&quot;</span>&gt;</span></span><br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">view</span>  <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;username&quot;</span>&gt;</span></span><span class="hljs-template-variable">&#123;&#123;<span class="hljs-name">item.user.name</span>&#125;&#125;</span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">view</span>&gt;</span></span><br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">stars</span>  <span class="hljs-attr">rate</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-template-variable">&#123;&#123;<span class="hljs-name">item.rating.value</span>*<span class="hljs-number">2</span>&#125;&#125;</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span> <span class="hljs-attr">starsize</span>=<span class="hljs-string">&quot;30&quot;</span> <span class="hljs-attr">istext</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-template-variable">&#123;&#123;<span class="hljs-name">false</span>&#125;&#125;</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span> &gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">stars</span>&gt;</span></span><br><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">view</span>&gt;</span></span><br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">view</span>  <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;release-time&quot;</span>&gt;</span></span><span class="hljs-template-variable">&#123;&#123;<span class="hljs-name">item.create_time</span>&#125;&#125;</span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">view</span>&gt;</span></span><br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">view</span>  <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;content&quot;</span>&gt;</span></span><span class="hljs-template-variable">&#123;&#123;<span class="hljs-name">item.comment</span>&#125;&#125;</span><br><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">view</span>&gt;</span></span><br><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">view</span>&gt;</span></span><br><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">view</span>&gt;</span></span><br></code></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>detail中使用先注册组件</li>
+</ol>
+<p>detail.json</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs json">&#123;<br>  <span class="hljs-attr">&quot;usingComponents&quot;</span>: &#123;<br>    <span class="hljs-attr">&quot;stars&quot;</span>:<span class="hljs-string">&quot;/components/stars/stars&quot;</span>,<br>    <span class="hljs-attr">&quot;onecomment&quot;</span>:<span class="hljs-string">&quot;/components/onecomment/onecomment&quot;</span><br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>detail.wxml中使用</p>
+<figure class="highlight handlebars"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs handlebars"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">onecomment</span>  <span class="hljs-attr">wx:for</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-template-variable">&#123;&#123;<span class="hljs-name">comments</span>&#125;&#125;</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span> <span class="hljs-attr">item</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-template-variable">&#123;&#123;<span class="hljs-name">item</span>&#125;&#125;</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span> &gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">onecomment</span>&gt;</span></span><br></code></pre></td></tr></table></figure>
+
+<p>其他样式和之前一样，但是出现了问题：星星样式没了</p>
+<p>解决：再onecomment中注册stars组件</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs json">&#123;<br>  <span class="hljs-attr">&quot;component&quot;</span>: <span class="hljs-literal">true</span>,<br>  <span class="hljs-attr">&quot;usingComponents&quot;</span>: &#123;<br>    <span class="hljs-attr">&quot;stars&quot;</span>:<span class="hljs-string">&quot;/components/stars/stars&quot;</span><br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>完成。</p>
+<h3 id="请求评论数据"><a href="#请求评论数据" class="headerlink" title="请求评论数据"></a>请求评论数据</h3><ol>
+<li>comment.js</li>
+</ol>
+<p>请求数据，先导入network.js</p>
+<figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs livescript"><span class="hljs-keyword">import</span>  &#123;network&#125;  <span class="hljs-keyword">from</span>  <span class="hljs-string">&quot;../../utils/network.js&quot;</span>;<br><br>  onLoad: <span class="hljs-keyword">function</span> (options) &#123;<br>     <span class="hljs-keyword">var</span>  <span class="hljs-literal">that</span>=<span class="hljs-built_in">this</span>;<br>     <span class="hljs-literal">that</span>.setData(options);<br>    network.getItemComments(&#123;<br>      type:options.type,<br>      id:options.id,<br>      start:<span class="hljs-number">1</span>,<br>      count:<span class="hljs-number">20</span>,<br>      success:<span class="hljs-keyword">function</span>(data)&#123;<br>        <span class="hljs-keyword">var</span>  total = data.total;<br>        <span class="hljs-keyword">var</span>  comments = data.interests;<br>        <span class="hljs-literal">that</span>.setData(&#123;<br>          total:total,<br>          comments:comments<br>        &#125;)<br>      &#125;<br>    &#125;)<br>  &#125;,<br></code></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>comment中注册组件</li>
+</ol>
+<p>comment.json</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs json">&#123;<br>  <span class="hljs-attr">&quot;usingComponents&quot;</span>: &#123;<br>    <span class="hljs-attr">&quot;onecomment&quot;</span>:<span class="hljs-string">&quot;/components/onecomment/onecomment&quot;</span><br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>使用组件</li>
+</ol>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs json">&#123;<br>  <span class="hljs-attr">&quot;usingComponents&quot;</span>: &#123;<br>    <span class="hljs-attr">&quot;onecomment&quot;</span>:<span class="hljs-string">&quot;/components/onecomment/onecomment&quot;</span><br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>完成</p>
+<h3 id="翻页按钮布局"><a href="#翻页按钮布局" class="headerlink" title="翻页按钮布局"></a>翻页按钮布局</h3><p>要完成样式</p>
+<p><img src="/image/19.8.png" srcset="/img/loading.gif" lazyload alt="样式"></p>
+<ol>
+<li>comment.wxml代码</li>
+</ol>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">view</span>  <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;page-btn-group&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;page-btn&quot;</span><span class="hljs-attr">bindtap</span>=<span class="hljs-string">&quot;onPrePageTap&quot;</span></span><br><span class="hljs-tag">&gt;</span>上一页<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">button</span>  <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;page-btn&quot;</span><span class="hljs-attr">bindtap</span>=<span class="hljs-string">&quot;onNextPageTap&quot;</span></span><br><span class="hljs-tag">&gt;</span>下一页<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">view</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>comment.wxss代码</li>
+</ol>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-class">.page-btn-group</span>&#123;<br>  <span class="hljs-attribute">margin-top</span>:<span class="hljs-number">40</span>rpx;<br>  <span class="hljs-attribute">margin-bottom</span>: <span class="hljs-number">40</span>rpx;<br>  <span class="hljs-attribute">display</span>:flex;<br>  <span class="hljs-comment">/* 水平方向从左到右 */</span><br>  <span class="hljs-attribute">justify-content</span>: flex-start;<br>  <span class="hljs-comment">/* 垂直反向居中 */</span><br>  <span class="hljs-attribute">align-items</span>: center;<br>&#125;<br><br><span class="hljs-selector-class">.page-btn</span>&#123;<br>  <span class="hljs-attribute">flex</span>:<span class="hljs-number">1</span>;<br>  <span class="hljs-attribute">height</span>: <span class="hljs-number">60</span>rpx;<br>  <span class="hljs-attribute">color</span>: <span class="hljs-number">#898989</span>;<br>  <span class="hljs-attribute">border-color</span>:<span class="hljs-number">#898989</span>;<br>  <span class="hljs-attribute">line-height</span>:<span class="hljs-number">60</span>rpx;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<h3 id="翻页功能实现"><a href="#翻页功能实现" class="headerlink" title="翻页功能实现"></a>翻页功能实现</h3><ol>
+<li>点击绑定事件</li>
+</ol>
+<p><img src="/image/19.10.png" srcset="/img/loading.gif" lazyload alt="绑定"></p>
+<ol start="2">
+<li>comment.js实现</li>
+</ol>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-keyword">import</span>  &#123;network&#125;  from  <span class="hljs-string">&quot;../../utils/network.js&quot;</span>;<br>Page(&#123;<br><br>  <span class="hljs-comment">/**</span><br><span class="hljs-comment">   * 页面的初始数据</span><br><span class="hljs-comment">   */</span><br>  <span class="hljs-keyword">data</span>: &#123;<br>      total:<span class="hljs-number">0</span>,<br>      start:<span class="hljs-number">1</span>,<br>      count:<span class="hljs-number">20</span><br>  &#125;,<br>  <span class="hljs-comment">/**</span><br><span class="hljs-comment">   * 生命周期函数--监听页面加载</span><br><span class="hljs-comment">   */</span><br>onLoad: function (options) &#123;<br>     <span class="hljs-keyword">var</span>  that=<span class="hljs-keyword">this</span>;<br>    that.setData(options);<br>    <span class="hljs-comment">// 传入的为第一页</span><br>    that.getComments(<span class="hljs-number">1</span>);<br>  &#125;,<br><span class="hljs-comment">// 传入一个start参数</span><br>getComments:function(start)&#123;<br><span class="hljs-keyword">var</span>  that= <span class="hljs-keyword">this</span>;<br><span class="hljs-keyword">var</span> type  = that.<span class="hljs-keyword">data</span>.type;<br><span class="hljs-keyword">var</span>  id = that.<span class="hljs-keyword">data</span>.id;<br><span class="hljs-comment">// loading判断用户点击是上一页还是下一页</span><br><span class="hljs-keyword">if</span>(start&gt;that.<span class="hljs-keyword">data</span>.start)&#123;<br>  that.setData(&#123;<br>    nextLoading:<span class="hljs-literal">true</span><br>  &#125;);<br>&#125;<span class="hljs-keyword">else</span>&#123;<br>  that.setData(&#123;<br>    preLoading:<span class="hljs-literal">true</span><br>  &#125;);<br>&#125;<br>  network.getItemComments(&#123;<br>    type:type,<br>    id:id,<br>    start:start,<br>    count:<span class="hljs-number">20</span>,<br>    success:function(<span class="hljs-keyword">data</span>)&#123;<br>      <span class="hljs-keyword">var</span>  total = <span class="hljs-keyword">data</span>.total;<br>      <span class="hljs-keyword">var</span>  comments = <span class="hljs-keyword">data</span>.interests;<br>      that.setData(&#123;<br>        total:total,<br>        comments:comments,<br>        start:start,<br>        <span class="hljs-comment">// 数据请求完毕loading关闭</span><br>        preLoading:<span class="hljs-literal">false</span>,<br>        nextLoading:<span class="hljs-literal">false</span><br>      &#125;);<br>      <span class="hljs-comment">// 优化，点击下一页或上一页返回为最上面</span><br>        wx.pageScrollTo(&#123;<br>          scrollTop: <span class="hljs-number">0</span>,<br>        &#125;)<br>    &#125;<br>  &#125;)<br>&#125;,<br><span class="hljs-comment">// 返回上一页</span><br>  onItemTapEvent:function(event)&#123;<br>    wx.navigateBack(&#123;&#125;)<br>  &#125;,<br><span class="hljs-comment">// 上一页</span><br>  onPrePageTap:function(event)&#123;<br>    <span class="hljs-keyword">var</span>  that= <span class="hljs-keyword">this</span>;<br>    <span class="hljs-keyword">var</span>  oldStar= that.<span class="hljs-keyword">data</span>.start;<br>    <span class="hljs-keyword">var</span> count = that.<span class="hljs-keyword">data</span>.count;<br>    <span class="hljs-keyword">if</span>(oldStar-count&gt;<span class="hljs-number">0</span>)&#123;<br>        <span class="hljs-keyword">var</span>  start =  oldStar-count; <br>        that.getComments(start);<br>    &#125;<br>  &#125;,<br>  <span class="hljs-comment">// 下一页</span><br>  onNextPageTap:function(event)&#123;<br>      <span class="hljs-keyword">var</span>  that=<span class="hljs-keyword">this</span>;<br>      <span class="hljs-keyword">var</span> oldStart = that.<span class="hljs-keyword">data</span>.start;<br>      <span class="hljs-keyword">var</span>  start = oldStart+that.<span class="hljs-keyword">data</span>.count;<br>      that.getComments(start);<br>  &#125;<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<p>基本完成</p>
+<p><img src="/image/19.9.png" srcset="/img/loading.gif" lazyload alt="完成"></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/WX/">WX</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/WX/">WX</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/">小程序</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/04/23/%E5%BE%AE%E4%BF%A1%E8%B1%86%E7%93%A3%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%AD%A6%E4%B9%A0(%E5%9B%9B)/">
+                        <span class="hidden-mobile">豆瓣&详情页面固定样式完成&详情页短评数据获取与渲染</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
