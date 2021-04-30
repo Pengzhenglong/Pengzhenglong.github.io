@@ -1,0 +1,574 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/2.jpg">
+  <link rel="icon" href="/img/2.jpg">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="DragonPeng">
+  <meta name="keywords" content="">
+  
+  <title>豆瓣&amp;搜索页面布局&amp;详情评分bug解决 - DragonPeng的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>DragonPeng' blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/page1.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="豆瓣&搜索页面布局&详情评分bug解决">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-04-25 20:15" pubdate>
+        April 25, 2021 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.5k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      22
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">豆瓣&amp;搜索页面布局&amp;详情评分bug解决</h1>
+            
+            <div class="markdown-body">
+              <hr>
+<h3 id="搜索页面样式布局完成"><a href="#搜索页面样式布局完成" class="headerlink" title="搜索页面样式布局完成"></a>搜索页面样式布局完成</h3><p>要完成样式</p>
+<p><img src="/image/19.11.png" srcset="/img/loading.gif" lazyload alt="页面样式"></p>
+<ol>
+<li>search.wxml</li>
+</ol>
+<figure class="highlight cos"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs cos">&lt;<span class="hljs-keyword">view</span>  <span class="hljs-keyword">class</span>=<span class="hljs-string">&quot;item-list-group&quot;</span>&gt;<br>&lt;<span class="hljs-keyword">view</span>  <span class="hljs-keyword">class</span>=<span class="hljs-string">&quot;item-group&quot;</span>&gt;<br>&lt;image  src=<span class="hljs-string">&quot;https://img1.doubanio.com/view/photo/s_ratio_poster/public/p2635676317.webp&quot;</span>  <span class="hljs-keyword">class</span>=<span class="hljs-string">&quot;thumbnail&quot;</span>&gt;&lt;/image&gt;<br>&lt;<span class="hljs-keyword">view</span>  <span class="hljs-keyword">class</span>=<span class="hljs-string">&quot;info-group&quot;</span>&gt;<br>&lt;<span class="hljs-keyword">view</span>  <span class="hljs-keyword">class</span>=<span class="hljs-string">&quot;title&quot;</span>&gt;六人-泰坦尼克上的中国幸存者&lt;/<span class="hljs-keyword">view</span>&gt;<br>&lt;<span class="hljs-keyword">view</span>  <span class="hljs-keyword">class</span>=<span class="hljs-string">&quot;rate-year&quot;</span>&gt;<span class="hljs-number">8.5</span>分/<span class="hljs-number">2020</span>&lt;/<span class="hljs-keyword">view</span>&gt;<br>&lt;/<span class="hljs-keyword">view</span>&gt;<br>&lt;/<span class="hljs-keyword">view</span>&gt;<br>&lt;/<span class="hljs-keyword">view</span>&gt;<br></code></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>search.wxss</li>
+</ol>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-class">.item-list-group</span>&#123;<br>  <span class="hljs-attribute">padding</span>: <span class="hljs-number">10</span>rpx  <span class="hljs-number">20</span>rpx;<br>&#125;<br><span class="hljs-selector-class">.item-list-group</span>  <span class="hljs-selector-class">.item-group</span>&#123;<br>  <span class="hljs-attribute">padding</span>:<span class="hljs-number">10</span>rpx <span class="hljs-number">0</span>;<br>  <span class="hljs-comment">/* 底部分割线 */</span><br>  <span class="hljs-attribute">border-bottom</span>:<span class="hljs-number">1px</span>  solid <span class="hljs-number">#e4e4e4</span>;<br>  <span class="hljs-comment">/* 左右分布布局 */</span><br>  <span class="hljs-attribute">display</span>: flex;<br>&#125;<br><span class="hljs-selector-class">.item-group</span> <span class="hljs-selector-class">.thumbnail</span>&#123;<br>  <span class="hljs-attribute">width</span>: <span class="hljs-number">80</span>rpx;<br>  <span class="hljs-attribute">height</span>: <span class="hljs-number">100</span>rpx;<br>  <span class="hljs-attribute">margin-right</span>: <span class="hljs-number">20</span>rpx;<br>&#125;<br><span class="hljs-selector-class">.item-group</span> <span class="hljs-selector-class">.info-group</span>&#123;<br>  <span class="hljs-attribute">flex</span>:<span class="hljs-number">1</span>;<br>  <span class="hljs-attribute">display</span>:flex;<br>  <span class="hljs-attribute">flex-direction</span>: column;<br>  <span class="hljs-attribute">justify-content</span>: space-between;<br>&#125;<br><br><span class="hljs-selector-class">.info-group</span> <span class="hljs-selector-class">.title</span>&#123;<br>  <span class="hljs-attribute">font-size</span>: <span class="hljs-number">32</span>rpx;<br>&#125;<br><span class="hljs-selector-class">.info-group</span> <span class="hljs-selector-class">.rate-year</span>&#123;<br>  <span class="hljs-attribute">font-size</span>: <span class="hljs-number">32</span>rpx;<br>  <span class="hljs-attribute">color</span>: <span class="hljs-number">#7b7b7b</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>样式渲染完成，采用flex布局</p>
+<h3 id="搜索功能实现"><a href="#搜索功能实现" class="headerlink" title="搜索功能实现"></a>搜索功能实现</h3><ol>
+<li>搜索请求实现</li>
+</ol>
+<p>分析：1.在输入框中输入输入文字，那么就应该要获取到输入框中的文字了，但是输入框是单独放在<br>一个searchbar组件中，我们要获取的话没有那么方便   </p>
+<p> 2.解决：在组件中监听输入框中input事件，将监听到的input输入框中输入的东西及时反馈，然后组件监听得到后再区触发另外一个事件，这样就可以传到外面了。</p>
+<ol start="2">
+<li>代码实现</li>
+</ol>
+<p>bindinput事件是只要你在输入框中新增删除文字它都会去执行事件</p>
+<p><img src="/image/19.13.png" srcset="/img/loading.gif" lazyload alt="绑定事件"></p>
+<p>searchbar.js</p>
+<p>方法实现，组件主要复制将信息传递出去，执行在search中，这样职责划分更明确</p>
+<p><img src="/image/19.14.png" srcset="/img/loading.gif" lazyload alt="绑定事件"></p>
+<p>search.wxml绑定查找事件</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">searchbar</span>  <span class="hljs-attr">bindsearchinput</span>=<span class="hljs-string">&quot;onSearchInputEvent&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">searchbar</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>serch.js监听事件</p>
+<p><img src="/image/19.15.png" srcset="/img/loading.gif" lazyload alt="绑定事件"></p>
+<p>此时控制台type类型变为searchinput类型,能够得到用户输入的值</p>
+<ol start="3">
+<li>发送网路请求url</li>
+</ol>
+<p>url.js</p>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs ada">searchUrl: <span class="hljs-keyword">function</span> <span class="hljs-title"></span>(q) &#123;<br>  <span class="hljs-keyword">return</span> <span class="hljs-type">&quot;https://m.douban.com/rexxar/api/v2/search?type=movie&amp;q=&quot;</span> + q<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+<p>network.js</p>
+<figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs lasso"><span class="hljs-comment">// 搜索item</span><br>getSearch:function(<span class="hljs-keyword">params</span>)&#123;<br>  <span class="hljs-built_in">var</span> q =<span class="hljs-keyword">params</span>.q;<br>  <span class="hljs-built_in">var</span>  url = globalurls.searchUrl(q);<br>  wx.request(&#123;<br>    url: url,<br>    success:function(res)&#123;<br>      <span class="hljs-comment">// console.log(res);</span><br>      <span class="hljs-built_in">var</span>  subjects = res.<span class="hljs-built_in">data</span>.subjects;<br>      <span class="hljs-keyword">if</span> (<span class="hljs-keyword">params</span>.success)&#123;<br>        <span class="hljs-keyword">params</span>.success(subjects);<br>      &#125;<br>    &#125;<br>  &#125;)<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<p>search.js</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs actionscript">onSearchInputEvent:<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(event)</span></span>&#123;<br><span class="hljs-keyword">var</span>  that= <span class="hljs-keyword">this</span>;<br><span class="hljs-comment">// console.log(event)</span><br><span class="hljs-keyword">var</span>  value = event.detail.value;<br>network.getSearch(&#123;<br>  q:value,<br>  success:<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(subjects)</span></span>&#123;<br>        that.setData(&#123;<br>          subjects:subjects<br>        &#125;)<br>  &#125;<br>&#125;)<br>&#125;,<br></code></pre></td></tr></table></figure>
+<p>因豆瓣Api限制访问，经常请求不到数据</p>
+<p><img src="/image/19.12.png" srcset="/img/loading.gif" lazyload alt="能够搜索"></p>
+<ol start="4">
+<li>此时能够拿到数据，我们将数据渲染到页面</li>
+</ol>
+<figure class="highlight handlebars"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs handlebars"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">searchbar</span>  <span class="hljs-attr">bindsearchinput</span>=<span class="hljs-string">&quot;onSearchInputEvent&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">searchbar</span>&gt;</span></span><br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">view</span>  <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;item-list-group&quot;</span>&gt;</span></span><br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">view</span>  <span class="hljs-attr">wx:for</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-template-variable">&#123;&#123;<span class="hljs-name">subjects</span>&#125;&#125;</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span></span></span><br><span class="xml"> class=&quot;item-group&quot;  wx:key =&quot;</span><span class="hljs-template-variable">&#123;&#123;<span class="hljs-name">item.id</span>&#125;&#125;</span><span class="xml">&quot;</span><br><span class="xml"> <span class="hljs-comment">&lt;!-- 绑定了一个点击事件，这样点击item可以跳转到详情页面中 --&gt;</span></span><br><span class="xml"> bindtap=&quot;onItemTapEvent&quot;  data-id=&quot;</span><span class="hljs-template-variable">&#123;&#123;<span class="hljs-name">item.id</span>&#125;&#125;</span><span class="xml">&quot; &gt;</span><br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">image</span>  <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-template-variable">&#123;&#123;<span class="hljs-name">item.pic.normal</span>&#125;&#125;</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span>  <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;thumbnail&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">image</span>&gt;</span></span><br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">view</span>  <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;info-group&quot;</span>&gt;</span></span><br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">view</span>  <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;title&quot;</span>&gt;</span></span><span class="hljs-template-variable">&#123;&#123;<span class="hljs-name">item.title</span>&#125;&#125;</span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">view</span>&gt;</span></span><br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">view</span>  <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;rate-year&quot;</span>&gt;</span> </span><span class="hljs-template-variable">&#123;&#123;<span class="hljs-name">item.rating.value</span>&#125;&#125;</span><span class="xml">分</span><span class="hljs-template-variable">&#123;&#123;<span class="hljs-name">item.year</span>&#125;&#125;</span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">view</span>&gt;</span></span><br><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">view</span>&gt;</span></span><br><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">view</span>&gt;</span></span><br><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">view</span>&gt;</span></span><br></code></pre></td></tr></table></figure>
+
+<p>绑定了一个点击事件，这样点击item可以跳转到详情页面中,同时获取id</p>
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs haskell"><span class="hljs-title">bindtap</span>=<span class="hljs-string">&quot;onItemTapEvent&quot;</span>  <span class="hljs-class"><span class="hljs-keyword">data</span>-id=&quot;&#123;&#123;<span class="hljs-title">item</span>.<span class="hljs-title">id</span>&#125;&#125;&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>search.js</p>
+<figure class="highlight gml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs gml">onItemTapEvent:<span class="hljs-keyword">function</span>(event)&#123;<br>   <span class="hljs-comment">// console.log(event)</span><br>   <span class="hljs-keyword">var</span> <span class="hljs-symbol">id</span> = event.currentTarget.dataset.<span class="hljs-symbol">id</span>;<br>   <span class="hljs-comment">// 跳转到某一个页面</span><br>   wx.navigateTo(&#123;<br>     url: <span class="hljs-string">&#x27;/pages/detail/detail?type=movie&amp;id=&#x27;</span>+<span class="hljs-symbol">id</span>,<br>   &#125;)<br> &#125;<br></code></pre></td></tr></table></figure>
+
+<p>至此，点击电影也可以跳转到详情页面了</p>
+<h3 id="历史搜索记录布局"><a href="#历史搜索记录布局" class="headerlink" title="历史搜索记录布局"></a>历史搜索记录布局</h3><p><img src="/image/19.16.png" srcset="/img/loading.gif" lazyload alt="要完成的样式"></p>
+<p>search.wxml</p>
+<figure class="highlight cos"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs cos">&lt;<span class="hljs-keyword">view</span>  <span class="hljs-keyword">class</span>=<span class="hljs-string">&quot;history-list-group&quot;</span>&gt;<br>&lt;<span class="hljs-keyword">view</span> <span class="hljs-keyword">class</span>=<span class="hljs-string">&quot;history-title&quot;</span>&gt;<br>&lt;<span class="hljs-keyword">view</span>  <span class="hljs-keyword">class</span>=<span class="hljs-string">&quot;title&quot;</span>&gt;历史记录&lt;/<span class="hljs-keyword">view</span>&gt;<br>&lt;<span class="hljs-keyword">view</span>  <span class="hljs-keyword">class</span>=<span class="hljs-string">&quot;clear&quot;</span>&gt;清除&lt;/<span class="hljs-keyword">view</span>&gt;<br>&lt;/<span class="hljs-keyword">view</span>&gt;<br>&lt;navigator  <span class="hljs-keyword">class</span>=<span class="hljs-string">&quot;history-group&quot;</span>&gt;泰坦尼克号&lt;/navigator&gt;<br>&lt;/<span class="hljs-keyword">view</span>&gt;<br></code></pre></td></tr></table></figure>
+
+<p>search.wxss</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-class">.history-list-group</span>&#123;<br>  <span class="hljs-attribute">padding</span>:<span class="hljs-number">10</span>rpx <span class="hljs-number">20</span>rpx;<br>&#125;<br><span class="hljs-selector-class">.history-list-group</span> <span class="hljs-selector-class">.history-title</span>&#123;<br>  <span class="hljs-attribute">display</span>: flex;<br>  <span class="hljs-attribute">justify-content</span>: space-between;<br>  <span class="hljs-attribute">padding</span>: <span class="hljs-number">20</span>rpx  <span class="hljs-number">0</span>;<br>  <span class="hljs-attribute">background</span>: <span class="hljs-number">#f9f9f9</span>;<br>  <span class="hljs-attribute">font-size</span>: <span class="hljs-number">28</span>rpx;<br>  <span class="hljs-attribute">color</span>: <span class="hljs-number">#9e9e9e</span>;<br>&#125;<br><span class="hljs-selector-class">.history-list-group</span>  <span class="hljs-selector-class">.history-group</span>&#123;<br>  <span class="hljs-attribute">font-size</span>: <span class="hljs-number">32</span>rpx;<br>  <span class="hljs-attribute">padding</span>: <span class="hljs-number">20</span>rpx <span class="hljs-number">0</span>;<br>  <span class="hljs-attribute">border-bottom</span>:<span class="hljs-number">1px</span>  solid  <span class="hljs-number">#e4e4e4</span><br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<p>优化：history-group可以将它变为一个navigator组件，因为历史搜索是不需要任何操作的，可以直接从本地读取</p>
+<h4 id="历史记录功能实现"><a href="#历史记录功能实现" class="headerlink" title="历史记录功能实现"></a>历史记录功能实现</h4><p>由于豆瓣api次数限制控制，搜索有时候请求不到，故这里并未实现</p>
+<p><a target="_blank" rel="noopener" href="https://study.163.com/course/courseLearn.htm?courseId=1208961810#/learn/video?lessonId=1278472316&courseId=1208961810">学习思路</a></p>
+<h3 id="详情评分bug解决"><a href="#详情评分bug解决" class="headerlink" title="详情评分bug解决"></a>详情评分bug解决</h3><p>所有电影，综艺，电视剧评分均为9.7，因为我们这里写成固定的了</p>
+<p><img src="/image/19.17.png" srcset="/img/loading.gif" lazyload alt="rate"></p>
+<p>代码修改</p>
+<figure class="highlight handlebars"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs handlebars"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">stars</span> <span class="hljs-attr">rate</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-template-variable">&#123;&#123;<span class="hljs-name">item.rating.value</span>&#125;&#125;</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">stars</span>&gt;</span></span><br></code></pre></td></tr></table></figure>
+
+<p><img src="/image/19.18.png" srcset="/img/loading.gif" lazyload alt="问题"></p>
+<p>评论的评分是能够接收的，同理上面的星星评分也是能设置进来的。</p>
+<p>分析：stars.js中代码问题</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs actionscript">  lifetimes:&#123;<br>attached:<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>&#123;<br>  <span class="hljs-keyword">this</span>.updateRate();<br>&#125;<br>  &#125;<br></code></pre></td></tr></table></figure>
+
+<p>问题原因：attached生命周期函数执行时，rate还没有设置进来，因为rate是通过网络请求加载出来的，需要时间加载进来，所以这时候rate为0默认值。</p>
+<p>解决</p>
+<p>stars.js</p>
+<figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><code class="hljs axapta">  properties: &#123;<br>  rate:&#123;<br>        type:Number,<br>        value:<span class="hljs-number">0</span>,<br>        observer: function(newVal, oldVal,changePath) &#123;<br>          <span class="hljs-comment">// 属性值变化时执行,newVal就是新设置的数据，old是旧数据</span><br>          <span class="hljs-keyword">this</span>.updateRate();<br>        &#125;<br>      &#125; <br>      &#125;,<br>methods: &#123;<br>updateRate:function()&#123;<br>  <span class="hljs-built_in">var</span>  that = <span class="hljs-keyword">this</span>;<br>  <span class="hljs-built_in">var</span>  rate= that.properties.rate;<br>  <span class="hljs-built_in">var</span>  inRate = parseInt(rate);<br>  <span class="hljs-built_in">var</span>  light = parseInt(rate/<span class="hljs-number">2</span>);<br>  <span class="hljs-built_in">var</span>  half = inRate%<span class="hljs-number">2</span>;<br>  <span class="hljs-built_in">var</span>  gray  = <span class="hljs-number">5</span>-light-half;<br>  <span class="hljs-built_in">var</span> lights = [];<br>  <span class="hljs-built_in">var</span>  halfs = [];<br>  <span class="hljs-built_in">var</span>  grays = [];<br>  <span class="hljs-comment">// for循环遍历存放到数组中</span><br>  <span class="hljs-keyword">for</span>(<span class="hljs-built_in">var</span>  <span class="hljs-keyword">index</span>=<span class="hljs-number">1</span>;<span class="hljs-keyword">index</span>&lt;=light;<span class="hljs-keyword">index</span>++)&#123;<br>    lights.push(<span class="hljs-keyword">index</span>);<br>  &#125;<br>  <span class="hljs-keyword">for</span>(<span class="hljs-built_in">var</span>  <span class="hljs-keyword">index</span>=<span class="hljs-number">1</span>;<span class="hljs-keyword">index</span>&lt;=half;<span class="hljs-keyword">index</span>++)&#123;<br>    halfs.push(<span class="hljs-keyword">index</span>);<br>  &#125;<br>  <span class="hljs-keyword">for</span>(<span class="hljs-built_in">var</span>  <span class="hljs-keyword">index</span>=<span class="hljs-number">1</span>;<span class="hljs-keyword">index</span>&lt;=gray;<span class="hljs-keyword">index</span>++)&#123;<br>    grays.push(<span class="hljs-keyword">index</span>);<br>  &#125;<br>  <span class="hljs-comment">// 评分设置</span><br>  <span class="hljs-built_in">var</span>   ratetext = rate &amp;&amp; rate&gt;<span class="hljs-number">0</span>?rate.toFixed(<span class="hljs-number">1</span>):<span class="hljs-string">&quot;未评分&quot;</span><br>  <span class="hljs-comment">//数组获取到后 修改 data 中的值</span><br>  that.setData(&#123;<br>    lights:lights,<br>    halfs:halfs,<br>    grays:grays,<br>    ratetext:ratetext,<br>  &#125;);<br>&#125;<br>&#125;,<br><br>lifetimes:&#123;<br>attached:function()&#123;<br>  <span class="hljs-keyword">this</span>.updateRate();<br>  &#125;<br> &#125;<br></code></pre></td></tr></table></figure>
+
+<p>至此，问题解决了</p>
+<blockquote>
+<p>问题的核心元素是：代码之前执行是放在一个attached中，这个函数是被加载到页面中才会去执行，加载到页面中我们的数据没有从网络中请求到，这时候数据就是默认的0，我们可以用observer函数，一旦监听到改变了评分的值，就可以重新设置一下这个值。</p>
+</blockquote>
+<p><img src="/image/19.20.png" srcset="/img/loading.gif" lazyload alt="星星加载成功"></p>
+<h4 id="项目Github地址"><a href="#项目Github地址" class="headerlink" title="项目Github地址"></a><a target="_blank" rel="noopener" href="https://github.com/Pengzhenglong/doubanxiaochengxu">项目Github地址</a></h4>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/WX/">WX</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/WX/">WX</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/">小程序</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/04/24/%E5%BE%AE%E4%BF%A1%E8%B1%86%E7%93%A3%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%AD%A6%E4%B9%A0(%E4%BA%94)/">
+                        <span class="hidden-mobile">豆瓣&评论列表页实现</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      626 字
+      720 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      7
+      8
        分钟
     </span>
   
@@ -278,9 +278,16 @@
 <figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs maxima">git <span class="hljs-built_in">push</span> <span class="hljs-built_in">origin</span> HEAD -u<br></code></pre></td></tr></table></figure></li>
 <li><p>可以到github看一下<br><img src="/image/8.8.png" srcset="/img/loading.gif" lazyload alt="Github">   </p>
 </li>
+<li><p>git checkout branchname   //切换分支  branchname为你的分支名字</p>
+</li>
 </ol>
+<ol start="7">
+<li>分支操作</li>
+</ol>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">然后切换到主分支<br>$ git checkout <span class="hljs-keyword">master</span> <span class="hljs-title"></span><br><span class="hljs-title"></span><br><span class="hljs-title">然后将新分支提交的改动合并到主分支上</span><br><span class="hljs-title">$</span> git merge newbranch  <br><br>然后就可以push代码了<br>$ git push -u origin <span class="hljs-literal">master</span><br><br>最后还可以删除这个分支<br>$ git branch -D newbranch<br></code></pre></td></tr></table></figure>
+
 <h3 id="Git的基本操作指令"><a href="#Git的基本操作指令" class="headerlink" title="Git的基本操作指令"></a>Git的基本操作指令</h3><p><img src="/image/8.9.png" srcset="/img/loading.gif" lazyload alt="Git">   </p>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs awk">$ git init    <span class="hljs-regexp">//</span> 初始化仓库。<br>$ git add .    <span class="hljs-regexp">//</span>添加文件到暂存区。<br>$ git commit  <span class="hljs-regexp">//</span>将暂存区内容添加到仓库中。<br>$ git push	  <span class="hljs-regexp">//</span>上传远程代码并合并<br>$ git pull	  <span class="hljs-regexp">//</span>下载远程代码并合并<br></code></pre></td></tr></table></figure>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs awk">切换分支命令:<br><br>git checkout (branchname)   <span class="hljs-regexp">//</span>切换分支<br>$ git init    <span class="hljs-regexp">//</span> 初始化仓库。<br>$ git add .    <span class="hljs-regexp">//</span>添加文件到暂存区。<br>$ git commit  <span class="hljs-regexp">//</span>将暂存区内容添加到仓库中。<br>$ git push	  <span class="hljs-regexp">//</span>上传远程代码并合并<br>$ git pull	  <span class="hljs-regexp">//</span>下载远程代码并合并<br></code></pre></td></tr></table></figure>
 
 <blockquote>
 <p>参考链接<br><a target="_blank" rel="noopener" href="https://www.runoob.com/git/git-basic-operations.html">菜鸟教程</a></p>
