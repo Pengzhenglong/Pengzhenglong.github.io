@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      888 字
+      891 字
     </span>
   
 
@@ -232,7 +232,7 @@
 <hr>
 <h2 id="Github配置-SSH-key"><a href="#Github配置-SSH-key" class="headerlink" title="Github配置 SSH key"></a>Github配置 SSH key</h2><p>window10系统桌面右键<code>Git Bash Here</code></p>
 <figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs elixir"><span class="hljs-variable">$ </span>ssh-keygen -t rsa -C <span class="hljs-string">&quot;youremail@example.com&quot;</span><br></code></pre></td></tr></table></figure>
-<p>注：<strong>后面的 <code>your_email@youremail.com</code> 改为你在 Github 上注册的邮箱</strong>，之后会要求确认路径和输入密码，我们这使用默认的一路回车就行。<br>成功的话会在 ~/ 下生成 .ssh 文件夹，进去，打开 id_rsa.pub，复制里面的 key。<br>之后进入Github中自己的设置中，左边选择 SSH and GPG keys，然后点击 New SSH key 按钮,title 设置标题，可以随便填，粘贴在你电脑上生成的 key。<br>验证：为了验证是否成功，输入以下命令：</p>
+<p>注：<strong>后面的 <code>your_email@youremail.com</code> 改为你在 Github 上注册的邮箱</strong>，之后会要求确认路径和输入密码，我们这使用默认的一路回车就行。<br>成功的话会在C:\Users\ASUS下生成 .ssh 文件夹，进去，打开 id_rsa.pub，复制里面的 key。<br>之后进入Github中自己的设置中，左边选择 SSH and GPG keys，然后点击 New SSH key 按钮,title 设置标题，可以随便填，粘贴在你电脑上生成的 key。<br>验证：为了验证是否成功，输入以下命令：</p>
 <figure class="highlight vhdl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs vhdl">$ ssh -T git@github.com<br>The authenticity <span class="hljs-keyword">of</span> host <span class="hljs-symbol">&#x27;github</span>.com (<span class="hljs-number">52.74</span>.<span class="hljs-number">223.119</span>)&#x27; can<span class="hljs-symbol">&#x27;t</span> be established.<br>RSA key fingerprint <span class="hljs-keyword">is</span> SHA256:nThbg6kXUpJWGl7E1IGOCspRomTxdCARLviKw6E5SY8.<br>Are you sure you want <span class="hljs-keyword">to</span> continue connecting (yes/no/[fingerprint])? yes                   # 输入 yes<br><span class="hljs-literal">Warning</span>: Permanently added <span class="hljs-symbol">&#x27;github</span>.com,<span class="hljs-number">52.74</span>.<span class="hljs-number">223.119</span>&#x27; (RSA) <span class="hljs-keyword">to</span> the list <span class="hljs-keyword">of</span> known hosts.<br>Hi tianqixin! You<span class="hljs-symbol">&#x27;ve</span> successfully authenticated, but GitHub does <span class="hljs-keyword">not</span> provide shell <span class="hljs-keyword">access</span>. # 成功信息<br></code></pre></td></tr></table></figure>
 <h2 id="Gitee-配置-SSH-key"><a href="#Gitee-配置-SSH-key" class="headerlink" title="Gitee 配置 SSH key"></a>Gitee 配置 SSH key</h2><figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs clean">登陆Gitee的账号：<br>点击用户头像-&gt;进入个人设置<br>选择安全设置-&gt;SSH公钥<br>选择新增公钥<br>填写标题：公钥标题key<br>填写公钥：把我们刚刚复制的公钥粘贴到这里(刚刚Github生成的密钥)<br>添加后输入输入账号密码进行确认<br></code></pre></td></tr></table></figure>
 <p>验证：</p>
