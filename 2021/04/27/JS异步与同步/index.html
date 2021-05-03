@@ -18,7 +18,7 @@
   <meta name="author" content="DragonPeng">
   <meta name="keywords" content="">
   
-  <title>Vue去哪儿项目环境搭建 - DragonPeng的博客</title>
+  <title>Javascript同步与异步 - DragonPeng的博客</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -163,7 +163,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="Vue去哪儿项目环境搭建">
+            <span class="h2" id="subtitle" title="Javascript同步与异步">
               
             </span>
 
@@ -173,8 +173,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-04-28 20:15" pubdate>
-        April 28, 2021 pm
+      <time datetime="2021-04-27 20:15" pubdate>
+        April 27, 2021 pm
       </time>
     </span>
   
@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      0 字
+      1.2k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      1
+      13
        分钟
     </span>
   
@@ -225,11 +225,30 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Vue去哪儿项目环境搭建</h1>
+            <h1 style="display: none">Javascript同步与异步</h1>
             
             <div class="markdown-body">
-              <hr>
-<h3 id=""><a href="#" class="headerlink" title=""></a></h3>
+              <p>JavaScript起源<br>技术的出现,和应用场景密切相关的。JavaScript诞生于1995年。当时，它的主要目的是处理以前由服务器端语言（如Perl）负责的一些输入验证操作。在JavaScript问世之前，必须把表单数据发送到服务器端才能确定用户是否没有填写某个必填域，是否输入了无效的值。Netscape Navigator希望通过JavaScript来解决这个问题。起初名字为livescript，但是后来Netscape(网景)与Sun公司成立了一个开发联盟。Netscape为了搭上媒体热炒Java的顺风车，临时把LiveScript改名为JavaScript，所以从本质上来说JavaScript和Java没什么关系（趁热度）。 如今，JavaScript的用途早已不再局限于简单的数据验证，而是具备了与浏览器窗口及其内容等几乎所有方面交互的能力。今天的JavaScript已经成为一门功能全面的编程语言</p>
+<p>总结:js最初的用途是为来实现用户与浏览器的交互</p>
+<hr>
+<h3 id="JS为何是单线程的？"><a href="#JS为何是单线程的？" class="headerlink" title="JS为何是单线程的？"></a>JS为何是单线程的？</h3><p>JavaScript的单线程，与它的用途有关。作为浏览器脚本语言，JavaScript的主要用途是与用户互动，以及操作DOM。这决定了它只能是单线程，否则会带来很复杂的同步问题。比如，假定JavaScript同时有两个线程，一个线程在某个DOM节点上添加内容，另一个线程删除了这个节点，这时浏览器应该以哪个线程为准？</p>
+<p>所以，为了避免复杂性，从一诞生，JavaScript就是单线程，这已经成这门语言的核心特征，将来也不会改变。</p>
+<p>注：所谓单线程，是指在JS引擎中负责解释和执行JavaScript代码的线程只有一个</p>
+<h3 id="计算机的同步与异步（重点）–与生活中相反"><a href="#计算机的同步与异步（重点）–与生活中相反" class="headerlink" title="计算机的同步与异步（重点）–与生活中相反"></a>计算机的同步与异步（重点）–与生活中相反</h3><p>计算机领域中的同步（Synchronous）和异步（Asynchronous）和我们生活中的同步和异步的概念是恰好相反的。生活中的同步，突出的是‘同’，相同的步伐，是咱俩一起行动，比如一起去逛街吃饭饭睡觉觉。异步则是你忙你的，我忙我的，步调不致且互不干扰。难到计算机里的同步和异步不是这样？确实不是。</p>
+<h4 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h4><p>计算机中的同步就是排队等待，假如你是第一百零一个备胎，那你只能等前面的一百个爆了之后才能‘处理’你。异步就是，尽管你是第一百零一个，她还是能照顾到你的感受。</p>
+<h3 id="js单线程为什么会有’异步’问题"><a href="#js单线程为什么会有’异步’问题" class="headerlink" title="js单线程为什么会有’异步’问题"></a>js单线程为什么会有’异步’问题</h3><p>js是同步的？<br>是的，单线程，那肯定只能同步(排队)执行咯</p>
+<p>js为什么需要异步?<br>如果JS中不存在异步,只能自上而下执行,万一上一行解析时间很长,那么下面的代码就会被阻塞。 对于用户而言,阻塞就意味着”卡死”,这样就导致了很差的用户体验</p>
+<p>js单线程又是如何实现异步的呢?<br>通过事件循环(event loop) 实现’异步’</p>
+<p>经典问题：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs javascript"> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;1&#x27;</span>)<br><span class="hljs-built_in">setTimeout</span>(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>&#123;<br> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;2&#x27;</span>)<br>&#125;,<span class="hljs-number">0</span>)<br><span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;3&#x27;</span>)  <br><span class="hljs-comment">//       1，3，2</span><br></code></pre></td></tr></table></figure>
+<p>也就是说,setTimeout里的函数并没有立即执行,而是延迟了一段时间,满足一定条件后,才去执行的,这类代码,我们叫异步代码。</p>
+<p>所以,这里我们首先知道了JS里的一种分类方式,就是将任务分为: 同步任务和异步任务</p>
+<p><img src="/image/23.png" srcset="/img/loading.gif" lazyload alt="如图"></p>
+<p>虽然JS是单线程的但是浏览器的内核是多线程的，在浏览器的内核中不同的异步操作由不同的浏览器内核模块调度执行，异步操作会将相关回调添加到任务队列中。而不同的异步操作添加到任务队列的时机也不同，如 onclick, setTimeout, ajax 处理的方式都不同，这些异步操作是由浏览器内核的 webcore 来执行的，webcore 包含上图中的3种 webAPI，分别是 DOM Binding、network、timer模块。</p>
+<p>按照这种分类方式:JS的执行机制是</p>
+<p>首先判断js代码是同步还是异步,同步就进入主进程,异步就进入event table<br>异步任务在event table中注册函数,当满足触发条件后,被推入event queue<br>同步任务进入主线程后一直执行,直到主线程空闲时,才会去event queue中查看是否有可执行的异步任务,如果有就推入主进程中 以上三步循环执行,这就是event loop<br>总结：同步可以保证顺序一致，但是容易导致阻塞；异步可以解决阻塞问题，但是会改变顺序性，根据不同的需要去写你的代码。</p>
+<h4 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h4><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903810263941134">前端面试：js同步与异步问题</a></p>
+
             </div>
             <hr>
             <div>
@@ -238,7 +257,7 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/Vue%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/">Vue项目实战</a>
+                      <a class="hover-with-bg" href="/categories/JS/">JS</a>
                     
                   </div>
                 
@@ -248,7 +267,7 @@
                     
                       <a class="hover-with-bg" href="/tags/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/">前端基础</a>
                     
-                      <a class="hover-with-bg" href="/tags/Vue/">Vue</a>
+                      <a class="hover-with-bg" href="/tags/JS/">JS</a>
                     
                   </div>
                 
@@ -264,6 +283,12 @@
                 <div class="post-prevnext">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2021/04/30/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%90%86%E8%A7%A3(%E4%B8%80)/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">操作系统</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
