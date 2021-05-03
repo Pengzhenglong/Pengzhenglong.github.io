@@ -18,7 +18,7 @@
   <meta name="author" content="DragonPeng">
   <meta name="keywords" content="">
   
-  <title>操作系统 - DragonPeng的博客</title>
+  <title>Vue去哪儿项目首页开发 - DragonPeng的博客</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -163,7 +163,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="操作系统">
+            <span class="h2" id="subtitle" title="Vue去哪儿项目首页开发">
               
             </span>
 
@@ -173,8 +173,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-04-30 20:15" pubdate>
-        April 30, 2021 pm
+      <time datetime="2021-05-01 20:15" pubdate>
+        May 1, 2021 pm
       </time>
     </span>
   
@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      627 字
+      371 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      6
+      5
        分钟
     </span>
   
@@ -225,26 +225,36 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">操作系统</h1>
+            <h1 style="display: none">Vue去哪儿项目首页开发</h1>
             
             <div class="markdown-body">
-              <h2 id="操作系统相当于一个特殊的软件：这种软件对上服务着我们用户的程序，对下管理硬件。"><a href="#操作系统相当于一个特殊的软件：这种软件对上服务着我们用户的程序，对下管理硬件。" class="headerlink" title="操作系统相当于一个特殊的软件：这种软件对上服务着我们用户的程序，对下管理硬件。"></a>操作系统相当于一个特殊的软件：这种软件对上服务着我们用户的程序，对下管理硬件。</h2><h3 id="操作系统主要做什么"><a href="#操作系统主要做什么" class="headerlink" title="操作系统主要做什么"></a>操作系统主要做什么</h3><p><img src="/image/24.1.png" srcset="/img/loading.gif" lazyload alt="管理硬件，管理应用"></p>
-<h3 id="中断"><a href="#中断" class="headerlink" title="中断"></a>中断</h3><p>假设你的键盘按下了ctrl+deletel键要求马上给一个反馈杀死某个程序，机器内核跑的好好的，突然过来一个东西，这时候会断掉一下。这叫做操作系统中断。</p>
-<h3 id="进程，线程（-）"><a href="#进程，线程（-）" class="headerlink" title="进程，线程（*）"></a>进程，线程（*）</h3><p>程序：硬盘上某一个可执行文件就是程序  (例如：qq.exe)</p>
-<p>你双击一下就是一个进程，你再双击一下就又是一个进程，进程就是这个程序跑起来了，放到内存里开始执行了，CPU开始执行他的指令了就叫一个进程。在这个进程中有好多个工作是并行进行的，比如（qq在显示页面，网络传输，存盘），那么是怎么执行的呢，就是通过线程来。</p>
-<h4 id="纤程"><a href="#纤程" class="headerlink" title="纤程"></a>纤程</h4><p>在一个线程中还可以做并行任务，一个线程里面不同的执行路径同时可以执行的那种，叫纤程。java中叫fiber.</p>
-<h2 id="区别：进程是分配资源的单位，线程进行执行，调度单位。"><a href="#区别：进程是分配资源的单位，线程进行执行，调度单位。" class="headerlink" title="区别：进程是分配资源的单位，线程进行执行，调度单位。"></a>区别：进程是分配资源的单位，线程进行执行，调度单位。</h2><p>（解释：如果我启动一个进程的时候，我是会分配一个内存空间的，这个是虚拟内存最后映射到物理内存上也是会给它分配物理空间的，起线程的时候不会给线程分配任何物理空间，这个线程共享了进程的物理空间）</p>
-<h3 id="操作系统的功能"><a href="#操作系统的功能" class="headerlink" title="操作系统的功能"></a>操作系统的功能</h3><p>一共有四种，了解这两种宏外核，微内核（还有系统外核，VMM）</p>
-<p>功能：<br>调度CPU，内存管理，管理文件，管理文件系统，处理中断，管理应用，进行进程调度</p>
-<p><img src="/image/24.2.png" srcset="/img/loading.gif" lazyload alt="功能"></p>
-<ol>
-<li>宏内核–操作系统的东西全部都集中在一起<br>操作系统的核心包括周边的东西叫宏内核</li>
+              <hr>
+<h3 id="首页header区域"><a href="#首页header区域" class="headerlink" title="首页header区域"></a>首页header区域</h3><ol>
+<li>安装开发依赖包(项目目录下)</li>
 </ol>
-<p><img src="/image/24.3.png" srcset="/img/loading.gif" lazyload alt="宏内核"></p>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs ada">npm  install  stylus <span class="hljs-comment">--save</span><br>npm  install  stylus-loader  <span class="hljs-comment">--save</span><br></code></pre></td></tr></table></figure>
+
+
+<p>使用过程中报错：npm run dev后报错<br>Vue中使用Stylus报错：Module build failed: TypeError: this.getOptions is not a function</p>
+<p>报错原因<br>stylus-loader版本过高，更改为<a href="mailto:&#115;&#x74;&#x79;&#x6c;&#x75;&#x73;&#45;&#x6c;&#111;&#97;&#x64;&#101;&#x72;&#64;&#x33;&#46;&#x30;&#x2e;&#x31;">&#115;&#x74;&#x79;&#x6c;&#x75;&#x73;&#45;&#x6c;&#111;&#97;&#x64;&#101;&#x72;&#64;&#x33;&#46;&#x30;&#x2e;&#x31;</a>即可</p>
+<p>再次安装stylus</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs awk">npm uninstall stylus stylus-loader <span class="hljs-regexp">//</span>删除之前的loader<br>npm install stylus stylus-loader@<span class="hljs-number">3.0</span>.<span class="hljs-number">1</span> --save-dev <span class="hljs-regexp">//</span>再次安装<br></code></pre></td></tr></table></figure>
+
 <ol start="2">
-<li>微内核—-全球的大厂商的都在做，微软，苹果，谷歌，华为。华为首先推出商用的鸿蒙系统。<h4 id="微内核的核心就干一个事就是进程调度。"><a href="#微内核的核心就干一个事就是进程调度。" class="headerlink" title="微内核的核心就干一个事就是进程调度。"></a>微内核的核心就干一个事就是进程调度。</h4>所有的东西都是以内核为核心，cpu调度文件系统则访问内核，内核去访问文件系统。核心非常小，周围一堆的插件。缺点是运行速度稍低，优点是你可以做到非常灵活的部署，可以做到很灵活的拆装。</li>
+<li>src\pages\home\components路径下新建一个Header.vue</li>
 </ol>
-<p><img src="/image/24.4.png" srcset="/img/loading.gif" lazyload alt="微内核"></p>
+<p>页面组件化，对于Home这个页面可以被拆分成多个小组件，Header.vue可以放在compons中被使用</p>
+<ol start="3">
+<li>引入组件使用</li>
+</ol>
+<p><img src="/image1/8.png" srcset="/img/loading.gif" lazyload alt="使用组件"></p>
+<ol start="4">
+<li>Header.vue页面样式</li>
+</ol>
+<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs maxima">&lt;template&gt;<br>  &lt;div class=<span class="hljs-string">&quot;header&quot;</span>&gt;<br>    &lt;div class=<span class="hljs-string">&quot;header-left&quot;</span>&gt;返回&lt;/div&gt;<br>    &lt;div class=<span class="hljs-string">&quot;header-input&quot;</span>&gt;输入城市/景点/游玩/主题&lt;/div&gt;<br>    &lt;div class=<span class="hljs-string">&quot;header-right&quot;</span>&gt;城市&lt;/div&gt;<br>  &lt;/div&gt;<br>&lt;/template&gt;<br><br>&lt;script&gt;<br>export default &#123;<br>  name: <span class="hljs-string">&quot;HomeHeader&quot;</span><br>&#125;;<br>&lt;/script&gt;<br><br>&lt;<span class="hljs-built_in">style</span> lang=<span class="hljs-string">&quot;stylus&quot;</span> scoped&gt;<br>.header<br>  <span class="hljs-built_in">display</span>:flex<br>  line-<span class="hljs-built_in">height</span>: .86<span class="hljs-built_in">rem</span><br>  <span class="hljs-built_in">background</span> #<span class="hljs-number">00bcd4</span><br>  <span class="hljs-built_in">color</span>: #fff<br>  .header-left<br>    <span class="hljs-built_in">width</span> .64<span class="hljs-built_in">rem</span><br>    <span class="hljs-built_in">float</span>:left<br>  .header-input<br>     flex:<span class="hljs-number">1</span><br>     line-<span class="hljs-built_in">height</span>:.64<span class="hljs-built_in">rem</span><br>     <span class="hljs-built_in">height</span>: .64<span class="hljs-built_in">rem</span><br>     margin-top .12<span class="hljs-built_in">rem</span><br>     margin-left: .2<span class="hljs-built_in">rem</span><br>     <span class="hljs-built_in">background</span>: #fff<br>     <span class="hljs-built_in">border</span>-<span class="hljs-built_in">radius</span>: .1<span class="hljs-built_in">rem</span><br>     <span class="hljs-built_in">color</span>:#ccc<br>  .header-right<br>     <span class="hljs-built_in">width</span>: <span class="hljs-number">1.</span>24<span class="hljs-built_in">rem</span><br>     <span class="hljs-built_in">float</span>:right<br>     text-align:<span class="hljs-built_in">center</span><br>&lt;/<span class="hljs-built_in">style</span>&gt;<br><br></code></pre></td></tr></table></figure>
+<p>补充：<code>&lt;style lang=&quot;stylus&quot; scoped&gt;</code><br>我们写的这个组件不要对其他组件产生影响，使用scoped可以限制.header的样式只对当前组件有效，不对其他组件有影响</p>
+<p>完成效果：</p>
+<p><img src="/image1/9.png" srcset="/img/loading.gif" lazyload alt="使用组件"></p>
 
             </div>
             <hr>
@@ -254,7 +264,7 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
+                      <a class="hover-with-bg" href="/categories/Vue%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/">Vue项目实战</a>
                     
                   </div>
                 
@@ -262,9 +272,9 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a>
+                      <a class="hover-with-bg" href="/tags/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/">前端基础</a>
                     
-                      <a class="hover-with-bg" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">计算机基础</a>
+                      <a class="hover-with-bg" href="/tags/Vue/">Vue</a>
                     
                   </div>
                 
@@ -281,9 +291,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/05/01/Vue%E5%8E%BB%E5%93%AA%E5%84%BF%E5%AE%9E%E6%88%98(%E4%BA%8C)/">
+                      <a href="/2021/05/01/Vue%E5%8E%BB%E5%93%AA%E5%84%BF%E5%AE%9E%E6%88%98(%E4%B8%80)/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Vue去哪儿项目首页开发</span>
+                        <span class="hidden-mobile">Vue去哪儿项目环境搭建</span>
                         <span class="visible-mobile">Previous</span>
                       </a>
                     
@@ -291,8 +301,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/04/27/JS%E5%BC%82%E6%AD%A5%E4%B8%8E%E5%90%8C%E6%AD%A5/">
-                        <span class="hidden-mobile">Javascript同步与异步</span>
+                      <a href="/2021/04/30/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%90%86%E8%A7%A3(%E4%B8%80)/">
+                        <span class="hidden-mobile">操作系统</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
