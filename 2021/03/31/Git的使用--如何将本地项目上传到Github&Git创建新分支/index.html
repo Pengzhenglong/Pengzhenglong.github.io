@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      720 字
+      893 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      8
+      10
        分钟
     </span>
   
@@ -288,6 +288,17 @@
 
 <h3 id="Git的基本操作指令"><a href="#Git的基本操作指令" class="headerlink" title="Git的基本操作指令"></a>Git的基本操作指令</h3><p><img src="/image/8.9.png" srcset="/img/loading.gif" lazyload alt="Git">   </p>
 <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs awk">切换分支命令:<br><br>git checkout (branchname)   <span class="hljs-regexp">//</span>切换分支<br>$ git init    <span class="hljs-regexp">//</span> 初始化仓库。<br>$ git add .    <span class="hljs-regexp">//</span>添加文件到暂存区。<br>$ git commit  <span class="hljs-regexp">//</span>将暂存区内容添加到仓库中。<br>$ git push	  <span class="hljs-regexp">//</span>上传远程代码并合并<br>$ git pull	  <span class="hljs-regexp">//</span>下载远程代码并合并<br></code></pre></td></tr></table></figure>
+
+
+<h3 id="开发项目码云与Git分支的使用"><a href="#开发项目码云与Git分支的使用" class="headerlink" title="开发项目码云与Git分支的使用"></a>开发项目码云与Git分支的使用</h3><ol>
+<li>在码云上你的项目中新建分支</li>
+</ol>
+<p><img src="/image/4.2.png" srcset="/img/loading.gif" lazyload alt="创建分支">  </p>
+<ol start="2">
+<li>本地项目文件右键Git  Bash Here</li>
+</ol>
+<p>命令：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs awk">git  pull  <span class="hljs-regexp">//</span>将线上的分支拉到本地<br><br>git  checkout  index <span class="hljs-regexp">//i</span>ndex为你自己建的分支名字，现在你所在的分支就在index分支上，本地开发的代码都在这个分支上<br><br><span class="hljs-regexp">//</span>开发完成后<br><br>git  add .  <span class="hljs-regexp">//</span>添加文件到暂存区<br>git  commit -m <span class="hljs-string">&#x27;name&#x27;</span>  <span class="hljs-regexp">//</span>name可以你自己起<br>git  push <span class="hljs-regexp">//</span>本地分支的内容提交到线上了<br>git  checkout  master  <span class="hljs-regexp">//</span>切换为主分支<br>git  merge  index  <span class="hljs-regexp">//</span>将新增的内容合并到主分支上<br>git  push  <span class="hljs-regexp">//</span>将master分支代码提交到线上<br><br></code></pre></td></tr></table></figure>
 
 <blockquote>
 <p>参考链接<br><a target="_blank" rel="noopener" href="https://www.runoob.com/git/git-basic-operations.html">菜鸟教程</a></p>

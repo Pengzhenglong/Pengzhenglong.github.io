@@ -1,0 +1,548 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/2.jpg">
+  <link rel="icon" href="/img/2.jpg">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="DragonPeng">
+  <meta name="keywords" content="">
+  
+  <title>Vue去哪儿项目首页开发&amp;首页轮播图&amp;推荐组件开发 - DragonPeng的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>DragonPeng' blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/page1.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Vue去哪儿项目首页开发&首页轮播图&推荐组件开发">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-05-02 21:15" pubdate>
+        May 2, 2021 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.4k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      24
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Vue去哪儿项目首页开发&amp;首页轮播图&amp;推荐组件开发</h1>
+            
+            <div class="markdown-body">
+              <hr>
+<h3 id="首页轮播图"><a href="#首页轮播图" class="headerlink" title="首页轮播图"></a>首页轮播图</h3><ol>
+<li>第三方轮播插件使用</li>
+</ol>
+<p>Github地址<br><a target="_blank" rel="noopener" href="https://github.com/surmon-china/vue-awesome-swiper">vue-awesome-swiper</a></p>
+<p>安装：项目文件夹路径中,这里我们安装的是@2.6.7版本，其他版本可能兼容性等问题</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">npm</span> install swiper vue-awesome-swiper@<span class="hljs-number">2</span>.<span class="hljs-number">6</span>.<span class="hljs-number">7</span> --save<br></code></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>引用(这里我们引用到全局中，因为各个页面可能都会使用)</li>
+</ol>
+<p>main.js</p>
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs haskell"><span class="hljs-keyword">import</span> Vue from &#x27;vue&#x27;<br><span class="hljs-keyword">import</span> VueAwesomeSwiper from &#x27;vue-awesome-swiper&#x27;<br><br>//这里我们使用这个版本<br>// <span class="hljs-keyword">import</span> style (&gt;= <span class="hljs-type">Swiper</span> 6.<span class="hljs-title">x</span>)<br><span class="hljs-keyword">import</span> &#x27;swiper/swiper-bundle.css&#x27;<br><br>// <span class="hljs-keyword">import</span> style (&lt;= <span class="hljs-type">Swiper</span> 5.<span class="hljs-title">x</span>)<br><span class="hljs-keyword">import</span> &#x27;swiper/css/swiper.css&#x27;<br><br><span class="hljs-type">Vue</span>.use(<span class="hljs-type">VueAwesomeSwiper</span>, /* &#123; <span class="hljs-keyword">default</span> options with global component &#125; */)<br></code></pre></td></tr></table></figure>
+
+
+<ol start="3">
+<li>使用</li>
+</ol>
+<p>Swiper.vue</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">&lt;<span class="hljs-keyword">template</span>&gt;<br>  &lt;div <span class="hljs-keyword">class</span>=&quot;wrapper&quot;&gt;<br>    &lt;swiper :<span class="hljs-keyword">options</span>=&quot;swiperOptions&quot; v-<span class="hljs-keyword">if</span>=&quot;showSwiper&quot;&gt;<br>      &lt;swiper-slide v-<span class="hljs-keyword">for</span>=&quot;item of list&quot; :key=&quot;item.id&quot;&gt;<br>        &lt;img <span class="hljs-keyword">class</span>=&quot;swiper-img&quot; :src=&quot;item.imgUrl&quot; alt=&quot;&quot; /&gt;<br>      &lt;/swiper-slide&gt;<br><br>      &lt;div <span class="hljs-keyword">class</span>=&quot;swiper-pagination&quot; slot=&quot;pagination&quot;&gt;&lt;/div&gt;<br>    &lt;/swiper&gt;<br>  &lt;/div&gt;<br>&lt;/<span class="hljs-keyword">template</span>&gt;<br>&lt;script&gt;<br>export <span class="hljs-keyword">default</span> &#123;<br>  <span class="hljs-type">name</span>: &quot;HomeSwiper&quot;,<br>  props: &#123;<br>    list: <span class="hljs-keyword">Array</span><br>  &#125;,<br>  data() &#123;<br>    <span class="hljs-keyword">return</span> &#123;<br>      swiperOptions: &#123;<br>        pagination: &quot;.swiper-pagination&quot;,<br>        <span class="hljs-keyword">loop</span>: <span class="hljs-keyword">true</span><br>      &#125;<br>    &#125;;<br>  &#125;,<br>  computed: &#123;<br>    showSwiper() &#123;<br>      <span class="hljs-keyword">return</span> this.list.length;<br>    &#125;<br>  &#125;<br>&#125;;<br>&lt;/script&gt;<br><br>&lt;style lang=&quot;stylus&quot; scoped&gt;<br>// 样式穿透，不受scoped控制了<br>.<span class="hljs-keyword">wrapper</span> &gt;&gt;&gt; .swiper-pagination-bullet-active<br>    background:#fff<br>.<span class="hljs-keyword">wrapper</span><br>    overflow hidden<br>    width:<span class="hljs-number">100</span>%<br>    height:<span class="hljs-number">0</span><br>    padding-bottom :<span class="hljs-number">31.25</span>%<br>    background  :#eee<br>    .swiper-img<br>        width:<span class="hljs-number">100</span>%<br>&lt;/style&gt;<br><br></code></pre></td></tr></table></figure>
+
+<h4 id="占位"><a href="#占位" class="headerlink" title="占位"></a>占位</h4><p>图片是可替代资源，在页面显然时，会先将页面中静态的内容渲染上去，等数据返回后，在进行重新渲染，这样页面就会出现抖动，影响用户体验，同时性能也比较低。</p>
+<p>可以用下面的css代码对这些可替换资源先进行占位，页面大体框架在第一次渲染后就能呈现给用户，数据获取到后，替换相应的内容就可，就不会出现抖动了。</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs stylus">.<span class="hljs-attribute">icon</span>-img<br>    <span class="hljs-attribute">overflow</span>: hidden<br>    <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span><br>    <span class="hljs-attribute">height</span>: <span class="hljs-number">0</span><br>    <span class="hljs-attribute">padding-bottom</span>: <span class="hljs-number">100%</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="/image1/15.png" srcset="/img/loading.gif" lazyload alt="样式，可以滑动"></p>
+<h3 id="图标区域页面布局"><a href="#图标区域页面布局" class="headerlink" title="图标区域页面布局"></a>图标区域页面布局</h3><p>新建一个组件<br>src\pages\home\components\Icons.vue</p>
+<p>在Home.vue中引入并使用</p>
+<p>icons.vue代码</p>
+<figure class="highlight handlebars"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><code class="hljs handlebars"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span></span><br><span class="xml">  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;icons&quot;</span>&gt;</span></span><br><span class="xml">    <span class="hljs-tag">&lt;<span class="hljs-name">swiper</span> <span class="hljs-attr">:options</span>=<span class="hljs-string">&quot;swiperOptions&quot;</span>&gt;</span></span><br><span class="xml">      <span class="hljs-tag">&lt;<span class="hljs-name">swiper-slide</span> <span class="hljs-attr">v-for</span>=<span class="hljs-string">&quot;(page, index) of pages&quot;</span> <span class="hljs-attr">:key</span>=<span class="hljs-string">&quot;index&quot;</span>&gt;</span></span><br><span class="xml">        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;icon&quot;</span> <span class="hljs-attr">v-for</span>=<span class="hljs-string">&quot;item of page&quot;</span> <span class="hljs-attr">:key</span>=<span class="hljs-string">&quot;item.id&quot;</span>&gt;</span></span><br><span class="xml">          <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;icon-img&quot;</span>&gt;</span></span><br><span class="xml">            <span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;icon-img-content&quot;</span> <span class="hljs-attr">v-bind:src</span>=<span class="hljs-string">&quot;item.imgUrl&quot;</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">&quot;&quot;</span> /&gt;</span></span><br><span class="xml">          <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="xml">          <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;icon-desc&quot;</span>&gt;</span></span><span class="hljs-template-variable">&#123;&#123; <span class="hljs-name">item.desc</span> &#125;&#125;</span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span><br><span class="xml">        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="xml">      <span class="hljs-tag">&lt;/<span class="hljs-name">swiper-slide</span>&gt;</span></span><br><span class="xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">swiper</span>&gt;</span></span><br><span class="xml">  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span></span><br><br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span></span><br><span class="xml">export default &#123;</span><br><span class="xml">  name: &quot;HomeIcons&quot;,</span><br><span class="xml">  props: &#123;</span><br><span class="xml">    list: Array</span><br><span class="xml">  &#125;,</span><br><span class="xml">  data() &#123;</span><br><span class="xml">    return &#123;</span><br><span class="xml">      swiperOptions: &#123;</span><br><span class="xml">        autoplay: false</span><br><span class="xml">      &#125;</span><br><span class="xml">    &#125;;</span><br><span class="xml">  &#125;,</span><br><span class="xml">  computed: &#123;</span><br><span class="xml">    pages() &#123;</span><br><span class="xml">      const pages = [];</span><br><span class="xml">      this.list.forEach((item, index) =&gt; &#123;</span><br><span class="xml">        const page = Math.floor(index / 8);</span><br><span class="xml">        if (!pages[page]) &#123;</span><br><span class="xml">          pages[page] = [];</span><br><span class="xml">        &#125;</span><br><span class="xml">        pages[page].push(item);</span><br><span class="xml">      &#125;);</span><br><span class="xml">      return pages;</span><br><span class="xml">    &#125;</span><br><span class="xml">  &#125;</span><br><span class="xml">&#125;;</span><br><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span><br><br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">style</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;stylus&quot;</span> <span class="hljs-attr">scoped</span>&gt;</span></span><br><span class="xml">@import &#x27;~styles/varibles.styl&#x27;;</span><br><span class="xml">@import &#x27;~styles/mixins.styl&#x27;;</span><br><span class="xml">.icons  &gt;&gt;&gt; .swiper-container</span><br><span class="xml">  width:100%</span><br><span class="xml">  height:0</span><br><span class="xml">  padding-bottom:50%</span><br><span class="xml">.icons</span><br><span class="xml">  margin-top:.1rem</span><br><span class="xml">  .icon</span><br><span class="xml">    position :relative</span><br><span class="xml">    overflow :hidden</span><br><span class="xml">    float:left</span><br><span class="xml">    width:25%</span><br><span class="xml">    height:0</span><br><span class="xml">    padding-bottom :25%</span><br><span class="xml">    .icon-img</span><br><span class="xml">        position:absolute</span><br><span class="xml">        top:0</span><br><span class="xml">        left:0</span><br><span class="xml">        right:0</span><br><span class="xml">        bottom:.44rem</span><br><span class="xml">        box-sizing:border-box</span><br><span class="xml">        padding:.1rem</span><br><span class="xml">        .icon-img-content</span><br><span class="xml">            display:block</span><br><span class="xml">            margin 0 auto</span><br><span class="xml">            height:100%</span><br><span class="xml">    .icon-desc</span><br><span class="xml">       position :absolute</span><br><span class="xml">       left:0</span><br><span class="xml">       right:0</span><br><span class="xml">       bottom:0</span><br><span class="xml">       height:.44rem</span><br><span class="xml">       line-height :.44rem</span><br><span class="xml">       color:#darkTextColor</span><br><span class="xml">       text-align :center</span><br><span class="xml">       ellipsis()</span><br><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span></span><br><br></code></pre></td></tr></table></figure>
+
+<p><img src="/image1/17.png" srcset="/img/loading.gif" lazyload alt="效果"></p>
+<p>文字太长后面文字用….表示的Css样式</p>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs arduino">overflow :hidden <br>white-space :nowrap <br>text-overflow :ellipsis<br></code></pre></td></tr></table></figure>
+
+<p>由于这个样式很多地方都会用到，所以我们可以借助stylus的mixins.styl将它封装.</p>
+<p><img src="/image1/16.png" srcset="/img/loading.gif" lazyload alt="封装"></p>
+<p>使用：</p>
+<p>导入</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs scss"><span class="hljs-keyword">@import</span> <span class="hljs-string">&#x27;~styles/mixins.styl&#x27;</span>;<br></code></pre></td></tr></table></figure>
+<p>css中使用</p>
+<figure class="highlight isbl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs isbl">.icon-<span class="hljs-variable">desc</span><br>   <span class="hljs-function"><span class="hljs-title">ellipsis</span>()</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="推荐组件开发"><a href="#推荐组件开发" class="headerlink" title="推荐组件开发"></a>推荐组件开发</h3><p><img src="/image1/18.png" srcset="/img/loading.gif" lazyload alt="效果"></p>
+<p>新建一个组件<br>src\pages\home\components\Recommend.vue</p>
+<p>在Home.vue中引入并使用</p>
+<p>Recommend.vue代码</p>
+<figure class="highlight handlebars"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><code class="hljs handlebars"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span></span><br><span class="xml">  <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></span><br><span class="xml">    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;title&quot;</span>&gt;</span></span><br><span class="xml">      热销推荐</span><br><span class="xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="xml">    <span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span></span><br><span class="xml">      <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;item  border-bottom&quot;</span> <span class="hljs-attr">v-for</span>=<span class="hljs-string">&quot;item of list&quot;</span> <span class="hljs-attr">:key</span>=<span class="hljs-string">&quot;item.id&quot;</span>&gt;</span></span><br><span class="xml">        <span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;item-img&quot;</span> <span class="hljs-attr">:src</span>=<span class="hljs-string">&quot;item.imgUrl&quot;</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">&quot;&quot;</span> /&gt;</span></span><br><br><span class="xml">        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;item-info&quot;</span>&gt;</span></span><br><span class="xml">          <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;item-title&quot;</span>&gt;</span></span><span class="hljs-template-variable">&#123;&#123; <span class="hljs-name">item.title</span> &#125;&#125;</span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span><br><span class="xml">          <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;item-desc&quot;</span>&gt;</span></span><span class="hljs-template-variable">&#123;&#123; <span class="hljs-name">item.desc</span> &#125;&#125;</span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span><br><span class="xml">          <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;item-button&quot;</span>&gt;</span>查看详情<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br><span class="xml">        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="xml">      <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span></span><br><span class="xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span></span><br><span class="xml">  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span></span><br><br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span></span><br><span class="xml">export default &#123;</span><br><span class="xml">  name: &quot;HomeRecommend&quot;,</span><br><span class="xml">  props: &#123;</span><br><span class="xml">    list: Array</span><br><span class="xml">  &#125;</span><br><span class="xml">&#125;;</span><br><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span><br><br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">style</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;stylus&quot;</span> <span class="hljs-attr">scoped</span>&gt;</span></span><br><span class="xml">@import &#x27;~styles/mixins.styl&#x27;;</span><br><span class="xml">.title</span><br><span class="xml">    margin-top :.2rem</span><br><span class="xml">    line-height :.8rem</span><br><span class="xml">    background:#eee</span><br><span class="xml">    text-indent:.2rem</span><br><span class="xml">.item</span><br><span class="xml">    overflow: hidden</span><br><span class="xml">    display:flex</span><br><span class="xml">    height :1.9rem</span><br><span class="xml">    .item-img</span><br><span class="xml">       width 1.7rem</span><br><span class="xml">       height 1.7rem</span><br><span class="xml">       padding:.1rem</span><br><span class="xml">    .item-info</span><br><span class="xml">        flex:1</span><br><span class="xml">        padding:.1rem</span><br><span class="xml">        min-width:0</span><br><span class="xml">        .item-title</span><br><span class="xml">            line-height :.54rem</span><br><span class="xml">            font-size :.32rem</span><br><span class="xml">            ellipsis()</span><br><span class="xml">        .item-desc</span><br><span class="xml">            line-height :.4rem</span><br><span class="xml">            color:#ccc</span><br><span class="xml">            ellipsis()</span><br><span class="xml">        .item-button</span><br><span class="xml">            line-height :.44rem</span><br><span class="xml">            margin-top:.16rem</span><br><span class="xml">            background #ff9300</span><br><span class="xml">            padding:0 .2rem</span><br><span class="xml">            border radius 0.06rem</span><br><span class="xml">            color:#fff</span><br><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span></span><br><br></code></pre></td></tr></table></figure>
+
+<h3 id="周末游组件开发"><a href="#周末游组件开发" class="headerlink" title="周末游组件开发"></a>周末游组件开发</h3><p><img src="/image1/19.png" srcset="/img/loading.gif" lazyload alt="效果"></p>
+<p>新建一个组件<br>src\pages\home\components\Weekend.vue</p>
+<p>在Home.vue中引入并使用</p>
+<p>Weekend.vue代码</p>
+<figure class="highlight handlebars"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><code class="hljs handlebars"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span></span><br><span class="xml">  <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></span><br><span class="xml">    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;title&quot;</span>&gt;</span></span><br><span class="xml">      周末去哪儿</span><br><span class="xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="xml">    <span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span></span><br><span class="xml">      <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;item  border-bottom&quot;</span> <span class="hljs-attr">v-for</span>=<span class="hljs-string">&quot;item of list&quot;</span> <span class="hljs-attr">:key</span>=<span class="hljs-string">&quot;item.id&quot;</span>&gt;</span></span><br><span class="xml">        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;item-img-warpper&quot;</span>&gt;</span></span><br><span class="xml">          <span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;item-img&quot;</span> <span class="hljs-attr">:src</span>=<span class="hljs-string">&quot;item.imgUrl&quot;</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">&quot;&quot;</span> /&gt;</span></span><br><span class="xml">        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="xml">        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;item-info&quot;</span>&gt;</span></span><br><span class="xml">          <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;item-title&quot;</span>&gt;</span></span><span class="hljs-template-variable">&#123;&#123; <span class="hljs-name">item.title</span> &#125;&#125;</span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span><br><span class="xml">          <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;item-desc&quot;</span>&gt;</span></span><span class="hljs-template-variable">&#123;&#123; <span class="hljs-name">item.desc</span> &#125;&#125;</span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span></span><br><span class="xml">        <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="xml">      <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span></span><br><span class="xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span></span><br><span class="xml">  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span></span><br><br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span></span><br><span class="xml">export default &#123;</span><br><span class="xml">  name: &quot;HomeWeekend&quot;,</span><br><span class="xml">  props: &#123;</span><br><span class="xml">    list: Array</span><br><span class="xml">  &#125;</span><br><span class="xml">&#125;;</span><br><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span><br><br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">style</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;stylus&quot;</span> <span class="hljs-attr">scoped</span>&gt;</span></span><br><span class="xml">@import &#x27;~styles/mixins.styl&#x27;;</span><br><span class="xml">.title</span><br><span class="xml">    line-height :.8rem</span><br><span class="xml">    background:#eee</span><br><span class="xml">    text-indent:.2rem</span><br><span class="xml">.item-img-warpper</span><br><span class="xml">    overflow:hidden</span><br><span class="xml">    height:0</span><br><span class="xml">    padding-bottom :37.9%</span><br><span class="xml">.item-img</span><br><span class="xml">    width 100%</span><br><span class="xml">.item-info</span><br><span class="xml">    padding:.1rem</span><br><span class="xml">    .item-title</span><br><span class="xml">        line-height :.54rem</span><br><span class="xml">        font-size :.32rem</span><br><span class="xml">        ellipsis()</span><br><span class="xml">    .item-desc</span><br><span class="xml">        line-height :.4rem</span><br><span class="xml">        color:#ccc</span><br><span class="xml">        ellipsis()</span><br><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span></span><br><br></code></pre></td></tr></table></figure>
+
+
+
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Vue%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/">Vue项目实战</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/">前端基础</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Vue/">Vue</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/05/03/Vue%E5%8E%BB%E5%93%AA%E5%84%BF%E5%AE%9E%E6%88%98(%E5%9B%9B)/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Vue去哪儿项目&Ajax获取首页数据</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/05/02/Vue%E5%8E%BB%E5%93%AA%E5%84%BF%E5%AE%9E%E6%88%98(%E4%BA%8C)/">
+                        <span class="hidden-mobile">Vue去哪儿项目首页开发&首页header区域</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
