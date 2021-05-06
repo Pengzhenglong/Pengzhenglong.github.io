@@ -1,0 +1,583 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/2.jpg">
+  <link rel="icon" href="/img/2.jpg">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="DragonPeng">
+  <meta name="keywords" content="">
+  
+  <title>Vue去哪儿项目&amp;城市选择页面&amp;动态数据渲染 - DragonPeng的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>DragonPeng' blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/page1.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Vue去哪儿项目&城市选择页面&动态数据渲染">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-05-04 21:15" pubdate>
+        May 4, 2021 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.6k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      28
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Vue去哪儿项目&amp;城市选择页面&amp;动态数据渲染</h1>
+            
+            <div class="markdown-body">
+              <hr>
+<h3 id="城市选择页面路由配置"><a href="#城市选择页面路由配置" class="headerlink" title="城市选择页面路由配置"></a>城市选择页面路由配置</h3><p><img src="/image1/22.png" srcset="/img/loading.gif" lazyload alt="城市页面路由配置"></p>
+<ol>
+<li>页面跳转</li>
+</ol>
+<p>src\pages\home\components\Header.vue中 <code>router-link to=&quot;/city&quot;</code>实现点击右上角页面跳转</p>
+<figure class="highlight handlebars"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs handlebars"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">router-link</span> <span class="hljs-attr">to</span>=<span class="hljs-string">&quot;/city&quot;</span>&gt;</span></span><br><span class="xml">    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;header-right&quot;</span>&gt;</span></span><br><span class="xml">    </span><span class="hljs-template-variable">&#123;&#123; <span class="hljs-name">this.city</span> &#125;&#125;</span><br><span class="xml">    <span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;iconfont  arrow-cron&quot;</span>&gt;</span><span class="hljs-symbol">&amp;#xe64a;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></span><br><span class="xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">router-link</span>&gt;</span></span><br></code></pre></td></tr></table></figure>
+
+<p>这里router-link会使字体颜色发生变化，这是因为router-link在div外层加了个a标签，我们可以给header-right加一个颜色color:#fff</p>
+<ol start="2">
+<li>src\pages\city\components\Header.vue代码实现</li>
+</ol>
+<p><img src="/image1/23.png" srcset="/img/loading.gif" lazyload alt="城市页面Header实现代码"></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;header&quot;</span>&gt;</span><br>    城市选择<br>    <span class="hljs-tag">&lt;<span class="hljs-name">router-link</span> <span class="hljs-attr">to</span>=<span class="hljs-string">&quot;/&quot;</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;iconfont header-back&quot;</span>&gt;</span><span class="hljs-symbol">&amp;#xe624;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">router-link</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><br><span class="javascript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;</span><br><span class="javascript">  name: <span class="hljs-string">&quot;CityHeader&quot;</span></span><br>&#125;;<br><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">style</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;stylus&quot;</span> <span class="hljs-attr">scoped</span>&gt;</span><br><span class="css"><span class="hljs-keyword">@import</span> <span class="hljs-string">&#x27;~styles/varibles.styl&#x27;</span>;</span><br>.header<br><span class="css">   <span class="hljs-attribute">position</span>: relative</span><br><span class="css">   <span class="hljs-attribute">overflow</span> :hidden</span><br><span class="css">   <span class="hljs-attribute">height</span>: $headerHeight</span><br><span class="css">   <span class="hljs-attribute">line-height</span> :$headerHeight</span><br><span class="css">   <span class="hljs-attribute">text-align</span>:center</span><br><span class="css">   <span class="hljs-attribute">color</span>:<span class="hljs-number">#fff</span></span><br><span class="css">   <span class="hljs-attribute">background</span> :$bgColor</span><br><span class="css">   <span class="hljs-attribute">font-size</span>:.<span class="hljs-number">32rem</span></span><br>   .header-back<br><span class="css">       <span class="hljs-attribute">top</span>:<span class="hljs-number">0</span></span><br><span class="css">       <span class="hljs-attribute">left</span>:<span class="hljs-number">0</span></span><br><span class="css">       <span class="hljs-attribute">position</span>:absolute</span><br><span class="css">       <span class="hljs-attribute">width</span> <span class="hljs-number">0.64rem</span></span><br><span class="css">       <span class="hljs-attribute">text-align</span>:center</span><br><span class="css">       <span class="hljs-attribute">font-size</span> :.<span class="hljs-number">4rem</span></span><br><span class="css">       <span class="hljs-attribute">color</span>:<span class="hljs-number">#fff</span></span><br><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span><br><br></code></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>src\pages\city\City.vue引入使用上面的组件</li>
+</ol>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs xquery"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span></span><br><span class="xml">  </span><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></span><br><span class="xml">    </span><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">city-header</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">city-header</span>&gt;</span></span><br><span class="xml">  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span></span><br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span></span><br><span class="xml">import CityHeader from &quot;./components/Header&quot;;</span><br><span class="xml">export default </span><span class="xquery">&#123;</span><br><span class="xquery"> <span class="hljs-built_in"> name</span>: <span class="hljs-string">&quot;City&quot;</span>,</span><br><span class="xquery">  components: &#123;</span><br><span class="xquery">    CityHeader,</span><br><span class="xquery">  &#125;</span><span class="xml">,</span><br><span class="xml">&#125;</span><br></code></pre></td></tr></table></figure>
+
+
+<h3 id="搜索框布局"><a href="#搜索框布局" class="headerlink" title="搜索框布局"></a>搜索框布局</h3><p><img src="/image1/24.png" srcset="/img/loading.gif" lazyload alt="城市页面搜索框样式"></p>
+<p>src\pages\city\components\Search.vue代码实现</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">&lt;<span class="hljs-keyword">template</span>&gt;<br>&lt;div <span class="hljs-keyword">class</span>=&quot;search&quot;&gt;<br>    &lt;<span class="hljs-keyword">input</span><br>    v-model=&quot;keyword&quot;<br>    <span class="hljs-keyword">class</span>=&quot;search-input&quot;<br>    <span class="hljs-keyword">type</span>=&quot;text&quot;<br>    placeholder=&quot;输入城市名或拼音&quot;<br>    /&gt;<br>&lt;/<span class="hljs-keyword">template</span>&gt;<br>&lt;script&gt;<br>export <span class="hljs-keyword">default</span> &#123;<br>  <span class="hljs-type">name</span>: &quot;CitySearch&quot;,<br>&#125;&lt;/script&gt;<br>&lt;style lang=&quot;stylus&quot; scoped&gt;<br>@<span class="hljs-keyword">import</span> <span class="hljs-string">&#x27;~styles/varibles.styl&#x27;</span>;<br>    .<span class="hljs-keyword">search</span><br>       height:<span class="hljs-number">0.72</span>rem<br>       padding:<span class="hljs-number">0</span>  <span class="hljs-number">.1</span>rem<br>       background:$bgColor<br>       .<span class="hljs-keyword">search</span>-<span class="hljs-keyword">input</span><br>           <span class="hljs-type">box</span>-sizing:border-<span class="hljs-type">box</span><br>           width :<span class="hljs-number">100</span>%<br>           height: <span class="hljs-number">0.62</span>rem<br>           padding:<span class="hljs-number">0</span> <span class="hljs-number">.1</span>rem<br>           <span class="hljs-type">line</span>-height :<span class="hljs-number">.62</span>rem<br>           <span class="hljs-type">text</span>-align :center<br>           border-radius: <span class="hljs-number">0.06</span>rem<br>           color:#<span class="hljs-number">666</span><br>      .<span class="hljs-keyword">search</span>-content<br>          z-<span class="hljs-keyword">index</span>:<span class="hljs-number">1</span><br>          overflow :hidden<br>          position:absolute<br>          top: <span class="hljs-number">1.58</span>rem<br>          right:<span class="hljs-number">0</span><br>          left:<span class="hljs-number">0</span><br>          bottom:<span class="hljs-number">0</span><br>          background:#eee<br>          .<span class="hljs-keyword">search</span>-item<br>            <span class="hljs-type">line</span>-height :<span class="hljs-number">.62</span>rem<br>            padding-left :<span class="hljs-number">.2</span>rem<br>            color:#<span class="hljs-number">666</span><br>            background:#fff<br>&lt;/style&gt;<br></code></pre></td></tr></table></figure>
+
+<h3 id="列表布局"><a href="#列表布局" class="headerlink" title="列表布局"></a>列表布局</h3><p><img src="/image1/25.png" srcset="/img/loading.gif" lazyload alt="城市列表"></p>
+<p>部分代码样式：</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><code class="hljs applescript">&lt;template&gt;<br>  &lt;<span class="hljs-keyword">div</span> <span class="hljs-built_in">class</span>=<span class="hljs-string">&quot;list&quot;</span> <span class="hljs-keyword">ref</span>=<span class="hljs-string">&quot;wrapper&quot;</span>&gt;<br>    &lt;<span class="hljs-keyword">div</span>&gt;<br>      &lt;<span class="hljs-keyword">div</span> <span class="hljs-built_in">class</span>=<span class="hljs-string">&quot;area&quot;</span>&gt;<br>        &lt;<span class="hljs-keyword">div</span> <span class="hljs-built_in">class</span>=<span class="hljs-string">&quot;title  border-topbottom&quot;</span>&gt;当前城市&lt;/<span class="hljs-keyword">div</span>&gt;<br>        &lt;<span class="hljs-keyword">div</span> <span class="hljs-built_in">class</span>=<span class="hljs-string">&quot;buttom-list&quot;</span>&gt;<br>          &lt;<span class="hljs-keyword">div</span> <span class="hljs-built_in">class</span>=<span class="hljs-string">&quot;buttom-wrapper&quot;</span>&gt;<br>            &lt;<span class="hljs-keyword">div</span> <span class="hljs-built_in">class</span>=<span class="hljs-string">&quot;button&quot;</span>&gt;北京&lt;/<span class="hljs-keyword">div</span>&gt;<br>          &lt;/<span class="hljs-keyword">div</span>&gt;<br>        &lt;/<span class="hljs-keyword">div</span>&gt;<br>      &lt;/<span class="hljs-keyword">div</span>&gt;<br>      &lt;<span class="hljs-keyword">div</span> <span class="hljs-built_in">class</span>=<span class="hljs-string">&quot;area&quot;</span>&gt;<br>        &lt;<span class="hljs-keyword">div</span> <span class="hljs-built_in">class</span>=<span class="hljs-string">&quot;title  border-topbottom&quot;</span>&gt;热门城市&lt;/<span class="hljs-keyword">div</span>&gt;<br>        &lt;<span class="hljs-keyword">div</span> <span class="hljs-built_in">class</span>=<span class="hljs-string">&quot;buttom-list&quot;</span>&gt;<br>          &lt;<span class="hljs-keyword">div</span> <span class="hljs-built_in">class</span>=<span class="hljs-string">&quot;buttom-wrapper&quot;</span> v-<span class="hljs-keyword">for</span>=<span class="hljs-string">&quot;item of hot&quot;</span> :key=<span class="hljs-string">&quot;item.id&quot;</span>&gt;<br>            &lt;<span class="hljs-keyword">div</span> <span class="hljs-built_in">class</span>=<span class="hljs-string">&quot;button&quot;</span>&gt;&#123;&#123; <span class="hljs-built_in">item</span>.<span class="hljs-built_in">name</span> &#125;&#125;&lt;/<span class="hljs-keyword">div</span>&gt;<br>          &lt;/<span class="hljs-keyword">div</span>&gt;<br>        &lt;/<span class="hljs-keyword">div</span>&gt;<br>      &lt;/<span class="hljs-keyword">div</span>&gt;<br>      &lt;<span class="hljs-keyword">div</span> <span class="hljs-built_in">class</span>=<span class="hljs-string">&quot;area&quot;</span> v-<span class="hljs-keyword">for</span>=<span class="hljs-string">&quot;(item, key) of cities&quot;</span> :key=<span class="hljs-string">&quot;key&quot;</span> :<span class="hljs-keyword">ref</span>=<span class="hljs-string">&quot;key&quot;</span>&gt;<br>        &lt;<span class="hljs-keyword">div</span> <span class="hljs-built_in">class</span>=<span class="hljs-string">&quot;title   border-topbottom&quot;</span>&gt;&#123;&#123; key &#125;&#125;&lt;/<span class="hljs-keyword">div</span>&gt;<br>        &lt;<span class="hljs-keyword">div</span> <span class="hljs-built_in">class</span>=<span class="hljs-string">&quot;item-list&quot;</span>&gt;<br>          &lt;<span class="hljs-keyword">div</span><br>            <span class="hljs-built_in">class</span>=<span class="hljs-string">&quot;item  border-bottom&quot;</span><br>            v-<span class="hljs-keyword">for</span>=<span class="hljs-string">&quot;innerItem of item&quot;</span><br>            :key=<span class="hljs-string">&quot;innerItem.id&quot;</span><br>          &gt;<br>            &#123;&#123; innerItem.<span class="hljs-built_in">name</span> &#125;&#125;<br>          &lt;/<span class="hljs-keyword">div</span>&gt;<br>        &lt;/<span class="hljs-keyword">div</span>&gt;<br>      &lt;/<span class="hljs-keyword">div</span>&gt;<br>    &lt;/<span class="hljs-keyword">div</span>&gt;<br>  &lt;/<span class="hljs-keyword">div</span>&gt;<br>&lt;/template&gt;<br><br>&lt;style lang=<span class="hljs-string">&quot;stylus&quot;</span> scoped&gt;<br>@import &#x27;~styles/varibles.styl&#x27;;<br>.header<br>  display:flex<br>  line-height: $headerHeight<br>  background: $bgColor<br>  color: <span class="hljs-comment">#fff</span><br>  .header-left<br>    width <span class="hljs-number">.64</span>rem<br>    float:left<br>    .<span class="hljs-keyword">back</span>-icon<br>      <span class="hljs-built_in">text</span>-align:center<br>      font-size:<span class="hljs-number">.4</span>rem<br>  .header-input<br>     flex:<span class="hljs-number">1</span><br>     line-height:<span class="hljs-number">.64</span>rem<br>     height: <span class="hljs-number">.64</span>rem<br>     margin-top: <span class="hljs-number">.12</span>rem<br>     margin-left: <span class="hljs-number">.2</span>rem<br>     padding-left:<span class="hljs-number">.2</span>rem<br>     background: <span class="hljs-comment">#fff</span><br>     border-radius: <span class="hljs-number">.1</span>rem<br>     color:<span class="hljs-comment">#ccc</span><br>  .header-right<br>     width: <span class="hljs-number">1.24</span>rem<br>     float:right<br>     <span class="hljs-built_in">text</span>-align:center<br>     color:<span class="hljs-comment">#fff</span><br>     .arrow-icon<br>       margin-left :<span class="hljs-number">-.04</span>rem<br>       font-size :<span class="hljs-number">.24</span>rem<br>&lt;/style&gt;<br><br></code></pre></td></tr></table></figure>
+
+<p><img src="/image1/25.png" srcset="/img/loading.gif" lazyload alt="城市列表"></p>
+<h3 id="Better-scroll的使用及字母表布局"><a href="#Better-scroll的使用及字母表布局" class="headerlink" title="Better-scroll的使用及字母表布局"></a>Better-scroll的使用及字母表布局</h3><p>问题：列表布局中.list加了一个绝对定位和overflow:hidden这会导致页面是无法拖动的</p>
+<p>解决：我们可以使用一个第三方的包Better-scroll</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/ustbhuangyi/better-scroll">Github地址</a></p>
+<ol>
+<li>安装</li>
+</ol>
+<figure class="highlight gauss"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs gauss">npm install better-<span class="hljs-keyword">scroll</span> --<span class="hljs-keyword">save</span><br></code></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>使用(符合这个dom结构)</li>
+</ol>
+<p>BetterScroll的最常见应用场景是列表滚动。让我们看看它的HTML：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;wrapper&quot;</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">ul</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;content&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>...<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>...<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span><br>    ...<br>  <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span><br>  <span class="hljs-comment">&lt;!-- you can put some other DOMs here, it won&#x27;t affect the scrolling</span><br><span class="hljs-comment">&lt;/div&gt;</span><br></code></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>具体使用</li>
+</ol>
+<figure class="highlight capnproto"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs capnproto"><span class="hljs-keyword">import</span> Bscroll <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;better-scroll&quot;</span>;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">&lt;div <span class="hljs-keyword">class</span>=&quot;list&quot; <span class="hljs-keyword">ref</span>=&quot;wrapper&quot;&gt;  //<span class="hljs-keyword">ref</span>帮助我们获取该dom元素<br><br> //生命周期函数，载入后<br>  mounted() &#123;<br>  this.scroll = <span class="hljs-built_in">new</span> Bscroll(this.$refs.<span class="hljs-keyword">wrapper</span>);<br>&#125;,<br></code></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>效果：上拉与下拉能够实现，并且有弹性动画效果，非常流畅</li>
+</ol>
+<h4 id="字母表布局"><a href="#字母表布局" class="headerlink" title="字母表布局"></a>字母表布局</h4><p><img src="/image1/26.png" srcset="/img/loading.gif" lazyload alt="右侧字母表布局"></p>
+<ol>
+<li>创建组件src\pages\city\components\Alphabet.vue</li>
+</ol>
+<p>部分代码样式</p>
+<figure class="highlight handlebars"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs handlebars"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span></span><br><span class="xml">  <span class="hljs-tag">&lt;<span class="hljs-name">ul</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;list&quot;</span>&gt;</span></span><br><span class="xml">    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>  <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;item&quot;</span>  &gt;</span></span><br><span class="xml">      </span><span class="hljs-template-variable">&#123;&#123; <span class="hljs-name">item</span> &#125;&#125;</span><br><span class="xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span></span><br><span class="xml">  <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span></span><br><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span></span><br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span></span><br><span class="xml">export default &#123;</span><br><span class="xml">  name: &quot;CityAlphabet&quot;,</span><br><span class="xml">&#125;</span><br><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span><br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">style</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;stylus&quot;</span> <span class="hljs-attr">scoped</span>&gt;</span></span><br><span class="xml">@import &#x27;~styles/varibles.styl&#x27;;</span><br><span class="xml">    .list</span><br><span class="xml">        display:flex</span><br><span class="xml">        flex-direction :column</span><br><span class="xml">        justify-content :center</span><br><span class="xml">        position:absolute</span><br><span class="xml">        top 1.58rem</span><br><span class="xml">        right 0</span><br><span class="xml">        bottom:0</span><br><span class="xml">        width 0.4rem</span><br><span class="xml">        .item</span><br><span class="xml">            text-align:center</span><br><span class="xml">            line-height :.4rem</span><br><span class="xml">            color:$bgColor</span><br><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span></span><br></code></pre></td></tr></table></figure>
+
+<h3 id="城市列表页面动态数据渲染"><a href="#城市列表页面动态数据渲染" class="headerlink" title="城市列表页面动态数据渲染"></a>城市列表页面动态数据渲染</h3><p>利用ajax获取数据</p>
+<ol>
+<li>准备好的本地模拟数据</li>
+</ol>
+<p><img src="/image1/27.png" srcset="/img/loading.gif" lazyload alt="数据"></p>
+<ol start="2">
+<li>ajax请求一般我们会放在最外层组件中获取，这样一次就能够获取到所有组件需要的内容</li>
+</ol>
+<p>src\pages\city\City.vue这里我们在City.vue中发送</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">city-header</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">city-header</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">city-search</span> <span class="hljs-attr">:cities</span>=<span class="hljs-string">&quot;cities&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">city-search</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">city-list</span> <span class="hljs-attr">:cities</span>=<span class="hljs-string">&quot;cities&quot;</span> <span class="hljs-attr">:hot</span>=<span class="hljs-string">&quot;hotCities&quot;</span> <span class="hljs-attr">:letter</span>=<span class="hljs-string">&quot;letter&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">city-list</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">city-alphabet</span> <span class="hljs-attr">:cities</span>=<span class="hljs-string">&quot;cities&quot;</span> @<span class="hljs-attr">change</span>=<span class="hljs-string">&quot;handLetterChange&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">city-alphabet</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><br><span class="javascript"><span class="hljs-keyword">import</span> axios <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;axios&quot;</span>;</span><br><span class="javascript"><span class="hljs-keyword">import</span> CityHeader <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;./components/Header&quot;</span>;</span><br><span class="javascript"><span class="hljs-keyword">import</span> CitySearch <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;./components/Search&quot;</span>;</span><br><span class="javascript"><span class="hljs-keyword">import</span> CityList <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;./components/List&quot;</span>;</span><br><span class="javascript"><span class="hljs-keyword">import</span> CityAlphabet <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;./components/Alphabet&quot;</span>;</span><br><span class="javascript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;</span><br><span class="javascript">  name: <span class="hljs-string">&quot;City&quot;</span>,</span><br>  components: &#123;<br>    CityHeader,<br>    CitySearch,<br>    CityList,<br>    CityAlphabet<br>  &#125;,<br>  methods: &#123;<br><span class="javascript">    <span class="hljs-function"><span class="hljs-title">getCityInfo</span>(<span class="hljs-params"></span>)</span> &#123;</span><br><span class="javascript">      axios.get(<span class="hljs-string">&quot;/api/city.json&quot;</span>).then(<span class="hljs-built_in">this</span>.handleGetCityIngoSucc);</span><br>    &#125;,<br><span class="javascript">    <span class="hljs-function"><span class="hljs-title">handleGetCityIngoSucc</span>(<span class="hljs-params">res</span>)</span> &#123;</span><br>      res = res.data;<br>      if (res.ret &amp;&amp; res.data) &#123;<br><span class="javascript">        <span class="hljs-keyword">const</span> data = res.data;</span><br><span class="javascript">        <span class="hljs-built_in">this</span>.cities = data.cities;</span><br><span class="javascript">        <span class="hljs-built_in">this</span>.hotCities = data.hotCities;</span><br>      &#125;<br>    &#125;,<br><span class="javascript">    <span class="hljs-function"><span class="hljs-title">handLetterChange</span>(<span class="hljs-params">letter</span>)</span> &#123;</span><br><span class="javascript">      <span class="hljs-comment">// console.log(letter);</span></span><br><span class="javascript">      <span class="hljs-built_in">this</span>.letter = letter;</span><br>    &#125;<br>  &#125;,<br><span class="javascript">  <span class="hljs-comment">// 存放数据</span></span><br><span class="javascript">  <span class="hljs-function"><span class="hljs-title">data</span>(<span class="hljs-params"></span>)</span> &#123;</span><br><span class="javascript">    <span class="hljs-keyword">return</span> &#123;</span><br>      cities: &#123;&#125;,<br>      hotCities: [],<br><span class="javascript">      letter: <span class="hljs-string">&quot;&quot;</span></span><br>    &#125;;<br>  &#125;,<br><span class="javascript">  <span class="hljs-comment">// 生命周期函数</span></span><br><span class="javascript">  <span class="hljs-function"><span class="hljs-title">mounted</span>(<span class="hljs-params"></span>)</span> &#123;</span><br><span class="javascript">    <span class="hljs-built_in">this</span>.getCityInfo();</span><br>  &#125;<br>&#125;;<br><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>父组件向子组件传数据</li>
+</ol>
+<p>例：</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs elixir">&lt;city-list <span class="hljs-symbol">:cities=<span class="hljs-string">&quot;cities&quot;</span></span> <span class="hljs-symbol">:hot=<span class="hljs-string">&quot;hotCities&quot;</span></span> <span class="hljs-symbol">:letter=<span class="hljs-string">&quot;letter&quot;</span>&gt;&lt;/city-list&gt;</span><br></code></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>子组件通过props接收</li>
+</ol>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs dts">export <span class="hljs-class">default </span>&#123;<br><span class="hljs-symbol">  name:</span> <span class="hljs-string">&quot;CityList&quot;</span>,<br><span class="hljs-symbol">  props:</span> &#123;<br><span class="hljs-symbol">    hot:</span> Array,<br><span class="hljs-symbol">    cities:</span> Object,<br><span class="hljs-symbol">    letter:</span> String<br>  &#125;,<br></code></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>v-for渲染数据</li>
+</ol>
+<p>循环数组</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs applescript">&lt;<span class="hljs-keyword">div</span> <span class="hljs-built_in">class</span>=<span class="hljs-string">&quot;buttom-wrapper&quot;</span> v-<span class="hljs-keyword">for</span>=<span class="hljs-string">&quot;item of hot&quot;</span> :key=<span class="hljs-string">&quot;item.id&quot;</span>&gt;<br>&lt;<span class="hljs-keyword">div</span> <span class="hljs-built_in">class</span>=<span class="hljs-string">&quot;button&quot;</span>&gt;&#123;&#123; <span class="hljs-built_in">item</span>.<span class="hljs-built_in">name</span> &#125;&#125;&lt;/<span class="hljs-keyword">div</span>&gt;<br>&lt;/<span class="hljs-keyword">div</span>&gt;<br></code></pre></td></tr></table></figure>
+
+<p>循环对象(这里我们使用了二次循环)</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs applescript">&lt;<span class="hljs-keyword">div</span> <span class="hljs-built_in">class</span>=<span class="hljs-string">&quot;area&quot;</span> v-<span class="hljs-keyword">for</span>=<span class="hljs-string">&quot;(item, key) of cities&quot;</span> :key=<span class="hljs-string">&quot;key&quot;</span> :<span class="hljs-keyword">ref</span>=<span class="hljs-string">&quot;key&quot;</span>&gt;<br>  &lt;<span class="hljs-keyword">div</span> <span class="hljs-built_in">class</span>=<span class="hljs-string">&quot;title   border-topbottom&quot;</span>&gt;&#123;&#123; key &#125;&#125;&lt;/<span class="hljs-keyword">div</span>&gt;<br>  &lt;<span class="hljs-keyword">div</span> <span class="hljs-built_in">class</span>=<span class="hljs-string">&quot;item-list&quot;</span>&gt;<br>    &lt;<span class="hljs-keyword">div</span><br>      <span class="hljs-built_in">class</span>=<span class="hljs-string">&quot;item  border-bottom&quot;</span><br>      v-<span class="hljs-keyword">for</span>=<span class="hljs-string">&quot;innerItem of item&quot;</span><br>      :key=<span class="hljs-string">&quot;innerItem.id&quot;</span><br>    &gt;<br>      &#123;&#123; innerItem.<span class="hljs-built_in">name</span> &#125;&#125;<br>    &lt;/<span class="hljs-keyword">div</span>&gt;<br>  &lt;/<span class="hljs-keyword">div</span>&gt;<br>      &lt;/<span class="hljs-keyword">div</span>&gt;<br></code></pre></td></tr></table></figure>
+
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Vue%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/">Vue项目实战</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/">前端基础</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Vue/">Vue</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/05/04/Vue%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0(%E5%85%AD)/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Vue&v-for循环6种技巧</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/05/03/Vue%E5%8E%BB%E5%93%AA%E5%84%BF%E5%AE%9E%E6%88%98(%E5%9B%9B)/">
+                        <span class="hidden-mobile">Vue去哪儿项目&Ajax获取首页数据</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
