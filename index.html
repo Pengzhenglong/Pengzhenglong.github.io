@@ -180,15 +180,75 @@
     
     
       <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2021/05/06/Vue%E5%8E%BB%E5%93%AA%E5%84%BF%E5%AE%9E%E6%88%98(%E4%B8%83)/" target="_self">
-          <img src="/image/21.1.png" srcset="/img/loading.gif" lazyload alt="Vue去哪儿项目&amp;">
+        <a href="/2021/05/07/Vue%E5%8E%BB%E5%93%AA%E5%84%BF%E5%AE%9E%E6%88%98(%E5%85%AB)/" target="_self">
+          <img src="/image/21.1.png" srcset="/img/loading.gif" lazyload alt="使用Vuex的实现数据共享&amp;localStorage&amp;keep-alive">
         </a>
       </div>
     
     <article class="col-12 col-md-8 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2021/05/06/Vue%E5%8E%BB%E5%93%AA%E5%84%BF%E5%AE%9E%E6%88%98(%E4%B8%83)/">Vue去哪儿项目&amp;</a>
+        <a href="/2021/05/07/Vue%E5%8E%BB%E5%93%AA%E5%84%BF%E5%AE%9E%E6%88%98(%E5%85%AB)/">使用Vuex的实现数据共享&amp;localStorage&amp;keep-alive</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/05/07/Vue%E5%8E%BB%E5%93%AA%E5%84%BF%E5%AE%9E%E6%88%98(%E5%85%AB)/">
+          
+          
+            
+          
+          
+使用Vuex的实现数据共享需求：我们点击城市页时首页的城市也能改变
+City.vue和Home.vue是没有一个共用的父级组价的，这样两个页面是没有一个共用的父级组件进行中转。方法一：使用Bus总线(比较麻烦)
+方法二：Vuex(数据框架)main.js引入store
+12345678import  store  from  &#x27;./store&#x27;new Vue(&#123;  
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-05-07 20:15" pubdate>
+              2021-05-07
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Vue%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/">Vue项目实战</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/">前端基础</a>
+            
+              <a href="/tags/Vue/">Vue</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2021/05/06/Vue%E5%8E%BB%E5%93%AA%E5%84%BF%E5%AE%9E%E6%88%98(%E4%B8%83)/" target="_self">
+          <img src="/image/21.1.png" srcset="/img/loading.gif" lazyload alt="Vue去哪儿项目&amp;搜索功能实现">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/05/06/Vue%E5%8E%BB%E5%93%AA%E5%84%BF%E5%AE%9E%E6%88%98(%E4%B8%83)/">Vue去哪儿项目&amp;搜索功能实现</a>
       </h1>
 
       <p class="index-excerpt">
@@ -198,7 +258,9 @@
             
           
           
-
+搜索功能实现
+src\pages\city\components\Search.vue部分代码
+1234567891011121314151617181920212223242526272829&lt;div class=&quot;search-content&quot; ref=&quot;search&quot; v-show=&quot;keyword&quot;&gt;&lt;ul&g
         </a>
       </p>
 
@@ -719,64 +781,6 @@ npm  run  dev
           <div class="post-meta mr-3">
             <i class="iconfont icon-date"></i>
             <time datetime="2021-05-01 19:15" pubdate>
-              2021-05-01
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Vue/">Vue</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/">前端基础</a>
-            
-              <a href="/tags/Vue/">Vue</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2021/05/01/Vue%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0(%E5%9B%9B)/" target="_self">
-          <img src="/image/11.PNG" srcset="/img/loading.gif" lazyload alt="Vue&amp;组件之间的传值通信&amp;props$&amp;$emits&amp;ref/refs">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/05/01/Vue%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0(%E5%9B%9B)/">Vue&amp;组件之间的传值通信&amp;props$&amp;$emits&amp;ref/refs</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/05/01/Vue%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0(%E5%9B%9B)/">
-          
-          
-            
-          
-          
-vue变量赋值的时候，在什么时候用双引号，什么时候用单引号，什么时候不用引号变量值赋值的时候要根据是什么类型来给对应的符号
-123456789String 字符串 类型的加双引号       name=&quot;陈钰&quot;;char   字符     类型的加单引号       sex=&#x27;男&#x27;;boolean 布尔值  类型的不加引号     isShow=true;
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-05-01 18:15" pubdate>
               2021-05-01
             </time>
           </div>
