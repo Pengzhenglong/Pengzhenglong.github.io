@@ -228,7 +228,8 @@
             <h1 style="display: none">Vue&amp;v-for循环6种技巧</h1>
             
             <div class="markdown-body">
-              <p>在最基本的用法中，它们的用法如下。</p>
+              <hr>
+<p>在最基本的用法中，它们的用法如下。</p>
 <figure class="highlight handlebars"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs handlebars"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span></span><br><span class="xml">  <span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">v-for</span>=<span class="hljs-string">&#x27;product in products&#x27;</span>&gt;</span></span><br><span class="xml">    </span><span class="hljs-template-variable">&#123;&#123; <span class="hljs-name">product.name</span> &#125;&#125;</span><br><span class="xml">  <span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span></span><br><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span></span><br></code></pre></td></tr></table></figure>
 <hr>
 <h3 id="1-始终在v-for循环中使用key"><a href="#1-始终在v-for循环中使用key" class="headerlink" title="1.始终在v-for循环中使用key"></a>1.始终在v-for循环中使用key</h3><p>首先，我们将讨论大多数Vue开发人员已经知道的常见最佳做法——在 v-for 循环中使用 :key。通过设置一个惟一的键属性，它可以确保组件以您期望的方式工作。</p>

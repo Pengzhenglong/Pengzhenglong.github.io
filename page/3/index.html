@@ -180,6 +180,132 @@
     
     
       <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2021/04/22/%E5%BE%AE%E4%BF%A1%E8%B1%86%E7%93%A3%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%AD%A6%E4%B9%A0(%E4%B8%89)/" target="_self">
+          <img src="/image/16.PNG" srcset="/img/loading.gif" lazyload alt="豆瓣&amp;itemview重构&amp;列表数据渲染成真实数据">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/04/22/%E5%BE%AE%E4%BF%A1%E8%B1%86%E7%93%A3%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%AD%A6%E4%B9%A0(%E4%B8%89)/">豆瓣&amp;itemview重构&amp;列表数据渲染成真实数据</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/04/22/%E5%BE%AE%E4%BF%A1%E8%B1%86%E7%93%A3%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%AD%A6%E4%B9%A0(%E4%B8%89)/">
+          
+          
+            
+          
+          
+电影列表页面布局itemview重构分析：首页和更多页面的布局基本一样，所以我们可以将首页布局代码拿过来直接用         
+(我们在代码的时候发现有些东西是重复的，我们可以将代码单独抽取出来，然后再哪个地方需要使用的时候再引用，这样相当于对代码进行了重构，方便后期对代码进行管理)
+
+
+首页代码在indexmodul组件中，所以我们去该组价中再进行代码优化
+
+
+在components中新建一
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-04-22 20:15" pubdate>
+              2021-04-22
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/WX/">WX</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/WX/">WX</a>
+            
+              <a href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/">小程序</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2021/04/21/%E5%BE%AE%E4%BF%A1%E8%B1%86%E7%93%A3%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%AD%A6%E4%B9%A0(%E4%BA%8C)/" target="_self">
+          <img src="/image/16.PNG" srcset="/img/loading.gif" lazyload alt="豆瓣&amp;首页布局和数据获取&amp;首页模块重构&amp;网络请求模块重构">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/04/21/%E5%BE%AE%E4%BF%A1%E8%B1%86%E7%93%A3%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%AD%A6%E4%B9%A0(%E4%BA%8C)/">豆瓣&amp;首页布局和数据获取&amp;首页模块重构&amp;网络请求模块重构</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/04/21/%E5%BE%AE%E4%BF%A1%E8%B1%86%E7%93%A3%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%AD%A6%E4%B9%A0(%E4%BA%8C)/">
+          
+          
+            
+          
+          
+首页布局和数据获取
+将电影中假的数据变成真的数据(wx.request请求Api)
+
+首页js文件中获取，在onLoad中请求数据，这个页面一旦加载完毕就去请求
+index.js
+12345678910111213141516171819202122232425262728293031323334353637383940414243444546/**生命周期函数-监听页面加载*/onLoad:f
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-04-21 20:15" pubdate>
+              2021-04-21
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/WX/">WX</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/WX/">WX</a>
+            
+              <a href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/">小程序</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
         <a href="/2021/04/20/%E5%BE%AE%E4%BF%A1%E8%B1%86%E7%93%A3%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%AD%A6%E4%B9%A0(%E4%B8%80)/" target="_self">
           <img src="/image/16.PNG" srcset="/img/loading.gif" lazyload alt="豆瓣小程序&amp;入门&amp;搜索栏的实现&amp;评分星星布局">
         </a>
@@ -657,131 +783,11 @@ VM： 即View-Model，模型于视图间的双向操作(无需开发人员干涉
     </article>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2021/04/14/ES6(%E4%BA%94)/" target="_self">
-          <img src="/image/9.PNG" srcset="/img/loading.gif" lazyload alt="ES6-map&amp;reduce">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/04/14/ES6(%E4%BA%94)/">ES6-map&amp;reduce</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/04/14/ES6(%E4%BA%94)/">
-          
-          
-            
-          
-          以下是对 map&amp;reduce  的学习
-
-map() 接受一个函数，将原数组中的所有元素用这个函数处理后放入新数组返回12345678let arr = [&#x27;1&#x27;, &#x27;2&#x27;, &#x27;3&#x27;, &#x27;5&#x27;];// 方法一//  arr   =arr.map((item)=&gt;&#123;//        retur
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-04-14 22:15" pubdate>
-              2021-04-14
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/ES6/">ES6</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/">前端基础</a>
-            
-              <a href="/tags/ES6/">ES6</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2021/04/14/CSS3flex%E5%B8%83%E5%B1%80/" target="_self">
-          <img src="/image/13.PNG" srcset="/img/loading.gif" lazyload alt="CSS3--flex布局">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/04/14/CSS3flex%E5%B8%83%E5%B1%80/">CSS3--flex布局</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/04/14/CSS3flex%E5%B8%83%E5%B1%80/">
-          
-          
-            
-          
-          以下是对flex布局的学习(重点)
-
-flex布局体验
-布局原理flex  是flexible  Box的缩写，意为“弹性布局”，用来为盒状模型提供最大的灵活性，任何一个容器都可以指定为flex布局。
-
-当我们为父盒子设为flex布局以后，子元素的float,clear和vertical-align属性将无效
-伸缩布局=弹性布局=伸缩盒布局=弹性盒布局=flex布局            flex
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-04-14 19:15" pubdate>
-              2021-04-14
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/CSS/">CSS</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/">前端基础</a>
-            
-              <a href="/tags/CSS/">CSS</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/2/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/#board">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/#board">4</a><a class="page-number" href="/page/5/#board">5</a><a class="extend next" rel="next" href="/page/4/#board"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/page/2/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/#board">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/#board">4</a><a class="page-number" href="/page/5/#board">5</a><a class="page-number" href="/page/6/#board">6</a><a class="extend next" rel="next" href="/page/4/#board"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
 
