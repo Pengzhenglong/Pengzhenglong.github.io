@@ -180,6 +180,71 @@
     
     
       <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2021/05/03/Vue%E5%8E%BB%E5%93%AA%E5%84%BF%E5%AE%9E%E6%88%98(%E5%9B%9B)/" target="_self">
+          <img src="/image/21.1.png" srcset="/img/loading.gif" lazyload alt="Vue去哪儿项目&amp;Ajax获取首页数据">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/05/03/Vue%E5%8E%BB%E5%93%AA%E5%84%BF%E5%AE%9E%E6%88%98(%E5%9B%9B)/">Vue去哪儿项目&amp;Ajax获取首页数据</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/05/03/Vue%E5%8E%BB%E5%93%AA%E5%84%BF%E5%AE%9E%E6%88%98(%E5%9B%9B)/">
+          
+          
+            
+          
+          
+Ajax获取首页数据–axios
+项目安装axios 
+
+1npm  install  axios --save
+
+分析：首页由5个组件组成，每一个组件都有自己的数据，那么每个组件都发送一个ajax请求。如果这样做首页就会发送5个ajax请求，网站的性能会很低。
+解决：Home.vue组件中发送ajax是最好的选择，这个组件获取ajax请求的数据传给每个子组件中，只用请求一次。
+
+引入axios
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-05-03 21:15" pubdate>
+              2021-05-03
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Vue%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/">Vue项目实战</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/">前端基础</a>
+            
+              <a href="/tags/Vue/">Vue</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
         <a href="/2021/05/02/Vue%E5%8E%BB%E5%93%AA%E5%84%BF%E5%AE%9E%E6%88%98(%E4%B8%89)/" target="_self">
           <img src="/image/21.1.png" srcset="/img/loading.gif" lazyload alt="Vue去哪儿项目首页开发&amp;首页轮播图&amp;推荐组件开发">
         </a>
@@ -700,12 +765,13 @@ vue变量赋值的时候，在什么时候用双引号，什么时候用单引�
 
 什么是MVVM？MVVM 由 Model、View、ViewModel 三部分构成
 
-Model 代表数据模型，也可以在 Model 中定义数据和修改业务逻辑；
-View 代表 UI 组件，它负责将数据模型转化成 UI 展现出来；
+View 层
+
+View 是视图层，也就是用户界面。前端主要由 HTML 和 CSS 来构建 。
+
+Model 层Model 是指数据模型，泛指后端进行的各种业务逻辑处理和数据操控，对于前端来说就是后端提供的 api 接口。
+
 ViewModel 是一个同步View 和 Model的对象；
-
-
-在 MVVM 架构下，View 和 Model 之间并没有直接的联系，而是通
         </a>
       </p>
 
@@ -733,69 +799,6 @@ ViewModel 是一个同步View 和 Model的对象；
               <a href="/tags/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/">前端基础</a>
             
               <a href="/tags/Vue/">Vue</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2021/04/25/%E5%BE%AE%E4%BF%A1%E8%B1%86%E7%93%A3%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%AD%A6%E4%B9%A0(%E5%85%AD)/" target="_self">
-          <img src="/image/16.PNG" srcset="/img/loading.gif" lazyload alt="豆瓣&amp;搜索页面布局&amp;详情评分bug解决">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/04/25/%E5%BE%AE%E4%BF%A1%E8%B1%86%E7%93%A3%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%AD%A6%E4%B9%A0(%E5%85%AD)/">豆瓣&amp;搜索页面布局&amp;详情评分bug解决</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/04/25/%E5%BE%AE%E4%BF%A1%E8%B1%86%E7%93%A3%E5%B0%8F%E7%A8%8B%E5%BA%8F%E5%AD%A6%E4%B9%A0(%E5%85%AD)/">
-          
-          
-            
-          
-          项目视频演示地址
-
-搜索页面样式布局完成要完成样式
-
-
-search.wxml
-
-123456789&lt;view  class=&quot;item-list-group&quot;&gt;&lt;view  class=&quot;item-group&quot;&gt;&lt;image  src=&quot;https://img1.doubanio.com/view/photo/s_r
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-04-25 20:15" pubdate>
-              2021-04-25
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/WX/">WX</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/WX/">WX</a>
-            
-              <a href="/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/">小程序</a>
             
           </div>
         

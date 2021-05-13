@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      522 字
+      564 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      5
+      6
        分钟
     </span>
   
@@ -232,12 +232,17 @@
 <hr>
 <h3 id="什么是MVVM？"><a href="#什么是MVVM？" class="headerlink" title="什么是MVVM？"></a>什么是MVVM？</h3><p>MVVM 由 Model、View、ViewModel 三部分构成</p>
 <ol>
-<li>Model 代表数据模型，也可以在 Model 中定义数据和修改业务逻辑；</li>
-<li>View 代表 UI 组件，它负责将数据模型转化成 UI 展现出来；</li>
-<li>ViewModel 是一个同步View 和 Model的对象；</li>
+<li>View 层</li>
+</ol>
+<p>View 是视图层，也就是用户界面。前端主要由 HTML 和 CSS 来构建 。</p>
+<ol start="2">
+<li><p>Model 层<br>Model 是指数据模型，泛指后端进行的各种业务逻辑处理和数据操控，对于前端来说就是后端提供的 api 接口。</p>
+</li>
+<li><p>ViewModel 是一个同步View 和 Model的对象；</p>
+</li>
 </ol>
 <p><img src="/image/20.1.png" srcset="/img/loading.gif" lazyload alt="MVVM"></p>
-<p>在 MVVM 架构下，View 和 Model 之间并没有直接的联系，而是通过 ViewModel 进行交互，Model 和 ViewModel 之间的交互是双向的， 因此 View 数据的变化会同步到 Model 中，而 Model 数据的变化也会立即反应到 View 上。</p>
+<p>MVVM 的核心是 ViewModel 层，它就像是一个中转站（value converter），负责转换 Model 中的数据对象来让数据变得更容易管理和使用，该层向上与视图层进行双向数据绑定，向下与 Model 层通过接口请求进行数据交互，起呈上启下作用</p>
 <p>ViewModel 通过双向数据绑定把 View 层和 Model 层连接了起来，而 View 和 Model 之间的同步工作完全是自动的，无需人为干涉，因此开发者只需关注业务逻辑，不需要手动操作 DOM, 不需要关注数据状态的同步问题，复杂的数据状态维护完全由 MVVM 来统一管理。</p>
 <h3 id="什么是MVC"><a href="#什么是MVC" class="headerlink" title="什么是MVC"></a>什么是MVC</h3><p>MVC是Model-View-Controller的缩写，即模型—视图—控制器</p>
 <ul>
@@ -250,7 +255,8 @@
 <li>使用MVC的 目的 就是 将M和V的代码分离 。</li>
 </ol>
 <h3 id="MVC和MVVM的区别"><a href="#MVC和MVVM的区别" class="headerlink" title="MVC和MVVM的区别"></a>MVC和MVVM的区别</h3><p>mvc 和 mvvm 都是一种设计思想。主要就是 把mvc 中 Controller 演变成 mvvm 中的viewModel。MVC和MVVM的区别并不是VM完全取代了C，只是在MVC的基础上增加了一层VM，只不过是弱化了C的概念，ViewModel存在目的在于抽离Controller中展示的业务逻辑，而不是替代Controller，其它视图操作业务等还是应该放在Controller中实现。</p>
-<h4 id="mvvm-主要解决了-mvc-中大量的-DOM-操作使页面渲染性能降低，加载速度变慢，影响用户体验的缺点。当-Model-频繁发生变化，开发者都需要主动更新到-View-。MVVM实现的是业务逻辑组件的重用，使开发更高效，结构更清晰，增加代码的复用性。"><a href="#mvvm-主要解决了-mvc-中大量的-DOM-操作使页面渲染性能降低，加载速度变慢，影响用户体验的缺点。当-Model-频繁发生变化，开发者都需要主动更新到-View-。MVVM实现的是业务逻辑组件的重用，使开发更高效，结构更清晰，增加代码的复用性。" class="headerlink" title="mvvm 主要解决了 mvc 中大量的 DOM 操作使页面渲染性能降低，加载速度变慢，影响用户体验的缺点。当 Model 频繁发生变化，开发者都需要主动更新到 View 。MVVM实现的是业务逻辑组件的重用，使开发更高效，结构更清晰，增加代码的复用性。"></a>mvvm 主要解决了 mvc 中大量的 DOM 操作使页面渲染性能降低，加载速度变慢，影响用户体验的缺点。当 Model 频繁发生变化，开发者都需要主动更新到 View 。MVVM实现的是业务逻辑组件的重用，使开发更高效，结构更清晰，增加代码的复用性。</h4><h3 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h3><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/192341615">知乎</a></p>
+<h4 id="mvvm-主要解决了-mvc-中大量的-DOM-操作使页面渲染性能降低，加载速度变慢，影响用户体验的缺点。当-Model-频繁发生变化，开发者都需要主动更新到-View-。MVVM实现的是业务逻辑组件的重用，使开发更高效，结构更清晰，增加代码的复用性。"><a href="#mvvm-主要解决了-mvc-中大量的-DOM-操作使页面渲染性能降低，加载速度变慢，影响用户体验的缺点。当-Model-频繁发生变化，开发者都需要主动更新到-View-。MVVM实现的是业务逻辑组件的重用，使开发更高效，结构更清晰，增加代码的复用性。" class="headerlink" title="mvvm 主要解决了 mvc 中大量的 DOM 操作使页面渲染性能降低，加载速度变慢，影响用户体验的缺点。当 Model 频繁发生变化，开发者都需要主动更新到 View 。MVVM实现的是业务逻辑组件的重用，使开发更高效，结构更清晰，增加代码的复用性。"></a>mvvm 主要解决了 mvc 中大量的 DOM 操作使页面渲染性能降低，加载速度变慢，影响用户体验的缺点。当 Model 频繁发生变化，开发者都需要主动更新到 View 。MVVM实现的是业务逻辑组件的重用，使开发更高效，结构更清晰，增加代码的复用性。</h4><h3 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h3><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903918753808398#heading-20">什么是 MVVM？</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/192341615">知乎</a></p>
 
             </div>
             <hr>
