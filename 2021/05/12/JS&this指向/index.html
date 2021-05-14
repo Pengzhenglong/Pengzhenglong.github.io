@@ -1,0 +1,550 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/2.jpg">
+  <link rel="icon" href="/img/2.jpg">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="DragonPeng">
+  <meta name="keywords" content="">
+  
+  <title>JS&amp;this指向 - DragonPeng的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>DragonPeng' blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/page1.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="JS&this指向">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-05-12 20:15" pubdate>
+        May 12, 2021 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.7k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      22
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">JS&amp;this指向</h1>
+            
+            <div class="markdown-body">
+              <hr>
+<h4 id="谈谈-This-对象的理解。"><a href="#谈谈-This-对象的理解。" class="headerlink" title="谈谈 This 对象的理解。"></a>谈谈 This 对象的理解。</h4><p>在 ES5 中，其实 this 的指向，始终坚持一个原理：<strong>this 永远指向最后调用它的那个对象&gt;</strong>，来，跟着我朗读三遍：this 永远指向最后调用它的那个对象，this 永远指向最后调用它的那个对象，this 永远指向最后调用它的那个对象。记住这句话，this 你已经了解一半了。</p>
+<p>this 是执行上下文中的一个属性，它指向最后一次调用这个方法的对象。在实际开发中，this 的指向可以通过四种调用模<br>式来判断。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-number">1.</span> 第一种是函数调用模式，当一个函数不是一个对象的属性时，直接作为函数来调用时，<span class="hljs-keyword">this</span> 指向全局对象。<br><span class="hljs-number">2.</span> 第二种是方法调用模式，如果一个函数作为一个对象的方法来调用时，<span class="hljs-keyword">this</span> 指向这个对象。<br><span class="hljs-number">3.</span> 第三种是构造器调用模式，如果一个函数用 new 调用时，函数执行前会新创建一个对象，<span class="hljs-keyword">this</span> 指向这个新创建的对象。<br><span class="hljs-number">4.</span> 第四种是 apply 、 call 和 bind 调用模式，这三个方法都可以显示的指定调用函数的 <span class="hljs-keyword">this</span> 指向。其中 apply 方法接收两个参数：一个是 <span class="hljs-keyword">this</span> 绑定的对象，一个是参数数组。call 方法接收的参数，第一个是 <span class="hljs-keyword">this</span> 绑定的对象，后面的其余参数是传入函数执行的参数。也就是说，在使用 call() 方法时，传递给函数的参数必须逐个列举出来。bind 方法通过传入一个对象，返回一个 <span class="hljs-keyword">this</span> 绑定了传入对象的新函数。这个函数的 <span class="hljs-keyword">this</span> 指向除了使用 new 时会被改变，其他情况下都不会改变。<br>这四种方式，使用构造器调用模式的优先级最高，然后是 apply 、 call 和 bind 调用模式，然后是方法调用模式，然后<br>是函数调用模式。<br></code></pre></td></tr></table></figure>
+
+<p>在我之前的一篇文章你不知道的执行上下文中有提到过 this，对那篇文章进行概括就是：</p>
+<ol>
+<li>上下文是在函数调用的时候被创建的。</li>
+<li>this 是组成上下文的一部分。<br>因此每次函数被调用的时候就会产生一个新的 this。具体的分为下面几种。</li>
+</ol>
+<h4 id="作为普通函数在全局环境中被调用"><a href="#作为普通函数在全局环境中被调用" class="headerlink" title="作为普通函数在全局环境中被调用"></a>作为普通函数在全局环境中被调用</h4><p>在全局环境里面，this 永远指向 window，因此在全局环境里作为普通函数被调用的时候，this 也是指向 window(这里仅指在浏览器环境下，不考虑Node)。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> name = <span class="hljs-string">&#x27;Abby&#x27;</span>;<br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fn</span>(<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">this</span>); <span class="hljs-comment">//window</span><br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">this</span>.name); <span class="hljs-comment">//Abby</span><br>&#125;<br><br>fn();<br></code></pre></td></tr></table></figure>
+
+<p>这里，fn 其实是作为 window 的一个方法被调用的，而 name 也是 window 的一个属性，因此 fn() 实际上就是 window.fn()。</p>
+<h4 id="作为对象的属性被调用"><a href="#作为对象的属性被调用" class="headerlink" title="作为对象的属性被调用"></a>作为对象的属性被调用</h4><p>如果函数作为一个对象的属性方法，并且被调用的时候，this 就指向这个对象。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> name = <span class="hljs-string">&#x27;Jane&#x27;</span>;<br><span class="hljs-keyword">var</span> person = &#123;<br>    name: <span class="hljs-string">&#x27;Abby&#x27;</span>,<br>    sayName: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;<br>           <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">this</span>.name);<br>	&#125;<br>&#125;;<br><span class="hljs-keyword">var</span> sayNameWin = person.sayName;<br><br>person.sayName(); <span class="hljs-comment">//Abby</span><br>sayNameWin(); <span class="hljs-comment">//Jane   作为 window 的方法被调用的</span><br></code></pre></td></tr></table></figure>
+
+<p>在这里，sayName 方法是作为 person 的一个属性方法被调用的，因此指向 person，但是 sayNameWin 方法却是作为 window 的一个属性方法被调用的，因此 console.log 的值是 Jane。我们再看一个变形。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> person1 = &#123;<br>    name: <span class="hljs-string">&#x27;Jane&#x27;</span>,<br>    sayName: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;<br>	   <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">this</span>.name)<br>	&#125;<br>&#125;<br><br><span class="hljs-keyword">var</span> person2 = &#123;<br>    name: <span class="hljs-string">&#x27;Abby&#x27;</span>,<br>    sayName: person1.sayName<br>&#125;<br><br>person2.sayName(); <span class="hljs-comment">//Abby  作为 person2 的属性方法被调用</span><br></code></pre></td></tr></table></figure>
+
+<p>但是当在在对象方法中再定义函数，这时候 this 又是 window 。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> name = <span class="hljs-string">&#x27;Jane&#x27;</span>;<br><span class="hljs-keyword">var</span> person = &#123;<br>    name: <span class="hljs-string">&#x27;Abby&#x27;</span>,<br>    sayName: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fn</span>(<span class="hljs-params"></span>)</span>&#123;<br>            <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">this</span>);      <span class="hljs-comment">//window</span><br>            <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">this</span>.name);    <span class="hljs-comment">//Jane</span><br>        &#125;<br>        fn();<br>    &#125;<br>&#125;<br><br>person.sayName();<br></code></pre></td></tr></table></figure>
+
+<p>如果想让 this 指向 person 的话，只需要用 that 保存下来 this 的值即可，也可以使用 apply 等改变 this。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> name = <span class="hljs-string">&#x27;Jane&#x27;</span>;<br><span class="hljs-keyword">var</span> person = &#123;<br>    name: <span class="hljs-string">&#x27;Abby&#x27;</span>,<br>    sayName: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>    	<span class="hljs-keyword">var</span> that = <span class="hljs-built_in">this</span>;<br>        <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fn</span>(<span class="hljs-params"></span>)</span>&#123;<br>            <span class="hljs-built_in">console</span>.log(that);      <span class="hljs-comment">//Object &#123;name: &quot;Abby&quot;&#125;</span><br>            <span class="hljs-built_in">console</span>.log(that.name);    <span class="hljs-comment">//Abby</span><br>        &#125;<br>        fn();<br>    &#125;<br>&#125;<br><br>person.sayName();<br></code></pre></td></tr></table></figure>
+
+<h4 id="作为构造函数被调用"><a href="#作为构造函数被调用" class="headerlink" title="作为构造函数被调用"></a>作为构造函数被调用</h4><p>作为构造函数被调用的时候，this 代表它即将 new 出来的对象。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Person</span>(<span class="hljs-params">name</span>) </span>&#123;<br>    <span class="hljs-built_in">this</span>.name = name;<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">this</span>);  <span class="hljs-comment">//Person &#123;name: &quot;Abby&quot;&#125;</span><br>&#125;<br><br><span class="hljs-keyword">var</span> person = <span class="hljs-keyword">new</span> Person(<span class="hljs-string">&#x27;Abby&#x27;</span>);<br><span class="hljs-built_in">console</span>.log(person.name);  <span class="hljs-comment">//Abby</span><br>如果不加 <span class="hljs-keyword">new</span>,表示即作为普通函数调用，指向 <span class="hljs-built_in">window</span><br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Person</span>(<span class="hljs-params">name</span>) </span>&#123;<br>	<span class="hljs-built_in">this</span>.name = name;<br>	<span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">this</span>);  <span class="hljs-comment">//window</span><br>&#125;<br><br>Person(<span class="hljs-string">&#x27;Jane&#x27;</span>); <br><span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">window</span>.name); <span class="hljs-comment">//Jane</span><br></code></pre></td></tr></table></figure>
+
+
+<h4 id="作为-call-apply-bind-方法的调用"><a href="#作为-call-apply-bind-方法的调用" class="headerlink" title="作为 call/apply/bind 方法的调用"></a>作为 call/apply/bind 方法的调用</h4><p>作为 call/apply/bind 方法被调用的时候指向传入的值</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> person = &#123;<br>    name: <span class="hljs-string">&#x27;Abby&#x27;</span><br>&#125;;<br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fn</span>(<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">this</span>); <span class="hljs-comment">//Object &#123;name: &quot;Abby&quot;&#125;</span><br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">this</span>.name); <span class="hljs-comment">//Abby</span><br>&#125;<br><br>fn.apply(person);<br></code></pre></td></tr></table></figure>
+
+<h4 id="严格模式下面"><a href="#严格模式下面" class="headerlink" title="严格模式下面"></a>严格模式下面</h4><p>在严格模式下，在全局环境中执行函数调用的时候 this 并不会指向 window 而是会指向 undefined</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-meta">&#x27;use strict&#x27;</span>;<br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">person</span>(<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">this</span>); <span class="hljs-comment">//undefined</span><br>&#125;;<br>person();<br></code></pre></td></tr></table></figure>
+
+<h4 id="setTimeout、setInterval中的this"><a href="#setTimeout、setInterval中的this" class="headerlink" title="setTimeout、setInterval中的this"></a>setTimeout、setInterval中的this</h4><p>《 javascript 高级程序设计》中写到：“超时调用的代码都是在全局执行域中执行的”。setTimeout/setInterval 执行的时候，this 默认指向 window 对象，除非手动改变 this 的指向。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> name = <span class="hljs-string">&#x27;Jane&#x27;</span>;<br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Person</span>(<span class="hljs-params"></span>)</span>&#123;<br>    <span class="hljs-built_in">this</span>.name = <span class="hljs-string">&#x27;Abby&#x27;</span>;<br>    <span class="hljs-built_in">this</span>.sayName=<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>&#123;<br>    	<span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">this</span>); <span class="hljs-comment">//window</span><br>        <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">this</span>.name); <span class="hljs-comment">//Jane</span><br>        &#125;;<br>    <span class="hljs-built_in">setTimeout</span>(<span class="hljs-built_in">this</span>.sayName, <span class="hljs-number">10</span>);<br>    &#125;<br><br><span class="hljs-keyword">var</span> person=<span class="hljs-keyword">new</span> Person();<br></code></pre></td></tr></table></figure>
+
+<p>在这里如果想改变 this，可是使用 apply/call/bind 等，也可以使用 that 保存 this.</p>
+<p>setTimeout 中的回调函数在严格模式下也指向 window 而不是 undefined (是个坑)</p>
+<p>因为 setTimeout 的回调函数如果没有指定的 this ，会做一个隐式的操作，将全局上下文注入进去，不管是在严格还是非严格模式下。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-meta">&#x27;use strict&#x27;</span>;<br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">person</span>(<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">this</span>);  <span class="hljs-comment">//window</span><br>&#125;<br><span class="hljs-built_in">setTimeout</span>(person, <span class="hljs-number">0</span>);<br></code></pre></td></tr></table></figure>
+
+<h4 id="构造函数-prototype-属性"><a href="#构造函数-prototype-属性" class="headerlink" title="构造函数 prototype 属性"></a>构造函数 prototype 属性</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> name = <span class="hljs-string">&#x27;Jane&#x27;</span>;<br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Person</span>(<span class="hljs-params"></span>)</span>&#123;<br>    <span class="hljs-built_in">this</span>.name = <span class="hljs-string">&#x27;Abby&#x27;</span>;<br>&#125;<br>Person.prototype.sayName = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">this</span>);        <span class="hljs-comment">// Person &#123;name: &quot;Abby&quot;&#125;</span><br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">this</span>.name);      <span class="hljs-comment">// Abby</span><br>&#125;<br><span class="hljs-keyword">var</span> person = <span class="hljs-keyword">new</span> Person();<br>person.sayName();<br></code></pre></td></tr></table></figure>
+
+<p>在 Person.prototype.sayName 函数中，this 指向的 person 对象。即便是在整个原型链中,this 也代表当前对象的值。</p>
+<ol start="8">
+<li><p>Eval函数<br>在 Eval 中，this 指向当前作用域的对象。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> name = <span class="hljs-string">&#x27;Jane&#x27;</span>;<br><span class="hljs-keyword">var</span> person = &#123;<br>    name: <span class="hljs-string">&#x27;Abby&#x27;</span>,<br>    getName: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>&#123;<br>        <span class="hljs-built_in">eval</span>(<span class="hljs-string">&quot;console.log(this.name)&quot;</span>);<br>    &#125;<br>&#125;<br>person.getName();  <span class="hljs-comment">//Abby</span><br>    <br><span class="hljs-keyword">var</span> getNameWin=person.getName;<br>getNameWin();  <span class="hljs-comment">//Jane</span><br></code></pre></td></tr></table></figure>
+<p>在这里，和不使用 Eval ，作为对象的方法调用的时候得出的结果是一样的。</p>
+</li>
+<li><p>箭头函数</p>
+</li>
+</ol>
+<p>箭头函数里面 this 始终指向外部对象，因为箭头函数没有 this，因此它自身不能进行new实例化，同时也不能使用 call, apply, bind 等方法来改变 this 的指向。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> person = &#123;<br>    name: <span class="hljs-string">&#x27;Abby&#x27;</span>,<br>    sayName: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;<br>        <span class="hljs-keyword">var</span> fn = <span class="hljs-function">() =&gt;</span> &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-function">() =&gt;</span> &#123;<br>                <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">this</span>);   <span class="hljs-comment">//Object &#123;name: &quot;Abby&quot;&#125;</span><br>                <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">this</span>.name); <span class="hljs-comment">//Abby</span><br>            &#125;<br>        &#125;<br>        fn()();<br>    &#125;<br>&#125;<br><br>person.sayName();<br></code></pre></td></tr></table></figure>
+
+<h4 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h4><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/26766112?utm_source=qq&utm_medium=social&utm_oi=993958266707247104">十分钟读懂 JavaScript 中的 this</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/JS/">JS</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/">前端基础</a>
+                    
+                      <a class="hover-with-bg" href="/tags/JS/">JS</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/05/13/get&amp;post/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">HTTP 方法get和post的区别</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/05/11/Es6async&amp;await/">
+                        <span class="hidden-mobile">ES6-Symbol&promise、generator、async/await&rest参数</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
