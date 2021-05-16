@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.7k 字
+      1.5k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      22
+      20
        分钟
     </span>
   
@@ -231,7 +231,7 @@
               <hr>
 <h4 id="谈谈-This-对象的理解。"><a href="#谈谈-This-对象的理解。" class="headerlink" title="谈谈 This 对象的理解。"></a>谈谈 This 对象的理解。</h4><p>在 ES5 中，其实 this 的指向，始终坚持一个原理：<strong>this 永远指向最后调用它的那个对象&gt;</strong>，来，跟着我朗读三遍：this 永远指向最后调用它的那个对象，this 永远指向最后调用它的那个对象，this 永远指向最后调用它的那个对象。记住这句话，this 你已经了解一半了。</p>
 <p>this 是执行上下文中的一个属性，它指向最后一次调用这个方法的对象。在实际开发中，this 的指向可以通过四种调用模<br>式来判断。</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-number">1.</span> 第一种是函数调用模式，当一个函数不是一个对象的属性时，直接作为函数来调用时，<span class="hljs-keyword">this</span> 指向全局对象。<br><span class="hljs-number">2.</span> 第二种是方法调用模式，如果一个函数作为一个对象的方法来调用时，<span class="hljs-keyword">this</span> 指向这个对象。<br><span class="hljs-number">3.</span> 第三种是构造器调用模式，如果一个函数用 new 调用时，函数执行前会新创建一个对象，<span class="hljs-keyword">this</span> 指向这个新创建的对象。<br><span class="hljs-number">4.</span> 第四种是 apply 、 call 和 bind 调用模式，这三个方法都可以显示的指定调用函数的 <span class="hljs-keyword">this</span> 指向。其中 apply 方法接收两个参数：一个是 <span class="hljs-keyword">this</span> 绑定的对象，一个是参数数组。call 方法接收的参数，第一个是 <span class="hljs-keyword">this</span> 绑定的对象，后面的其余参数是传入函数执行的参数。也就是说，在使用 call() 方法时，传递给函数的参数必须逐个列举出来。bind 方法通过传入一个对象，返回一个 <span class="hljs-keyword">this</span> 绑定了传入对象的新函数。这个函数的 <span class="hljs-keyword">this</span> 指向除了使用 new 时会被改变，其他情况下都不会改变。<br>这四种方式，使用构造器调用模式的优先级最高，然后是 apply 、 call 和 bind 调用模式，然后是方法调用模式，然后<br>是函数调用模式。<br></code></pre></td></tr></table></figure>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-keyword">this</span><br>谈一谈你对<span class="hljs-keyword">this</span>的理解，以及在各种环境下的<span class="hljs-keyword">this</span><br>在浏览器里，在全局范围内<span class="hljs-keyword">this</span>指向window对象<br>在函数中，<span class="hljs-keyword">this</span>永远指向最后调用他的那个对象(箭头函数除外)。<br>在构造函数中，<span class="hljs-keyword">this</span>指向new出来的新对象。<br>call、apply、bind中的<span class="hljs-keyword">this</span>被强绑定在指定的那个对象上。<br>箭头函数<span class="hljs-keyword">this</span>为父作用域的<span class="hljs-keyword">this</span>，不是调用时的<span class="hljs-keyword">this</span>。<br></code></pre></td></tr></table></figure>
 
 <p>在我之前的一篇文章你不知道的执行上下文中有提到过 this，对那篇文章进行概括就是：</p>
 <ol>
