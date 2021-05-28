@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.9k 字
+      2.4k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      23
+      29
        分钟
     </span>
   
@@ -252,6 +252,13 @@
 <p>Long Polling 的原理与 ajax 轮询的原理差不多，都是采用轮询的方式，它是 Polling 的一种改进。客户端发送请求到服务器后，服务器并不立即响应客户端，而是保持住这次连接，当有新的数据时，才返回给客户端，客户端接收到数据，进行展示，再立即发送一个新的请求给服务器，并重复这个过程。如果服务器的数据长期没有更新，一段时间后，这个请求就会超时，客户端收到超时消息后，再立即发送一个新的请求给服务器。</p>
 <p>从上面可以看出，这两种方式都<strong>需要不断的建立 HTTP 连接，然后等待服务器处理。</strong></p>
 <p>在这样的情况下，假如客户端能有一种新的网络协议，可以支持客户端和服务器的双向通信的就好了。于是，WebSocket 应运而生。</p>
+<h3 id="Websocket是什么样的协议，具体有什么优点"><a href="#Websocket是什么样的协议，具体有什么优点" class="headerlink" title="Websocket是什么样的协议，具体有什么优点"></a>Websocket是什么样的协议，具体有什么优点</h3><p>Websocket是一个持久化的协议，相对于HTTP这种非持久的协议来说。</p>
+<p>首先Websocket是基于HTTP协议的，或者说借用了HTTP的协议来完成一部分握手。在握手阶段是一样的</p>
+<h4 id="WebSocket-协议"><a href="#WebSocket-协议" class="headerlink" title="WebSocket 协议"></a>WebSocket 协议<strong></h4><p>WebSocket 是 HTML5 新增的一种通信协议。<strong>WebSocket 协议是一种持久化的双向通信协议，它建立在TCP之上，同 HTTP 一样通过 TCP 来传输数据</strong>，但是它和 HTTP 最大的不同有两点：</p>
+<p>WebSocket 是一种双向通信协议，在建立连接后，WebSocket 服务器和 Browser/UA(浏览器) 都能主动的向对方发送或接收数据，就像 Socket 一样，不同的是 WebSocket 是一种建立在 Web 基础上的一种简单模拟 Socket 的协议。</p>
+<p>WebSocket 需要通过握手连接，类似于 TCP 它也需要客户端和服务器端进行握手连接，连接成功后才能相互通信。</p>
+<h4 id="WebSocket-工作流程"><a href="#WebSocket-工作流程" class="headerlink" title="WebSocket 工作流程"></a>WebSocket 工作流程</h4><p>浏览器通过 JavaScript 向服务器发出建立 WebSocket 连接的请求，连接建立以后，客户端和服务器端就可以通过 TCP 连接直接交换数据。因为 WebSocket 连接本质上就是一个 TCP 连接，所以在数据传输的稳定性和数据传输量的大小方面，和传统轮询以技术比较，具有很大的性能优势。</p>
+<p>为了建立一个 WebSocket 连接，客户端浏览器首先要向服务器发起一个 HTTP 请求，这个请求和通常的 HTTP 请求不同，包含了一些附加头信息，其中附加头信息 “Upgrade: WebSocket” 表明这是一个申请协议升级的 HTTP 请求，服务器端解析这些附加的头信息然后产生应答信息返回给客户端，客户端和服务器端的 WebSocket 连接就建立起来了，双方就可以通过这个连接通道自由的传递信息，并且这个连接会持续存在直到客户端或者服务器端的某一方主动的关闭连接。</p>
 <h3 id="基于-nodeJs-的-webSocket-框架-socket-io"><a href="#基于-nodeJs-的-webSocket-框架-socket-io" class="headerlink" title="基于 nodeJs 的 webSocket 框架 socket.io"></a>基于 nodeJs 的 webSocket 框架 socket.io</h3><p>socket.io 是这篇文章的主角，因为它对 webSocket 做了一个非常完善的封装， 并且提出了 多房间  多命名空间的 概念，让多聊天室同时存在不再是一个问题，所以，下面就会详细的来介绍下 socket.io 这个框架</p>
 <p>Socket.io 是一个完全由 JavaScript 实现、基于 Node.js、支持 WebSocket 协议的用于实时通信、跨平台的开源框架，它包括了客户端的 JavaScript 和服务器端的 Node.js。</p>
 <p>Socket.io 设计的目标是支持任何的浏览器，任何 Mobile 设备。支持主流的 PC 浏览器 (IE,Safari,Chrome,Firefox,Opera等)，Mobile 浏览器(iphone Safari/ipad Safari/Android WebKit/WebOS WebKit等)。</p>
@@ -396,6 +403,12 @@
                 <div class="post-prevnext">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2021/05/27/%E4%BB%8E%E8%BE%93%E5%85%A5URL%E5%88%B0%E6%B5%8F%E8%A7%88%E5%99%A8%E6%98%BE%E7%A4%BA%E9%A1%B5%E9%9D%A2%E8%BF%87%E7%A8%8B%E9%9D%A2%E8%AF%95/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">从输入URL到浏览器显示页面过程中都发生了什么？</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">

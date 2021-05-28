@@ -18,7 +18,7 @@
   <meta name="author" content="DragonPeng">
   <meta name="keywords" content="">
   
-  <title>Vue去哪儿项目首页开发&amp;首页header区域 - DragonPeng的博客</title>
+  <title>从输入URL到浏览器显示页面过程中都发生了什么？ - DragonPeng的博客</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -163,7 +163,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="Vue去哪儿项目首页开发&首页header区域">
+            <span class="h2" id="subtitle" title="从输入URL到浏览器显示页面过程中都发生了什么？">
               
             </span>
 
@@ -173,8 +173,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-05-02 20:15" pubdate>
-        May 2, 2021 pm
+      <time datetime="2021-05-27 20:15" pubdate>
+        May 27, 2021 pm
       </time>
     </span>
   
@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      730 字
+      1.9k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      10
+      19
        分钟
     </span>
   
@@ -225,70 +225,65 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Vue去哪儿项目首页开发&amp;首页header区域</h1>
+            <h1 style="display: none">从输入URL到浏览器显示页面过程中都发生了什么？</h1>
             
             <div class="markdown-body">
               <hr>
-<h3 id="首页header区域"><a href="#首页header区域" class="headerlink" title="首页header区域"></a>首页header区域</h3><ol>
-<li>安装开发依赖包(项目目录下)<br>stylus：CSS的预处理框架，即将stylus转换为css使用<br>stylus-loader：让webpack理解stylus<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs ada">npm  install  stylus <span class="hljs-comment">--save</span><br>npm  install  stylus-loader  <span class="hljs-comment">--save</span><br></code></pre></td></tr></table></figure></li>
+<h3 id="URL的输入到浏览器解析的一系列事件"><a href="#URL的输入到浏览器解析的一系列事件" class="headerlink" title="URL的输入到浏览器解析的一系列事件"></a>URL的输入到浏览器解析的一系列事件</h3><ol>
+<li>浏览器根据请求的url交给DNS域名解析</li>
+<li>发起TCP连接</li>
+<li>发送HTTP请求</li>
+<li>服务器处理请求并返回HTTP报文</li>
+<li>浏览器解析渲染页面</li>
+<li>连接结束。</li>
 </ol>
-<p>参考使用文章：<br><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903696409722894">『前端干货篇』：你不知道的Stylus</a><br><a href="www.zhangxinxu.com/jq/stylus/">张鑫旭大大的Stylus文章</a></p>
-<p>使用过程中报错：npm run dev后报错<br>Vue中使用Stylus报错：Module build failed: TypeError: this.getOptions is not a function</p>
-<p>报错原因<br>stylus-loader版本过高，更改为<a href="mailto:&#115;&#x74;&#121;&#108;&#x75;&#115;&#x2d;&#x6c;&#x6f;&#x61;&#x64;&#x65;&#114;&#64;&#x33;&#46;&#x30;&#46;&#x31;">&#115;&#x74;&#121;&#108;&#x75;&#115;&#x2d;&#x6c;&#x6f;&#x61;&#x64;&#x65;&#114;&#64;&#x33;&#46;&#x30;&#46;&#x31;</a>即可</p>
-<p>再次安装stylus</p>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs awk">npm uninstall stylus stylus-loader <span class="hljs-regexp">//</span>删除之前的loader<br>npm install stylus stylus-loader@<span class="hljs-number">3.0</span>.<span class="hljs-number">1</span> --save-dev <span class="hljs-regexp">//</span>再次安装<br></code></pre></td></tr></table></figure>
-
+<blockquote>
+<p>简单说说，浏览器根据请求的url交给dns域名解析，查找真正的ip地址，向服务器发起请求；服务器交给后台处理后，返回数据，浏览器会接收到文件数据，比如，html,js，css，图像等；然后浏览器会对加载到的资源进行语法解析，建立相应的内部数据结构；载入解析到得资源文件，渲染页面，完成显示页面效果。</p>
+</blockquote>
+<p>不够清楚明白吗？</p>
+<h4 id="那就再次详细一下，从浏览器接收url，开始进行网络请求线程，发出一个完整的HTTP请求，从服务器端接收请求到对应的后台接收到请求，然后是后台和前台的http交互；其中的缓存问题（http的缓存），浏览器接收到http数据包后的解析流程，css的可视化格式模型，js引擎解析过程等；其他呈现页面效果。"><a href="#那就再次详细一下，从浏览器接收url，开始进行网络请求线程，发出一个完整的HTTP请求，从服务器端接收请求到对应的后台接收到请求，然后是后台和前台的http交互；其中的缓存问题（http的缓存），浏览器接收到http数据包后的解析流程，css的可视化格式模型，js引擎解析过程等；其他呈现页面效果。" class="headerlink" title="那就再次详细一下，从浏览器接收url，开始进行网络请求线程，发出一个完整的HTTP请求，从服务器端接收请求到对应的后台接收到请求，然后是后台和前台的http交互；其中的缓存问题（http的缓存），浏览器接收到http数据包后的解析流程，css的可视化格式模型，js引擎解析过程等；其他呈现页面效果。"></a>那就再次详细一下，从浏览器接收url，开始进行网络请求线程，发出一个完整的HTTP请求，从服务器端接收请求到对应的后台接收到请求，然后是后台和前台的http交互；其中的缓存问题（http的缓存），浏览器接收到http数据包后的解析流程，css的可视化格式模型，js引擎解析过程等；其他呈现页面效果。</h4><p>这里就需要你对浏览器内核的理解：其中主要的渲染引擎和JS引擎，这里了解一下你对浏览器内核的理解。</p>
+<ol>
+<li>渲染引擎，是负责取得网页的内容，整理信息，以及计算网页的显示方式，然后输出到显示器上。</li>
+</ol>
 <ol start="2">
-<li>src\pages\home\components路径下新建一个Header.vue</li>
+<li>JS引擎是用于解析和执行javascript来实现网页的动态效果。</li>
 </ol>
-<p>页面组件化，对于Home这个页面可以被拆分成多个小组件，Header.vue可以放在compons中被使用</p>
-<ol start="3">
-<li>引入组件使用</li>
-</ol>
-<p><img src="/image1/8.png" srcset="/img/loading.gif" lazyload alt="使用组件"></p>
-<ol start="4">
-<li>Header.vue页面样式</li>
-</ol>
-<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs maxima">&lt;template&gt;<br>  &lt;div class=<span class="hljs-string">&quot;header&quot;</span>&gt;<br>    &lt;div class=<span class="hljs-string">&quot;header-left&quot;</span>&gt;返回&lt;/div&gt;<br>    &lt;div class=<span class="hljs-string">&quot;header-input&quot;</span>&gt;输入城市/景点/游玩/主题&lt;/div&gt;<br>    &lt;div class=<span class="hljs-string">&quot;header-right&quot;</span>&gt;城市&lt;/div&gt;<br>  &lt;/div&gt;<br>&lt;/template&gt;<br><br>&lt;script&gt;<br>export default &#123;<br>  name: <span class="hljs-string">&quot;HomeHeader&quot;</span><br>&#125;;<br>&lt;/script&gt;<br><br>&lt;<span class="hljs-built_in">style</span> lang=<span class="hljs-string">&quot;stylus&quot;</span> scoped&gt;<br>.header<br>  <span class="hljs-built_in">display</span>:flex<br>  line-<span class="hljs-built_in">height</span>: .86<span class="hljs-built_in">rem</span><br>  <span class="hljs-built_in">background</span> #<span class="hljs-number">00bcd4</span><br>  <span class="hljs-built_in">color</span>: #fff<br>  .header-left<br>    <span class="hljs-built_in">width</span> .64<span class="hljs-built_in">rem</span><br>    <span class="hljs-built_in">float</span>:left<br>  .header-input<br>     flex:<span class="hljs-number">1</span><br>     line-<span class="hljs-built_in">height</span>:.64<span class="hljs-built_in">rem</span><br>     <span class="hljs-built_in">height</span>: .64<span class="hljs-built_in">rem</span><br>     margin-top .12<span class="hljs-built_in">rem</span><br>     margin-left: .2<span class="hljs-built_in">rem</span><br>     <span class="hljs-built_in">background</span>: #fff<br>     <span class="hljs-built_in">border</span>-<span class="hljs-built_in">radius</span>: .1<span class="hljs-built_in">rem</span><br>     <span class="hljs-built_in">color</span>:#ccc<br>  .header-right<br>     <span class="hljs-built_in">width</span>: <span class="hljs-number">1.</span>24<span class="hljs-built_in">rem</span><br>     <span class="hljs-built_in">float</span>:right<br>     text-align:<span class="hljs-built_in">center</span><br>&lt;/<span class="hljs-built_in">style</span>&gt;<br><br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>浏览器的内核的不同对于网页的语法解释会有不同，所以渲染的效果也不相同。其实最开始渲染引擎和JS引擎是没有区分明确的，不过后来JS引擎越来越独立，so，内核就倾向于渲染引擎。</p>
+</blockquote>
+<blockquote>
+<p>对于资源请求/获取,资源响应/页面渲染，会给网络带宽和设备资源带来压力，这个时候就会考虑到web的性能优化。</p>
+</blockquote>
+<h4 id="通过DNS解析域名的实际IP地址"><a href="#通过DNS解析域名的实际IP地址" class="headerlink" title="通过DNS解析域名的实际IP地址"></a>通过DNS解析域名的实际IP地址</h4><p>发送至 DNS 服务器并获得域名对应的 WEB 服务器的 ip 地址。</p>
+<p>DNS 解析首先会从你的浏览器的缓存中去寻找是否有这个网址对应的 IP 地址，如果没有就向OS系统的 DNS 缓存中寻找，如果没有就是路由器的 DNS 缓存， 如果没有就是 ISP 的DNS 缓存中寻找。 所以，缓存的寻找过程就是： 浏览器 -&gt; 系统 -&gt; 路由器 -&gt; ISP。 如果在某一个缓存中找到的话，就直接跳到下一步。 如果都没有找到的话，就会向 ISP 或者公共的域名解析服务发起 DNS 查找请求。这个查找的过程还是一个递归查询的过程。</p>
+<h5 id="检查浏览器是否有缓存"><a href="#检查浏览器是否有缓存" class="headerlink" title="检查浏览器是否有缓存"></a>检查浏览器是否有缓存</h5><p>通过Cache-Control和Expires来检查是否命中强缓存，命中则直接取本地磁盘的html（状态码为200 from disk(or memory) cache，内存or磁盘）；</p>
+<p>如果没有命中强缓存，则会向服务器发起请求（先进行下一步的TCP连接），服务器通过Etag和Last-Modify来与服务器确认返回的响应是否被更改（协商缓存），若无更改则返回状态码（304 Not Modified）,浏览器取本地缓存；</p>
+<p>若强缓存和协商缓存都没有命中则返回请求结果。</p>
+<h4 id="与-WEB-服务器建立-TCP-连接。"><a href="#与-WEB-服务器建立-TCP-连接。" class="headerlink" title="与 WEB 服务器建立 TCP 连接。"></a>与 WEB 服务器建立 TCP 连接。</h4><p>TCP 协议通过三次握手建立连接。</p>
+<p>客户端通过 SYN 报文段发送连接请求，确定服务端是否开启端口准备连接。状态设置为 SYN_SEND;</p>
+<p>服务器如果有开着的端口并且决定接受连接，就会返回一个 SYN+ACK 报文段给客户端，状态设置为 SYN_RECV；</p>
+<p>客户端收到服务器的 SYN+ACK 报文段，向服务器发送 ACK 报文段表示确认。此时客户端和服务器都设置为 ESTABLISHED 状态。连接建立，可以开始数据传输了。</p>
+<p>翻译成大白话就是：</p>
+<p>客户端：你能接收到我的消息吗？</p>
+<p>服务端：可以的，那你能接收到我的回复吗？</p>
+<p>客户端：可以，那我们开始聊正事吧。</p>
+<p>为什么是3次？：避免历史连接，确认客户端发来的请求是这次通信的人。</p>
+<p>为什么不是4次？：3次够了第四次浪费</p>
+<h4 id="浏览器发送HTTP请求"><a href="#浏览器发送HTTP请求" class="headerlink" title="浏览器发送HTTP请求"></a>浏览器发送HTTP请求</h4><p>首先科补一个小知识，HTTP的端口为80/8080，而HTTPS的端口为443</p>
+<p>发送HTTP请求的过程就是构建HTTP请求报文并通过TCP协议中发送到服务器指定端口 请求报文由请求行，请求抱头，请求正文组成。</p>
+<p>请求行<br>请求行的格式为Method Request-URL HTTP-Version CRLF eg: GET index.html HTTP/1.1 常用的方法有: GET,POST, PUT, DELETE, OPTIONS, HEAD。</p>
+<p>常见的请求方法区别<br>这里主要展示GET和POST的区别</p>
+<figure class="highlight vbnet"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs vbnet"><span class="hljs-keyword">Get</span><br><span class="hljs-keyword">GET</span>请求的数据会附加在URL之后，用问号分割，多个参数用&amp;进行连接。<br><br><span class="hljs-keyword">GET</span>请求的数据会暴露在地址栏中。<br><br><span class="hljs-keyword">GET</span>请求URL的编码格式采用的是ASCII编码，而不是<span class="hljs-keyword">Unicode</span>编码。<br><br><span class="hljs-keyword">GET</span>请求传输大小有限制，大小在<span class="hljs-number">2</span>KB。<br><br><span class="hljs-keyword">GET</span>相对安全性较差，会被浏览器主动缓存。<br><br><span class="hljs-keyword">GET</span>产生一个TCP数据包，head和data一起发送。<br><br><span class="hljs-keyword">GET</span>浏览器回退无害。<br></code></pre></td></tr></table></figure>
 
-<p>补充：<code>&lt;style lang=&quot;stylus&quot; scoped&gt;</code><br>我们写的这个组件不要对其他组件产生影响，使用scoped可以限制.header的样式只对当前组件有效，不对其他组件有影响<br>当<code> &lt;style&gt;</code> 标签有 scoped 属性时，它的 CSS 只作用于当前组件中的元素。</p>
-<p>完成效果：</p>
-<p><img src="/image1/9.png" srcset="/img/loading.gif" lazyload alt="使用组件"></p>
-<h3 id="iconfont的使用和代码优化"><a href="#iconfont的使用和代码优化" class="headerlink" title="iconfont的使用和代码优化"></a>iconfont的使用和代码优化</h3><p><img src="/image1/10.png" srcset="/img/loading.gif" lazyload alt="iconfont下载使用"></p>
-<ol>
-<li>将以下文件放入项目静态资源中,这里我们修改一下引用路径</li>
-</ol>
-<p><img src="/image1/11.png" srcset="/img/loading.gif" lazyload alt="资源引入"></p>
-<ol>
-<li>引入iconfont</li>
-</ol>
-<p>由于我们几乎所有页面都要使用iconfont，所以我们可以在main.js中引用</p>
-<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs aspectj"><span class="hljs-keyword">import</span> <span class="hljs-string">&#x27;styles/iconfont.css&#x27;</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs stata"><span class="hljs-keyword">POST</span><br><span class="hljs-keyword">POST</span>请求会把数据放置在HTTP请求包的包体中，不会直接暴露给用户。<br><br><span class="hljs-keyword">POST</span>请求，理论上大小是不会限制的，但是实际上各个服务器会规定<span class="hljs-keyword">POST</span>提交数据大小。<br><br><span class="hljs-keyword">POST</span>相对Get更安全，因为参数不会保存浏览器立式或者是web服务器日志中。<br><br><span class="hljs-keyword">POST</span>产生两个TCP数据包，header先发送，服务器响应100ms然后继续，发送data，服务器200然后返回数据。<br><br><span class="hljs-keyword">POST</span>浏览器回退重新请求。<br></code></pre></td></tr></table></figure>
 
-<ol start="3">
-<li>使用，这里的代码是Unicode编码</li>
-</ol>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;iconfont back-icon&quot;</span>&gt;</span><span class="hljs-symbol">&amp;#xe624;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;iconfont&quot;</span>&gt;</span><span class="hljs-symbol">&amp;#xe632;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">span</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;iconfont  arrow-cron&quot;</span>&gt;</span><span class="hljs-symbol">&amp;#xe64a;</span><span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span><br></code></pre></td></tr></table></figure>
-
-<p>css样式(省略)</p>
-<ol start="4">
-<li>代码优化</li>
-</ol>
-<p>整个Header背景色都是一个绿色的内容，我们这个网页很多地方都会用到这个背景色，我们可以将这个颜色单独放在一个变量中，然后单独的去引用。未来网站颜色风格需要切换，只需要去改变这一个变量，全局都会改变，这个可维护性会有很大的提升</p>
-<p>解决：</p>
-<p>全局变量文件</p>
-<p><img src="/image1/12.png" srcset="/img/loading.gif" lazyload alt="全局变量文件"></p>
-<p>引入使用：</p>
-<p><img src="/image1/13.png" srcset="/img/loading.gif" lazyload alt="引入与使用"></p>
-<ol start="5">
-<li>引入优化</li>
-</ol>
-<p>起别名：</p>
-<p><img src="/image1/14.png" srcset="/img/loading.gif" lazyload alt="起别名"></p>
-<p>使用：</p>
-<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs scss"><span class="hljs-keyword">@import</span> <span class="hljs-string">&#x27;~styles/varibles.styl&#x27;</span>;<br></code></pre></td></tr></table></figure>
-
-<p>这里我们修改了webpack中的配置项时，一定要重启项目，否者会报错</p>
+<h4 id="服务器处理请求并返回HTTP报文"><a href="#服务器处理请求并返回HTTP报文" class="headerlink" title="服务器处理请求并返回HTTP报文"></a>服务器处理请求并返回HTTP报文</h4><p>它会对TCP连接进行处理，对HTTP协议进行解析，并按照报文格式进一步封装成HTTP Request对象，供上层使用。这一部分工作一般是由Web服务器去进行，分成三份，状态码 ，响应报头和响应报文(你从服务器请求的HTML,CSS,JS文件就放在这里面)</p>
+<h4 id="浏览器解析渲染页面"><a href="#浏览器解析渲染页面" class="headerlink" title="浏览器解析渲染页面"></a>浏览器解析渲染页面</h4><p>解析HTML形成DOM树</p>
+<p>解析CSS形成CSSOM 树</p>
+<p>合并DOM树和CSSOM树形成渲染树</p>
+<p>浏览器开始渲染并绘制页面 这个过程涉及两个比较重要的概念回流和重绘，DOM结点都是以盒模型形式存在，需要浏览器去计算位置和宽度等，这个过程就是回流。等到页面的宽高，大小，颜色等属性确定下来后，浏览器开始绘制内容，这个过程叫做重绘。浏览器刚打开页面一定要经过这两个过程的，但是这个过程非常非常非常消耗性能，所以我们应该尽量减少页面的回流和重绘</p>
+<h4 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h4><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6850037263116533773#heading-4">从浏览器地址栏输入url到显示页面的步骤</a></p>
+<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903832435032072#heading-0">URL的输入到浏览器解析的一系列事件</a></p>
 
             </div>
             <hr>
@@ -298,7 +293,7 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/Vue%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%88%98/">Vue项目实战</a>
+                      <a class="hover-with-bg" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
                     
                   </div>
                 
@@ -306,9 +301,9 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/">前端基础</a>
+                      <a class="hover-with-bg" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
                     
-                      <a class="hover-with-bg" href="/tags/Vue/">Vue</a>
+                      <a class="hover-with-bg" href="/tags/http/">http</a>
                     
                   </div>
                 
@@ -325,9 +320,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/05/02/Vue%E5%8E%BB%E5%93%AA%E5%84%BF%E5%AE%9E%E6%88%98(%E4%B8%89)/">
+                      <a href="/2021/05/28/ajax%E9%9D%A2%E8%AF%95/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Vue去哪儿项目首页开发&首页轮播图&推荐组件开发</span>
+                        <span class="hidden-mobile">ajax常见面试题</span>
                         <span class="visible-mobile">Previous</span>
                       </a>
                     
@@ -335,8 +330,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/05/01/Vue%E5%8E%BB%E5%93%AA%E5%84%BF%E5%AE%9E%E6%88%98(%E4%B8%80)/">
-                        <span class="hidden-mobile">Vue去哪儿项目环境搭建</span>
+                      <a href="/2021/05/22/socket%E5%AE%9E%E7%8E%B0%E8%81%8A%E5%A4%A9%E5%AE%A4/">
+                        <span class="hidden-mobile">WebSocket和Socket.io介绍以及聊天室功能实现</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
