@@ -18,9 +18,25 @@
   <meta name="author" content="DragonPeng">
   <meta name="keywords" content="">
   
-  <title>Archives - DragonPeng的博客</title>
+  <title>Git冲突与解决方法 - DragonPeng的博客</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
 
 
 
@@ -48,7 +64,7 @@
 
 
 <body>
-  <header style="height: 60vh;">
+  <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -142,14 +158,51 @@
 </nav>
 
     <div class="banner" id="banner" parallax=true
-         style="background: url('/img/archive1.jpg') no-repeat center center;
+         style="background: url('/img/page1.jpg') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="Archive">
+            <span class="h2" id="subtitle" title="Git冲突与解决方法">
               
             </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-05-28 21:15" pubdate>
+        May 28, 2021 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      354 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      3
+       分钟
+    </span>
+  
+
+  
+  
+</div>
 
             
           </div>
@@ -162,58 +215,112 @@
 
   <main>
     
-      <div class="container nopadding-x-md">
-        <div class="py-5" id="board"
-          >
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
-                
-
-<div class="list-group">
-  <p class="h4">63 posts in total.</p>
-  <hr>
-  
-  
-    
       
-      <p class="h5">2021</p>
-    
-    <a href="/2021/03/30/%E9%87%8D%E5%AD%A6Html(%E4%BA%8C)/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">Html&amp;表格&amp;表单(重点)</span>
-      <time style="float: right;">03-30</time>
-    </a>
-  
-    
-    <a href="/2021/03/30/%E9%87%8D%E5%AD%A6Html(%E4%B8%80)/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">Html&amp;基本标签&amp;列表</span>
-      <time style="float: right;">03-30</time>
-    </a>
-  
-    
-    <a href="/2021/03/30/hexo+fluid%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E4%B8%AA%E4%BA%BA%E6%80%BB%E7%BB%93/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">hexo+fluid搭建博客个人总结</span>
-      <time style="float: right;">03-30</time>
-    </a>
-  
-</div>
 
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Git冲突与解决方法</h1>
+            
+            <div class="markdown-body">
+              <hr>
+<h3 id="Git冲突与解决方法"><a href="#Git冲突与解决方法" class="headerlink" title="Git冲突与解决方法"></a>Git冲突与解决方法</h3><h4 id="1-git冲突的场景"><a href="#1-git冲突的场景" class="headerlink" title="1. git冲突的场景"></a>1. git冲突的场景</h4><p><strong>情景一：多个分支代码合并到一个分支时；</strong></p>
+<p><strong>情景二：多个分支向同一个远端分支推送代码时；</strong></p>
+<p>实际上，push操作即是将本地代码merge到远端库分支上。</p>
+<p>关于push和pull其实就分别是用本地分支合并到远程分支 和 将远程分支合并到本地分支</p>
+<p>所以这两个过程中也可能存在冲突。</p>
+<p>git的合并中产生冲突的具体情况：</p>
+<h5 id="lt-1-gt-两个分支中修改了同一个文件（不管什么地方）"><a href="#lt-1-gt-两个分支中修改了同一个文件（不管什么地方）" class="headerlink" title="　&lt;1&gt; 两个分支中修改了同一个文件（不管什么地方）"></a><strong>　&lt;1&gt; 两个分支中修改了同一个文件</strong>（不管什么地方）</h5><h5 id="lt-2-gt-两个分支中修改了同一个文件的名称"><a href="#lt-2-gt-两个分支中修改了同一个文件的名称" class="headerlink" title="　&lt;2&gt;两个分支中修改了同一个文件的名称"></a><strong>　&lt;2&gt;两个分支中修改了同一个文件的名称</strong></h5><p>两个分支中分别修改了不同文件中的部分，不会产生冲突，可以直接将两部分合并。</p>
+<h4 id="2-冲突解决方法"><a href="#2-冲突解决方法" class="headerlink" title="2. 冲突解决方法"></a>2. 冲突解决方法</h4><ol>
+<li>情景一：在当前分支上，直接修改冲突代码—&gt;add—&gt;commit。</li>
+<li>情景二：在本地当前分支上，修改冲突代码—&gt;add—&gt;commit—&gt;push</li>
+</ol>
+<p> 注：借用vim或者IDE或者直接找到冲突文件，修改。</p>
+<h4 id="3、实战演示"><a href="#3、实战演示" class="headerlink" title="3、实战演示"></a>3、实战演示</h4><p>（1）情景</p>
+<p>　　本地库中两个不同分支，修改同一个文件同一代码块，两分支先后将修改合并到master分支上，master在合并第二个分支代码时，报错：合并冲突。</p>
+<h4 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h4><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/gavincoder/p/9071959.html">Git冲突与解决方法</a></p>
 
-  <nav aria-label="navigation">
-    <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/archives/2021/page/6/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/archives/2021/">1</a><span class="space">&hellip;</span><a class="page-number" href="/archives/2021/page/5/#board">5</a><a class="page-number" href="/archives/2021/page/6/#board">6</a><span class="page-number current">7</span>
-    </span>
-  </nav>
-
-
-
-
-              </div>
             </div>
-          </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Git/">Git</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/Git/">Git</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Github/">Github</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/05/29/Vue%E5%8D%95%E5%90%91%E6%95%B0%E6%8D%AE%E6%B5%81%E4%B8%8E%E5%8F%8C%E5%90%91%E6%95%B0%E6%8D%AE%E7%BB%91%E5%AE%9A%E7%9A%84%E7%90%86%E8%A7%A3/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Vue单向数据流与双向数据绑定的理解</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/05/28/ajax%E9%9D%A2%E8%AF%95/">
+                        <span class="hidden-mobile">ajax常见面试题</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
         </div>
       </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
     
 
     
@@ -318,9 +425,15 @@
 
 
 
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
 
 
 
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
 
 
 
