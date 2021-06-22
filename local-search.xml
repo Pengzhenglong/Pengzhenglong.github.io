@@ -31,33 +31,6 @@
   
   
   <entry>
-    <title>offsetHeight、scrollHeight、clientHeight</title>
-    <link href="/2021/06/20/teat/"/>
-    <url>/2021/06/20/teat/</url>
-    
-    <content type="html"><![CDATA[<hr><h3 id="offsetXXX"><a href="#offsetXXX" class="headerlink" title="offsetXXX"></a>offsetXXX</h3><blockquote><p>offsetWidth/offsetHeight 是指一个元素的 CSS 「标准宽高」，它包含了边框、内边距、元素内容以及滚动条（如果存在的话）。</p></blockquote><p>借助 MDN 上的图片可以看到元素的 offsetWidth，这就是这个元素在页面中「实际占用的空间」，同时当元素的形状发生变化时（比如说放大或缩小），offsetWidth 就表示元素的布局宽高，并不代表实际渲染出来的宽高，如需获取渲染的宽高请使用 getBoundingClientRect() 方法计算得到真正的 offsetWidth</p><p><img src="/imageO/6.png" alt="offsewidth"></p><h3 id="clientXXX"><a href="#clientXXX" class="headerlink" title="clientXXX"></a>clientXXX</h3><blockquote><p>clientWidth/clientHeight 就表示一个元素的「内容宽高」，包含元素内容以及内边距</p></blockquote><p>也就是说如果你只想要获取「显示内容区域的大小」就是用 clientWidth</p><p><img src="/imageO/6.png" alt="clientwidth"></p><h3 id="scrollXXX"><a href="#scrollXXX" class="headerlink" title="scrollXXX"></a>scrollXXX</h3><blockquote><p>scrollWidth/scrollHeight 表示一个元素内容区域的实际大小，包括不在页面中的可滚动部分（内容和内边距）</p></blockquote><p>它可以理解为 clientXXX 的增强版，是整个内容的大小</p><p><img src="/imageO/8.png" alt="scrollxxx"></p><h3 id="xxxTop"><a href="#xxxTop" class="headerlink" title="xxxTop"></a>xxxTop</h3><ol><li><p>offsetTop 是当前元素顶部距离最近父元素顶部的距离,和有没有滚动条没有关系</p></li><li><p>scrollTop 在有滚动条的情况下，为元素可视区域距离元素顶部的像素，也就是已经滚动了多少距离</p></li></ol><p><img src="/imageO/9.png" alt="xxxtop"></p><h4 id="区别与联系"><a href="#区别与联系" class="headerlink" title="区别与联系"></a>区别与联系</h4><ol><li>offsetXXX 可以看作是 clientXXX + 外边框 border + 滚动条（有的话）</li><li>scrollXXX 可以看作是 clientXXX + 隐藏区域大小（如果有滚动的话）</li></ol>]]></content>
-    
-    
-    <categories>
-      
-      <category>CSS</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>前端基础</tag>
-      
-      <tag>CSS</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
     <title>axios拦截器</title>
     <link href="/2021/06/17/Vue&amp;&amp;axios%E6%8B%A6%E6%88%AA%E5%99%A8/"/>
     <url>/2021/06/17/Vue&amp;&amp;axios%E6%8B%A6%E6%88%AA%E5%99%A8/</url>
