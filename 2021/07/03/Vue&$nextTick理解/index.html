@@ -18,7 +18,7 @@
   <meta name="author" content="DragonPeng">
   <meta name="keywords" content="">
   
-  <title>JavaScript new 操作符具体干了什么呢？如何实现？ - DragonPeng的博客</title>
+  <title>谈一谈你对 nextTick 的理解？ - DragonPeng的博客</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -163,7 +163,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="JavaScript new 操作符具体干了什么呢？如何实现？">
+            <span class="h2" id="subtitle" title="谈一谈你对 nextTick 的理解？">
               
             </span>
 
@@ -173,8 +173,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-07-02 22:15" pubdate>
-        July 2, 2021 pm
+      <time datetime="2021-07-03 11:15" pubdate>
+        July 3, 2021 am
       </time>
     </span>
   
@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      371 字
+      837 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      4
+      9
        分钟
     </span>
   
@@ -225,29 +225,49 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">JavaScript new 操作符具体干了什么呢？如何实现？</h1>
+            <h1 style="display: none">谈一谈你对 nextTick 的理解？</h1>
             
             <div class="markdown-body">
-              <p>JavaScript new 操作符具体干了什么呢？如何实现？</p>
-<hr>
-<h3 id="new-操作符具体干了什么？"><a href="#new-操作符具体干了什么？" class="headerlink" title="new 操作符具体干了什么？"></a>new 操作符具体干了什么？</h3><p>// （1）首先创建了一个新的空对象<br>// （2）设置原型，将对象的原型设置为函数的 prototype 对象。<br>// （3）让函数的 this 指向这个对象，执行构造函数的代码（为这个新对象添加属性）<br>// （4）判断函数的返回值类型，如果是值类型，返回创建的对象。如果是引用类型，就返回这个引用类型的对象。</p>
-<p>new共经历了四个过程。</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-keyword">var</span> <span class="hljs-function"><span class="hljs-keyword">fn</span> = <span class="hljs-title">function</span> (<span class="hljs-params"></span>) </span>&#123; &#125;;<br><span class="hljs-keyword">var</span> fnObj = <span class="hljs-keyword">new</span> <span class="hljs-function"><span class="hljs-keyword">fn</span>(<span class="hljs-params"></span>)</span>;<br><br></code></pre></td></tr></table></figure>
+              <hr>
+<h3 id="什么是nextTick呢？"><a href="#什么是nextTick呢？" class="headerlink" title="什么是nextTick呢？"></a>什么是nextTick呢？</h3><p>官方文档：</p>
+<blockquote>
+<p>在下次DOM更新循环结束之后执行延迟回调。在修改数据之后立即使用这个方法，获取更新后的DOM。</p>
+</blockquote>
+<p>nextTick，我可以理解为next是下一个的意思，在事件循环中，每进行一次循环操作称为 tick</p>
+<p>就是下一个事件循环操作，也就是下一个宏任务</p>
+<h3 id="nextTick实现原理"><a href="#nextTick实现原理" class="headerlink" title="nextTick实现原理"></a>nextTick实现原理</h3><p>因为目前浏览器平台并没有实现 nextTick 方法，所以 Vue.js 源码中分别用 Promise、setTimeout等方式在 microtask（或是task）中创建一个事件，目的是在当前调用栈执行完毕以后（不一定立即）才会去执行这个事件</p>
+<p>直接上代码看效果</p>
+<figure class="highlight handlebars"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs handlebars"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span></span><br><span class="xml">    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;views__home&quot;</span>&gt;</span></span><br><span class="xml">        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">ref</span>=<span class="hljs-string">&quot;xiaoming&quot;</span>&gt;</span></span><span class="hljs-template-variable">&#123;&#123;<span class="hljs-name">message</span>&#125;&#125;</span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span></span><br><br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span></span><br><span class="xml">export default &#123;</span><br><span class="xml">    data() &#123;</span><br><span class="xml">        return &#123;</span><br><span class="xml">            message: &#x27;test&#x27;</span><br><span class="xml">        &#125;;</span><br><span class="xml">    &#125;,</span><br><span class="xml">    mounted() &#123;</span><br><span class="xml">        this.message = &#x27;xiaoming&#x27;;</span><br><br><span class="xml">        console.log(&#x27;first&#x27;, this.$refs.xiaoming.innerHTML);</span><br><br><span class="xml">        this.$nextTick(() =&gt; &#123;</span><br><span class="xml">            console.log(&#x27;second&#x27;, this.$refs.xiaoming.innerHTML);</span><br><span class="xml">        &#125;);</span><br><span class="xml">    &#125;</span><br><span class="xml">&#125;;</span><br><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span><br></code></pre></td></tr></table></figure>
 
-<p>1、创建了一个空对象</p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs csharp"><span class="hljs-keyword">var</span> obj = <span class="hljs-keyword">new</span> <span class="hljs-built_in">object</span>();<br></code></pre></td></tr></table></figure>
+<p><img src="/imageO/18.png" srcset="/img/loading.gif" lazyload alt="如图"></p>
+<h3 id="为什么会这样呢？"><a href="#为什么会这样呢？" class="headerlink" title="为什么会这样呢？"></a>为什么会这样呢？</h3><p>当你执行this.message = ‘xiaoming’的时候，只是把xiaoming赋值给了一个变量，dom实际上还没有更新呢</p>
+<h3 id="那么为什么在this-nextTick里面却可以拿到dom更新后的值呢？"><a href="#那么为什么在this-nextTick里面却可以拿到dom更新后的值呢？" class="headerlink" title="那么为什么在this.$nextTick里面却可以拿到dom更新后的值呢？"></a>那么为什么在this.$nextTick里面却可以拿到dom更新后的值呢？</h3><p>一般来说nextTick，就是在dom渲染完了之后才会执行</p>
+<h3 id="我们要知道vue里面有一个虚拟dom，页面上所有的操作都是先改变虚拟dom，最后再把虚拟dom更新到实际的页面dom上，这个时候就会涉及到到一个问题，什么时候才是最后？"><a href="#我们要知道vue里面有一个虚拟dom，页面上所有的操作都是先改变虚拟dom，最后再把虚拟dom更新到实际的页面dom上，这个时候就会涉及到到一个问题，什么时候才是最后？" class="headerlink" title="我们要知道vue里面有一个虚拟dom，页面上所有的操作都是先改变虚拟dom，最后再把虚拟dom更新到实际的页面dom上，这个时候就会涉及到到一个问题，什么时候才是最后？"></a>我们要知道vue里面有一个虚拟dom，页面上所有的操作都是先改变虚拟dom，最后再把虚拟dom更新到实际的页面dom上，这个时候就会涉及到到一个问题，什么时候才是最后？</h3><p>这个时候就会涉及到JS事件执行机制中的宏任务和微任务</p>
+<p>1、执行完当前宏任务script，立即执行微任务</p>
+<p>2、微任务执行完毕后进行页面渲染</p>
+<p>3、页面渲染完毕，开始执行$nextTick</p>
+<h3 id="Vue-使用了-nextTick-进行统一更新"><a href="#Vue-使用了-nextTick-进行统一更新" class="headerlink" title="Vue 使用了 nextTick 进行统一更新"></a>Vue 使用了 nextTick 进行统一更新</h3><p>你应该知道，即使在 Vue 中多么频繁地修改数据，最后 Vue 页面只会更新一次</p>
+<p>这是 Vue 和 nextTick 合作产生的结果，但又并不只是 nextTick 起作用</p>
+<p>根据响应式原理，你我都知道</p>
+<p>响应式原理</p>
+<p>比如</p>
+<p>数据 name 被 页面引用，name 会收集到 页面的 watcher</p>
+<p>name 被修改时，会通知所有收集到的 watcher 进行更新（watcher.update）</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">this.name</span> = <span class="hljs-number">2</span><br><br><span class="hljs-attr">this.name</span> = <span class="hljs-number">3</span><br><br><span class="hljs-attr">this.name</span> = <span class="hljs-number">4</span><br></code></pre></td></tr></table></figure>
 
-<p>2、设置原型链</p>
-<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-attr">obj._proto_</span> = fn.prototype<span class="hljs-comment">;</span><br></code></pre></td></tr></table></figure>
-
-<p>3、让fn的this指向obj，并执行fn的函数体</p>
-<figure class="highlight nim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nim"><span class="hljs-keyword">var</span> <span class="hljs-literal">result</span> = fn.call(obj);<br></code></pre></td></tr></table></figure>
-
-<p>4、判断fn的返回值类型，如果是值类型，返回obj。如果是引用类型，就返回这个引用类型的对象。</p>
-<figure class="highlight isbl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs isbl"><span class="hljs-variable"><span class="hljs-keyword">if</span></span> (<span class="hljs-function"><span class="hljs-title">typeof</span>(<span class="hljs-variable"><span class="hljs-class">result</span></span>) == <span class="hljs-string">&quot;object&quot;</span>)&#123;  </span><br><span class="hljs-function">    <span class="hljs-variable">fnObj</span> = <span class="hljs-variable"><span class="hljs-class">result</span></span>;  </span><br><span class="hljs-function">&#125; <span class="hljs-variable"><span class="hljs-keyword">else</span></span> &#123;  </span><br><span class="hljs-function">    <span class="hljs-variable">fnObj</span> = <span class="hljs-variable">obj</span>;</span><br><span class="hljs-function">&#125;  </span><br></code></pre></td></tr></table></figure>
-
-<p>// 实现:</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">objectFactory</span>(<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-keyword">let</span> newObject = <span class="hljs-literal">null</span>,<br>    <span class="hljs-title">constructor</span> = <span class="hljs-title">Array</span>.<span class="hljs-title">prototype</span>.<span class="hljs-title">shift</span>.<span class="hljs-title">call</span>(<span class="hljs-params"><span class="hljs-built_in">arguments</span></span>),<br>    <span class="hljs-title">result</span> = <span class="hljs-title">null</span>;<br><br>  <span class="hljs-comment">// 参数判断</span><br>  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> <span class="hljs-title">constructor</span> !== &quot;<span class="hljs-title">function</span>&quot;) &#123;<br>    <span class="hljs-built_in">console</span>.error(<span class="hljs-string">&quot;type error&quot;</span>);<br>    <span class="hljs-keyword">return</span>;<br>  &#125;<br><br>  <span class="hljs-comment">// 新建一个空对象，对象的原型为构造函数的 prototype 对象</span><br>  newObject = <span class="hljs-built_in">Object</span>.create(<span class="hljs-title">constructor</span>.<span class="hljs-title">prototype</span>);<br><br>  <span class="hljs-comment">// 将 this 指向新建对象，并执行函数</span><br>  result = <span class="hljs-title">constructor</span>.<span class="hljs-title">apply</span>(<span class="hljs-params">newObject, <span class="hljs-built_in">arguments</span></span>);<br><br>  <span class="hljs-comment">// 判断返回对象</span><br>  <span class="hljs-keyword">let</span> flag =<br>    result &amp;&amp; (<span class="hljs-keyword">typeof</span> result === <span class="hljs-string">&quot;object&quot;</span> || <span class="hljs-keyword">typeof</span> result === <span class="hljs-string">&quot;function&quot;</span>);<br><br>  <span class="hljs-comment">// 判断返回结果</span><br>  <span class="hljs-keyword">return</span> flag ? result : newObject;<br>&#125;<br><br><span class="hljs-comment">// 使用方法</span><br><span class="hljs-comment">// objectFactory(构造函数, 初始化参数);</span><br><br></code></pre></td></tr></table></figure>
+<p>如果</p>
+<p>name 一时间被修改三次时，按道理应该会通知三次 watcher 更新，那么页面会更新三次</p>
+<p>但是最后只会更新一次</p>
+<p>就是因为他们的合作</p>
+<p>设置 nextTick 回调 + 过滤 watcher</p>
+<p>当数据变化后，把 watcher.update  函数存放进 nextTick 的 回调数组中，并且会做过滤。</p>
+<p>通过 watcher.id 来判断 回调数组 中是否已经存在这个 watcher 的更新函数</p>
+<p>不存在，才 push</p>
+<p>之后 nextTick 遍历回调数组，便会执行了更新</p>
+<p>所以</p>
+<p>当三次修改数据的时候，会准备 push进 回调数组 三个 watcher.update，但是只有第一次是 push 成功的，其他的会被过滤掉</p>
+<p>所以，不管你修改多少次数据，nextTick 的回调数组中只存在唯一一个 watcher.update，从而页面只会更新一次</p>
+<h4 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h4><p><a target="_blank" rel="noopener" href="https://www.zhihu.com/search?type=content&q=$nexttick%E8%A7%A3%E9%87%8A">知乎</a></p>
 
             </div>
             <hr>
@@ -257,7 +277,7 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/JS%E8%BF%9B%E9%98%B6/">JS进阶</a>
+                      <a class="hover-with-bg" href="/categories/Vue/">Vue</a>
                     
                   </div>
                 
@@ -267,7 +287,7 @@
                     
                       <a class="hover-with-bg" href="/tags/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/">前端基础</a>
                     
-                      <a class="hover-with-bg" href="/tags/JS%E8%BF%9B%E9%98%B6/">JS进阶</a>
+                      <a class="hover-with-bg" href="/tags/Vue/">Vue</a>
                     
                   </div>
                 
@@ -284,18 +304,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/07/03/Vue&amp;$nextTick%E7%90%86%E8%A7%A3/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">谈一谈你对 nextTick 的理解？</span>
-                        <span class="visible-mobile">Previous</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/07/02/JavaScript%20%E5%8E%9F%E5%9E%8B%EF%BC%8C%E5%8E%9F%E5%9E%8B%E9%93%BE%EF%BC%9F%20%E6%9C%89%E4%BB%80%E4%B9%88%E7%89%B9%E7%82%B9%EF%BC%9F&amp;%E8%8E%B7%E5%8F%96%E5%8E%9F%E5%9E%8B%E7%9A%84%E6%96%B9%E6%B3%95/">
-                        <span class="hidden-mobile">JavaScript 原型，原型链？ 有什么特点？js 获取原型的方法？</span>
+                      <a href="/2021/07/02/JS%20new%20%E6%93%8D%E4%BD%9C%E7%AC%A6%E5%85%B7%E4%BD%93%E5%B9%B2%E4%BA%86%E4%BB%80%E4%B9%88%E5%91%A2%EF%BC%9F%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%EF%BC%9F/">
+                        <span class="hidden-mobile">JavaScript new 操作符具体干了什么呢？如何实现？</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
