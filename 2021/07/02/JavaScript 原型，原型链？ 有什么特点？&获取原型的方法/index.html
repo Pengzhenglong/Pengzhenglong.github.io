@@ -18,9 +18,25 @@
   <meta name="author" content="DragonPeng">
   <meta name="keywords" content="">
   
-  <title>Tags - 前端基础 - DragonPeng的博客</title>
+  <title>JavaScript 原型，原型链？ 有什么特点？js 获取原型的方法？ - DragonPeng的博客</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
 
 
 
@@ -48,7 +64,7 @@
 
 
 <body>
-  <header style="height: 80vh;">
+  <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -142,22 +158,55 @@
 </nav>
 
     <div class="banner" id="banner" parallax=true
-         style="background: url('/img/tag1.jpg') no-repeat center center;
+         style="background: url('/img/page1.jpg') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="Tag - 前端基础">
+            <span class="h2" id="subtitle" title="JavaScript 原型，原型链？ 有什么特点？js 获取原型的方法？">
               
             </span>
 
             
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-07-02 21:15" pubdate>
+        July 2, 2021 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      631 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      6
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
           </div>
 
-          
-            <div class="scroll-down-bar">
-              <i class="iconfont icon-arrowdown"></i>
-            </div>
           
         </div>
       </div>
@@ -166,100 +215,113 @@
 
   <main>
     
-      <div class="container nopadding-x-md">
-        <div class="py-5" id="board"
-          >
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
-                
-
-<div class="list-group">
-  <p class="h4">57 posts in total.</p>
-  <hr>
-  
-  
-    
       
-      <p class="h5">2021</p>
-    
-    <a href="/2021/04/14/CSS3flex%E5%B8%83%E5%B1%80/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">CSS3--flex布局</span>
-      <time style="float: right;">04-14</time>
-    </a>
-  
-    
-    <a href="/2021/04/13/ES6(%E5%9B%9B)/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">ES6-新增的API&amp;声明对象的简写&amp;对象函数的简写</span>
-      <time style="float: right;">04-13</time>
-    </a>
-  
-    
-    <a href="/2021/04/13/ES6(%E4%B8%89)/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">ES6-函数优化&amp;箭头函数(使用较多)</span>
-      <time style="float: right;">04-13</time>
-    </a>
-  
-    
-    <a href="/2021/04/12/ES6(%E4%BA%8C)/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">ES6-解构&amp;字符串</span>
-      <time style="float: right;">04-12</time>
-    </a>
-  
-    
-    <a href="/2021/04/12/ES6(%E4%B8%80)/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">ES6-let&amp;const</span>
-      <time style="float: right;">04-12</time>
-    </a>
-  
-    
-    <a href="/2021/04/08/Javascript%E5%85%A5%E9%97%A8(%E4%B8%83)/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">JQuery</span>
-      <time style="float: right;">04-08</time>
-    </a>
-  
-    
-    <a href="/2021/04/08/Javascript%E5%85%A5%E9%97%A8(%E5%85%AD)/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">Javascript操作表单(验证)(六)</span>
-      <time style="float: right;">04-08</time>
-    </a>
-  
-    
-    <a href="/2021/04/06/Javascript%E5%85%A5%E9%97%A8(%E4%BA%94)/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">Javascript操作BOM对象与DOM(五)</span>
-      <time style="float: right;">04-06</time>
-    </a>
-  
-    
-    <a href="/2021/04/05/Javascript%E5%85%A5%E9%97%A8(%E5%9B%9B)/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">Javascript面向对象&amp;json(四)</span>
-      <time style="float: right;">04-05</time>
-    </a>
-  
-    
-    <a href="/2021/04/04/Javascript%E5%85%A5%E9%97%A8(%E4%B8%89)/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">Javascript函数&amp;变量的作用域&amp;&amp;方法(三)</span>
-      <time style="float: right;">04-04</time>
-    </a>
-  
-</div>
 
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">JavaScript 原型，原型链？ 有什么特点？js 获取原型的方法？</h1>
+            
+            <div class="markdown-body">
+              <p>JavaScript 原型，原型链？ 有什么特点？js 获取原型的方法？</p>
+<hr>
+<h3 id="JavaScript-原型，原型链？-有什么特点？"><a href="#JavaScript-原型，原型链？-有什么特点？" class="headerlink" title="JavaScript 原型，原型链？ 有什么特点？"></a>JavaScript 原型，原型链？ 有什么特点？</h3><h4 id="原型"><a href="#原型" class="headerlink" title="原型"></a>原型</h4><ul>
+<li><p>在js中，我们通常会使用构造函数来创建一个对象，每一个构造函数的内部都有一个prototype属性，这个属性对应的值是一个对象，这个对象它包含了可以由该构造函数的所有实例都共享的属性和方法，我们把它称为原型。</p>
+</li>
+<li><p>原型分为显示原型和隐式原型，一般称prototype为显示原型，__proto__称为隐式原型。<br>一般而言，__proto__这个指针我们应该获取这个值，但是浏览器中都实现了<code>__proto__</code>属性来让我们访问这个属性，但是我们最好不要使用这个属性，因为它不是规范中规定的。<br>ES5 中新增了一个 Object.getPrototypeOf() 方法，我们可以通过这个方法来获取对象的原型。</p>
+</li>
+</ul>
+<p>举个例子:</p>
+<ul>
+<li>为什么我们新建的对象可以使用toString()方法，这是因为我们访问一个对象的属性时，首先会在这个对象身上找，如果没有的话，我们会通过这个对象的__proto__找到该对象的原型，然后在这个原型对象中找，这个原型对象又没有的话，就这样子通过一直找下去，这也就是原型链概念。直到找到原型链的尽头也就是Object.prototype。</li>
+</ul>
+<h4 id="原型链"><a href="#原型链" class="headerlink" title="原型链"></a>原型链</h4><p>当我们访问一个对象的属性时，如果这个对象内部不存在这个属性，那么它就会去它的原型对象里找这个属性，这个原型对象又会有自己的原型，于是就这样一直找下去，也就是原型链的概念。原型链的尽头一般来说都是 <strong>Object.prototype</strong> 所以这就是我们新建的对象为什么能够使用 toString() 等方法的原因。</p>
+<p>特点：</p>
+<p>JavaScript 对象是通过引用来传递的，我们创建的每个新对象实体中并没有一份属于自己的原型副本。当我们修改原型时，与之相关的对象也会继承这一改变。</p>
+<h3 id="js-获取原型的方法？"><a href="#js-获取原型的方法？" class="headerlink" title="js 获取原型的方法？"></a>js 获取原型的方法？</h3><ol>
+<li>p.<strong>proto</strong></li>
+<li>p.constructor.prototype</li>
+<li>Object.getPrototypeOf(p)</li>
+</ol>
+<h3 id="在-js-中不同进制数字的表示方式"><a href="#在-js-中不同进制数字的表示方式" class="headerlink" title="在 js 中不同进制数字的表示方式"></a>在 js 中不同进制数字的表示方式</h3><p>以 0X、0x 开头的表示为十六进制。</p>
+<p>以 0、0O、0o 开头的表示为八进制。</p>
+<p>以 0B、0b 开头的表示为二进制格式。</p>
 
-  <nav aria-label="navigation">
-    <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/tags/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/page/4/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/tags/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/">1</a><span class="space">&hellip;</span><a class="page-number" href="/tags/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/page/3/#board">3</a><a class="page-number" href="/tags/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/page/4/#board">4</a><span class="page-number current">5</span><a class="page-number" href="/tags/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/page/6/#board">6</a><a class="extend next" rel="next" href="/tags/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/page/6/#board"><i class="iconfont icon-arrowright"></i></a>
-    </span>
-  </nav>
-
-
-
-
-              </div>
             </div>
-          </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/JS%E8%BF%9B%E9%98%B6/">JS进阶</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/">前端基础</a>
+                    
+                      <a class="hover-with-bg" href="/tags/JS%E8%BF%9B%E9%98%B6/">JS进阶</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/07/01/JS%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B&amp;&amp;%E5%A0%86%E6%A0%88&amp;&amp;JS%E7%9A%84%E5%9F%BA%E6%9C%AC%E8%A7%84%E8%8C%83/">
+                        <span class="hidden-mobile">JS数据类型&&堆栈&&JS的基本规范</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
         </div>
       </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
     
 
     
@@ -364,9 +426,15 @@
 
 
 
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
 
 
 
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
 
 
 
