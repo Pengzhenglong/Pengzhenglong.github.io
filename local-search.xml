@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>JS数据类型&amp;&amp;堆栈&amp;&amp;JS的基本规范</title>
+    <link href="/2021/07/01/JS%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B&amp;&amp;%E5%A0%86%E6%A0%88&amp;&amp;JS%E7%9A%84%E5%9F%BA%E6%9C%AC%E8%A7%84%E8%8C%83/"/>
+    <url>/2021/07/01/JS%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B&amp;&amp;%E5%A0%86%E6%A0%88&amp;&amp;JS%E7%9A%84%E5%9F%BA%E6%9C%AC%E8%A7%84%E8%8C%83/</url>
+    
+    <content type="html"><![CDATA[<p>JS数据类型&amp;&amp;堆栈&amp;&amp;JS的基本规范</p><hr><h3 id="介绍-js-的基本数据类型"><a href="#介绍-js-的基本数据类型" class="headerlink" title="介绍 js 的基本数据类型"></a>介绍 js 的基本数据类型</h3><p>js 一共有六种基本数据类型，分别是 <code>Undefined、Null、Boolean、Number、String</code>，还有在 ES6 中新增的 Symbol 和 ES10 中新增的 BigInt 类型。</p><p>Symbol 代表创建后独一无二且不可变的数据类型，它的出现我认为主要是为了解决可能出现的<strong>全局变量冲突的问题</strong>。</p><p>BigInt 是一种数字类型的数据，它可以表示任意精度格式的整数，使用 BigInt 可以<strong>安全地存储和操作大整数</strong>，即使这个数已经超出了 Number 能够表示的安全整数范围。</p><h3 id="JavaScript-有几种类型的值？你能画一下他们的内存图吗？"><a href="#JavaScript-有几种类型的值？你能画一下他们的内存图吗？" class="headerlink" title="JavaScript 有几种类型的值？你能画一下他们的内存图吗？"></a>JavaScript 有几种类型的值？你能画一下他们的内存图吗？</h3><p>涉及知识点：</p><ul><li>栈：原始数据类型（Undefined、Null、Boolean、Number、String）</li><li>堆：引用数据类型（对象、数组和函数）</li></ul><p>两种类型的区别是：存储位置不同。<br>原始数据类型直接存储在栈（stack）中的简单数据段，占据空间小、大小固定，属于被频繁使用数据，所以放入栈中存储。</p><p>引用数据类型存储在堆（heap）中的对象，占据空间大、大小不固定。如果存储在栈中，将会影响程序运行的性能；引用数据类型在栈中存储了指针，该指针指向堆中该实体的起始地址。当解释器寻找引用值时，会首先检索其在栈中的地址，取得地址后从堆中获得实体。</p><h4 id="回答"><a href="#回答" class="headerlink" title="回答"></a>回答</h4><p>js 可以分为两种类型的值，一种是基本数据类型，一种是复杂数据类型。</p><p>基本数据类型 <code>Undefined、Null、Boolean、Number、String</code></p><p>复杂数据类型指的是 Object 类型，所有其他的如 Array、Date 等数据类型都可以理解为 Object 类型的子类。</p><p>两种类型间的主要区别是它们的存储位置不同，基本数据类型的值直接保存在栈中，而复杂数据类型的值保存在堆中，通过使用在栈中保存对应的指针来获取堆中的值。</p><p><img src="/imageO/16.png" alt="栈"></p><p><img src="/imageO/17.png" alt="堆"></p><h3 id="什么是堆？什么是栈？它们之间有什么区别和联系？"><a href="#什么是堆？什么是栈？它们之间有什么区别和联系？" class="headerlink" title="什么是堆？什么是栈？它们之间有什么区别和联系？"></a>什么是堆？什么是栈？它们之间有什么区别和联系？</h3><p>堆和栈的概念存在于数据结构中和操作系统内存中。</p><p>在数据结构中，栈中数据的存取方式为先进后出。而堆是一个优先队列，是按优先级来进行排序的，优先级可以按照大小来规定。完全<br>二叉树是堆的一种实现方式。</p><p>在操作系统中，内存被分为栈区和堆区。</p><p>栈区内存由编译器自动分配释放，存放函数的参数值，局部变量的值等。其操作方式类似于数据结构中的栈。</p><p>堆区内存一般由程序员分配释放，若程序员不释放，程序结束时可能由垃圾回收机制回收。</p><h3 id="说几条写-JavaScript-的基本规范？"><a href="#说几条写-JavaScript-的基本规范？" class="headerlink" title="说几条写 JavaScript 的基本规范？"></a>说几条写 JavaScript 的基本规范？</h3><p>在平常项目开发中，我们遵守一些这样的基本规范，比如说：</p><p>（1）一个函数作用域中所有的变量声明应该尽量提到函数首部，用一个 var 声明，不允许出现两个连续的 var 声明，声明时<br>    如果变量没有值，应该给该变量赋值对应类型的初始值，便于他人阅读代码时，能够一目了然的知道变量对应的类型值。</p><p>（2）代码中出现地址、时间等字符串时需要使用常量代替。</p><p>（3）在进行比较的时候吧，尽量使用’===’, ‘!==’代替’==’, ‘!=’。</p><p>（4）不要在内置对象的原型上添加方法，如 Array, Date。</p><p>（5）switch 语句必须带有 default 分支。</p><p>（6）for 循环必须使用大括号。</p><p>（7）if 语句必须使用大括号。</p><h5 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h5><p><a href="https://blog.csdn.net/jiangjuanjaun/article/details/80327342">JavaScript有几种类型的值？能否画一下它们的内存图；</a></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>JS进阶</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>前端基础</tag>
+      
+      <tag>JS进阶</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>CSS绘制三角形—border法</title>
     <link href="/2021/06/27/CSS%E7%BB%98%E5%88%B6%E4%B8%89%E8%A7%92%E5%BD%A2%E2%80%94border%E6%B3%95/"/>
     <url>/2021/06/27/CSS%E7%BB%98%E5%88%B6%E4%B8%89%E8%A7%92%E5%BD%A2%E2%80%94border%E6%B3%95/</url>
