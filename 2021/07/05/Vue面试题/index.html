@@ -1,0 +1,540 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/2.jpg">
+  <link rel="icon" href="/img/2.jpg">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="DragonPeng">
+  <meta name="keywords" content="">
+  
+  <title>vue router钩子函数 - DragonPeng的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>DragonPeng' blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/page1.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="vue router钩子函数">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-07-05 12:15" pubdate>
+        July 5, 2021 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.6k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      20
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">vue router钩子函数</h1>
+            
+            <div class="markdown-body">
+              <hr>
+<h3 id="路由的钩子函数总结有6个"><a href="#路由的钩子函数总结有6个" class="headerlink" title="路由的钩子函数总结有6个"></a>路由的钩子函数总结有6个</h3><p>全局的路由钩子函数：beforeEach、afterEach</p>
+<p>单个的路由钩子函数：beforeEnter</p>
+<p>组件内的路由钩子函数：beforeRouteEnter、beforeRouteLeave、beforeRouteUpdate</p>
+<h3 id="模块一：全局导航钩子函数"><a href="#模块一：全局导航钩子函数" class="headerlink" title="模块一：全局导航钩子函数"></a>模块一：全局导航钩子函数</h3><h4 id="1、vue-router-beforeEach（全局前置守卫）"><a href="#1、vue-router-beforeEach（全局前置守卫）" class="headerlink" title="1、vue router.beforeEach（全局前置守卫）"></a>1、vue router.beforeEach（全局前置守卫）</h4><p>beforeEach的钩子函数，它是一个全局的before 钩子函数，</p>
+<p>（beforeEach）意思是在 每次每一个路由改变的时候都得执行一遍。</p>
+<p>它的三个参数：</p>
+<p>to: (Route路由对象) 即将要进入的目标 路由对象 to对象下面的属性： path params query hash fullPath matched name meta（在matched下，但是本例可以直接用）</p>
+<p>from: (Route路由对象) 当前导航正要离开的路由</p>
+<p>next: (Function函数) 一定要调用该方法来 resolve 这个钩子。 调用方法：next(参数或者空) ***必须调用</p>
+<p>next(无参数的时候): 进行管道中的下一个钩子，如果走到最后一个钩子函数，那么 导航的状态就是 confirmed （确认的）</p>
+<p>next(‘/‘) 或者 next({ path: ‘/‘ }): 跳转到一个不同的地址。当前的导航被中断，然后进行一个新的导航。</p>
+<p>应用场景：可进行一些页面跳转前处理，例如判断需要登录的页面进行拦截，做登录跳转！！</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs awk">router.beforeEach((to, from, <span class="hljs-keyword">next</span>) =&gt; &#123;<br>    <span class="hljs-keyword">if</span> (to.meta.requireAuth) &#123;<br>        <span class="hljs-regexp">//</span>判断该路由是否需要登录权限<br>        <span class="hljs-keyword">if</span> (cookies(<span class="hljs-string">&#x27;token&#x27;</span>)) &#123;<br>            <span class="hljs-regexp">//</span>通过封装好的cookies读取token，如果存在，name接下一步如果不存在，那跳转回登录页<br>            <span class="hljs-keyword">next</span>()<span class="hljs-regexp">//</span>不要在<span class="hljs-keyword">next</span>里面加<span class="hljs-string">&quot;path:/&quot;</span>,会陷入死循环<br>        &#125;<br>        <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-keyword">next</span>(&#123;<br>                path: <span class="hljs-string">&#x27;/login&#x27;</span>,<br>                query: &#123;redirect: to.fullPath&#125;<span class="hljs-regexp">//</span>将跳转的路由path作为参数，登录成功后跳转到该路由<br>            &#125;)<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">else</span> &#123;<br>        <span class="hljs-keyword">next</span>()<br>    &#125;<br>&#125;)<br><br></code></pre></td></tr></table></figure>
+
+<p>应用场景，进入页面登录判断、管理员权限判断、浏览器判断</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">//</span>使用钩子函数对路由进行权限跳转<br>router.beforeEach((to, from, <span class="hljs-keyword">next</span>) =&gt; &#123;<br>    const role = localStorage.getItem(<span class="hljs-string">&#x27;ms_username&#x27;</span>);<br>    <span class="hljs-keyword">if</span>(!role &amp;&amp; to.path !== <span class="hljs-string">&#x27;/login&#x27;</span>)&#123;<br>        <span class="hljs-keyword">next</span>(<span class="hljs-string">&#x27;/login&#x27;</span>);<br>    &#125;<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(to.meta.permission)&#123;<br>        <span class="hljs-regexp">//</span> 如果是管理员权限则可进入，这里只是简单的模拟管理员权限而已<br>        role === <span class="hljs-string">&#x27;admin&#x27;</span> ? <span class="hljs-keyword">next</span>() : <span class="hljs-keyword">next</span>(<span class="hljs-string">&#x27;/403&#x27;</span>);<br>    &#125;<span class="hljs-keyword">else</span>&#123;<br>        <span class="hljs-regexp">//</span> 简单的判断IE10及以下不进入富文本编辑器，该组件不兼容<br>        <span class="hljs-keyword">if</span>(navigator.userAgent.indexOf(<span class="hljs-string">&#x27;MSIE&#x27;</span>) &gt; -<span class="hljs-number">1</span> &amp;&amp; to.path === <span class="hljs-string">&#x27;/editor&#x27;</span>)&#123;<br>            Vue.prototype.<span class="hljs-variable">$alert</span>(<span class="hljs-string">&#x27;vue-quill-editor组件不兼容IE10及以下浏览器，请使用更高版本的浏览器查看&#x27;</span>, <span class="hljs-string">&#x27;浏览器不兼容通知&#x27;</span>, &#123;<br>                confirmButtonText: <span class="hljs-string">&#x27;确定&#x27;</span><br>            &#125;);<br>        &#125;<span class="hljs-keyword">else</span>&#123;<br>            <span class="hljs-keyword">next</span>();<br>        &#125;<br>    &#125;<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<h4 id="2、vue-router-afterEach（全局后置守卫）"><a href="#2、vue-router-afterEach（全局后置守卫）" class="headerlink" title="2、vue router.afterEach（全局后置守卫）"></a>2、vue router.afterEach（全局后置守卫）</h4><p>router.beforeEach 是页面加载之前，相反router.afterEach是页面加载之后</p>
+<h3 id="模块二：路由独享的守卫-路由内钩子"><a href="#模块二：路由独享的守卫-路由内钩子" class="headerlink" title="模块二：路由独享的守卫(路由内钩子)"></a>模块二：路由独享的守卫(路由内钩子)</h3><p>你可以在路由配置上直接定义 beforeEnter 守卫：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> router = <span class="hljs-keyword">new</span> VueRouter(&#123;<br>  routes: [<br>    &#123;<br>      path: <span class="hljs-string">&#x27;/foo&#x27;</span>,<br>      component: Foo,<br>      beforeEnter: <span class="hljs-function">(<span class="hljs-params">to, <span class="hljs-keyword">from</span>, next</span>) =&gt;</span> &#123;<br>        <span class="hljs-comment">// ...</span><br>      &#125;<br>    &#125;<br>  ]<br><br></code></pre></td></tr></table></figure>
+
+<p>这些守卫与全局前置守卫的方法参数是一样的。</p>
+<h3 id="模块三：组件内的守卫-组件内钩子"><a href="#模块三：组件内的守卫-组件内钩子" class="headerlink" title="模块三：组件内的守卫(组件内钩子)"></a>模块三：组件内的守卫(组件内钩子)</h3><p>1、beforeRouteEnter、beforeRouteUpdate、beforeRouteLeave</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs awk">const Foo = &#123;<br>  template: `...`,<br>  beforeRouteEnter (to, from, <span class="hljs-keyword">next</span>) &#123;<br>    <span class="hljs-regexp">//</span> 在渲染该组件的对应路由被 confirm 前调用<br>    <span class="hljs-regexp">//</span> 不！能！获取组件实例 `this`<br>    <span class="hljs-regexp">//</span> 因为当钩子执行前，组件实例还没被创建<br>  &#125;,<br>  beforeRouteUpdate (to, from, <span class="hljs-keyword">next</span>) &#123;<br>    <span class="hljs-regexp">//</span> 在当前路由改变，但是该组件被复用时调用<br>    <span class="hljs-regexp">//</span> 举例来说，对于一个带有动态参数的路径 <span class="hljs-regexp">/foo/</span>:id，在 <span class="hljs-regexp">/foo/</span><span class="hljs-number">1</span> 和 <span class="hljs-regexp">/foo/</span><span class="hljs-number">2</span> 之间跳转的时候，<br>    <span class="hljs-regexp">//</span> 由于会渲染同样的 Foo 组件，因此组件实例会被复用。而这个钩子就会在这个情况下被调用。<br>    <span class="hljs-regexp">//</span> 可以访问组件实例 `this`<br>  &#125;,<br>  beforeRouteLeave (to, from, <span class="hljs-keyword">next</span>) &#123;<br>    <span class="hljs-regexp">//</span> 导航离开该组件的对应路由时调用<br>    <span class="hljs-regexp">//</span> 可以访问组件实例 `this`<br><br>  &#125;<br><br></code></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>路由钩子在实际开发中的应用场景<br>(一) 清除当前组件中的定时器</li>
+</ol>
+<p>当一个组件中有一个定时器时, 在路由进行切换的时候, 可使用beforeRouteLeave将定时器进行清楚, 以免占用内存:</p>
+<figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs axapta">beforeRouteLeave (to, <span class="hljs-keyword">from</span>, <span class="hljs-keyword">next</span>) &#123;  <br> window.clearInterval(<span class="hljs-keyword">this</span>.timer) <span class="hljs-comment">//清楚定时器   </span><br> <span class="hljs-keyword">next</span>()<br> &#125;<br></code></pre></td></tr></table></figure>
+
+<p>(二) 当页面中有未关闭的窗口, 或未保存的内容时, 阻止页面跳转</p>
+<p>如果页面内有重要的信息需要用户保存后才能进行跳转, 或者有弹出框的情况. 应该阻止用户跳转，结合vuex状态管理（dialogVisibility是否有保存）</p>
+<figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs axapta">beforeRouteLeave (to, <span class="hljs-keyword">from</span>, <span class="hljs-keyword">next</span>) &#123;<br> <span class="hljs-comment">//判断是否弹出框的状态和保存信息与否</span><br> <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.dialogVisibility === <span class="hljs-literal">true</span>) &#123;<br>    <span class="hljs-keyword">this</span>.dialogVisibility = <span class="hljs-literal">false</span> <span class="hljs-comment">//关闭弹出框</span><br>    <span class="hljs-keyword">next</span>(<span class="hljs-literal">false</span>) <span class="hljs-comment">//回到当前页面, 阻止页面跳转</span><br>  &#125;<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>(<span class="hljs-keyword">this</span>.saveMessage === <span class="hljs-literal">false</span>) &#123;<br>    alert(<span class="hljs-string">&#x27;请保存信息后退出!&#x27;</span>) <span class="hljs-comment">//弹出警告</span><br>    <span class="hljs-keyword">next</span>(<span class="hljs-literal">false</span>) <span class="hljs-comment">//回到当前页面, 阻止页面跳转</span><br>  &#125;<span class="hljs-keyword">else</span> &#123;<br>    <span class="hljs-keyword">next</span>() <span class="hljs-comment">//否则允许跳转</span><br>  &#125;<br><br></code></pre></td></tr></table></figure>
+
+<p>(三) 保存相关内容到Vuex中或Session中</p>
+<p>当用户需要关闭页面时, 可以将公用的信息保存到session或Vuex中</p>
+<p> beforeRouteLeave (to, from, next) {<br>    localStorage.setItem(name, content); //保存到localStorage中<br>    next()<br>}</p>
+<h4 id="全局路由钩子函数"><a href="#全局路由钩子函数" class="headerlink" title="全局路由钩子函数"></a>全局路由钩子函数</h4><p>每次路由跳转，都会执行beforeEach和afterEach，一般写在main.js可以做权限控制</p>
+<p>例如：</p>
+<figure class="highlight moonscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs moonscript">router.beforeEach(<span class="hljs-function"><span class="hljs-params">(to, <span class="hljs-keyword">from</span>, <span class="hljs-built_in">next</span>)</span> =&gt;</span> &#123;<br>  <span class="hljs-keyword">if</span> (to.matched.length === <span class="hljs-number">0</span>) &#123;<br>    <span class="hljs-keyword">from</span>.name ? <span class="hljs-built_in">next</span>(&#123; name : <span class="hljs-keyword">from</span>.name &#125;) : <span class="hljs-built_in">next</span>(<span class="hljs-string">&#x27;/&#x27;</span>)<br>  &#125; <span class="hljs-keyword">else</span> &#123;<br>    <span class="hljs-built_in">next</span>()<br>  &#125;<br>&#125;)<br>router.afterEach(<span class="hljs-function"><span class="hljs-params">(to,<span class="hljs-keyword">from</span>)</span> =&gt;</span> &#123;<br>  console.log(to);//到达的路由<br>  console.log(<span class="hljs-keyword">from</span>);//离开的路由<br>&#125;)<br> <br>单个路由钩子函数<br><br>beforeEnter有三个参数：to/<span class="hljs-keyword">from</span>/<span class="hljs-built_in">next</span><br><br>  <span class="hljs-name">routes</span>: [<br>    &#123;<br>      <span class="hljs-name">path</span>: <span class="hljs-string">&#x27;/foo&#x27;</span>,<br>      <span class="hljs-name">component</span>: Foo,<br>      <span class="hljs-name">beforeEnter</span>: <span class="hljs-function"><span class="hljs-params">(to, <span class="hljs-keyword">from</span>, <span class="hljs-built_in">next</span>)</span> =&gt;</span> &#123;<br>        // ...<br>      &#125;<br>    &#125;<br>  ]<br></code></pre></td></tr></table></figure>
+
+<p>组件内路由钩子函数</p>
+<p>三个参数：to/from/next</p>
+<p>beforeRouteEnter：进入这个组建路由之前</p>
+<p>beforeRouteLeave：离开这个组建路由</p>
+<p>beforeRouteUpdate：再本路由的下级路由切换才会触发beforeRouteUpdate</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs awk">beforeRouteEnter (to, from, <span class="hljs-keyword">next</span>) &#123;<br>  console.log(<span class="hljs-string">&#x27;1111&#x27;</span>)<br>  <span class="hljs-keyword">next</span>()<br>  <span class="hljs-regexp">//</span> 在渲染该组件的对应路由被 confirm 前调用<br>  <span class="hljs-regexp">//</span> 不！能！获取组件实例 `this`<br>  <span class="hljs-regexp">//</span> 因为当钩子执行前，组件实例还没被创建<br>&#125;,<br>beforeRouteUpdate (to, from, <span class="hljs-keyword">next</span>) &#123;<br>   console.log(<span class="hljs-string">&#x27;222&#x27;</span>)<br>  <span class="hljs-regexp">//</span> 在当前路由改变，但是该组件被复用时调用<br>  <span class="hljs-regexp">//</span> 举例来说，对于一个带有动态参数的路径 <span class="hljs-regexp">/foo/</span>:id，在 <span class="hljs-regexp">/foo/</span><span class="hljs-number">1</span> 和 <span class="hljs-regexp">/foo/</span><span class="hljs-number">2</span> 之间跳转的时候，<br>  <span class="hljs-regexp">//</span> 由于会渲染同样的 Foo 组件，因此组件实例会被复用。而这个钩子就会在这个情况下被调用。<br>  <span class="hljs-regexp">//</span> 可以访问组件实例 `this`<br>&#125;,<br>beforeRouteLeave (to, from, <span class="hljs-keyword">next</span>) &#123;<br>  <span class="hljs-regexp">//</span> 导航离开该组件的对应路由时调用<br>  <span class="hljs-regexp">//</span> 可以访问组件实例 `this`<br>  alert(<span class="hljs-string">&quot;3sdsss&quot;</span>)<br>  <span class="hljs-keyword">next</span>()<br>&#125;<br></code></pre></td></tr></table></figure>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Vue/">Vue</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/">前端基础</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Vue/">Vue</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/07/05/Http%E7%9F%A5%E8%AF%86/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">HTTP</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/07/04/Vue%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/">
+                        <span class="hidden-mobile">Vue 响应式原理</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
