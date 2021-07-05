@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>HTTP</title>
+    <link href="/2021/07/05/Http%E7%9F%A5%E8%AF%86/"/>
+    <url>/2021/07/05/Http%E7%9F%A5%E8%AF%86/</url>
+    
+    <content type="html"><![CDATA[<hr><h3 id="HTTP-报文结构是怎样的？"><a href="#HTTP-报文结构是怎样的？" class="headerlink" title="HTTP 报文结构是怎样的？"></a>HTTP 报文结构是怎样的？</h3><p>对于 TCP 而言，在传输的时候分为两个部分:TCP头和数据部分。</p><p>而 HTTP 类似，也是header + body的结构，具体而言:</p><blockquote><p>起始行 + 头部 + 空行 + 实体</p></blockquote><p>由于 http 请求报文和响应报文是有一定区别，因此我们分开介绍。</p><p>起始行<br>对于请求报文来说，起始行类似下面这样:</p><blockquote><p>GET /home HTTP/1.1</p></blockquote><p>也就是方法 + 路径 + http版本。</p><p>对于响应报文来说，起始行一般张这个样:</p><blockquote><p>HTTP/1.1 200 OK</p></blockquote><p>响应报文的起始行也叫做状态行。由http版本、状态码和原因三部分组成。</p><p>值得注意的是，在起始行中，每两个部分之间用空格隔开，最后一个部分后面应该接一个换行，严格遵循ABNF语法规范。</p><h4 id="头部"><a href="#头部" class="headerlink" title="头部"></a>头部</h4><p>展示一下请求头和响应头在报文中的位置:</p><p>不管是请求头还是响应头，其中的字段是相当多的，而且牵扯到http非常多的特性，这里就不一一列举的，重点看看这些头部字段的格式：</p><p>字段名不区分大小写<br>字段名不允许出现空格，不可以出现下划线_<br>字段名后面必须紧接着:</p><h4 id="空行"><a href="#空行" class="headerlink" title="空行"></a>空行</h4><p>很重要，用来区分开头部和实体。</p><p>问: 如果说在头部中间故意加一个空行会怎么样？</p><p>那么空行后的内容全部被视为实体。</p><h4 id="实体"><a href="#实体" class="headerlink" title="实体"></a>实体</h4><p>就是具体的数据了，也就是body部分。请求报文对应请求体, 响应报文对应响应体。</p><h3 id="如何理解-URI？"><a href="#如何理解-URI？" class="headerlink" title="如何理解 URI？"></a>如何理解 URI？</h3><p><strong>URI</strong>, 全称为(Uniform Resource Identifier), 也就是<strong>统一资源标识符</strong>，它的作用很简单，就是区分互联网上不同的资源。</p><blockquote><p>但是，它并不是我们常说的网址, 网址指的是URL, 实际上URI包含了URN和URL两个部分，由于 URL 过于普及，就默认将 URI 视为 URL 了。</p></blockquote><p>URI 的结构<br>URI 真正最完整的结构是这样的。</p><p>可能你会有疑问，好像跟平时见到的不太一样啊！先别急，我们来一一拆解。</p><p><strong>scheme</strong> 表示协议名，比如http, https, file等等。后面必须和://连在一起。</p><p><strong>user:passwd@</strong> 表示登录主机时的用户信息，不过很不安全，不推荐使用，也不常用。</p><p><strong>host:port</strong>表示主机名和端口。</p><p><strong>path</strong>表示请求路径，标记资源所在位置。</p><p><strong>query</strong>表示查询参数，为key=val这种形式，多个键值对之间用&amp;隔开。</p><p><strong>fragment</strong>表示 URI 所定位的资源内的一个锚点，浏览器可以根据这个锚点跳转到对应的位置。</p><p>举个例子:</p><p><code>&lt;https://www.baidu.com/s?wd=HTTP&amp;rsv_spt=1&gt;</code><br>复制代码<br>这个 URI 中，https即scheme部分，<code>www.baidu.com</code>为host:port部分（注意，http 和 https 的默认端口分别为80、443），/s为path部分，而wd=HTTP&amp;rsv_spt=1就是query部分。</p><h3 id="如何理解-HTTP-状态码？"><a href="#如何理解-HTTP-状态码？" class="headerlink" title="如何理解 HTTP 状态码？"></a>如何理解 HTTP 状态码？</h3><p>RFC 规定 HTTP 的状态码为三位数，被分为五类:</p><p>1xx: 表示目前是协议处理的中间状态，还需要后续操作。<br>2xx: 表示成功状态。<br>3xx: 重定向状态，资源位置发生变动，需要重新请求。<br>4xx: 请求报文有误。<br>5xx: 服务器端发生错误。</p><h3 id="简要概括一下-HTTP-的特点？HTTP-有哪些缺点？"><a href="#简要概括一下-HTTP-的特点？HTTP-有哪些缺点？" class="headerlink" title="简要概括一下 HTTP 的特点？HTTP 有哪些缺点？"></a>简要概括一下 HTTP 的特点？HTTP 有哪些缺点？</h3><h4 id="HTTP-特点"><a href="#HTTP-特点" class="headerlink" title="HTTP 特点"></a>HTTP 特点</h4><p>HTTP 的特点概括如下:</p><ol><li><p>灵活可扩展，主要体现在两个方面。一个是语义上的自由，只规定了基本格式，比如空格分隔单词，换行分隔字段，其他的各个部分都没有严格的语法限制。另一个是传输形式的多样性，不仅仅可以传输文本，还能传输图片、视频等任意数据，非常方便。</p></li><li><p>可靠传输。HTTP 基于 TCP/IP，因此把这一特性继承了下来。这属于 TCP 的特性，不具体介绍了。</p></li></ol><p>请求-应答。也就是一发一收、有来有回， 当然这个请求方和应答方不单单指客户端和服务器之间，如果某台服务器作为代理来连接后端的服务端，那么这台服务器也会扮演请求方的角色。</p><ol start="3"><li>无状态。这里的状态是指通信过程的上下文信息，而每次 http 请求都是独立、无关的，默认不需要保留状态信息。</li></ol><h4 id="TTP-缺点"><a href="#TTP-缺点" class="headerlink" title="TTP 缺点"></a>TTP 缺点</h4><h5 id="无状态"><a href="#无状态" class="headerlink" title="无状态"></a>无状态</h5><p>所谓的优点和缺点还是要分场景来看的，对于 HTTP 而言，最具争议的地方在于它的无状态。</p><p>在需要长连接的场景中，需要保存大量的上下文信息，以免传输大量重复的信息，那么这时候无状态就是 http 的缺点了。</p><p>但与此同时，另外一些应用仅仅只是为了获取一些数据，不需要保存连接上下文信息，无状态反而减少了网络开销，成为了 http 的优点。</p><h4 id="明文传输"><a href="#明文传输" class="headerlink" title="明文传输"></a>明文传输</h4><p>即协议里的报文(主要指的是头部)不使用二进制数据，而是文本形式。</p><p>这当然对于调试提供了便利，但同时也让 HTTP 的报文信息暴露给了外界，给攻击者也提供了便利。WIFI陷阱就是利用 HTTP 明文传输的缺点，诱导你连上热点，然后疯狂抓你所有的流量，从而拿到你的敏感信息。</p><h4 id="队头阻塞问题"><a href="#队头阻塞问题" class="headerlink" title="队头阻塞问题"></a>队头阻塞问题</h4><p>当 http 开启长连接时，共用一个 TCP 连接，同一时刻只能处理一个请求，那么当前请求耗时过长的情况下，其它的请求只能处于阻塞状态，也就是著名的队头阻塞问题。接下来会有一小节讨论这个问题。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>计算机网络</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>前端基础</tag>
+      
+      <tag>计算机网络</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Vue 响应式原理</title>
     <link href="/2021/07/04/Vue%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/"/>
     <url>/2021/07/04/Vue%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/</url>
