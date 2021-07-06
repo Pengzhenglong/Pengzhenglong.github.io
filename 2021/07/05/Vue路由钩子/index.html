@@ -278,6 +278,8 @@
 <p>beforeRouteUpdate：再本路由的下级路由切换才会触发beforeRouteUpdate</p>
 <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs awk">beforeRouteEnter (to, from, <span class="hljs-keyword">next</span>) &#123;<br>  console.log(<span class="hljs-string">&#x27;1111&#x27;</span>)<br>  <span class="hljs-keyword">next</span>()<br>  <span class="hljs-regexp">//</span> 在渲染该组件的对应路由被 confirm 前调用<br>  <span class="hljs-regexp">//</span> 不！能！获取组件实例 `this`<br>  <span class="hljs-regexp">//</span> 因为当钩子执行前，组件实例还没被创建<br>&#125;,<br>beforeRouteUpdate (to, from, <span class="hljs-keyword">next</span>) &#123;<br>   console.log(<span class="hljs-string">&#x27;222&#x27;</span>)<br>  <span class="hljs-regexp">//</span> 在当前路由改变，但是该组件被复用时调用<br>  <span class="hljs-regexp">//</span> 举例来说，对于一个带有动态参数的路径 <span class="hljs-regexp">/foo/</span>:id，在 <span class="hljs-regexp">/foo/</span><span class="hljs-number">1</span> 和 <span class="hljs-regexp">/foo/</span><span class="hljs-number">2</span> 之间跳转的时候，<br>  <span class="hljs-regexp">//</span> 由于会渲染同样的 Foo 组件，因此组件实例会被复用。而这个钩子就会在这个情况下被调用。<br>  <span class="hljs-regexp">//</span> 可以访问组件实例 `this`<br>&#125;,<br>beforeRouteLeave (to, from, <span class="hljs-keyword">next</span>) &#123;<br>  <span class="hljs-regexp">//</span> 导航离开该组件的对应路由时调用<br>  <span class="hljs-regexp">//</span> 可以访问组件实例 `this`<br>  alert(<span class="hljs-string">&quot;3sdsss&quot;</span>)<br>  <span class="hljs-keyword">next</span>()<br>&#125;<br></code></pre></td></tr></table></figure>
 
+<h4 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h4><p><a target="_blank" rel="noopener" href="https://www.zhihu.com/search?type=content&q=ue%20router%E9%92%A9%E5%AD%90%E5%87%BD%E6%95%B0">知乎</a></p>
+
             </div>
             <hr>
             <div>
@@ -315,7 +317,7 @@
                     
                       <a href="/2021/07/05/Http%E7%9F%A5%E8%AF%86/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">HTTP</span>
+                        <span class="hidden-mobile">HTTP报文&HTTP的优缺点</span>
                         <span class="visible-mobile">Previous</span>
                       </a>
                     
