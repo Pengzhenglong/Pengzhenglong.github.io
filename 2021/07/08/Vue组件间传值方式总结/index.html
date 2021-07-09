@@ -1,0 +1,553 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/2.jpg">
+  <link rel="icon" href="/img/2.jpg">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="DragonPeng">
+  <meta name="keywords" content="">
+  
+  <title>Vue 组件传参的八种方式总结 - DragonPeng的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>DragonPeng' blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/page1.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Vue 组件传参的八种方式总结">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-07-08 20:15" pubdate>
+        July 8, 2021 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.4k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      29
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Vue 组件传参的八种方式总结</h1>
+            
+            <div class="markdown-body">
+              <hr>
+<h3 id="一、props-传参"><a href="#一、props-传参" class="headerlink" title="一、props 传参"></a>一、props 传参</h3><p>子组件定义 props 有三种方式:</p>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs dts"><span class="hljs-comment">// 第一种数组方式</span><br><span class="hljs-symbol">props:</span> [xxx, xxx, xxx]<br><br><span class="hljs-comment">// 第二种对象方式</span><br><span class="hljs-symbol">props:</span> &#123; xxx: Number, xxx: String&#125;<br><br><span class="hljs-comment">// 第三种对象嵌套对象方式</span><br><span class="hljs-symbol">props:</span> &#123;<br><span class="hljs-symbol">    xxx:</span> &#123;<br>        <span class="hljs-comment">//类型不匹配会警告</span><br><span class="hljs-symbol">        type:</span> Number,<br><span class="hljs-symbol">        default:</span> <span class="hljs-number">0</span>,<br><span class="hljs-symbol">        required:</span> true,<br>        <span class="hljs-comment">// 返回值不是 true,会警告</span><br>        validator(val) &#123; return val === <span class="hljs-number">10</span>&#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>第三种对象默认支持 4 种属性，并且都是非必填的。可以随意使用</p>
+<h4 id="父组件传参的俩种方式"><a href="#父组件传参的俩种方式" class="headerlink" title="父组件传参的俩种方式"></a>父组件传参的俩种方式</h4><h5 id="第一种静态属性传参"><a href="#第一种静态属性传参" class="headerlink" title="第一种静态属性传参"></a>第一种静态属性传参</h5><p>注意：</p>
+<p>在不定义 props 类型的情况下 props 接受到的均为 String。<br>当 props 属性指定为 Boolean时，并且只有属性 key 没有值 value 时接受到的是 true</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!--props 接受到的均为 String --&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">children</span> <span class="hljs-attr">xxx</span>=<span class="hljs-string">&quot;123&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">children</span>&gt;</span><br><br><span class="hljs-comment">&lt;!-- 有只有属性没有值, 这种情况 props 指定类型是 Boolean 则接收到的是 true --&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">children</span> <span class="hljs-attr">xxx</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">children</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h5 id="第二种动态属性传参"><a href="#第二种动态属性传参" class="headerlink" title="第二种动态属性传参"></a>第二种动态属性传参</h5><p>注意：</p>
+<p>需要区分非简写形式传入的值是对象，则会对应 props 中多个值<br>会保留传入值的类型<br>如果是表达式则获取到的是表达式的计算结果</p>
+<figure class="highlight dust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs dust"><span class="xml"><span class="hljs-comment">&lt;!-- prop 接收到 Number 类型的 123--&gt;</span></span><br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">children</span> <span class="hljs-attr">:xxx</span>=<span class="hljs-string">&quot;123&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">children</span>&gt;</span></span><br><br><span class="xml"><span class="hljs-comment">&lt;!-- prop 接收到 Array 类型的 [1, 2, 3]--&gt;</span></span><br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">children</span> <span class="hljs-attr">v-bind:xxx</span>=<span class="hljs-string">&quot;[1, 2, 3]&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">children</span>&gt;</span></span><br><br><span class="xml"><span class="hljs-comment">&lt;!-- prop 会接收到 xxx1 和 xxx2 俩个参数。这种不支持简写形式--&gt;</span></span><br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">children</span> <span class="hljs-attr">v-bind</span>=<span class="hljs-string">&quot;</span></span></span><span class="hljs-template-variable">&#123;xxx1: 1, xxx2: 2&#125;</span><span class="xml"><span class="hljs-tag"><span class="hljs-string">&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">children</span>&gt;</span></span><br></code></pre></td></tr></table></figure>
+
+<h3 id="二、attrs-和listeners"><a href="#二、attrs-和listeners" class="headerlink" title="二、attrs 和listeners"></a>二、attrs 和listeners</h3><p>$attrs</p>
+<p>$attrs 会获取到 props 中未定义的属性（class 和 style 属性除外）,支持响应式。常用的场景有俩种：</p>
+<ol>
+<li>组件嵌套组件时可以使用 $attrs 来支持过多的属性支持。比如 elementUI 的 table 组件。支持的属性十几个，而平常封装的时候用的最多的也就一俩个。</li>
+<li>属性默认是添加在父组件上的，有时候想把多余的属性添加在子组件上（可以结合 inheritAttrs: false 属性，让父属性不接受多余的属性）</li>
+</ol>
+<p>$listeners 定义的事件都在子组件的根元素上，有时候想加到其他元素上。就可以使用 $listerners。它包含了父组件中的事件监听器(除了带有 .native 修饰符的监听器)</p>
+<h3 id="三、-emit-通知"><a href="#三、-emit-通知" class="headerlink" title="三、$emit 通知"></a>三、$emit 通知</h3><p>Vue 默认有 $on $emit $once $off 几种方法来实现发布订阅模式，这也应用在了组件传参上。在组件上添加的特殊方法 @abc=”methods” 就相当于使用了 $on 来监听这个方法。因此组件内可以使用 $emit 来进行通知。</p>
+<p>这里有一道考题: for 循环的时候如何拿到子组件的传值和 for 中循环的值</p>
+<p>答案有俩种，一是 $event, 二是 闭包。只是需要注意 $event 只能获取到第一个值</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">v-for</span>=<span class="hljs-string">&quot;item in [1, 2, 3]&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">children</span> @<span class="hljs-attr">abc</span>=<span class="hljs-string">&quot;((val, val2) =&gt; getValue(val, item))&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">children</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="四、v-model"><a href="#四、v-model" class="headerlink" title="四、v-model"></a>四、v-model</h3><p>这个其实是一种通过 emit，on 的组合方式。优点再于同步值方便,写法优雅。下面三种写法其实是一个意思</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-comment">// 写法 1</span><br>&lt;children v-model=<span class="hljs-string">&quot;a&quot;</span>&gt;&lt;/children&gt;<br>&#123;<br>    model: &#123;<br>        prop: <span class="hljs-string">&#x27;value&#x27;</span>,<br>        event: <span class="hljs-string">&#x27;update:a&#x27;</span>,<br>    &#125;,<br>    methods: &#123;<br>        <span class="hljs-function"><span class="hljs-title">a</span>(<span class="hljs-params"></span>)</span> &#123; <span class="hljs-built_in">this</span>.$emit(<span class="hljs-string">&#x27;update:a&#x27;</span>, <span class="hljs-number">1</span>)&#125;<br>    &#125;<br>&#125;<br><br><span class="hljs-comment">// 写法 2</span><br>&lt;children :a=<span class="hljs-string">&quot;a&quot;</span> <span class="hljs-meta">@update</span>:a=<span class="hljs-string">&quot;a = $event&quot;</span>&gt;&lt;/children&gt;<br>&#123;<br>    props: [<span class="hljs-string">&#x27;a&#x27;</span>]<br>    methods: &#123;<br>        <span class="hljs-function"><span class="hljs-title">a</span>(<span class="hljs-params"></span>)</span> &#123; <span class="hljs-built_in">this</span>.$emit(<span class="hljs-string">&#x27;update:a&#x27;</span>, <span class="hljs-number">1</span>)&#125;<br>    &#125;<br>&#125;<br><span class="hljs-comment">// 写法 3</span><br><span class="hljs-comment">// 1. 事件名必须是 update: + 属性名</span><br><span class="hljs-comment">// 2. 参数不能是表达式，最好是 data 里面的属性</span><br>&lt;children :a.sync=<span class="hljs-string">&quot;a&quot;</span>&gt;&lt;/children&gt;<br>&#123;<br>    props: [<span class="hljs-string">&#x27;a&#x27;</span>]<br>    methods: &#123;<br>        <span class="hljs-function"><span class="hljs-title">a</span>(<span class="hljs-params"></span>)</span> &#123; <span class="hljs-built_in">this</span>.$emit(<span class="hljs-string">&#x27;update:a&#x27;</span>, <span class="hljs-number">1</span>)&#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="五、插槽"><a href="#五、插槽" class="headerlink" title="五、插槽"></a>五、插槽</h3><figure class="highlight handlebars"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs handlebars"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span></span><br><span class="xml">    <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></span><br><span class="xml">        <span class="hljs-comment">&lt;!--默认插槽--&gt;</span></span><br><span class="xml">        <span class="hljs-tag">&lt;<span class="hljs-name">slot</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">slot</span>&gt;</span></span><br><span class="xml">        <span class="hljs-comment">&lt;!--另一种默认插槽的写法--&gt;</span></span><br><span class="xml">        <span class="hljs-tag">&lt;<span class="hljs-name">slot</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;default&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">slot</span>&gt;</span></span><br><span class="xml">        <span class="hljs-comment">&lt;!--具名插槽--&gt;</span></span><br><span class="xml">        <span class="hljs-tag">&lt;<span class="hljs-name">slot</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;footer&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">slot</span>&gt;</span></span><br><span class="xml">        <span class="hljs-comment">&lt;!--传参插槽--&gt;</span></span><br><span class="xml">        <span class="hljs-tag">&lt;<span class="hljs-name">slot</span> <span class="hljs-attr">v-bind:user</span>=<span class="hljs-string">&quot;user&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;header&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">slot</span>&gt;</span></span><br><span class="xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span></span><br><br><span class="xml"><span class="hljs-comment">&lt;!--使用--&gt;</span></span><br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">children</span>&gt;</span></span><br><span class="xml">    <span class="hljs-comment">&lt;!--跑到默认插槽中去--&gt;</span></span><br><span class="xml">    <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>123<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="xml">    <span class="hljs-comment">&lt;!--另一种默认插槽的写法--&gt;</span></span><br><span class="xml">    <span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">v-slot:default</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span></span><br><span class="xml">    <span class="hljs-comment">&lt;!--跑到具名插槽 footer 中去--&gt;</span></span><br><span class="xml">    <span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">v-slot:footer</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span></span><br><span class="xml">    <span class="hljs-comment">&lt;!--缩写形式--&gt;</span></span><br><span class="xml">    <span class="hljs-tag">&lt;<span class="hljs-name">template</span> #<span class="hljs-attr">footer</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span></span><br><span class="xml">    <span class="hljs-comment">&lt;!--获取子组件的值--&gt;</span></span><br><span class="xml">    <span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">v-slot:header</span>=<span class="hljs-string">&quot;slot&quot;</span>&gt;</span></span><span class="hljs-template-variable">&#123;&#123;<span class="hljs-name">slot.user</span>&#125;&#125;</span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span></span><br><span class="xml">    <span class="hljs-comment">&lt;!--结构插槽值--&gt;</span></span><br><span class="xml">    <span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">v-slot:header</span>=<span class="hljs-string">&quot;&#123;user: person&#125;&quot;</span>&gt;</span></span><span class="hljs-template-variable">&#123;&#123;<span class="hljs-name">person</span>&#125;&#125;</span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span></span><br><span class="xml">    <span class="hljs-comment">&lt;!--老式写法，可以写到具体的标签上面--&gt;</span></span><br><span class="xml">    <span class="hljs-tag">&lt;<span class="hljs-name">template</span> <span class="hljs-attr">slot</span>=<span class="hljs-string">&quot;footer&quot;</span> <span class="hljs-attr">slot-scope</span>=<span class="hljs-string">&quot;scope&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span></span><br><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">children</span>&gt;</span></span><br></code></pre></td></tr></table></figure>
+
+<h3 id="六、-refs-root-parent-children"><a href="#六、-refs-root-parent-children" class="headerlink" title="六、$refs, $root, $parent, $children"></a>六、$refs, $root, $parent, $children</h3><p>$root 获取根组件<br>$parent 获取父组件<br>$children 获取子组件(所有的子组件，不保证顺序)<br>$refs 组件获取组件实例，元素获取元素<br>七、project / inject<br>注意：注入的值是非响应的</p>
+<figure class="highlight dust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs dust"><span class="xml"><span class="hljs-comment">&lt;!--父组件 提供--&gt;</span></span><br><span class="hljs-template-variable">&#123;</span><br><span class="hljs-template-variable">    project() &#123;</span><br><span class="hljs-template-variable">        return &#123;</span><br><span class="hljs-template-variable">            parent: this</span><br><span class="hljs-template-variable">        &#125;</span><br><span class="xml">    &#125;</span><br><span class="xml">&#125;</span><br><span class="xml"><span class="hljs-comment">&lt;!--子组件 注入--&gt;</span></span><br><span class="hljs-template-variable">&#123;</span><br><span class="hljs-template-variable">    // 写法一</span><br><span class="hljs-template-variable">    inject: [&#x27;parent&#x27;]</span><br><span class="hljs-template-variable">    // 写法二</span><br><span class="hljs-template-variable">    inject: &#123; parent: &#x27;parent&#x27; &#125;</span><br><span class="xml">    // 写法三</span><br><span class="xml">    inject: </span><span class="hljs-template-variable">&#123;</span><br><span class="hljs-template-variable">        parent: &#123;</span><br><span class="hljs-template-variable">            from: &#x27;parent&#x27;,</span><br><span class="hljs-template-variable">            <span class="hljs-keyword">default</span>: 222</span><br><span class="hljs-template-variable">        &#125;</span><br><span class="xml">    &#125;</span><br><span class="xml">&#125;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="八、Vuex"><a href="#八、Vuex" class="headerlink" title="八、Vuex"></a>八、Vuex</h3><p>介绍</p>
+<p>Vuex 是一个专为 Vue.js 应用程序开发的状态管理模式。它采用集中式存储管理应用的所有组件的状态， 并以相应的规则保证状态以一种可预测的方式发生变化。Vuex 也集成到 Vue 的官方调试工具 devtools extension， 提供了诸如零配置的 time-travel 调试、状态快照导入导出等高级调试功能。</p>
+<p>优缺点</p>
+<h4 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h4><p>解决了多层组件之间繁琐的事件传播。<br>解决了多组件依赖统同一状态的问题。<br>单向数据流<br>为Vue量身定做，学习成本不高</p>
+<h4 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h4><p>不能做数据持久化，刷新页面就要重制，要做数据持久化可以考虑使用localstorage。<br>增加额外的代码体积，简单的业务场景不建议使用。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>Vue 组件间通信只要指以下 3 类通信：父子组件通信、隔代组件通信、兄弟组件通信，下面我们分别介绍每种通信方式且会说明此种方法可适用于哪类组件间通信。</p>
+<ol>
+<li>props / $emit 适用 父子组件通信</li>
+</ol>
+<p>这种方法是 Vue 组件的基础，相信大部分同学耳闻能详，所以此处就不举例展开介绍。</p>
+<ol start="2">
+<li>ref 与 $parent / $children 适用 父子组件通信</li>
+</ol>
+<p>ref：如果在普通的 DOM 元素上使用，引用指向的就是 DOM 元素；如果用在子组件上，引用就指向组件实例<br>$parent / $children：访问父 / 子实例<br>3. EventBus （$emit / $on） 适用于 父子、隔代、兄弟组件通信</p>
+<p>这种方法通过一个空的 Vue 实例作为中央事件总线（事件中心），用它来触发事件和监听事件，从而实现任何组件间的通信，包括父子、隔代、兄弟组件。</p>
+<ol start="4">
+<li>$attrs/$listeners 适用于 隔代组件通信</li>
+</ol>
+<p>$attrs：包含了父作用域中不被 prop 所识别 (且获取) 的特性绑定 ( class 和 style 除外 )。当一个组件没有声明任何 prop 时，这里会包含所有父作用域的绑定 ( class 和 style 除外 )，并且可以通过 v-bind=”$attrs” 传入内部组件。通常配合 inheritAttrs 选项一起使用。<br>$listeners：包含了父作用域中的 (不含 .native 修饰器的) v-on 事件监听器。它可以通过 v-on=”$listeners” 传入内部组件<br>5. provide / inject 适用于 隔代组件通信</p>
+<p>祖先组件中通过 provider 来提供变量，然后在子孙组件中通过 inject 来注入变量。 provide / inject API 主要解决了跨级组件间的通信问题，不过它的使用场景，主要是子组件获取上级组件的状态，跨级组件间建立了一种主动提供与依赖注入的关系。</p>
+<ol start="6">
+<li>Vuex 适用于 父子、隔代、兄弟组件通信</li>
+</ol>
+<h4 id="Vuex"><a href="#Vuex" class="headerlink" title="Vuex"></a>Vuex</h4><p>Vuex 是一个专为 Vue.js 应用程序开发的状态管理模式。每一个 Vuex 应用的核心就是 store（仓库）。“store” 基本上就是一个容器，它包含着你的应用中大部分的状态 ( state )。</p>
+<p>（1）Vuex 的状态存储是响应式的。当 Vue 组件从 store 中读取状态的时候，若 store 中的状态发生变化，那么相应的组件也会相应地得到高效更新。</p>
+<p>（2）改变 store 中的状态的唯一途径就是显式地提交 (commit) mutation。这样使得我们可以方便地跟踪每一个状态的变化。</p>
+<p>主要包括以下几个模块：</p>
+<p>State：定义了应用状态的数据结构，可以在这里设置默认的初始状态。<br>Getter：允许组件从 Store 中获取数据，mapGetters 辅助函数仅仅是将 store 中的 getter 映射到局部计算属性。<br>Mutation：是唯一更改 store 中状态的方法，且必须是同步函数。<br>Action：用于提交 mutation，而不是直接变更状态，可以包含任意异步操作。<br>Module：允许将单一的 Store 拆分为多个 store 且同时保存在单一的状态树中。</p>
+<h4 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h4><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844904080540712967#heading-2">Vue 组件传参的八种方式总结</a><br><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903736356126734#heading-1">几种常见的Vue组件间的传参方式</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Vue/">Vue</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/">前端基础</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Vue/">Vue</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/07/08/%E5%A6%82%E4%BD%95%E8%8E%B7%E5%8F%96%E9%A1%B5%E9%9D%A2%E5%87%BA%E7%8E%B0%E6%AC%A1%E6%95%B0%E6%9C%80%E5%A4%9A%E7%9A%84%20HTML%20%E6%A0%87%E7%AD%BE/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">如何获取页面出现次数最多的 HTML 标签</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/07/06/Css%E5%B8%83%E5%B1%80/">
+                        <span class="hidden-mobile">css实现两栏固定中间自适应</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
