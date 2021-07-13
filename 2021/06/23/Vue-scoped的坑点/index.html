@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      705 字
+      773 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      8
+      9
        分钟
     </span>
   
@@ -231,6 +231,9 @@
               <p>上午遇到一个scoped的坑，在覆盖elementUI的走马灯(轮播图)组件，就是无法覆盖组件原有的样式。最后想要改变标签样式，唯有去掉scoped了</p>
 <p>尤大的话：</p>
 <p>scoped设计的初衷就是不能让当前组件的样式修改其他任何地方的样式，因为设计如此</p>
+<p>scoped 会给当前组件的模块中的所有的元素都添加一个随机的属性</p>
+<p>scoped会给当前组件中的所有的样式页添加一个随机的属性选择器</p>
+<p>深度选择器  scss  ::v-deep  less  /deep/  stylus  &gt;&gt;&gt;</p>
 <hr>
 <h3 id="何为scoped？"><a href="#何为scoped？" class="headerlink" title="何为scoped？"></a>何为scoped？</h3><p>在vue文件中的style标签上，有一个特殊的属性：scoped。当一个style标签拥有scoped属性时，它的CSS样式就只能作用于当前的组件，也就是说，该样式只能适用于当前组件元素。通过该属性，可以使得组件之间的样式不互相污染。如果一个项目中的所有style标签全部加上了scoped，相当于实现了样式的模块化。</p>
 <h3 id="scoped的实现原理"><a href="#scoped的实现原理" class="headerlink" title="scoped的实现原理"></a>scoped的实现原理</h3><p>vue中的scoped属性的效果主要通过PostCSS转译实现，如下是转译前的vue代码：</p>
