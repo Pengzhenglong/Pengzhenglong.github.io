@@ -18,7 +18,7 @@
   <meta name="author" content="DragonPeng">
   <meta name="keywords" content="">
   
-  <title>TCP协议 - DragonPeng的博客</title>
+  <title>浏览器的回流与重绘 - DragonPeng的博客</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -163,7 +163,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="TCP协议">
+            <span class="h2" id="subtitle" title="浏览器的回流与重绘">
               
             </span>
 
@@ -173,8 +173,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-07-09 20:15" pubdate>
-        July 9, 2021 pm
+      <time datetime="2021-07-24 19:15" pubdate>
+        July 24, 2021 pm
       </time>
     </span>
   
@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      385 字
+      639 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      4
+      6
        分钟
     </span>
   
@@ -225,25 +225,47 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">TCP协议</h1>
+            <h1 style="display: none">浏览器的回流与重绘</h1>
             
             <div class="markdown-body">
               <hr>
-<h3 id="能不能说一说-TCP-和-UDP-的区别？"><a href="#能不能说一说-TCP-和-UDP-的区别？" class="headerlink" title="能不能说一说 TCP 和 UDP 的区别？"></a>能不能说一说 TCP 和 UDP 的区别？</h3><p>首先概括一下基本的区别:</p>
-<h4 id="TCP是一个面向连接的、可靠的、基于字节流的传输层协议"><a href="#TCP是一个面向连接的、可靠的、基于字节流的传输层协议" class="headerlink" title="TCP是一个面向连接的、可靠的、基于字节流的传输层协议"></a>TCP是一个面向连接的、可靠的、基于字节流的传输层协议</h4><h4 id="而UDP是一个面向无连接的传输层协议。-就这么简单，其它TCP的特性也就没有了"><a href="#而UDP是一个面向无连接的传输层协议。-就这么简单，其它TCP的特性也就没有了" class="headerlink" title="而UDP是一个面向无连接的传输层协议。(就这么简单，其它TCP的特性也就没有了)"></a>而UDP是一个面向无连接的传输层协议。(就这么简单，其它TCP的特性也就没有了)</h4><p>具体来分析，和 UDP 相比，TCP 有三大核心特性:</p>
-<ol>
-<li><p>面向连接。所谓的连接，指的是客户端和服务器的连接，在双方互相通信之前，TCP 需要三次握手建立连接，而 UDP 没有相应建立连接的过程。</p>
+<h3 id="什么是回流？"><a href="#什么是回流？" class="headerlink" title="什么是回流？"></a>什么是回流？</h3><p>当一个元素自身的宽高，布局，显示或隐藏，或元素内部的文字结构发生变化，导致需要重新构建页面的时候，就产生了回流</p>
+<h3 id="什么是重绘？"><a href="#什么是重绘？" class="headerlink" title="什么是重绘？"></a>什么是重绘？</h3><p>当一个元素自身的宽高，布局，及显示或隐藏没有改变，而只是改变了元素的外观风格的时候，就产生了重绘</p>
+<h3 id="什么时候会进行回流？"><a href="#什么时候会进行回流？" class="headerlink" title="什么时候会进行回流？"></a>什么时候会进行回流？</h3><ol>
+<li><p>添加或者删除可见的DOM元素的时候</p>
 </li>
-<li><p>可靠性。TCP 花了非常多的功夫保证连接的可靠，这个可靠性体现在哪些方面呢？一个是有状态，另一个是可控制。</p>
+<li><p>元素的位置发生改变</p>
+</li>
+<li><p>元素的尺寸发生改变</p>
+</li>
+<li><p>内容改变</p>
+</li>
+<li><p>页面第一次渲染的时候</p>
 </li>
 </ol>
-<p>TCP 会精准记录哪些数据发送了，哪些数据被对方接收了，哪些没有被接收到，而且保证数据包按序到达，不允许半点差错。这是<strong>有状态</strong>。</p>
-<p>当意识到丢包了或者网络环境不佳，TCP 会根据具体情况调整自己的行为，控制自己的发送速度或者重发。这是<strong>可控制</strong>。</p>
-<p>相应的，UDP 就是<strong>无状态, 不可控</strong>的。</p>
-<ol start="3">
-<li>面向字节流。UDP 的数据传输是基于数据报的，这是因为仅仅只是继承了 IP 层的特性，而 TCP 为了维护状态，将一个个 IP 包变成了字节流。</li>
+<p>列举一些相关的CSS样式：width、height、line-height、padding、margin、diaplay、border、top、position、float、font-size、overflow等</p>
+<h3 id="什么时候会进行重绘？"><a href="#什么时候会进行重绘？" class="headerlink" title="什么时候会进行重绘？"></a>什么时候会进行重绘？</h3><p>列举一些相关的CSS样式：color、background、background-size、visibility、box-shadow</p>
+<h3 id="如何进行性能优化？"><a href="#如何进行性能优化？" class="headerlink" title="如何进行性能优化？"></a>如何进行性能优化？</h3><ol>
+<li><p>用transform 代替 top，left ，margin-top， margin-left… 这些位移属性</p>
+</li>
+<li><p>不要使用 js 代码对dom 元素设置多条样式，选择用一个 className 代替之</p>
+</li>
+<li><p>不要在循环内获取dom 的样式例如：offsetWidth, offsetHeight, clientWidth, clientHeight等。浏览器有一个回流的缓冲机制，获取这些属性时会产生回流</p>
+</li>
+<li><p>避免设置多层内联样式，写个外部类这样只回流一次</p>
+</li>
+<li><p>让多次回流的元素脱离文档流比如动画，使用 position 属性的 fixed 值或 absolute 值</p>
+</li>
+<li><p>一起变化（同时修改所有需要变化的属性）</p>
+</li>
 </ol>
-<h4 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h4><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844904070889603085#heading-8">TCP协议灵魂之问，巩固你的网路底层基础</a></p>
+<h3 id="如何避免"><a href="#如何避免" class="headerlink" title="如何避免"></a>如何避免</h3><p>CSS</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs angelscript"><br>避免使用table布局。<br>尽可能在DOM树的最末端改变<span class="hljs-keyword">class</span>。<br>避免设置多层内联样式。<br>将动画效果应用到<span class="hljs-symbol">position</span>属性为<span class="hljs-symbol">absolute</span>或<span class="hljs-symbol">fixed</span>的元素上。<br>避免使用<span class="hljs-symbol">CSS</span>表达式（例如：<span class="hljs-symbol">calc</span>()）。<br></code></pre></td></tr></table></figure>
+
+<p>JavaScript</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs angelscript">避免频繁操作样式，最好一次性重写style属性，或者将样式列表定义为<span class="hljs-keyword">class</span>并一次性更改<span class="hljs-symbol">class</span>属性。<br>避免频繁操作<span class="hljs-symbol">DOM</span>，创建一个<span class="hljs-symbol">documentFragment</span>，在它上面应用所有<span class="hljs-symbol">DOM</span>操作，最后再把它添加到文档中。<br>也可以先为元素设置<span class="hljs-symbol">display: <span class="hljs-symbol">none</span></span>，操作结束后再把它显示出来。因为在<span class="hljs-symbol">display</span>属性为<span class="hljs-symbol">none</span>的元素上进行的<span class="hljs-symbol">DOM</span>操作不会引发回流和重绘。<br>避免频繁读取会引发回流/重绘的属性，如果确实需要多次使用，就用一个变量缓存起来。<br>对具有复杂动画的元素使用绝对定位，使它脱离文档流，否则会引起父元素及后续元素频繁回流。<br></code></pre></td></tr></table></figure>
+
+<h5 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h5><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903569087266823#heading-2">掘金</a><br><a target="_blank" rel="noopener" href="https://www.zhihu.com/search?type=content&q=%E9%87%8D%E7%BB%98%E5%9B%9E%E6%B5%81">知乎</a></p>
 
             </div>
             <hr>
@@ -253,7 +275,7 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
+                      <a class="hover-with-bg" href="/categories/CSS/">CSS</a>
                     
                   </div>
                 
@@ -263,7 +285,7 @@
                     
                       <a class="hover-with-bg" href="/tags/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/">前端基础</a>
                     
-                      <a class="hover-with-bg" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
+                      <a class="hover-with-bg" href="/tags/CSS/">CSS</a>
                     
                   </div>
                 
@@ -280,18 +302,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/07/10/JS%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B--%E6%A6%82%E5%BF%B5%E7%AF%87/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile"></span>
-                        <span class="visible-mobile">Previous</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/07/08/%E5%A6%82%E4%BD%95%E8%8E%B7%E5%8F%96%E9%A1%B5%E9%9D%A2%E5%87%BA%E7%8E%B0%E6%AC%A1%E6%95%B0%E6%9C%80%E5%A4%9A%E7%9A%84%20HTML%20%E6%A0%87%E7%AD%BE/">
-                        <span class="hidden-mobile">如何获取页面出现次数最多的 HTML 标签</span>
+                      <a href="/2021/07/10/JS%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B--%E6%A6%82%E5%BF%B5%E7%AF%87/">
+                        <span class="hidden-mobile"></span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
