@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      893 字
+      1.1k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      10
+      13
        分钟
     </span>
   
@@ -231,64 +231,65 @@
               <p>如何将本地项目上传到Github（两种简单、方便的方法）</p>
 <hr>
 <h3 id="第一种-已尝试"><a href="#第一种-已尝试" class="headerlink" title="第一种(已尝试)"></a>第一种(已尝试)</h3><ol>
-<li><p>Github上新建一个仓库<br><img src="/image/8.png" srcset="/img/loading.gif" lazyload alt="新建一个仓库">          </p>
+<li><p>Github上新建一个仓库<br><img src="/image/8.png" srcset="/img/loading.gif" lazyload alt="新建一个仓库"></p>
 </li>
-<li><p>复制仓库地址先(两个都行)<br><img src="/image/8.1.png" srcset="/img/loading.gif" lazyload alt="仓库地址">        </p>
+<li><p>复制仓库地址先(两个都行)<br><img src="/image/8.1.png" srcset="/img/loading.gif" lazyload alt="仓库地址"></p>
 </li>
-</ol>
-<ol start="3">
-<li><p>桌面右键Git进入文件夹目录<br><img src="/image/8.2.png" srcset="/img/loading.gif" lazyload alt="Git">       </p>
+<li><p>桌面右键Git进入文件夹目录<br><img src="/image/8.2.png" srcset="/img/loading.gif" lazyload alt="Git"></p>
 </li>
-<li><p>接下来输入如下代码（关键步骤），把github上面的仓库克隆到本地 </p>
-<pre><code>git  clone  git@github.com:Pengzhenglong/html-css-js.git
-(git@github.com:Pengzhenglong/html-css-js.git换成你第二步复制的地址链接)
-</code></pre>
-<p><img src="/image/8.3.png" srcset="/img/loading.gif" lazyload alt="克隆仓库"><br>这个步骤以后你的本地项目文件夹下面就会多出个文件夹，该文件夹名即为你github上面的项目名，如图我多出了个html-css-js文件夹，我们把本地项目文件夹下的所有文件（除了新多出的那个文件夹不用），其余都复制到那个新多出的文件夹下。</p>
+<li><p>接下来输入如下代码（关键步骤），把github上面的仓库克隆到本地</p>
 </li>
 </ol>
-<p><img src="/image/8.4.png" srcset="/img/loading.gif" lazyload alt="文件图片">   </p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs less"><span class="hljs-selector-tag">git</span>  <span class="hljs-selector-tag">clone</span>  <span class="hljs-selector-tag">git</span>@<span class="hljs-selector-tag">github</span><span class="hljs-selector-class">.com</span>:<span class="hljs-selector-tag">Pengzhenglong</span>/<span class="hljs-selector-tag">html</span><span class="hljs-selector-tag">-css-js</span><span class="hljs-selector-class">.git</span><br>(git<span class="hljs-variable">@github</span>.<span class="hljs-attribute">com</span>:Pengzhenglong/html-css-js.git换成你第二步复制的地址链接)<br></code></pre></td></tr></table></figure>
+
+<p><img src="/image/8.3.png" srcset="/img/loading.gif" lazyload alt="克隆仓库"><br> 这个步骤以后你的本地项目文件夹下面就会多出个文件夹，该文件夹名即为你github上面的项目名，如图我多出了个html-css-js文件夹，我们把本地项目文件夹下的所有文件（除了新多出的那个文件夹不用），其余都复制到那个新多出的文件夹下。</p>
+<p><img src="/image/8.4.png" srcset="/img/loading.gif" lazyload alt="文件图片"></p>
 <ol start="5">
-<li>接着继续输入命令 cd html-css-js，进入html-css-js文件夹              </li>
-</ol>
-<ol start="6">
-<li>接下来依次输入以下代码即可完成其他剩余操作</li>
+<li><p>接着继续输入命令 cd html-css-js，进入html-css-js文件夹</p>
+</li>
+<li><p>接下来依次输入以下代码即可完成其他剩余操作</p>
+</li>
 </ol>
 <figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs maxima">git add . （注：别忘记后面的.，此操作是把html-css-js文件夹下面的文件都添加进来）           <br><br>git commit  -m  ”提交信息”  （注：“提交信息”里面换成你需要，如“<span class="hljs-built_in">first</span> commit”）       <br><br>git <span class="hljs-built_in">push</span> -u <span class="hljs-built_in">origin</span> master   （注：此操作目的是把本地仓库<span class="hljs-built_in">push</span>到github上面，此步骤需要你输入帐号和密码）(由于我之前设置了免密操作所以我这台电脑不需要输入账号密码)<br></code></pre></td></tr></table></figure>
 
-<p><img src="/image/8.5.png" srcset="/img/loading.gif" lazyload alt="Git操作">   </p>
-<p><img src="/image/8.6.png" srcset="/img/loading.gif" lazyload alt="上传成功">   </p>
+<p><img src="/image/8.5.png" srcset="/img/loading.gif" lazyload alt="Git操作"></p>
+<p><img src="/image/8.6.png" srcset="/img/loading.gif" lazyload alt="上传成功"></p>
 <h3 id="第二种-未尝试"><a href="#第二种-未尝试" class="headerlink" title="第二种(未尝试)"></a>第二种(未尝试)</h3><blockquote>
 <p>参考链接:<br><code>https://blog.csdn.net/u014135752/article/details/79951802</code></p>
 </blockquote>
-<h3 id="Git创建新分支并提交到github"><a href="#Git创建新分支并提交到github" class="headerlink" title="Git创建新分支并提交到github"></a>Git创建新分支并提交到github</h3><p>因为需求的变更，需要把原来的代码做一下备份，再进行下一步的开发，所以 这是就将原来的代码创建一个新的分支来保存原来的代码，以防后面需要回滚，这里记录一下操作的步骤             </p>
+<h3 id="Git创建新分支并提交到github"><a href="#Git创建新分支并提交到github" class="headerlink" title="Git创建新分支并提交到github"></a>Git创建新分支并提交到github</h3><p>因为需求的变更，需要把原来的代码做一下备份，再进行下一步的开发，所以 这是就将原来的代码创建一个新的分支来保存原来的代码，以防后面需要回滚，这里记录一下操作的步骤</p>
 <ol>
-<li> 可以先查看一下当前所在分支</li>
+<li>可以先查看一下当前所在分支</li>
 </ol>
 <figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">git branch</span><br></code></pre></td></tr></table></figure>
+
 <ol start="2">
 <li>创建本地分支并切换到新创建的分支</li>
 </ol>
 <figure class="highlight isbl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs isbl"><span class="hljs-variable">git</span> <span class="hljs-variable">checkout</span> -<span class="hljs-variable">b</span> <span class="hljs-function"><span class="hljs-title">dev</span>(<span class="hljs-variable">dev</span> 可以命名为自己想取的名字)</span><br></code></pre></td></tr></table></figure>
+
 <ol start="3">
 <li>已经创建成功了，可以看一下</li>
 </ol>
 <figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">git branch</span><br></code></pre></td></tr></table></figure>
+
 <ol start="4">
-<li><p>将新创建的分支信息推送到github</p>
-<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs maxima">git <span class="hljs-built_in">push</span> <span class="hljs-built_in">origin</span> HEAD -u<br></code></pre></td></tr></table></figure></li>
-<li><p>可以到github看一下<br><img src="/image/8.8.png" srcset="/img/loading.gif" lazyload alt="Github">   </p>
+<li>将新创建的分支信息推送到github</li>
+</ol>
+<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs maxima">git <span class="hljs-built_in">push</span> <span class="hljs-built_in">origin</span> HEAD -u<br></code></pre></td></tr></table></figure>
+
+<ol start="5">
+<li><p>可以到github看一下<br><img src="/image/8.8.png" srcset="/img/loading.gif" lazyload alt="Github"></p>
 </li>
 <li><p>git checkout branchname   //切换分支  branchname为你的分支名字</p>
 </li>
-</ol>
-<ol start="7">
-<li>分支操作</li>
+<li><p>分支操作</p>
+</li>
 </ol>
 <figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">然后切换到主分支<br>$ git checkout <span class="hljs-keyword">master</span> <span class="hljs-title"></span><br><span class="hljs-title"></span><br><span class="hljs-title">然后将新分支提交的改动合并到主分支上</span><br><span class="hljs-title">$</span> git merge newbranch  <br><br>然后就可以push代码了<br>$ git push -u origin <span class="hljs-literal">master</span><br><br>最后还可以删除这个分支<br>$ git branch -D newbranch<br></code></pre></td></tr></table></figure>
 
-<h3 id="Git的基本操作指令"><a href="#Git的基本操作指令" class="headerlink" title="Git的基本操作指令"></a>Git的基本操作指令</h3><p><img src="/image/8.9.png" srcset="/img/loading.gif" lazyload alt="Git">   </p>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs awk">切换分支命令:<br><br>git checkout (branchname)   <span class="hljs-regexp">//</span>切换分支<br>$ git init    <span class="hljs-regexp">//</span> 初始化仓库。<br>$ git add .    <span class="hljs-regexp">//</span>添加文件到暂存区。<br>$ git commit  <span class="hljs-regexp">//</span>将暂存区内容添加到仓库中。<br>$ git push	  <span class="hljs-regexp">//</span>上传远程代码并合并<br>$ git pull	  <span class="hljs-regexp">//</span>下载远程代码并合并<br></code></pre></td></tr></table></figure>
-
+<h3 id="Git的基本操作指令"><a href="#Git的基本操作指令" class="headerlink" title="Git的基本操作指令"></a>Git的基本操作指令</h3><p><img src="/image/8.9.png" srcset="/img/loading.gif" lazyload alt="Git"></p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs awk">切换分支命令:<br><br>git checkout (branchname)   <span class="hljs-regexp">//</span>切换分支<br>$ git init    <span class="hljs-regexp">//</span> 初始化仓库。<br>$ git add .    <span class="hljs-regexp">//</span>添加文件到暂存区。<br>$ git commit  <span class="hljs-regexp">//</span>将暂存区内容添加到仓库中。<br>$ git push   <span class="hljs-regexp">//</span>上传远程代码并合并<br>$ git pull   <span class="hljs-regexp">//</span>下载远程代码并合并<br></code></pre></td></tr></table></figure>
 
 <h3 id="开发项目码云与Git分支的使用"><a href="#开发项目码云与Git分支的使用" class="headerlink" title="开发项目码云与Git分支的使用"></a>开发项目码云与Git分支的使用</h3><ol>
 <li>在码云上你的项目中新建分支</li>
@@ -300,6 +301,26 @@
 <p>命令：</p>
 <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs awk">git  pull  <span class="hljs-regexp">//</span>将线上的分支拉到本地<br><br>git  checkout  index <span class="hljs-regexp">//i</span>ndex为你自己建的分支名字，现在你所在的分支就在index分支上，本地开发的代码都在这个分支上<br><br><span class="hljs-regexp">//</span>开发完成后<br><br>git  add .  <span class="hljs-regexp">//</span>添加文件到暂存区<br>git  commit -m <span class="hljs-string">&#x27;name&#x27;</span>  <span class="hljs-regexp">//</span>name可以你自己起<br>git  push <span class="hljs-regexp">//</span>本地分支的内容提交到线上了<br>git  checkout  master  <span class="hljs-regexp">//</span>切换为主分支<br>git  merge  index  <span class="hljs-regexp">//</span>将新增的内容合并到主分支上<br>git  push  <span class="hljs-regexp">//</span>将master分支代码提交到线上<br><br></code></pre></td></tr></table></figure>
 
+<ol start="3">
+<li>查看所有分支</li>
+</ol>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs awk">$ git branch -a<br>* br-<span class="hljs-number">2.1</span>.<span class="hljs-number">2.2</span><br>  master<br>  remotes<span class="hljs-regexp">/origin/</span>HEAD -&gt; origin/master<br>  remotes<span class="hljs-regexp">/origin/</span>br-<span class="hljs-number">2.1</span>.<span class="hljs-number">2.1</span><br>  remotes<span class="hljs-regexp">/origin/</span>br-<span class="hljs-number">2.1</span>.<span class="hljs-number">2.2</span><br>  remotes<span class="hljs-regexp">/origin/</span>br-<span class="hljs-number">2.1</span>.<span class="hljs-number">3</span><br>  remotes<span class="hljs-regexp">/origin/m</span>aster<br></code></pre></td></tr></table></figure>
+
+<h3 id="暂存开发分支，拉去合并线上分支"><a href="#暂存开发分支，拉去合并线上分支" class="headerlink" title="暂存开发分支，拉去合并线上分支"></a>暂存开发分支，拉去合并线上分支</h3><h4 id="git-pull-和-git-fetch-的区别"><a href="#git-pull-和-git-fetch-的区别" class="headerlink" title="git pull 和 git fetch 的区别"></a>git pull 和 git fetch 的区别</h4><ol>
+<li><p>git fetch 只是将远程仓库的变化下载下来，并没有和本地分支合并。（fetch  只是下拉远程分支，怎么合并，可以自己再做选择）</p>
+</li>
+<li><p>git pull 会将远程仓库的变化下载下来，并和当前分支合并。pull=fetch+merge</p>
+</li>
+</ol>
+<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs maxima">git  stash  <br>git  <span class="hljs-built_in">status</span><br>git  add .<br>git  fetch  -all <br>git  merge  <span class="hljs-built_in">origin</span>/分支名<br>git  stash  <span class="hljs-built_in">pop</span><br>git  stash  <span class="hljs-built_in">pop</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="Git默认拉取的是master分支，拉取指定分支代码命令"><a href="#Git默认拉取的是master分支，拉取指定分支代码命令" class="headerlink" title="Git默认拉取的是master分支，拉取指定分支代码命令"></a>Git默认拉取的是master分支，拉取指定分支代码命令</h3><p>拉取指定分支代码解决方案：</p>
+<p>以拉取1.0分支的代码为例， 要拉取其余分支代码类似操作</p>
+<ol>
+<li>使用git命令拉取<br>命令：git clone -b 1.o XXX</li>
+</ol>
+<p>其中1.0就是分支的名称</p>
+<p><img src="/image/56.png" srcset="/img/loading.gif" lazyload alt="拉取指定分支">  </p>
 <blockquote>
 <p>参考链接<br><a target="_blank" rel="noopener" href="https://www.runoob.com/git/git-basic-operations.html">菜鸟教程</a></p>
 </blockquote>
