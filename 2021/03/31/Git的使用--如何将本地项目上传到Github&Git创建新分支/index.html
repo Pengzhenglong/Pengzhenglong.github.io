@@ -312,7 +312,7 @@
 <li><p>git pull 会将远程仓库的变化下载下来，并和当前分支合并。pull=fetch+merge</p>
 </li>
 </ol>
-<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs maxima">git  stash  <br>git  <span class="hljs-built_in">status</span><br>git  add .<br>git  fetch  -all <br>git  merge  <span class="hljs-built_in">origin</span>/分支名<br>git  stash  <span class="hljs-built_in">pop</span><br>git  stash  <span class="hljs-built_in">pop</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs sql">git  stash  <br>git  status<br>git  <span class="hljs-keyword">add</span> .<br>git  <span class="hljs-keyword">fetch</span>  <span class="hljs-operator">-</span><span class="hljs-keyword">all</span> <br>git  <span class="hljs-keyword">merge</span>  origin<span class="hljs-operator">/</span>分支名<br>git  stash  pop<br></code></pre></td></tr></table></figure>
 
 <h3 id="Git默认拉取的是master分支，拉取指定分支代码命令"><a href="#Git默认拉取的是master分支，拉取指定分支代码命令" class="headerlink" title="Git默认拉取的是master分支，拉取指定分支代码命令"></a>Git默认拉取的是master分支，拉取指定分支代码命令</h3><p>拉取指定分支代码解决方案：</p>
 <p>以拉取1.0分支的代码为例， 要拉取其余分支代码类似操作</p>
