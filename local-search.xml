@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>两数之和--暴力解法&amp;&amp;哈希解法</title>
+    <link href="/2021/12/01/js%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0(1)/"/>
+    <url>/2021/12/01/js%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0(1)/</url>
+    
+    <content type="html"><![CDATA[<p>题目：给定一个整数数组 nums 和一个整数目标值 target，请你在该数组中找出 和为目标值 target  的那 两个 整数，并返回它们的数组下标。</p><p>你可以假设每种输入只会对应一个答案。但是，数组中同一个元素在答案里不能重复出现。<br>你可以按任意顺序返回答案。<br>示例 1：<br>输入：nums = [2,7,11,15], target = 9<br>输出：[0,1]<br>解释：因为 nums[0] + nums[1] == 9 ，返回 [0, 1] 。<br>示例 2：<br>输入：nums = [3,2,4], target = 6<br>输出：[1,2]<br>示例 3：<br>输入：nums = [3,3], target = 6<br>输出：[0,1]</p><h3 id="方法一：暴力枚举"><a href="#方法一：暴力枚举" class="headerlink" title="方法一：暴力枚举"></a>方法一：暴力枚举</h3><p>最容易想到的方法是枚举数组中的每一个数 x，寻找数组中是否存在 target - x。</p><p>当我们使用遍历整个数组的方式寻找 target - x 时，需要注意到每一个位于 x 之前的元素都已经和 x 匹配过，因此不需要再进行匹配。而每一个元素不能被使用两次，所以我们只需要在 x 后面的元素中寻找 target - x。</p><p>我们使用遍历整个数组的方式寻找 target - x 时，需要注意到每一个位于 x 之前的元素都已经和 x 匹配过，因此不需要再进行匹配。而每一个元素不能被使用两次，所以我们只需要在 x 后面的元素中寻找 target - x。</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> twoSum = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">nums, target</span>) </span>&#123;<br>  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; nums.length; i++) &#123;<br>    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> j = i + <span class="hljs-number">1</span>; j &lt; nums.length; j++) &#123;<br>      <span class="hljs-keyword">if</span> (nums[i] === target - nums[j]) &#123;<br>        <span class="hljs-keyword">return</span> [i, j]<br>      &#125;<br>    &#125;<br>  &#125;<br>  <span class="hljs-keyword">return</span> []<br>&#125;<br></code></pre></td></tr></table></figure><blockquote><p>两次for循环进行遍历，时间复杂度：O（N^2）,空间复杂度:O(1)</p></blockquote><h3 id="方法二：哈希表-map中的has和set-get方法使用"><a href="#方法二：哈希表-map中的has和set-get方法使用" class="headerlink" title="方法二：哈希表(map中的has和set,get方法使用)"></a>方法二：哈希表(map中的has和set,get方法使用)</h3><p>使用哈希表，可以将寻找 target - x 的时间复杂度降低到从 O(N)O(N) 降低到 O(1)O(1)。</p><p>这样我们创建一个哈希表，对于每一个 x，我们首先查询哈希表中是否存在 target - x，然后将 x 插入到哈希表中，即可保证不会让 x 和自己匹配。</p><ol><li>Set类似于数组，但是它里面每一项的值是唯一的，没有重复的值，Set是一个构造函数，用来生成set的数据结构</li><li>Map类似于对象，也是键值对的集合，但是“键”的范围不限制于字符串，各种类型的值（包含对象）都可以当作键。Map 也可以接受一个数组作为参数，数组的成员是一个个表示键值对的数组。注意Map里面也不可以放重复的项。let map = new Map([[‘js’,’react’]]);</li></ol><figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs livescript"><span class="hljs-keyword">var</span> twoSum = <span class="hljs-keyword">function</span> (nums, target) &#123;<br>  <span class="hljs-keyword">let</span> <span class="hljs-keyword">map</span> = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Map</span>()<br>  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; nums.length; i++) &#123;<br>    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">map</span>.has(target - nums[i])) &#123;<br>      <span class="hljs-keyword">return</span> [<span class="hljs-keyword">map</span>.get(target - nums[i]), i]<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>      <span class="hljs-keyword">map</span>.set(nums[i], i)<br>    &#125;<br>  &#125;<br>  <span class="hljs-keyword">return</span> []<br>&#125;<br></code></pre></td></tr></table></figure><blockquote><p>时间复杂度：O（N），空间复杂度O（N）</p></blockquote><h5 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h5><p><a href="https://leetcode-cn.com/problems/two-sum/solution/liang-shu-zhi-he-by-leetcode-solution/">LeetCode-Solution</a></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>js算法学习</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>js算法学习</tag>
+      
+      <tag>leetcode</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>源码学习---一行代码统一规范团队包管理器的神器(only-allow)</title>
     <link href="/2021/11/30/%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0--only-allow(1)/"/>
     <url>/2021/11/30/%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0--only-allow(1)/</url>
