@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      2.1k 字
+      2.4k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      25
+      28
        分钟
     </span>
   
@@ -346,8 +346,23 @@
 </ul>
 <figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">git checkout <span class="hljs-literal">master</span><br>git pull<br>git checkout local<br>git rebase -i HEAD~<span class="hljs-number">2</span>  //合并提交 --- <span class="hljs-number">2</span>表示合并两个<br>git rebase <span class="hljs-literal">master</span>----&gt;解决冲突---&gt;git rebase --continue<br>git checkout <span class="hljs-literal">master</span><br>git merge local<br>git push<br><br></code></pre></td></tr></table></figure>
 
+<h3 id="git-diff命令的使用"><a href="#git-diff命令的使用" class="headerlink" title="git diff命令的使用"></a>git diff命令的使用</h3><p>git diff是一个git提供的一个非常有用的命令，使用git diff可清晰的显示出文件被修改的内容。</p>
+<h4 id="工作区、版本库"><a href="#工作区、版本库" class="headerlink" title="工作区、版本库"></a>工作区、版本库</h4><p>要理解git diff命令，就必须先理解工作区、暂存区与版本库的概念。</p>
+<p>工作区就是所在目录，比如我的TestGit文件夹：<br><img src="/imageO/34.png" srcset="/img/loading.gif" lazyload alt="TestGit"></p>
+<p>在上图的.git文件中，存放的就是版本库，版本库中存储了很多东西，最重要的就是stage（或者叫index）暂存区、git自动创建的一个分支master，以及指向master的一个指针HEAD。</p>
+<p>添加修改到版本库的过程如图所示：<br><img src="/imageO/35.png" srcset="/img/loading.gif" lazyload alt="添加修改版本库"></p>
+<ol>
+<li><p>工作区 –&gt; 暂存区<br>使用git add命令将工作区文件添加到缓存区。</p>
+</li>
+<li><p>暂存区 –&gt; 仓库<br>使用git commit命令将暂存区中的文件提交到仓库。</p>
+</li>
+<li><p>git diff命令<br>根据所要对比区域不同，git diff有如下几种用法。</p>
+</li>
+</ol>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs awk">命令             作用<br>git diff       <span class="hljs-regexp">//</span>查看工作区与暂存区的差异<br>git diff --cached     <span class="hljs-regexp">//</span>查看暂存区与仓库的差异<br>git diff HEAD <span class="hljs-regexp">//</span>查看工作区与仓库的差异<br></code></pre></td></tr></table></figure>
+
 <blockquote>
-<p>参考链接<br><a target="_blank" rel="noopener" href="https://www.runoob.com/git/git-basic-operations.html">菜鸟教程</a></p>
+<p>参考链接<br><a target="_blank" rel="noopener" href="https://www.runoob.com/git/git-basic-operations.html">菜鸟教程</a><br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/jmhwsrr/p/14085463.html">git diff命令的使用</a></p>
 </blockquote>
 
             </div>
