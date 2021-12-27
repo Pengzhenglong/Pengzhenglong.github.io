@@ -1,0 +1,579 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/2.jpg">
+  <link rel="icon" href="/img/2.jpg">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="DragonPeng">
+  <meta name="keywords" content="">
+  
+  <title>CSS Grid 网格布局教程(一) - DragonPeng的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>DragonPeng' blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/page1.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="CSS Grid 网格布局教程(一)">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2021-12-27 11:15" pubdate>
+        December 27, 2021 am
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.9k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      23
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">CSS Grid 网格布局教程(一)</h1>
+            
+            <div class="markdown-body">
+              <hr>
+<h3 id="一、概述"><a href="#一、概述" class="headerlink" title="一、概述"></a>一、概述</h3><p>网格布局（Grid）是最强大的 CSS 布局方案。</p>
+<p>它将网页划分成一个个网格，可以任意组合不同的网格，做出各种各样的布局。以前，只能通过复杂的 CSS 框架达到的效果，现在浏览器内置了。<br><img src="/imageO/gird1.jpg" srcset="/img/loading.gif" lazyload alt="效果"></p>
+<p>上图这样的布局，就是 Grid 布局的拿手好戏。</p>
+<p>Grid 布局与 Flex 布局有一定的相似性，都可以指定容器内部多个项目的位置。但是，它们也存在重大区别。</p>
+<p>Flex 布局是轴线布局，只能指定”项目”针对轴线的位置，可以看作是一维布局。Grid 布局则是将容器划分成”行”和”列”，产生单元格，然后指定”项目所在”的单元格，可以看作是二维布局。Grid 布局远比 Flex 布局强大。</p>
+<h3 id="二、基本概念"><a href="#二、基本概念" class="headerlink" title="二、基本概念"></a>二、基本概念</h3><p>学习 Grid 布局之前，需要了解一些基本概念。</p>
+<h4 id="2-1-容器和项目"><a href="#2-1-容器和项目" class="headerlink" title="2.1 容器和项目"></a>2.1 容器和项目</h4><p>采用网格布局的区域，称为”容器”（container）。容器内部采用网格定位的子元素，称为”项目”（item）。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>1<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>2<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>3<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>上面代码中，最外层的<code>&lt;div&gt;</code>元素就是容器，内层的三个<code>&lt;div&gt;</code>元素就是项目。</p>
+<p>注意：项目只能是容器的顶层子元素，不包含项目的子元素，比如上面代码的<code>&lt;p&gt;</code>元素就不是项目。Grid 布局只对项目生效。</p>
+<h4 id="2-2-行和列"><a href="#2-2-行和列" class="headerlink" title="2.2 行和列"></a>2.2 行和列</h4><p>容器里面的水平区域称为”行”（row），垂直区域称为”列”（column）。<br><img src="/imageO/gird2.jpg" srcset="/img/loading.gif" lazyload alt="效果"></p>
+<p>上图中，水平的深色区域就是”行”，垂直的深色区域就是”列”。</p>
+<h4 id="2-3-单元格"><a href="#2-3-单元格" class="headerlink" title="2.3 单元格"></a>2.3 单元格</h4><p>行和列的交叉区域，称为”单元格”（cell）。</p>
+<p>正常情况下，n行和m列会产生n x m个单元格。比如，3行3列会产生9个单元格。</p>
+<h4 id="2-4-网格线"><a href="#2-4-网格线" class="headerlink" title="2.4 网格线"></a>2.4 网格线</h4><p>划分网格的线，称为”网格线”（grid line）。水平网格线划分出行，垂直网格线划分出列。</p>
+<p>正常情况下，n行有n + 1根水平网格线，m列有m + 1根垂直网格线，比如三行就有四根水平网格线。<br><img src="/imageO/gird3.jpg" srcset="/img/loading.gif" lazyload alt="效果"></p>
+<p>上图是一个 4 x 4 的网格，共有5根水平网格线和5根垂直网格线。</p>
+<h3 id="三、容器属性"><a href="#三、容器属性" class="headerlink" title="三、容器属性"></a>三、容器属性</h3><p>Grid 布局的属性分成两类。一类定义在容器上面，称为容器属性；另一类定义在项目上面，称为项目属性。这部分先介绍容器属性。</p>
+<h4 id="3-1-display-属性"><a href="#3-1-display-属性" class="headerlink" title="3.1 display 属性"></a>3.1 display 属性</h4><p>display: grid指定一个容器采用网格布局。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs css"><br><span class="hljs-selector-tag">div</span> &#123;<br>  <span class="hljs-attribute">display</span>: grid;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><img src="/imageO/gird4.jpg" srcset="/img/loading.gif" lazyload alt="网格"></p>
+<p>上图是display: grid的效果。</p>
+<p>默认情况下，容器元素都是块级元素，但也可以设成行内元素。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">div</span> &#123;<br>  <span class="hljs-attribute">display</span>: inline-grid;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>上面代码指定div是一个行内元素，该元素内部采用网格布局。</p>
+<p><img src="/imageO/gird5.jpg" srcset="/img/loading.gif" lazyload alt="行内"><br>上图是display: inline-grid的效果。</p>
+<ul>
+<li>注意，设为网格布局以后，容器子元素（项目）的float、display: inline-block、display: table-cell、vertical-align和column-*等设置都将失效。</li>
+</ul>
+<h4 id="3-2"><a href="#3-2" class="headerlink" title="3.2"></a>3.2</h4><ol>
+<li>grid-template-columns 属性，</li>
+<li>grid-template-rows 属性<br>容器指定了网格布局以后，接着就要划分行和列。grid-template-columns属性定义每一列的列宽，grid-template-rows属性定义每一行的行高。</li>
+</ol>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs applescript">  &lt;span&gt;foo&lt;/span&gt;<br>&lt;<span class="hljs-keyword">div</span> <span class="hljs-built_in">id</span>=<span class="hljs-string">&quot;container&quot;</span>&gt;<br>  &lt;<span class="hljs-keyword">div</span> <span class="hljs-built_in">class</span>=<span class="hljs-string">&quot;item item-1&quot;</span>&gt;<span class="hljs-number">1</span>&lt;/<span class="hljs-keyword">div</span>&gt;<br>  &lt;<span class="hljs-keyword">div</span> <span class="hljs-built_in">class</span>=<span class="hljs-string">&quot;item item-2&quot;</span>&gt;<span class="hljs-number">2</span>&lt;/<span class="hljs-keyword">div</span>&gt;<br>  &lt;<span class="hljs-keyword">div</span> <span class="hljs-built_in">class</span>=<span class="hljs-string">&quot;item item-3&quot;</span>&gt;<span class="hljs-number">3</span>&lt;/<span class="hljs-keyword">div</span>&gt;<br>  &lt;<span class="hljs-keyword">div</span> <span class="hljs-built_in">class</span>=<span class="hljs-string">&quot;item item-4&quot;</span>&gt;<span class="hljs-number">4</span>&lt;/<span class="hljs-keyword">div</span>&gt;<br>  &lt;<span class="hljs-keyword">div</span> <span class="hljs-built_in">class</span>=<span class="hljs-string">&quot;item item-5&quot;</span>&gt;<span class="hljs-number">5</span>&lt;/<span class="hljs-keyword">div</span>&gt;<br>  &lt;<span class="hljs-keyword">div</span> <span class="hljs-built_in">class</span>=<span class="hljs-string">&quot;item item-6&quot;</span>&gt;<span class="hljs-number">6</span>&lt;/<span class="hljs-keyword">div</span>&gt;<br>  &lt;<span class="hljs-keyword">div</span> <span class="hljs-built_in">class</span>=<span class="hljs-string">&quot;item item-7&quot;</span>&gt;<span class="hljs-number">7</span>&lt;/<span class="hljs-keyword">div</span>&gt;<br>  &lt;<span class="hljs-keyword">div</span> <span class="hljs-built_in">class</span>=<span class="hljs-string">&quot;item item-8&quot;</span>&gt;<span class="hljs-number">8</span>&lt;/<span class="hljs-keyword">div</span>&gt;<br>  &lt;<span class="hljs-keyword">div</span> <span class="hljs-built_in">class</span>=<span class="hljs-string">&quot;item item-9&quot;</span>&gt;<span class="hljs-number">9</span>&lt;/<span class="hljs-keyword">div</span>&gt;<br>&lt;/<span class="hljs-keyword">div</span>&gt;<br>&lt;span&gt;bar&lt;/span&gt;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs scss"><span class="hljs-selector-class">.container</span> &#123;<br>  <span class="hljs-attribute">display</span>: grid;<br>  grid-template-<span class="hljs-attribute">columns</span>: <span class="hljs-number">100px</span> <span class="hljs-number">100px</span> <span class="hljs-number">100px</span>;  <span class="hljs-comment">//列</span><br>  grid-template-rows: <span class="hljs-number">100px</span> <span class="hljs-number">100px</span> <span class="hljs-number">100px</span>;  <span class="hljs-comment">//行</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>上面代码指定了一个三行三列的网格，列宽和行高都是100px。</p>
+<p><img src="/imageO/gird6.jpg" srcset="/img/loading.gif" lazyload alt="行内"></p>
+<p>除了使用绝对单位，也可以使用百分比。</p>
+<figure class="highlight mel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs mel">.<span class="hljs-keyword">container</span> &#123;<br>  display: <span class="hljs-keyword">grid</span>;<br>  <span class="hljs-keyword">grid</span>-template-columns: <span class="hljs-number">33.33</span>% <span class="hljs-number">33.33</span>% <span class="hljs-number">33.33</span>%;<br>  <span class="hljs-keyword">grid</span>-template-rows: <span class="hljs-number">33.33</span>% <span class="hljs-number">33.33</span>% <span class="hljs-number">33.33</span>%;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="（1）repeat"><a href="#（1）repeat" class="headerlink" title="（1）repeat()"></a>（1）repeat()</h4><p>有时候，重复写同样的值非常麻烦，尤其网格很多时。这时，可以使用repeat()函数，简化重复的值。上面的代码用repeat()改写如下。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-class">.container</span> &#123;<br>  <span class="hljs-attribute">display</span>: grid;<br>  grid-template-<span class="hljs-attribute">columns</span>: <span class="hljs-built_in">repeat</span>(<span class="hljs-number">3</span>, <span class="hljs-number">33.33%</span>);<br>  grid-template-rows: <span class="hljs-built_in">repeat</span>(<span class="hljs-number">3</span>, <span class="hljs-number">33.33%</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ol>
+<li><p>repeat()接受两个参数，第一个参数是重复的次数（上例是3），第二个参数是所要重复的值。</p>
+</li>
+<li><p>repeat()重复某种模式也是可以的。</p>
+</li>
+</ol>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">grid</span>-template-columns: repeat(<span class="hljs-number">2</span>, <span class="hljs-number">100</span>px <span class="hljs-number">20</span>px <span class="hljs-number">80</span>px);<br></code></pre></td></tr></table></figure>
+
+<p>上面代码定义了6列，第一列和第四列的宽度为100px，第二列和第五列为20px，第三列和第六列为80px。<br><img src="/imageO/gird7.jpg" srcset="/img/loading.gif" lazyload alt="repeat"></p>
+<h4 id="（2）auto-fill-关键字"><a href="#（2）auto-fill-关键字" class="headerlink" title="（2）auto-fill 关键字"></a>（2）auto-fill 关键字</h4><p>有时，单元格的大小是固定的，但是容器的大小不确定。如果希望每一行（或每一列）容纳尽可能多的单元格，这时可以使用auto-fill关键字表示自动填充。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-class">.container</span> &#123;<br>  <span class="hljs-attribute">display</span>: grid;<br>  grid-template-<span class="hljs-attribute">columns</span>: <span class="hljs-built_in">repeat</span>(auto-fill, <span class="hljs-number">100px</span>);<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<p>上面代码表示每列宽度100px，然后自动填充，直到容器不能放置更多的列。</p>
+<p><img src="/imageO/gird8.jpg" srcset="/img/loading.gif" lazyload alt="fill"></p>
+<h4 id="（3）fr-关键字"><a href="#（3）fr-关键字" class="headerlink" title="（3）fr 关键字"></a>（3）fr 关键字</h4><p>为了方便表示比例关系，网格布局提供了fr关键字（fraction 的缩写，意为”片段”）。如果两列的宽度分别为1fr和2fr，就表示后者是前者的两倍。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-class">.container</span> &#123;<br>  <span class="hljs-attribute">display</span>: grid;<br>  grid-template-<span class="hljs-attribute">columns</span>: <span class="hljs-number">1</span>fr <span class="hljs-number">1</span>fr;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>上面代码表示两个相同宽度的列。</p>
+<p><img src="/imageO/gird9.jpg" srcset="/img/loading.gif" lazyload alt="fr"></p>
+<p>fr可以与绝对长度的单位结合使用，这时会非常方便。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-class">.container</span> &#123;<br>  <span class="hljs-attribute">display</span>: grid;<br>  grid-template-<span class="hljs-attribute">columns</span>: <span class="hljs-number">150px</span> <span class="hljs-number">1</span>fr <span class="hljs-number">2</span>fr;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<p>上面代码表示，第一列的宽度为150像素，第二列的宽度是第三列的一半。</p>
+<p><img src="/imageO/gird10.jpg" srcset="/img/loading.gif" lazyload alt="fr"></p>
+<h4 id="（4）minmax"><a href="#（4）minmax" class="headerlink" title="（4）minmax()"></a>（4）minmax()</h4><p>minmax()函数产生一个长度范围，表示长度就在这个范围之中。它接受两个参数，分别为最小值和最大值。</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">grid</span>-template-columns: <span class="hljs-number">1</span>fr <span class="hljs-number">1</span>fr minmax(<span class="hljs-number">100</span>px, <span class="hljs-number">1</span>fr);<br></code></pre></td></tr></table></figure>
+
+<p>上面代码中，minmax(100px, 1fr)表示列宽不小于100px，不大于1fr。</p>
+<h4 id="（5）auto-关键字"><a href="#（5）auto-关键字" class="headerlink" title="（5）auto 关键字"></a>（5）auto 关键字</h4><p>auto关键字表示由浏览器自己决定长度。</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">grid</span>-template-columns: <span class="hljs-number">100</span>px auto <span class="hljs-number">100</span>px;<br></code></pre></td></tr></table></figure>
+
+<p>上面代码中，第二列的宽度，基本上等于该列单元格的最大宽度，除非单元格内容设置了min-width，且这个值大于最大宽度。</p>
+<h4 id="（6）网格线的名称"><a href="#（6）网格线的名称" class="headerlink" title="（6）网格线的名称"></a>（6）网格线的名称</h4><p>grid-template-columns属性和grid-template-rows属性里面，还可以使用方括号，指定每一根网格线的名字，方便以后的引用。</p>
+<figure class="highlight inform7"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs inform7">.<span class="hljs-keyword">container</span> &#123;<br>  display: grid;<br>  grid-template-columns: <span class="hljs-comment">[c1]</span> 100px <span class="hljs-comment">[c2]</span> 100px <span class="hljs-comment">[c3]</span> auto <span class="hljs-comment">[c4]</span>;<br>  grid-template-rows: <span class="hljs-comment">[r1]</span> 100px <span class="hljs-comment">[r2]</span> 100px <span class="hljs-comment">[r3]</span> auto <span class="hljs-comment">[r4]</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>上面代码指定网格布局为3行 x 3列，因此有4根垂直网格线和4根水平网格线。方括号里面依次是这八根线的名字。</p>
+<p>网格布局允许同一根线有多个名字，比如[fifth-line row-5]。</p>
+<h4 id="（7）布局实例"><a href="#（7）布局实例" class="headerlink" title="（7）布局实例"></a>（7）布局实例</h4><p>grid-template-columns属性对于网页布局非常有用。两栏式布局只需要一行代码。</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">.<span class="hljs-keyword">wrapper</span> &#123;<br>  display: grid;<br>  grid-<span class="hljs-keyword">template</span>-<span class="hljs-keyword">columns</span>: <span class="hljs-number">70</span>% <span class="hljs-number">30</span>%;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>上面代码将左边栏设为70%，右边栏设为30%。</p>
+<p>传统的十二网格布局，写起来也很容易。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css">grid-template-<span class="hljs-attribute">columns</span>: <span class="hljs-built_in">repeat</span>(<span class="hljs-number">12</span>, <span class="hljs-number">1</span>fr);<br></code></pre></td></tr></table></figure>
+
+<h4 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h4><p><a target="_blank" rel="noopener" href="https://www.ruanyifeng.com/blog/2019/03/grid-layout-tutorial.html">阮一峰—CSS Grid 网格布局教程</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/CSS/">CSS</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/">前端基础</a>
+                    
+                      <a class="hover-with-bg" href="/tags/CSS/">CSS</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/12/05/js%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0(3)/">
+                        <span class="hidden-mobile">三数之和&&最接近的三数之和&&四数之和(排序+头尾双指针)</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
