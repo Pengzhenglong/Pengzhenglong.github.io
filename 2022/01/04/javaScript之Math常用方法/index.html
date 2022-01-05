@@ -1,0 +1,533 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/2.jpg">
+  <link rel="icon" href="/img/2.jpg">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="DragonPeng">
+  <meta name="keywords" content="">
+  
+  <title>javaScript之Math常用方法 - DragonPeng的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>DragonPeng' blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/page1.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="javaScript之Math常用方法">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-01-04 18:15" pubdate>
+        January 4, 2022 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.2k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      15
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">javaScript之Math常用方法</h1>
+            
+            <div class="markdown-body">
+              <p>Math是 JavaScript 的原生对象，提供各种数学功能。Math对象是目前javaScript原生对象里唯一一个不是构造函数，不用实例化，所有的属性和方法都是直接在Math对象上调用。下面是本次分享的Math主要方法：</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">【一】<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Math</span>.</span></span>abs<span class="hljs-literal">()</span> 返回绝对值<br>【二】<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Math</span>.</span></span>ceil<span class="hljs-literal">()</span>,<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Math</span>.</span></span>floor<span class="hljs-literal">()</span> 向上取整和向下取整<br>【三】<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Math</span>.</span></span>max<span class="hljs-literal">()</span>,<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Math</span>.</span></span>min<span class="hljs-literal">()</span> 最大值和最小值<br>【四】<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Math</span>.</span></span>round<span class="hljs-literal">()</span> 四舍五入<br>【五】<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Math</span>.</span></span>random<span class="hljs-literal">()</span> 随机数<br>【六】<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Math</span>.</span></span>pow<span class="hljs-literal">()</span> 指数运算<br>【七】<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Math</span>.</span></span>sqrt<span class="hljs-literal">()</span> 平方根<br>【八】<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Math</span>.</span></span>log<span class="hljs-literal">()</span> 自然对数<br>【九】<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Math</span>.</span></span>exp<span class="hljs-literal">()</span> e的指数<br>【十】Math属性<br>【十一】Math三角函数<br></code></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="1-Math-abs-绝对值"><a href="#1-Math-abs-绝对值" class="headerlink" title="1.Math.abs() 绝对值"></a>1.Math.abs() 绝对值</h3><p>Math.abs()方法，接收一个参数，返回这个参数的绝对值，通俗的讲就是把任何一个有效数字返回一个正数：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sql">console.<span class="hljs-built_in">log</span>(Math.<span class="hljs-built_in">abs</span>(<span class="hljs-number">10</span>))   <span class="hljs-operator">/</span><span class="hljs-operator">/</span> 输出 <span class="hljs-number">10</span><br>console.<span class="hljs-built_in">log</span>(Math.<span class="hljs-built_in">abs</span>(<span class="hljs-number">-10</span>))  <span class="hljs-operator">/</span><span class="hljs-operator">/</span> 输出 <span class="hljs-number">10</span><br><br></code></pre></td></tr></table></figure>
+
+<h3 id="2-Math-ceil-Math-floor-向上取整和向下取整"><a href="#2-Math-ceil-Math-floor-向上取整和向下取整" class="headerlink" title="2.Math.ceil(),Math.floor() 向上取整和向下取整"></a>2.Math.ceil(),Math.floor() 向上取整和向下取整</h3><p>Math.ceil(),Math.floor()方法是获取整数的方法，接收一个参数，把小数点后面的数向上或者向下取一个整数。Math.ceil()是向上，Math.floor()是向下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sql">console.<span class="hljs-built_in">log</span>(Math.<span class="hljs-built_in">ceil</span>(<span class="hljs-number">10.01</span>))   <span class="hljs-operator">/</span><span class="hljs-operator">/</span> 输出 <span class="hljs-number">11</span><br>console.<span class="hljs-built_in">log</span>(Math.<span class="hljs-built_in">floor</span>(<span class="hljs-number">10.01</span>))  <span class="hljs-operator">/</span><span class="hljs-operator">/</span> 输出 <span class="hljs-number">10</span><br><br></code></pre></td></tr></table></figure>
+
+<h3 id="3-Math-max-Math-min-最大值和最小值"><a href="#3-Math-max-Math-min-最大值和最小值" class="headerlink" title="3.Math.max(),Math.min() 最大值和最小值"></a>3.Math.max(),Math.min() 最大值和最小值</h3><p>Math.max(),Math.min()方法接收多个参数，并返回参数里数值最大或者最小的那个数，Math.max()是获取最大，Math.min()是获取最小：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">console</span>.log(Math.max(<span class="hljs-number">5</span>, <span class="hljs-number">1</span>, <span class="hljs-number">9</span>, <span class="hljs-number">3</span>, <span class="hljs-number">7</span>))   // 输出 <span class="hljs-number">9</span><br><span class="hljs-attribute">console</span>.log(Math.min(<span class="hljs-number">5</span>, <span class="hljs-number">1</span>, <span class="hljs-number">9</span>, <span class="hljs-number">3</span>, <span class="hljs-number">7</span>))  // 输出 <span class="hljs-number">1</span><br><br></code></pre></td></tr></table></figure>
+
+<p>Math.max(),Math.min()也可以用来获取数组里的最大数值和最小数值：</p>
+<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs maxima"><span class="hljs-built_in">var</span> arr = [<span class="hljs-number">5</span>, <span class="hljs-number">1</span>, <span class="hljs-number">9</span>, <span class="hljs-number">3</span>, <span class="hljs-number">7</span>];<br>// 先看用循环实现方法,采用循环方式的核心思想就是假设法。<br><span class="hljs-built_in">var</span> <span class="hljs-built_in">max</span> = <span class="hljs-number">0</span>, <span class="hljs-built_in">min</span> = <span class="hljs-number">1</span>;<br><span class="hljs-keyword">for</span> (<span class="hljs-built_in">var</span> <span class="hljs-built_in">num</span> of arr) &#123;<br>    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">max</span> &lt; <span class="hljs-built_in">num</span>) &#123;<br>  <span class="hljs-built_in">max</span> = <span class="hljs-built_in">num</span><br> &#125;<br> <span class="hljs-keyword">if</span> (<span class="hljs-built_in">min</span> &gt; <span class="hljs-built_in">num</span>) &#123;<br>  <span class="hljs-built_in">min</span> = <span class="hljs-built_in">num</span>;<br> &#125;<br>&#125;   // 输出 <span class="hljs-number">9</span>, <span class="hljs-number">1</span>;<br>// 下面是采用<span class="hljs-built_in">apply</span>改变this指向的方式直接获取最大值和最小值<br>console.<span class="hljs-built_in">log</span>(Math.<span class="hljs-built_in">max</span>.<span class="hljs-built_in">apply</span>(null, arr))   // 输出 <span class="hljs-number">9</span><br>console.<span class="hljs-built_in">log</span>(Math.<span class="hljs-built_in">min</span>.<span class="hljs-built_in">apply</span>(null, arr))  // 输出 <span class="hljs-number">1</span><br><br></code></pre></td></tr></table></figure>
+
+<h3 id="4-Math-round-四舍五入"><a href="#4-Math-round-四舍五入" class="headerlink" title="4.Math.round() 四舍五入"></a>4.Math.round() 四舍五入</h3><p>Math.round()方法接收一个数字参数，对数字小数点后一位的数进行四舍五入处理</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">console</span>.log(Math.round(<span class="hljs-number">3</span>.<span class="hljs-number">87</span>))   // 输出 <span class="hljs-number">4</span><br><span class="hljs-attribute">console</span>.log(Math.round(<span class="hljs-number">3</span>.<span class="hljs-number">39</span>))  // 输出 <span class="hljs-number">3</span><br><br></code></pre></td></tr></table></figure>
+
+<h3 id="5-Math-random-随机数"><a href="#5-Math-random-随机数" class="headerlink" title="5.Math.random() 随机数"></a>5.Math.random() 随机数</h3><p>Math.random()方法返回一个0到1之间的随机数；</p>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs arduino">console.<span class="hljs-built_in">log</span>(Math.<span class="hljs-built_in">random</span>())   <span class="hljs-comment">// 输出 0到1之间的随机数</span><br><br></code></pre></td></tr></table></figure>
+
+<p>Math.random()是一个应用非常广泛的方法，下面看一个限定范围内的随机数：<br>`<br>function getRandom (min, max) {<br> return Math.round(Math.random()*(max - min))<br>}<br>console.log(getRandom(0, 100)); // 输出0到100的随机整数</p>
+<p><code>基于这个思想，可以做很多事情，比如随机取字符串里的值，随机取数组里的某个当前项等等。</code><br>var ary = [‘red’, ‘orange’, ‘yellow’, ‘blue’, ‘green’]<br>function getRandom (min, max) {<br>   return ary[Math.round(Math.random()*(max - min))]<br> }<br>console.log(getRandom(0, ary.length-1)); // 输出数组里随机的一个当前项</p>
+<p>`</p>
+<h3 id="6-Math-pow-指数运算"><a href="#6-Math-pow-指数运算" class="headerlink" title="6.Math.pow() 指数运算"></a>6.Math.pow() 指数运算</h3><p>Math.pow()方法返回以第一个参数为底数、第二个参数为幂的指数值。</p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs 1c">console.<span class="hljs-built_in">log</span>(Math.<span class="hljs-built_in">pow</span>(<span class="hljs-number">2</span>, <span class="hljs-number">2</span>)); <span class="hljs-comment">// 输出4</span><br><span class="hljs-comment">// 等同于 2 **2</span><br>console.<span class="hljs-built_in">log</span>(Math.<span class="hljs-built_in">pow</span>(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>)); <span class="hljs-comment">// 输出8</span><br><span class="hljs-comment">// 等同于 2** 3</span><br><br></code></pre></td></tr></table></figure>
+
+<h3 id="7-Math-sqrt-平方根"><a href="#7-Math-sqrt-平方根" class="headerlink" title="7.Math.sqrt() 平方根"></a>7.Math.sqrt() 平方根</h3><p>Math.sqrt()方法返回参数值的平方根。如果参数是一个负值，则返回NaN。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sql">console.<span class="hljs-built_in">log</span>(Math.<span class="hljs-built_in">sqrt</span>(<span class="hljs-number">9</span>)); <span class="hljs-operator">/</span><span class="hljs-operator">/</span> 输出<span class="hljs-number">3</span><br>console.<span class="hljs-built_in">log</span>(Math.<span class="hljs-built_in">sqrt</span>(<span class="hljs-number">-9</span>)); <span class="hljs-operator">/</span><span class="hljs-operator">/</span> 输出NaN<br></code></pre></td></tr></table></figure>
+
+<p>`</p>
+<h3 id="8-Math-log"><a href="#8-Math-log" class="headerlink" title="8.Math.log()"></a>8.Math.log()</h3><p>Math.log方法返回以e为底的自然对数值。<br>`<br>console.log(Math.log(10)); // 输出 2.302585092994046</p>
+<p>`</p>
+<h3 id="9-Math-exp"><a href="#9-Math-exp" class="headerlink" title="9.Math.exp()"></a>9.Math.exp()</h3><p>Math.exp()方法返回常数e的参数次方。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sql">console.<span class="hljs-built_in">log</span>(Math.<span class="hljs-built_in">exp</span>(<span class="hljs-number">1</span>)); <span class="hljs-operator">/</span><span class="hljs-operator">/</span> 输出 <span class="hljs-number">2.7182818284590455</span><br>console.<span class="hljs-built_in">log</span>(Math.<span class="hljs-built_in">exp</span>(<span class="hljs-number">2</span>)); <span class="hljs-operator">/</span><span class="hljs-operator">/</span> 输出 <span class="hljs-number">7.38905609893065</span><br><br></code></pre></td></tr></table></figure>
+
+<p>Math属性</p>
+<p>Math.E：常数e。<br>Math.LN2：2 的自然对数。<br>Math.LN10：10 的自然对数。<br>Math.LOG2E：以 2 为底的e的对数。<br>Math.LOG10E：以 10 为底的e的对数。<br>Math.PI：常数π。<br>Math.SQRT1_2：0.5 的平方根。<br>Math.SQRT2：2 的平方根</p>
+<p>`<br>Math.E // 2.718281828459045<br>Math.LN2 // 0.6931471805599453<br>Math.LN10 // 2.302585092994046<br>Math.LOG2E // 1.4426950408889634<br>Math.LOG10E // 0.4342944819032518<br>Math.PI // 3.141592653589793<br>Math.SQRT1_2 // 0.7071067811865476<br>Math.SQRT2 // 1.4142135623730951</p>
+<p>`<br>注意Math的这些属性都是只读，不可以修改的。</p>
+<p>Math三角函数</p>
+<p>Math.sin()：返回参数的正弦（参数为弧度值）<br>Math.cos()：返回参数的余弦（参数为弧度值）<br>Math.tan()：返回参数的正切（参数为弧度值）<br>Math.asin()：返回参数的反正弦（返回值为弧度值）<br>Math.acos()：返回参数的反余弦（返回值为弧度值）<br>Math.atan()：返回参数的反正切（返回值为弧度值）</p>
+<p>`<br>Math.sin(0) // 0<br>Math.cos(0) // 1<br>Math.tan(0) // 0<br>Math.sin(Math.PI / 2) // 1<br>Math.asin(1) // 1.5707963267948966<br>Math.acos(1) // 0<br>Math.atan(1) // 0.7853981633974483</p>
+<p>`</p>
+<p>结语</p>
+<p>Math对象本身是对js里的数字做数学处理的，里面有不少方法。</p>
+<h4 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h4><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903687932870670">javaScript之Math常用方法</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/JS%E8%BF%9B%E9%98%B6/">JS进阶</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/">前端基础</a>
+                    
+                      <a class="hover-with-bg" href="/tags/JS%E8%BF%9B%E9%98%B6/">JS进阶</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/01/03/JavaScript%20%E5%A5%87%E6%80%AA%E5%8F%88%E5%AE%9E%E7%94%A8%E7%9A%84%E5%A7%BF%E5%8A%BF%E5%8F%88%E5%A2%9E%E5%8A%A0%E4%BA%86%E5%85%AD%E4%B8%AA/">
+                        <span class="hidden-mobile">JavaScript 奇怪又实用的姿势又增加了六个</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
