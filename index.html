@@ -197,9 +197,10 @@
           
             
           
-          
-Option的弊端Option的缺陷–反复横跳相信大部分同学都维护过超过200行的.vue组件，新增或者修改一个需求，就需要分别在data，methods，computed里修改 ，滚动条反复上下移动，我称之为『反复横跳』 比如我们简单的加个拍脑门的需求 加个累加器 ，这种写代码上下反复横条的感觉， 相信大家都懂的
-Option的缺陷：mixin和this反复横跳的本质，在于功能的分块组织，以及
+          说一下 Composition API和 Options API 的区别？
+Composition API 也叫组合式 API，它主要就是为了解决 Vue2 中 Options API 的问题。
+一是在 Vue2 中只能固定用 data、computed、methods 等选项组织代码，在组件越来越复杂的时候，一个功能相关的属性和方法就会在文件上中下到处都有，很分散，变越来越难维护
+二是 Vue2
         </a>
       </p>
 
