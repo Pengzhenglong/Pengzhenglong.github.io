@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>Vue 3--reactive, ref,toRef,toRefs用法和区别</title>
+    <link href="/2022/01/30/Vue3Study(3)--ref+reactive+toRef+toRefs/"/>
+    <url>/2022/01/30/Vue3Study(3)--ref+reactive+toRef+toRefs/</url>
+    
+    <content type="html"><![CDATA[<p>Vue3的CompositionAPI 创建响应式对象的方式：</p><ul><li>reactive</li><li>ref</li><li>toRef</li><li>toRefs</li></ul><hr><h3 id="reactive"><a href="#reactive" class="headerlink" title="reactive"></a>reactive</h3><p>reactive 方法 根据传入的<strong>对象</strong> ，创建返回一个<strong>深度响应式对象</strong>。<strong>响应式对象</strong>看起来和传入的对象一样，但是，响应式对象属性值改动，不管层级有多深，都会触发响应式。新增和删除属性也会触发响应式。</p><p><img src="/imageO/reactive.jpg" alt="示例"></p><blockquote><p>重点：</p></blockquote><ul><li><p><strong>reactive 只能 给对象添加响应式</strong>，对于值类型，比如<code>String，Number，Boolean，Symbol</code>无能为力。</p></li><li><p>不能通过 …state 方式结构，这样会丢失响应式。下面这种方式是错误的</p></li></ul><figure class="highlight pf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs pf">//注意这里不能通过 ...<span class="hljs-keyword">state</span> 方式结构，这样会丢失响应式。<br> return &#123;<br>     ...<span class="hljs-keyword">state</span>  <br> &#125;<br></code></pre></td></tr></table></figure><h3 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h3><p>上面我们提到 reactive 只能给对象，数组 添加响应式，如果想给值类型(String，Number，Boolean，Symbol)添加响应式，就要用到ref，所以ref作用如下：</p><ul><li>生成值类型响应式数据</li><li>通过.vue值修改</li><li>生成对象和数组类型的响应式对象**(对象和数组一般会选用reactive方式，比较便捷)**</li></ul><h3 id="toRef"><a href="#toRef" class="headerlink" title="toRef"></a>toRef</h3><ul><li>针对一个响应式对象（reactive 封装）的 prop（属性）创建一个ref，且保持响应式</li><li>两者 保持引用关系</li></ul><h3 id="toRefs"><a href="#toRefs" class="headerlink" title="toRefs"></a>toRefs</h3><p>toRefs 是一种用于破坏响应式对象并将其所有属性转换为 ref 的实用方法</p><ul><li>将响应式对象（reactive封装）转成普通对象</li><li>对象的每个属性(Prop)都是对应的ref</li><li>两者保持引用关系</li></ul><h3 id="如何选择-ref-和-reactive？建议"><a href="#如何选择-ref-和-reactive？建议" class="headerlink" title="如何选择 ref 和 reactive？建议"></a>如何选择 ref 和 reactive？建议</h3><ol><li>基础类型值(String，Number，Boolean，Symbol) 或单值对象(类似{ count: 1 }这样只有一个属性值的对象) 使用 ref</li><li>引用类型值(Object、Array)使用 reactive</li></ol><h4 id="使用toRefs-state-方式返回"><a href="#使用toRefs-state-方式返回" class="headerlink" title="使用toRefs(state)方式返回"></a>使用toRefs(state)方式返回</h4><p>注意reactive封装的响应式对象，不要通过解构的方式return，这是不具有响应式的。可以通过 toRefs 处理，然后再解构返回，这样才具有响应式</p><figure class="highlight pf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs pf"><span class="hljs-keyword">const</span> <span class="hljs-keyword">state</span> = reactive(&#123;...&#125;);<br>return &#123;...<span class="hljs-keyword">state</span>&#125;; // 这种方式将丢失响应式，是一种错误的方式<br>return <span class="hljs-keyword">to</span>Refs(<span class="hljs-keyword">state</span>); // works<br></code></pre></td></tr></table></figure><figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs fortran">const <span class="hljs-keyword">data</span>: DataProps = reactive(&#123;<br>  <span class="hljs-built_in">count</span>: <span class="hljs-number">0</span>,<br>  increase: () =&gt; &#123;<br>    <span class="hljs-keyword">data</span>.<span class="hljs-built_in">count</span>++;<br>  &#125;,<br>  <span class="hljs-keyword">double</span>: computed(() =&gt; <span class="hljs-keyword">data</span>.<span class="hljs-built_in">count</span> * <span class="hljs-number">2</span>),<br>&#125;);<br>const refData = toRefs(<span class="hljs-keyword">data</span>);<br><span class="hljs-keyword">return</span> &#123;<br>  ...refData,<br>&#125;;<br></code></pre></td></tr></table></figure><h5 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h5><p><a href="https://juejin.cn/post/7034038818139275294#heading-1">Vue3： reactive, ref,toRef,toRefs用法和区别</a></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Vue3</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>前端基础</tag>
+      
+      <tag>Vue3</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Vue 3--Composition API 和 script setup</title>
     <link href="/2022/01/29/Vue3Study(2)/"/>
     <url>/2022/01/29/Vue3Study(2)/</url>
