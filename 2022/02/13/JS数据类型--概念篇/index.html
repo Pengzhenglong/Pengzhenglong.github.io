@@ -18,7 +18,7 @@
   <meta name="author" content="DragonPeng">
   <meta name="keywords" content="">
   
-  <title>JS数据类型--概念篇 - DragonPeng的博客</title>
+  <title>JS基础面试题(一)- 0.1+0.2为什么不等于0.3&amp;&amp;typeof NaN ||null - DragonPeng的博客</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -163,7 +163,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="JS数据类型--概念篇">
+            <span class="h2" id="subtitle" title="JS基础面试题(一)- 0.1+0.2为什么不等于0.3&&typeof NaN ||null">
               
             </span>
 
@@ -173,8 +173,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-07-10 22:15" pubdate>
-        July 10, 2021 pm
+      <time datetime="2022-02-13 22:15" pubdate>
+        February 13, 2022 pm
       </time>
     </span>
   
@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      198 字
+      731 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      2
+      8
        分钟
     </span>
   
@@ -225,13 +225,22 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">JS数据类型--概念篇</h1>
+            <h1 style="display: none">JS基础面试题(一)- 0.1+0.2为什么不等于0.3&amp;&amp;typeof NaN ||null</h1>
             
             <div class="markdown-body">
               <hr>
-<h3 id="1-null是对象吗？为什么？"><a href="#1-null是对象吗？为什么？" class="headerlink" title="1.null是对象吗？为什么？"></a>1.null是对象吗？为什么？</h3><p>结论: null不是对象。</p>
+<h3 id="1-null是对象吗？为什么？"><a href="#1-null是对象吗？为什么？" class="headerlink" title="1.null是对象吗？为什么？"></a>1.null是对象吗？为什么？</h3><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs awk">typeof 运算符对基本数据类型的运算：<br>typeof <span class="hljs-string">&#x27;str&#x27;</span> <span class="hljs-regexp">//</span> <span class="hljs-string">&#x27;string&#x27;</span><br>typeof NaN <span class="hljs-regexp">//</span> <span class="hljs-string">&#x27;number&#x27;</span><br>typeof <span class="hljs-number">1</span> <span class="hljs-regexp">//</span> <span class="hljs-string">&#x27;number&#x27;</span><br>typeof true <span class="hljs-regexp">//</span> <span class="hljs-string">&#x27;boolean&#x27;</span><br>typeof undefined <span class="hljs-regexp">//</span> <span class="hljs-string">&#x27;undefined&#x27;</span><br>typeof Symbol() <span class="hljs-regexp">//</span> <span class="hljs-string">&#x27;symbol&#x27;</span><br>typeof null <span class="hljs-regexp">//</span> <span class="hljs-string">&#x27;object&#x27;</span><br></code></pre></td></tr></table></figure>
+
+<p>结论: null不是对象。</p>
 <p>解释: 虽然 typeof null 会输出 object，但是这只是 JS 存在的一个悠久 Bug。在 JS 的最初版本中使用的是 32 位系统，为了性能考虑使用低位存储变量的类型信息，000 开头代表是对象然而 null 表示为全零，所以将它错误的判断为 object 。</p>
-<h3 id="0-1-0-2为什么不等于0-3？"><a href="#0-1-0-2为什么不等于0-3？" class="headerlink" title="0.1+0.2为什么不等于0.3？"></a>0.1+0.2为什么不等于0.3？</h3><p>0.1和0.2在转换成二进制后会无限循环，由于标准位数的限制后面多余的位数会被截掉，此时就已经出现了精度的损失，相加后因浮点数小数位的限制而截断的二进制数字在转换为十进制就会变成0.30000000000000004。</p>
+<h3 id="2-typeof-NaN-的结果是什么？"><a href="#2-typeof-NaN-的结果是什么？" class="headerlink" title="2. typeof NaN 的结果是什么？"></a>2. typeof NaN 的结果是什么？</h3><p>NaN 意指“不是一个数字”（not a number），NaN 是一个“警戒值”（sentinel value，有特殊用途的常规值），用于指出<br>数字类型中的错误情况，即“执行数学运算没有成功，这是失败后返回的结果”。</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">typeof NaN; <span class="hljs-regexp">//</span> <span class="hljs-string">&quot;number&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>NaN 是一个特殊值，它和自身不相等，是唯一一个非自反（自反，reflexive，即 x === x 不成立）的值。而 NaN != NaN<br>为 true。</p>
+<h3 id="3-0-1-0-2为什么不等于0-3？"><a href="#3-0-1-0-2为什么不等于0-3？" class="headerlink" title="3. 0.1+0.2为什么不等于0.3？"></a>3. 0.1+0.2为什么不等于0.3？</h3><p>当计算机计算 0.1+0.2 的时候，实际上计算的是这两个数字在计算机里所存储的二进制，0.1 和 0.2 在转换为二进制表示的时候会出现位数无限循环的情况。js 中是以 64 位双精度格式来存储数字的，只有 53 位的有效数字，超过这个长度的位数会被截取掉这样就造成了精度丢失的问题。这是第一个会造成精度丢失的地方。在对两个以 64 位双精度格式的数据进行计算的时候，首先会进行对阶的处理，对阶指的是将阶码对齐，也就是将小数点的位置对齐后，再进行计算，一般是小阶向大阶对齐，因此小阶的数在对齐的过程中，有效数字会向右移动，移动后超过有效位数的位会被截取掉，这是第二个可能会出现精度丢失的地方。当两个数据阶码对齐后，进行相加运算后，得到的结果可能会超过 53 位有效数字，因此超过的位数也会被截取掉，这是可能发生精度丢失的第三个地方。</p>
+<p>对于这样的情况，我们可以将其转换为整数后再进行运算，运算后再转换为对应的小数，以这种方式来解决这个问题。</p>
+<p>我们还可以将两个数相加的结果和右边相减，如果相减的结果小于一个极小数，那么我们就可以认定结果是相等的，这个极小数可以<br>使用 es6 的 Number.EPSILON</p>
+<h5 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h5><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903700356399112#heading-7">0.1+0.2 !== 0.3？</a><br><a target="_blank" rel="noopener" href="https://github.com/camsong/blog/issues/9">JavaScript 浮点数陷阱及解法</a></p>
 
             </div>
             <hr>
@@ -268,18 +277,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2021/07/24/%E9%87%8D%E7%BB%98%E5%9B%9E%E6%B5%81/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">浏览器的回流与重绘</span>
-                        <span class="visible-mobile">Previous</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2021/07/09/TCP%E5%8D%8F%E8%AE%AE/">
-                        <span class="hidden-mobile">TCP协议</span>
+                      <a href="/2022/02/05/Vue3Study(3)--Teleport%20and%20%20Suspense/">
+                        <span class="hidden-mobile">Vue 3--Teleport and  Suspense</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
