@@ -1,0 +1,540 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/2.jpg">
+  <link rel="icon" href="/img/2.jpg">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="DragonPeng">
+  <meta name="keywords" content="">
+  
+  <title>前端两种路由实现和使用场景--Hash模式&amp;&amp;History模式 - DragonPeng的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>DragonPeng' blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/page1.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="前端两种路由实现和使用场景--Hash模式&&History模式">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-02-17 12:15" pubdate>
+        February 17, 2022 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.7k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      21
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">前端两种路由实现和使用场景--Hash模式&amp;&amp;History模式</h1>
+            
+            <div class="markdown-body">
+              <hr>
+<h3 id="什么是路由"><a href="#什么是路由" class="headerlink" title="什么是路由"></a>什么是路由</h3><p>路由这个概念最先是后端出现的，简单来说路由就是用来跟后端服务器进行交互的一种方式，通过不同的路径，来请求不同的资源，请求不同的页面是路由的其中一种功能。</p>
+<h3 id="前端路由的诞生"><a href="#前端路由的诞生" class="headerlink" title="前端路由的诞生"></a>前端路由的诞生</h3><p>前端路由的出现要从 ajax 开始，有了 Ajax 后，用户交互就不用每次都刷新页面，体验带来了极大的提升。随着技术的发展，简单的异步已经不能满足需求，所以异步的更高级体验出现了——SPA(单页应用)。<br>SPA 的出现大大提高了 WEB 应用的交互体验。在与用户的交互过程中，不再需要重新刷新页面，获取数据也是通过 Ajax 异步获取，页面显示变的更加流畅。<br>但由于 SPA 中用户的交互是通过 JS 改变 HTML 内容来实现的，页面本身的 url 并没有变化，这导致了两个问题：</p>
+<ul>
+<li>SPA 无法记住用户的操作记录，无论是刷新、前进还是后退，都无法展示用户真实的期望内容。</li>
+<li>SPA 中虽然由于业务的不同会有多种页面展示形式，但只有一个 url，对 SEO 不友好，不方便搜索引擎进行收录。</li>
+</ul>
+<p>前端路由就是为了解决上述问题而出现的。</p>
+<h3 id="什么是前端路由"><a href="#什么是前端路由" class="headerlink" title="什么是前端路由"></a>什么是前端路由</h3><p>简单的说，就是在保证只有一个 HTML 页面，且与用户交互时不刷新和跳转页面的同时，为 SPA 中的每个视图展示形式匹配一个特殊的 url。在刷新、前进、后退和SEO时均通过这个特殊的 url 来实现。<br>为实现这一目标，我们需要做到以下二点：</p>
+<ul>
+<li>改变 url 且不让浏览器像服务器发送请求。</li>
+<li>可以监听到 url 的变化</li>
+</ul>
+<p>接下来要介绍的 hash 模式和 history 模式，就是实现了上面的功能。</p>
+<h3 id="Hash模式"><a href="#Hash模式" class="headerlink" title="Hash模式"></a>Hash模式</h3><p>原理</p>
+<ul>
+<li>早期的前端路由的实现就是基于location.hash来实现的，location.hash的值就是URL中#后面的内容 其实现原理就是监听#后面的内容来发起Ajax请求来进行局部更新，而不需要刷新整个页面。</li>
+<li>使用hashchange事件来监听 URL 的变化，以下这几种情况改变 URL 都会触发 hashchange 事件：浏览器前进后退改变 URL、a标签改变 URL、window.location改变URL。</li>
+</ul>
+<p>使用</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">//html</span><br>&lt;ul id=<span class="hljs-string">&quot;menu&quot;</span>&gt;<br>  &lt;li&gt;<br>    &lt;a href=<span class="hljs-string">&quot;#index&quot;</span>&gt;首页&lt;/a&gt;<br>  &lt;/li&gt;<br>  &lt;li&gt;<br>    &lt;a href=<span class="hljs-string">&quot;#news&quot;</span>&gt;资讯&lt;/a&gt;<br>  &lt;/li&gt;<br>  &lt;li&gt;<br>    &lt;a href=<span class="hljs-string">&quot;#user&quot;</span>&gt;个人中心&lt;/a&gt;<br>  &lt;/li&gt;<br>&lt;/ul&gt;<br>&lt;div id=<span class="hljs-string">&quot;app&quot;</span>&gt;&lt;/div&gt;<br><br><span class="hljs-comment">//js</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">hashChange</span>(<span class="hljs-params">e</span>)</span>&#123;<br>    <span class="hljs-keyword">let</span> app = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;app&#x27;</span>)<br>    <span class="hljs-keyword">switch</span> (location.hash) &#123;<br>      <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;#index&#x27;</span>:<br>        app.innerHTML = <span class="hljs-string">&#x27;&lt;h1&gt;这是首页内容&lt;/h1&gt;&#x27;</span><br>        <span class="hljs-keyword">break</span><br>      <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;#news&#x27;</span>:<br>        app.innerHTML = <span class="hljs-string">&#x27;&lt;h1&gt;这是新闻内容&lt;/h1&gt;&#x27;</span><br>        <span class="hljs-keyword">break</span><br>      <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;#user&#x27;</span>:<br>        app.innerHTML = <span class="hljs-string">&#x27;&lt;h1&gt;这是个人中心内容&lt;/h1&gt;&#x27;</span><br>        <span class="hljs-keyword">break</span><br>      <span class="hljs-keyword">default</span>:<br>        app.innerHTML = <span class="hljs-string">&#x27;&lt;h1&gt;404&lt;/h1&gt;&#x27;</span><br>    &#125;<br>&#125;<br><span class="hljs-built_in">window</span>.onhashchange = hashChange<br>hashChange()<br></code></pre></td></tr></table></figure>
+
+<h4 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h4><ul>
+<li>兼容低版本浏览器，Angular1.x和Vue默认使用的就是hash路由</li>
+<li>只有#符号之前的内容才会包含在请求中被发送到后端，也就是说就算后端没有对路由全覆盖，但是不会返回404错误<br>hash值的改变，都会在浏览器的访问历史中增加一个记录，所以可以通过浏览器的回退、前进按钮控制hash的切换 会覆盖锚点定位元素的功能</li>
+</ul>
+<h4 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h4><ul>
+<li>不太美观，#后面传输的数据复杂的话会出现问题</li>
+</ul>
+<h3 id="History模式"><a href="#History模式" class="headerlink" title="History模式"></a>History模式</h3><p>原理</p>
+<ul>
+<li>history 提供了 pushState 和 replaceState 两个方法来记录路由状态，这两个方法改变 URL 不会引起页面刷新</li>
+<li>history 提供类似 hashchange 事件的 popstate 事件，但 popstate 事件有些不同：通过浏览器前进后退改变 URL 时会触发 popstate 事件，通过pushState/replaceState或a标签改变 URL 不会触发 popstate 事件。好在我们可以拦截 pushState/replaceState的调用和a标签的点击事件来检测 URL 变化，所以监听 URL 变化可以实现，只是没有 hashchange 那么方便。</li>
+<li>pushState(state, title, url) 和 replaceState(state, title, url)都可以接受三个相同的参数。<br>使用</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">//html</span><br>&lt;ul id=<span class="hljs-string">&quot;menu&quot;</span>&gt;<br>  &lt;li&gt;<br>    &lt;a href=<span class="hljs-string">&quot;/index&quot;</span>&gt;首页&lt;/a&gt;<br>  &lt;/li&gt;<br>  &lt;li&gt;<br>    &lt;a href=<span class="hljs-string">&quot;/news&quot;</span>&gt;资讯&lt;/a&gt;<br>  &lt;/li&gt;<br>  &lt;li&gt;<br>    &lt;a href=<span class="hljs-string">&quot;/user&quot;</span>&gt;个人中心&lt;/a&gt;<br>  &lt;/li&gt;<br>&lt;/ul&gt;<br>&lt;div id=<span class="hljs-string">&quot;app&quot;</span>&gt;&lt;/div&gt;<br><br><span class="hljs-comment">//js</span><br><span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&#x27;#menu&#x27;</span>).addEventListener(<span class="hljs-string">&#x27;click&#x27;</span>,<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">e</span>) </span>&#123;<br>  <span class="hljs-keyword">if</span>(e.target.nodeName ===<span class="hljs-string">&#x27;A&#x27;</span>)&#123;<br>    e.preventDefault()<br>    <span class="hljs-keyword">let</span> path = e.target.getAttribute(<span class="hljs-string">&#x27;href&#x27;</span>)  <span class="hljs-comment">//获取超链接的href，改为pushState跳转，不刷新页面</span><br>    <span class="hljs-built_in">window</span>.history.pushState(&#123;&#125;,<span class="hljs-string">&#x27;&#x27;</span>,path)  <span class="hljs-comment">//修改浏览器中显示的url地址</span><br>    render(path)  <span class="hljs-comment">//根据path，更改页面内容</span><br>  &#125;<br>&#125;)<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">render</span>(<span class="hljs-params">path</span>) </span>&#123;<br>  <span class="hljs-keyword">let</span> app = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;app&#x27;</span>)<br>  <span class="hljs-keyword">switch</span> (path) &#123;<br>    <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;/index&#x27;</span>:<br>      app.innerHTML = <span class="hljs-string">&#x27;&lt;h1&gt;这是首页内容&lt;/h1&gt;&#x27;</span><br>      <span class="hljs-keyword">break</span><br>    <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;/news&#x27;</span>:<br>      app.innerHTML = <span class="hljs-string">&#x27;&lt;h1&gt;这是新闻内容&lt;/h1&gt;&#x27;</span><br>      <span class="hljs-keyword">break</span><br>    <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;/user&#x27;</span>:<br>      app.innerHTML = <span class="hljs-string">&#x27;&lt;h1&gt;这是个人中心内容&lt;/h1&gt;&#x27;</span><br>      <span class="hljs-keyword">break</span><br>    <span class="hljs-keyword">default</span>:<br>      app.innerHTML = <span class="hljs-string">&#x27;&lt;h1&gt;404&lt;/h1&gt;&#x27;</span><br>  &#125;<br>&#125;<br><span class="hljs-built_in">window</span>.onpopstate = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">e</span>) </span>&#123;<br>  render(location.pathname)<br>&#125;<br>render(<span class="hljs-string">&#x27;/index&#x27;</span>)<br></code></pre></td></tr></table></figure>
+
+<h4 id="优点-1"><a href="#优点-1" class="headerlink" title="优点"></a>优点</h4><ul>
+<li>使用简单，比较美观</li>
+<li>pushState()设置新的URL可以是任意与当前URL同源的URL，而hash只能改变#后面的内容，因此只能设置与当前URL同文档的URL</li>
+<li>pushState()设置的URL与当前URL一模一样时也会被添加到历史记录栈中，而hash#后面的内容必须被修改才会被添加到新的记录栈中</li>
+<li>pushState()可以通过stateObject参数添加任意类型的数据到记录中，而hash只能添加短字符串</li>
+<li>pushState()可额外设置title属性供后续使用</li>
+</ul>
+<h4 id="缺点-1"><a href="#缺点-1" class="headerlink" title="缺点"></a>缺点</h4><ul>
+<li>前端的URL必须和向发送请求后端URL保持一致，否则会报404错误</li>
+<li>由于History API的缘故，低版本浏览器有兼容行问题</li>
+</ul>
+<h3 id="两种不同使用场景"><a href="#两种不同使用场景" class="headerlink" title="两种不同使用场景"></a>两种不同使用场景</h3><ul>
+<li>从上文可见，hash模式下url会带有#，当你希望url更优雅时，可以使用history模式。</li>
+<li>当使用history模式时，需要注意在服务端增加一个覆盖所有情况的候选资源：如果 URL 匹配不到任何静态资源，则应该返回同一个 index.html 页面，这个页面就是你 app 依赖的页面。</li>
+<li>当需要兼容低版本的浏览器时，建议使用hash模式。</li>
+<li>当需要添加任意类型数据到记录时，可以使用history模式。</li>
+</ul>
+<h4 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h4><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844904054087221256#comment">前端两种路由实现和使用场景</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Vue/">Vue</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/">前端基础</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Vue/">Vue</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/02/13/JS%E5%9F%BA%E7%A1%80%E9%9D%A2%E8%AF%95%E9%A2%98(%E4%B8%80)/">
+                        <span class="hidden-mobile">JS基础面试题(一)- 0.1+0.2为什么不等于0.3&&typeof NaN ||null&&setTimeout输出--同步与异步</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
