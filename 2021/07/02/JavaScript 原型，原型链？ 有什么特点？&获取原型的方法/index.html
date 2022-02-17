@@ -240,11 +240,12 @@
 <ul>
 <li>为什么我们新建的对象可以使用toString()方法，这是因为我们访问一个对象的属性时，首先会在这个对象身上找，如果没有的话，我们会通过这个对象的__proto__找到该对象的原型，然后在这个原型对象中找，这个原型对象又没有的话，就这样子通过一直找下去，这也就是原型链概念。直到找到原型链的尽头也就是Object.prototype。</li>
 </ul>
+<p><img src="/imageO/proto.png" srcset="/img/loading.gif" lazyload alt="原型链"></p>
 <h4 id="原型链"><a href="#原型链" class="headerlink" title="原型链"></a>原型链</h4><p>当我们访问一个对象的属性时，如果这个对象内部不存在这个属性，那么它就会去它的原型对象里找这个属性，这个原型对象又会有自己的原型，于是就这样一直找下去，也就是原型链的概念。原型链的尽头一般来说都是 <strong>Object.prototype</strong> 所以这就是我们新建的对象为什么能够使用 toString() 等方法的原因。</p>
 <p>特点：</p>
 <p>JavaScript 对象是通过引用来传递的，我们创建的每个新对象实体中并没有一份属于自己的原型副本。当我们修改原型时，与之相关的对象也会继承这一改变。</p>
 <h3 id="js-获取原型的方法？"><a href="#js-获取原型的方法？" class="headerlink" title="js 获取原型的方法？"></a>js 获取原型的方法？</h3><ol>
-<li>p.<strong>proto</strong></li>
+<li>p.<code>__proto__</code></li>
 <li>p.constructor.prototype</li>
 <li>Object.getPrototypeOf(p)</li>
 </ol>
