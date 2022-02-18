@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      22
+      23
        分钟
     </span>
   
@@ -257,7 +257,7 @@
 
 <p>NaN 是一个特殊值，它和自身不相等，是唯一一个非自反（自反，reflexive，即 x === x 不成立）的值。而 NaN != NaN<br>为 true。</p>
 <h3 id="0-1-0-2为什么不等于0-3？"><a href="#0-1-0-2为什么不等于0-3？" class="headerlink" title="0.1+0.2为什么不等于0.3？"></a>0.1+0.2为什么不等于0.3？</h3><p>当计算机计算 0.1+0.2 的时候，实际上计算的是这两个数字在计算机里所存储的二进制，0.1 和 0.2 在转换为二进制表示的时候会出现位数无限循环的情况。js 中是以 64 位双精度格式来存储数字的，只有 53 位的有效数字，超过这个长度的位数会被截取掉这样就造成了精度丢失的问题。这是第一个会造成精度丢失的地方。在对两个以 64 位双精度格式的数据进行计算的时候，首先会进行对阶的处理，对阶指的是将阶码对齐，也就是将小数点的位置对齐后，再进行计算，一般是小阶向大阶对齐，因此小阶的数在对齐的过程中，有效数字会向右移动，移动后超过有效位数的位会被截取掉，这是第二个可能会出现精度丢失的地方。当两个数据阶码对齐后，进行相加运算后，得到的结果可能会超过 53 位有效数字，因此超过的位数也会被截取掉，这是可能发生精度丢失的第三个地方。</p>
-<p>对于这样的情况，我们可以将其转换为整数后再进行运算，运算后再转换为对应的小数，以这种方式来解决这个问题。</p>
+<p>对于这样的情况，我们可以将其转换为整数后再进行运算，运算后再转换为对应的小数，以这种方式来解决这个问题。<br>(toPrecision vs toFixed  –toPrecision 是处理精度，精度是从左至右第一个不为0的数开始数起。<br>–toFixed 是小数点后指定位数取整，从小数点开始数起。)</p>
 <p>我们还可以将两个数相加的结果和右边相减，如果相减的结果小于一个极小数，那么我们就可以认定结果是相等的，这个极小数可以<br>使用 es6 的 Number.EPSILON</p>
 <h3 id="setTimeout输出值的时候，如何实现i按序输出？"><a href="#setTimeout输出值的时候，如何实现i按序输出？" class="headerlink" title="setTimeout输出值的时候，如何实现i按序输出？"></a>setTimeout输出值的时候，如何实现i按序输出？</h3><figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs coffeescript"><span class="hljs-keyword">for</span> (var i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">5</span>; i++) &#123;<br>    <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> &#123;<br>        <span class="hljs-built_in">console</span>.log(i)<br>    &#125;, <span class="hljs-number">1000</span>);<br>&#125;<br>//<span class="hljs-number">55555</span><br></code></pre></td></tr></table></figure>
 
