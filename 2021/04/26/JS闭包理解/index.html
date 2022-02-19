@@ -235,7 +235,7 @@
 
 <p>首先foo1()返回的是一个foo2()函数,当我们调用result()的时候就会返回foo2()执行的函数,foo2()里面有什么呢? 首先我们看到如下有一个count变量,但是没有定义.我们根据JavaScript的作用域链的定义可知,当函数内部的变量没有定义的时候,就会采用冒泡的方式,向上一级寻找.上一级没有接着上一级找,直到最顶层window. 如果都没有,就会报undefined的错误.这里我们在foo1()中找到了count,于是count+1,第一次输出的是1,没有什么问题.</p>
 <p>但是第二次我们再执行result()的时候就出现了问题,为什么会是2呢?按照流程,首先再foo2()函数内部寻找count,没有然后到外层寻找,找到了count=0,这时候count+1应该为1才对.这里就涉及到闭包的问题了.</p>
-<p>！<a href="/image/22.png">debugger</a></p>
+<p><img src="/image/22.png" srcset="/img/loading.gif" lazyload alt="debugger"></p>
 <p>首先我们在原来的代码中加一个debugger,然后到谷歌浏览器右键检查,点击sources就可以看到右边有一个Closure,浏览器的可视化已经证实了这的确是一个闭包.并且count=1已经存储在了Closure之中.也就说明count=1没有被销毁,等下次在调用result()的时候count=2.</p>
 <h3 id="认识作用域"><a href="#认识作用域" class="headerlink" title="认识作用域"></a>认识作用域</h3><p>作用域包括：</p>
 <ol>
