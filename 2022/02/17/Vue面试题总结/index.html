@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      876 字
+      1.8k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      9
+      19
        分钟
     </span>
   
@@ -231,7 +231,7 @@
               <p>总结了最近的一些面试题和之前的知识点</p>
 <hr>
 <h3 id="开发中有没有遇见过数据修改了页面不刷新的情况"><a href="#开发中有没有遇见过数据修改了页面不刷新的情况" class="headerlink" title="开发中有没有遇见过数据修改了页面不刷新的情况"></a>开发中有没有遇见过数据修改了页面不刷新的情况</h3><p>最近在开发中遇到了这样一些情况，通过点击事件改变了对象里面得数据，但是页面却不刷新，后来发现，是在给对象添加属性时出现的问题。</p>
-<p>当vue的data里边声明或者已经赋值过的对象或者数组(数组里边的值是对象)时，向对象中添加新的属性，如果更新此属性的值，是不会更新视图的。</p>
+<p><strong>当vue的data里边声明或者已经赋值过的对象或者数组(数组里边的值是对象)时，向对象中添加新的属性，如果更新此属性的值，是不会更新视图的。</strong></p>
 <p>当页面初始化时候，vue会遍历data对象所有的属性，并使用object.defineProperty把这些属性全部转化为getter/setter，所以属性必须在 data 对象上存在才能让 Vue 转换它，这样才能让它是响应的。</p>
 <p>官方定义：<br>Vue 不允许在已经创建的实例上动态添加新的根级响应式属性 (root-level reactive property)。</p>
 <h4 id="方法1-set"><a href="#方法1-set" class="headerlink" title="方法1.$set"></a>方法1.$set</h4><figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs reasonml"><span class="hljs-comment">// 上传成功回调函数</span><br>handle<span class="hljs-constructor">AvatarSuccess(<span class="hljs-params">res</span>, <span class="hljs-params">file</span>)</span> &#123;<br>    this.<span class="hljs-constructor">$set(<span class="hljs-params">this</span>.<span class="hljs-params">form</span>,&#x27;<span class="hljs-params">imgUrl</span>&#x27;,<span class="hljs-params">res</span>.<span class="hljs-params">data</span>)</span>;<br>&#125;,<br></code></pre></td></tr></table></figure>
@@ -245,6 +245,20 @@
 <h4 id="MVVM的优点"><a href="#MVVM的优点" class="headerlink" title="MVVM的优点"></a>MVVM的优点</h4><p>1.低耦合。视图（View）可以独立于Model变化和修改，一个Model可以绑定到不同的View上，当View变化的时候Model可以不变化，当Model变化的时候View也可以不变；<br>2.可重用性。你可以把一些视图逻辑放在一个Model里面，让很多View重用这段视图逻辑。<br>3.独立开发。开发人员可以专注于业务逻辑和数据的开发(ViewModel)，设计人员可以专注于页面设计。<br>4.可测试。</p>
 <h3 id="computed-和-watch-的差异？"><a href="#computed-和-watch-的差异？" class="headerlink" title="computed 和 watch 的差异？"></a>computed 和 watch 的差异？</h3><p>（1）computed 是计算一个新的属性，并将该属性挂载到 Vue 实例上，而 watch 是监听已经存在且已挂载到 Vue 实例上的数据，所以用 watch 同样可以监听 computed 计算属性的变化。<br>（2）computed 本质是一个惰性求值的观察者，具有缓存性，只有当依赖变化后，第一次访问 computed 属性，才会计算新的值。而 watch 则是当数据发生变化便会调用执行函数。<br>（3）从使用场景上说，computed 适用一个数据被多个数据影响，而 watch 适用一个数据影响多个数据。</p>
 <p><a target="_blank" rel="noopener" href="https://juejin.im/post/5b98c4da6fb9a05d353c5fd7">《做面试的不倒翁：浅谈 Vue 中 computed 实现原理》</a><br><a target="_blank" rel="noopener" href="https://juejin.im/post/5af908ea5188254265399009">《深入理解 Vue 的 watch 实现原理及其实现方式》</a><br><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2021/04/18/Vue&computed%E8%AE%A1%E7%AE%97%E5%B1%9E%E6%80%A7/">我的博客</a></p>
+<h3 id="为什么使用axios"><a href="#为什么使用axios" class="headerlink" title="为什么使用axios"></a>为什么使用axios</h3><p>功能特点：<br>支持promise API<br>支持拦截请求和响应<br>支持转换请求和响应数据<br>axios  拦截器</p>
+<h3 id="v-if-v-show"><a href="#v-if-v-show" class="headerlink" title="v-if  v-show"></a>v-if  v-show</h3><p>v-show</p>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs arduino">该指令的作用是根据真假切换元素的显示状态<br>原理是修改元素的display，实现显示隐藏<br>指令后面的内容，最终都会解析为布尔值<br>值为<span class="hljs-literal">true</span>元素显示，值为<span class="hljs-literal">false</span>元素隐藏<br>数据改变之后，对应元素的显示状态会同步更新<br></code></pre></td></tr></table></figure>
+
+<p>v-if</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs dart">该指令的作用是根据表达式的真假来切换元素的显示状态<br>本质是通过操作dom元素来切换显示状态<br>表达式的值为<span class="hljs-keyword">true</span>,元素存在于dom中；为<span class="hljs-keyword">false</span>，从dom树中移除<br>频繁的切换使用v-<span class="hljs-keyword">show</span>,反之使用v-<span class="hljs-keyword">if</span>,前者的切换消耗小<br></code></pre></td></tr></table></figure>
+
+<h4 id="v-if在条件切换时，会对标签进行适当的创建和销毁，而v-show则仅在初始化时加载一次，因此v-if的开销相对来说会比v-show大"><a href="#v-if在条件切换时，会对标签进行适当的创建和销毁，而v-show则仅在初始化时加载一次，因此v-if的开销相对来说会比v-show大" class="headerlink" title="v-if在条件切换时，会对标签进行适当的创建和销毁，而v-show则仅在初始化时加载一次，因此v-if的开销相对来说会比v-show大"></a>v-if在条件切换时，会对标签进行适当的创建和销毁，而v-show则仅在初始化时加载一次，因此v-if的开销相对来说会比v-show大</h4><h3 id="vue-常用的修饰符？"><a href="#vue-常用的修饰符？" class="headerlink" title="vue 常用的修饰符？"></a>vue 常用的修饰符？</h3><p>.prevent: 提交事件不再重载页面；.stop: 阻止单击事件冒泡；.self: 当事件发生在该元素本身而不是子元素的时候会触发；.capture: 事件侦听，事件发生的时候会调用</p>
+<h3 id="keep-alive-组件有什么作用？"><a href="#keep-alive-组件有什么作用？" class="headerlink" title="keep-alive 组件有什么作用？"></a>keep-alive 组件有什么作用？</h3><p>如果你需要在组件切换的时候，保存一些组件的状态防止多次渲染，就可以使用 keep-alive 组件包裹需要保存的组件。</p>
+<h3 id="Vue中的key到底有什么⽤？"><a href="#Vue中的key到底有什么⽤？" class="headerlink" title="Vue中的key到底有什么⽤？"></a>Vue中的key到底有什么⽤？</h3><p>vue 中 key 值的作用可以分为两种情况来考虑。</p>
+<h4 id="第一种情况是-v-if-中使用-key"><a href="#第一种情况是-v-if-中使用-key" class="headerlink" title="第一种情况是 v-if 中使用 key"></a>第一种情况是 v-if 中使用 key</h4><p>由于 Vue 会尽可能高效地渲染元素，通常会复用已有元素而不是从头开始渲染。因此当我们使用 v-if 来实现元素切换的时候，如果切换前后含有相同类型的元素，那么这个元素就会被复用。如果是相同的 input 元素，那么切换前后用户的输入不会被清除掉，这样是不符合需求的。因此我们可以通过使用 key 来唯一的标识一个元素，这个情况下，使用 key 的元素不会被复用。这个时候 key 的作用是用来标识一个独立的元素。</p>
+<h4 id="第二种情况是-v-for-中使用-key"><a href="#第二种情况是-v-for-中使用-key" class="headerlink" title="第二种情况是 v-for 中使用 key"></a>第二种情况是 v-for 中使用 key</h4><p>用 v-for 更新已渲染过的元素列表时，它默认使用“就地复用”的策略。如果数据项的顺序发生了改变，Vue 不会移动 DOM 元素来匹配数据项的顺序，而是简单复用此处的每个元素。因此通过为每个列表项提供一个 key 值，来以便 Vue 跟踪元素的身份，从而高效的实现复用。这个时候 key 的作用是为了高效的更新渲染虚拟 DOM。</p>
+<p>详细资料可以参考：<br><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000016344599">《Vue 面试中，经常会被问到的面试题 Vue 知识点整理》</a><br><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/61064119">《Vue2.0 v-for 中 :key 到底有什么用？》</a><br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/RainyBear/p/8563101.html">《vue 中 key 的作用》</a></p>
+<h3 id="vue-中-mixin-和-mixins-区别？"><a href="#vue-中-mixin-和-mixins-区别？" class="headerlink" title="vue 中 mixin 和 mixins 区别？"></a>vue 中 mixin 和 mixins 区别？</h3><p>mixin 用于全局混入，会影响到每个组件实例。<br>mixins 应该是我们最常使用的扩展组件的方式了。如果多个组件中有相同的业务逻辑，就可以将这些逻辑剥离出来，通过mixins 混入代码，比如上拉下拉加载数据这种逻辑等等。另外需要注意的是 mixins 混入的钩子函数会先于组件内的钩子函数执行，并且在遇到同名选项的时候也会有选择性的进行合并<br>详细资料可以参考：<br><a target="_blank" rel="noopener" href="https://juejin.im/book/5bdc715fe51d454e755f75ef/section/5bdc731b51882516c56ced6f">《前端面试之道》</a><br><a target="_blank" rel="noopener" href="https://cn.vuejs.org/v2/guide/mixins.html">《混入》</a></p>
 
             </div>
             <hr>
