@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      15
+      16
        分钟
     </span>
   
@@ -232,6 +232,7 @@
 <h3 id="什么是ajax？ajax作用是什么？"><a href="#什么是ajax？ajax作用是什么？" class="headerlink" title="什么是ajax？ajax作用是什么？"></a>什么是ajax？ajax作用是什么？</h3><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">异步的javascript和<span class="hljs-keyword">xml</span>  <span class="hljs-title">AJAX</span> 是一种用于创建快速动态网页的技术。  ajax用来与后台交互<br></code></pre></td></tr></table></figure>
 
 <h3 id="原生js-ajax请求有几个步骤？分别是什么"><a href="#原生js-ajax请求有几个步骤？分别是什么" class="headerlink" title="原生js ajax请求有几个步骤？分别是什么"></a>原生js ajax请求有几个步骤？分别是什么</h3><figure class="highlight qml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs qml"><span class="hljs-comment">//创建 XMLHttpRequest 对象</span><br><span class="hljs-keyword">var</span> ajax = <span class="hljs-keyword">new</span> XMLHttpRequest();<br><span class="hljs-comment">//规定请求的类型、URL 以及是否异步处理请求。</span><br>ajax.open(<span class="hljs-string">&#x27;GET&#x27;</span>,<span class="hljs-built_in">url</span>,<span class="hljs-literal">true</span>);<br><span class="hljs-comment">//发送信息至服务器时内容编码类型</span><br>ajax.setRequestHeader(<span class="hljs-string">&quot;Content-type&quot;</span>, <span class="hljs-string">&quot;application/x-www-form-urlencoded&quot;</span>); <br><span class="hljs-comment">//发送请求</span><br>ajax.send(<span class="hljs-literal">null</span>);  <br><span class="hljs-comment">//接受服务器响应数据</span><br>ajax.onreadystatechange = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-keyword">if</span> (obj.readyState == <span class="hljs-number">4</span> &amp;&amp; (obj.status == <span class="hljs-number">200</span> || obj.status == <span class="hljs-number">304</span>)) &#123; <br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
 <h3 id="ajax几种请求方式？他们的优缺点？"><a href="#ajax几种请求方式？他们的优缺点？" class="headerlink" title="ajax几种请求方式？他们的优缺点？"></a>ajax几种请求方式？他们的优缺点？</h3><p>常用的post,get,delete。不常用copy、head、link等等。</p>
 <figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs pgsql"><span class="hljs-keyword">Get</span><br><span class="hljs-keyword">GET</span>请求的数据会附加在URL之后，用问号分割，多个参数用&amp;进行连接。<br><span class="hljs-keyword">GET</span>请求的数据会暴露在地址栏中。<br><span class="hljs-keyword">GET</span>请求URL的编码格式采用的是ASCII编码，而不是Unicode编码。<br><span class="hljs-keyword">GET</span>请求传输大小有限制，大小在<span class="hljs-number">2</span>KB。<br><span class="hljs-keyword">GET</span>相对安全性较差，会被浏览器主动缓存。<br><span class="hljs-keyword">GET</span>产生一个TCP数据包，head和data一起发送。<br><span class="hljs-keyword">GET</span>浏览器回退无害。<br><br><br>POST<br>POST请求会把数据放置在HTTP请求包的包体中，不会直接暴露给用户。<br>POST请求，理论上大小是不会限制的，但是实际上各个服务器会规定POST提交数据大小。<br>POST相对<span class="hljs-keyword">Get</span>更安全，因为参数不会保存浏览器立式或者是web服务器日志中。<br>POST产生两个TCP数据包，<span class="hljs-keyword">header</span>先发送，服务器响应<span class="hljs-number">100</span>ms然后继续，发送data，服务器<span class="hljs-number">200</span>然后返回数据。<br>POST浏览器回退重新请求。<br></code></pre></td></tr></table></figure>
 
@@ -253,11 +254,18 @@
 <ol start="2">
 <li><p>代理：写后端接口，在后端调用页面拿到返回值返回给html文件。相当于绕过了浏览器，就不会存在跨域问题。例；(nigx反向代理)</p>
 </li>
-<li><p>后端修改header  (CROS)跨域资源共享</p>
-<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs less"><span class="hljs-selector-tag">header</span>(<span class="hljs-string">&#x27;Access-Control-Allow-Origin:*&#x27;</span>);<span class="hljs-comment">//允许所有来源访问</span><br><span class="hljs-selector-tag">header</span>(<span class="hljs-string">&#x27;Access-Control-Allow-Method:POST,GET&#x27;</span>);<span class="hljs-comment">//允许访问的方式</span><br></code></pre></td></tr></table></figure></li>
+<li><p>CORS(Cross-origin resource sharing)跨域资源共享 服务器设置对CORS的支持原理：服务器设置Access-Control-Allow-Origin HTTP响应头之后，浏览器将会允许跨域请求</p>
+</li>
+</ol>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs less"><span class="hljs-selector-tag">header</span>(<span class="hljs-string">&#x27;Access-Control-Allow-Origin:*&#x27;</span>);<span class="hljs-comment">//允许所有来源访问</span><br><span class="hljs-selector-tag">header</span>(<span class="hljs-string">&#x27;Access-Control-Allow-Method:POST,GET&#x27;</span>);<span class="hljs-comment">//允许访问的方式</span><br></code></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>proxy代理 目前常用方式,通过服务器设置代理</li>
+<li>window.postMessage() 利用h5新特性window.postMessage()</li>
 </ol>
 <h4 id="http常见状态码有哪些？"><a href="#http常见状态码有哪些？" class="headerlink" title="http常见状态码有哪些？"></a>http常见状态码有哪些？</h4><p>一: 2开头状态码</p>
 <figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs basic"><span class="hljs-number">2</span>xx (成功)表示成功处理了请求的状态代码<br><span class="hljs-symbol">200 </span>(成功) 服务器已成功处理了请求。 通常。<br></code></pre></td></tr></table></figure>
+
 <p>二: 3开头状态码</p>
 <figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs basic"><span class="hljs-number">3</span>xx (重定向) 表示要完成请求，需要进一步操作。 通常，这些状态代码用来重定向。<br><span class="hljs-symbol">304 </span>(未修改) 自从上次请求后，请求的网页未修改过。 服务器返回此响应时，不会返回网页内容。<br></code></pre></td></tr></table></figure>
 
@@ -266,6 +274,7 @@
 
 <p>四: 5开头状态码</p>
 <figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs basic"><span class="hljs-number">5</span>xx(服务器错误)这些状态代码表示服务器在尝试处理请求时发生内部错误。 这些错误可能是服务器本身的错误，而不是请求出错<br><span class="hljs-symbol">500 </span>(服务器内部错误) 服务器遇到错误，无法完成请求。<br><br><span class="hljs-symbol">501 </span>(尚未实施) 服务器不具备完成请求的功能。 例如，服务器无法识别请求方法时可能会返回此代码。<br><br><span class="hljs-symbol">502 </span>(错误网关) 服务器作为网关或代理，从上游服务器收到无效响应。<br><br><span class="hljs-symbol">503 </span>(服务不可用) 服务器目前无法使用(由于超载或停机维护)。 通常，这只是暂时状态。<br><br><span class="hljs-symbol">504 </span>(网关超时) 服务器作为网关或代理，但是没有及时从上游服务器收到请求。<br><br><span class="hljs-symbol">505 </span>(HTTP 版本不受支持) 服务器不支持请求中所用的 HTTP 协议版本。<br><br></code></pre></td></tr></table></figure>
+
 <h4 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h4><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903573529034759">ajax常见面试题</a></p>
 
             </div>
