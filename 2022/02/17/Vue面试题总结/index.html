@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      4.6k 字
+      5.8k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      50
+      62
        分钟
     </span>
   
@@ -242,6 +242,8 @@
 <h3 id="为什么vue组件中的data是一个函数而不是一个对象？"><a href="#为什么vue组件中的data是一个函数而不是一个对象？" class="headerlink" title="为什么vue组件中的data是一个函数而不是一个对象？"></a>为什么vue组件中的data是一个函数而不是一个对象？</h3><p>如果 data 是一个对象，当复用组件时，因为 data 都会指向同一个引用类型地址，其中一个组件的 data 一旦发生修改，则其他重用的组件中的 data 也会被一并修改。</p>
 <p>如果 data 是一个返回对象的函数，因为每次重用组件时返回的都是一个新对象，引用地址不同，便不会出现如上问题。</p>
 <h3 id="vue和jquery的区别"><a href="#vue和jquery的区别" class="headerlink" title="vue和jquery的区别"></a>vue和jquery的区别</h3><p>vue相对于jquery有什么优点：<br>一. 解除jquery频繁操作dom，转为直接操作数据的思想。<br>二. vue支持双向绑定<br>view的变化，viewmodel感知到变化view变化，通知model发生改变。反之model发生改变，view也改变。<br>三. vue支持组件化<br>提高开发效率。重复功能可单独写到组件中，供其他地方调用。</p>
+<h3 id="单向数据流"><a href="#单向数据流" class="headerlink" title="单向数据流"></a>单向数据流</h3><p>一：单向数据流</p>
+<h4 id="单向数据流的意思是指数据的改变只能从一个方向修改"><a href="#单向数据流的意思是指数据的改变只能从一个方向修改" class="headerlink" title="单向数据流的意思是指数据的改变只能从一个方向修改"></a>单向数据流的意思是指数据的改变只能从一个方向修改</h4><p>举个栗子：如一个父组件有两个子组件，分别为1和2。父组件向子组件传递数据，两个组件都接收到了父组件传递过来的数据，在组件1中修改父组件传递过来的数据，子组件2和父组件的值不会发生变化。这就是单向的数据流，子组件不能直接改变父组件的状态。但是如果父组件改变相应的数据，两个子组件的数据也会发生相应的改变。</p>
 <h3 id="MVVM思想-重要"><a href="#MVVM思想-重要" class="headerlink" title="MVVM思想(重要)"></a>MVVM思想(重要)</h3><h4 id="什么是MVVM？"><a href="#什么是MVVM？" class="headerlink" title="什么是MVVM？"></a>什么是MVVM？</h4><p>视图模型双向绑定，是Model-View-ViewModel的缩写，也就是把MVC中的Controller演变成ViewModel。Model层代表数据模型，View代表UI组件，ViewModel是View和Model层的桥梁，数据会绑定到viewModel层并自动将数据渲染到页面中，视图变化的时候会通知viewModel层更新数据。以前是操作DOM结构更新视图，现在是数据驱动视图。</p>
 <h4 id="MVVM的优点"><a href="#MVVM的优点" class="headerlink" title="MVVM的优点"></a>MVVM的优点</h4><p>1.低耦合。视图（View）可以独立于Model变化和修改，一个Model可以绑定到不同的View上，当View变化的时候Model可以不变化，当Model变化的时候View也可以不变；<br>2.可重用性。你可以把一些视图逻辑放在一个Model里面，让很多View重用这段视图逻辑。<br>3.独立开发。开发人员可以专注于业务逻辑和数据的开发(ViewModel)，设计人员可以专注于页面设计。<br>4.可测试。</p>
 <h3 id="Vue底层实现原理"><a href="#Vue底层实现原理" class="headerlink" title="Vue底层实现原理"></a>Vue底层实现原理</h3><p>vue.js是采用数据劫持结合发布者-订阅者模式的方式，通过Object.defineProperty()来劫持各个属性的setter和getter，在数据变动时发布消息给订阅者，触发相应的监听回调<br>Vue是一个典型的MVVM框架，模型（Model）只是普通的javascript对象，修改它则试图（View）会自动更新。这种设计让状态管理变得非常简单而直观</p>
@@ -282,6 +284,7 @@
 
 <h4 id="v-if在条件切换时，会对标签进行适当的创建和销毁，而v-show则仅在初始化时加载一次，因此v-if的开销相对来说会比v-show大"><a href="#v-if在条件切换时，会对标签进行适当的创建和销毁，而v-show则仅在初始化时加载一次，因此v-if的开销相对来说会比v-show大" class="headerlink" title="v-if在条件切换时，会对标签进行适当的创建和销毁，而v-show则仅在初始化时加载一次，因此v-if的开销相对来说会比v-show大"></a>v-if在条件切换时，会对标签进行适当的创建和销毁，而v-show则仅在初始化时加载一次，因此v-if的开销相对来说会比v-show大</h4><h3 id="vue-常用的修饰符？"><a href="#vue-常用的修饰符？" class="headerlink" title="vue 常用的修饰符？"></a>vue 常用的修饰符？</h3><p>.prevent: 提交事件不再重载页面；.stop: 阻止单击事件冒泡；.self: 当事件发生在该元素本身而不是子元素的时候会触发；.capture: 事件侦听，事件发生的时候会调用</p>
 <h3 id="keep-alive-组件有什么作用？"><a href="#keep-alive-组件有什么作用？" class="headerlink" title="keep-alive 组件有什么作用？"></a>keep-alive 组件有什么作用？</h3><p>如果你需要在组件切换的时候，保存一些组件的状态防止多次渲染，就可以使用 keep-alive 组件包裹需要保存的组件。</p>
+<h4 id="keep-alive的实现"><a href="#keep-alive的实现" class="headerlink" title="keep-alive的实现"></a>keep-alive的实现</h4><p>作用：实现组件缓存，保持这些组件的状态，以避免反复渲染导致的性能问题。 需要缓存组件 频繁切换，不需要重复渲染<br>场景：tabs标签页 后台导航，vue性能优化<br>原理：Vue.js内部将DOM节点抽象成了一个个的<strong>  VNode节点 </strong>，keep-alive组件的缓存也是基于VNode节点的而不是直接存储DOM结构。它将满足条件（pruneCache与pruneCache）的组件在cache对象中缓存起来，在需要重新渲染的时候再将vnode节点从cache对象中取出并渲染。</p>
 <h3 id="Vue中的key到底有什么⽤？"><a href="#Vue中的key到底有什么⽤？" class="headerlink" title="Vue中的key到底有什么⽤？"></a>Vue中的key到底有什么⽤？</h3><p>vue 中 key 值的作用可以分为两种情况来考虑。</p>
 <h4 id="第一种情况是-v-if-中使用-key"><a href="#第一种情况是-v-if-中使用-key" class="headerlink" title="第一种情况是 v-if 中使用 key"></a>第一种情况是 v-if 中使用 key</h4><p>由于 Vue 会尽可能高效地渲染元素，通常会复用已有元素而不是从头开始渲染。因此当我们使用 v-if 来实现元素切换的时候，如果切换前后含有相同类型的元素，那么这个元素就会被复用。如果是相同的 input 元素，那么切换前后用户的输入不会被清除掉，这样是不符合需求的。因此我们可以通过使用 key 来唯一的标识一个元素，这个情况下，使用 key 的元素不会被复用。这个时候 key 的作用是用来标识一个独立的元素。</p>
 <h4 id="第二种情况是-v-for-中使用-key"><a href="#第二种情况是-v-for-中使用-key" class="headerlink" title="第二种情况是 v-for 中使用 key"></a>第二种情况是 v-for 中使用 key</h4><p>用 v-for 更新已渲染过的元素列表时，它默认使用“就地复用”的策略。如果数据项的顺序发生了改变，Vue 不会移动 DOM 元素来匹配数据项的顺序，而是简单复用此处的每个元素。因此通过为每个列表项提供一个 key 值，来以便 Vue 跟踪元素的身份，从而高效的实现复用。这个时候 key 的作用是为了高效的更新渲染虚拟 DOM。</p>
@@ -314,6 +317,33 @@
 <p>$emit/$on 自定义事件 兄弟组件通信Event Bus 实现跨组件通信 Vue.prototype.$bus = new Vue() 自定义事件</p>
 <p>vuex 跨级组件通信Vuex、$attrs、$listeners Provide、inject</p>
 <h3 id="为何vue采用异步渲染"><a href="#为何vue采用异步渲染" class="headerlink" title="为何vue采用异步渲染"></a>为何vue采用异步渲染</h3><p>最终一次性更新DOM，避免重复操作DOM，耗费性能。</p>
+<h3 id="nextTick的实现原理是什么？"><a href="#nextTick的实现原理是什么？" class="headerlink" title="nextTick的实现原理是什么？"></a>nextTick的实现原理是什么？</h3><p>在下次 DOM 更新循环结束之后执行延迟回调，在修改数据之后立即使用 nextTick 来获取更新后的 DOM。 nextTick主要使用了宏任务和微任务。 根据执行环境分别尝试采用Promise、MutationObserver、setImmediate，如果以上都不行则采用setTimeout定义了一个异步方法，多次调用nextTick会将方法存入队列中，通过这个异步方法清空当前队列。</p>
+<h3 id="nextTick的实现"><a href="#nextTick的实现" class="headerlink" title="nextTick的实现"></a>nextTick的实现</h3><ol>
+<li>nextTick是Vue提供的一个全局API,是在下次DOM更新循环结束之后执行延迟回调，在修改数据之后使用$nextTick，则可以在回调中获取更新后的DOM；</li>
+<li>Vue在更新DOM时是异步执行的。只要侦听到数据变化，Vue将开启1个队列，并缓冲在同一事件循环中发生的所有数据变更。如果同一个watcher被多次触发，只会被推入到队列中-次。这种在缓冲时去除重复数据对于避免不必要的计算和DOM操作是非常重要的。nextTick方法会在队列中加入一个回调函数，确保该函数在前面的dom操作完成后才调用；</li>
+<li>比如，我在干什么的时候就会使用nextTick，传一个回调函数进去，在里面执行dom操作即可；</li>
+<li>我也有简单了解nextTick实现，它会在callbacks里面加入我们传入的函数，然后用timerFunc异步方式调用它们，首选的异步方式会是Promise。这让我明白了为什么可以在nextTick中看到dom操作结果。</li>
+</ol>
+<h3 id="使用过插槽么？用的是具名插槽还是匿名插槽或作用域插槽"><a href="#使用过插槽么？用的是具名插槽还是匿名插槽或作用域插槽" class="headerlink" title="使用过插槽么？用的是具名插槽还是匿名插槽或作用域插槽"></a>使用过插槽么？用的是具名插槽还是匿名插槽或作用域插槽</h3><p>vue中的插槽是一个非常好用的东西slot说白了就是一个占位的<br>在vue当中插槽包含三种</p>
+<ol>
+<li>一种是默认插槽（匿名）</li>
+<li>一种是具名插槽</li>
+<li>还有一种就是作用域插槽<br>匿名插槽就是没有名字的只要默认的都填到这里具名插槽指的是具有名字的</li>
+</ol>
+<p><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2021/05/01/Vue%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0(%E4%BA%94)/">博客</a></p>
+<h3 id="Vuex的理解及使用场景"><a href="#Vuex的理解及使用场景" class="headerlink" title="Vuex的理解及使用场景"></a>Vuex的理解及使用场景</h3><ul>
+<li>Vuex 是一个专为 Vue 应用程序开发的状态管理模式。每一个 Vuex 应用的核心就是 store（仓库）。<br>Vuex 的状态存储是响应式的；当 Vue 组件从 store 中读取状态的时候，<br>若 store 中的状态发生变化，那么相应的组件也会相应地得到高效更新</li>
+<li>改变 store 中的状态的唯一途径就是显式地提交 (commit) mutation， 这样使得我们可以方便地跟踪每一个状态的变化 Vuex主要包括以下几个核心模块：</li>
+</ul>
+<ol>
+<li>state：定义了应用的状态数据</li>
+<li>Getter：在 store 中定义“getter”（可以认为是 store 的计算属性），<br>就像计算属性一样，getter 的返回值会根据它的依赖被缓存起来， 且只有当它的依赖值发生了改变才会被重新计算</li>
+<li>Mutation：是唯一更改 store 中状态的方法，且必须是同步函数</li>
+<li>Action：用于提交 mutation，而不是直接变更状态，可以包含任意异步操作</li>
+<li>Module：允许将单一的 Store 拆分为多个 store 且同时保存在单一的状态树中</li>
+</ol>
+<p><img src="/imageO/VueX.jpg" srcset="/img/loading.gif" lazyload alt="vuex"></p>
+<p><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2021/05/07/Vue%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0(%E4%B8%83)/">博客</a></p>
 
             </div>
             <hr>
