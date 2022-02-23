@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      6.9k 字
+      9.8k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      73
+      105
        分钟
     </span>
   
@@ -369,7 +369,64 @@
 <blockquote>
 <p>一种比较周全的对策是：接收方创建一预处理线程，对接收到的数据包进行预处理，将粘连的包分开。实验证明这种方法是高效可行的。</p>
 </blockquote>
-<h2 id="网路安全"><a href="#网路安全" class="headerlink" title="网路安全"></a>网路安全</h2>
+<h2 id="网路安全"><a href="#网路安全" class="headerlink" title="网路安全"></a>网路安全</h2><h3 id="什么是-XSS？如何预防？"><a href="#什么是-XSS？如何预防？" class="headerlink" title="什么是 XSS？如何预防？"></a>什么是 XSS？如何预防？</h3><p>XSS 全称是 Cross Site Scripting ,为了与CSS区分开来，故简称 XSS，翻译过来就是“跨站脚本”。<br>XSS是指黑客往 HTML 文件中或者 DOM 中注入恶意脚本，从而在用户浏览页面时利用注入的恶意脚本对用户实施攻击的一种手段。<br>最开始的时候，这种攻击是通过跨域来实现的，所以叫“跨域脚本”。发展到现在，往HTML文件中中插入恶意代码方式越来越多，所以是否跨域注入脚本已经不是唯一的注入手段了，但是 XSS 这个名字却一直保留至今。<br>注入恶意脚本可以完成这些事情：</p>
+<ol>
+<li>窃取Cookie</li>
+<li>监听用户行为，比如输入账号密码后之间发给黑客服务器</li>
+<li>在网页中生成浮窗广告</li>
+<li>修改DOM伪造登入表单</li>
+</ol>
+<p>一般的情况下，XSS攻击有三种实现方式</p>
+<p>存储型 XSS 攻击<br>反射型 XSS 攻击<br>基于 DOM 的 XSS 攻击</p>
+<h4 id="存储型-XSS-攻击"><a href="#存储型-XSS-攻击" class="headerlink" title="存储型 XSS 攻击"></a>存储型 XSS 攻击</h4><p>存储型 XSS 攻击大致步骤如下：</p>
+<ol>
+<li>首先黑客利用站点漏洞将一段恶意 JavaScript 代码提交到网站的数据库中；</li>
+<li>然后用户向网站请求包含了恶意 JavaScript 脚本的页面；</li>
+<li>当用户浏览该页面的时候，恶意脚本就会将用户的 Cookie 信息等数据上传到服务器。</li>
+</ol>
+<p>比如常见的场景：</p>
+<p>在评论区提交一份脚本代码，假设前后端没有做好转义工作，那内容上传到服务器，在页面渲染的时候就会直接执行，相当于执行一段未知的JS代码。这就是存储型 XSS 攻击。</p>
+<h4 id="反射型-XSS-攻击"><a href="#反射型-XSS-攻击" class="headerlink" title="反射型 XSS 攻击"></a>反射型 XSS 攻击</h4><p>反射型 XSS 攻击指的就是恶意脚本作为<strong>「网络请求的一部分」</strong>，随后网站又把恶意的JavaScript脚本返回给用户，当恶意 JavaScript 脚本在用户页面中被执行时，黑客就可以利用该脚本做一些恶意操作。<br>举个例子:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs xml">http://dragon.com?query=<span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">alert(<span class="hljs-string">&quot;你受到了XSS攻击&quot;</span>)</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>如上，服务器拿到后解析参数query，最后将内容返回给浏览器，浏览器将这些内容作为HTML的一部分解析，发现是Javascript脚本，直接执行，这样子被XSS攻击了。<br>这也就是反射型名字的由来，将恶意脚本作为参数，通过网络请求，最后经过服务器，在反射到HTML文档中，执行解析。<br>主要注意的就是，<strong>「服务器不会存储这些恶意的脚本，这也算是和存储型XSS攻击的区别吧」。</strong></p>
+<h4 id="基于-DOM-的-XSS-攻击"><a href="#基于-DOM-的-XSS-攻击" class="headerlink" title="基于 DOM 的 XSS 攻击"></a>基于 DOM 的 XSS 攻击</h4><p>基于 DOM 的 XSS 攻击是不牵涉到页面 Web 服务器的。具体来讲，黑客通过各种手段将恶意脚本注入用户的页面中，在数据传输的时候劫持网络数据包<br>常见的劫持手段有：</p>
+<p>WIFI路由器劫持<br>本地恶意软件</p>
+<h4 id="阻止-XSS-攻击的策略"><a href="#阻止-XSS-攻击的策略" class="headerlink" title="阻止 XSS 攻击的策略"></a>阻止 XSS 攻击的策略</h4><p>以上讲述的XSS攻击原理，都有一个共同点：让恶意脚本直接在浏览器执行。<br>针对三种不同形式的XSS攻击，有以下三种解决办法</p>
+<h5 id="对输入脚本进行过滤或转码"><a href="#对输入脚本进行过滤或转码" class="headerlink" title="对输入脚本进行过滤或转码"></a>对输入脚本进行过滤或转码</h5><p>对用户输入的信息过滤或者是转码<br>举个例子👇<br>转码后👇</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-symbol">&amp;lt;</span>script<span class="hljs-symbol">&amp;gt;</span>alert(<span class="hljs-symbol">&amp;#39;</span>你受到XSS攻击了<span class="hljs-symbol">&amp;#39;</span>)<span class="hljs-symbol">&amp;lt;</span>/script<span class="hljs-symbol">&amp;gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>这样的代码在 html 解析的过程中是无法执行的。<br>当然了对于<code>&lt;script&gt;、&lt;img&gt;、&lt;a&gt;</code>等关键字标签也是可以过来的，效果如下👇</p>
+<p>最后什么都没有剩下了</p>
+<h5 id="利用-CSP"><a href="#利用-CSP" class="headerlink" title="利用 CSP"></a>利用 CSP</h5><p>该安全策略的实现基于一个称作 Content-Security-Policy的 HTTP 首部。<br>可以移步MDN，有更加规范的解释。我在这里就是梳理一下吧。<br>CSP，即浏览器中的内容安全策略，它的核心思想大概就是服务器决定浏览器加载哪些资源，具体来说有几个功能👇</p>
+<p>限制加载其他域下的资源文件，这样即使黑客插入了一个 JavaScript 文件，这个 JavaScript 文件也是无法被加载的；<br>禁止向第三方域提交数据，这样用户数据也不会外泄；<br>提供上报机制，能帮助我们及时发现 XSS 攻击。<br>禁止执行内联脚本和未授权的脚本；</p>
+<h5 id="利用-HttpOnly"><a href="#利用-HttpOnly" class="headerlink" title="利用 HttpOnly"></a>利用 HttpOnly</h5><p>由于很多 XSS 攻击都是来盗用 Cookie 的，因此还可以通过使用 HttpOnly 属性来保护我们 Cookie 的安全。这样子的话，JavaScript 便无法读取 Cookie 的值。这样也能很好的防范 XSS 攻击。<br>通常服务器可以将某些 Cookie 设置为 HttpOnly 标志，HttpOnly 是服务器通过 HTTP 响应头来设置的，下面是打开 Google 时，HTTP 响应头中的一段：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">set</span>-cookie: NID=<span class="hljs-number">189</span>=M<span class="hljs-number">8</span>l<span class="hljs-number">6</span>-z<span class="hljs-number">41</span>asXtm<span class="hljs-number">2</span>uEwcOC<span class="hljs-number">5</span>oh<span class="hljs-number">9</span>djkffOMhWqQrlnCtOI; expires=Sat, <span class="hljs-number">18</span>-Apr-<span class="hljs-number">2020</span> <span class="hljs-number">06</span>:<span class="hljs-number">52</span>:<span class="hljs-number">22</span> GMT; path=/; domain=.google.com; HttpOnly<br></code></pre></td></tr></table></figure>
+
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>XSS 攻击是指浏览器中执行恶意脚本, 然后拿到用户的信息进行操作。主要分为存储型、反射型和文档型。防范的措施包括:</p>
+<p>对输入内容过滤或者转码，尤其是类似于<code>&lt;script&gt;、&lt;img&gt;、&lt;a&gt;</code>标签<br>利用CSP<br>利用Cookie的HttpOnly属性</p>
+<p>除了以上策略之外，我们还可以通过添加验证码防止脚本冒充用户提交危险操作。而对于一些不受信任的输入，还可以限制其输入长度，这样可以增大 XSS 攻击的难度。<br><a target="_blank" rel="noopener" href="https://juejin.cn/post/6864398060702760968#heading-93">掘金</a></p>
+<h3 id="什么是-CSP？"><a href="#什么是-CSP？" class="headerlink" title="什么是 CSP？"></a>什么是 CSP？</h3><p>CSP 指的是内容安全策略，它的本质是建立一个白名单，告诉浏览器哪些外部资源可以加载和执行。我们只需要配置规则，如何拦截由浏览器自己来实现。</p>
+<p>通常有两种方式来开启 CSP，一种是设置 HTTP 首部中的 Content-Security-Policy，一种是设置 meta 标签的方式<code>&lt;meta http-equiv=&quot;Content-Security-Policy&quot;&gt;</code></p>
+<h3 id="什么是-CSRF-攻击？如何防范-CSRF-攻击？"><a href="#什么是-CSRF-攻击？如何防范-CSRF-攻击？" class="headerlink" title="什么是 CSRF 攻击？如何防范 CSRF 攻击？"></a>什么是 CSRF 攻击？如何防范 CSRF 攻击？</h3><p>CSRF 攻击指的是跨站请求伪造攻击，攻击者诱导用户进入一个第三方网站，然后该网站向被攻击网站发送跨站请求。如果用户在被<br>攻击网站中保存了登录状态，那么攻击者就可以利用这个登录状态，绕过后台的用户验证，冒充用户向服务器执行一些操作。</p>
+<p>CSRF 攻击的本质是利用了 cookie 会在同源请求中携带发送给服务器的特点，以此来实现用户的冒充。</p>
+<p>一般的 CSRF 攻击类型有三种：</p>
+<p>第一种是 GET 类型的 CSRF 攻击，比如在网站中的一个 img 标签里构建一个请求，当用户打开这个网站的时候就会自动发起提<br>交。</p>
+<p>第二种是 POST 类型的 CSRF 攻击，比如说构建一个表单，然后隐藏它，当用户进入页面时，自动提交这个表单。</p>
+<p>第三种是链接类型的 CSRF 攻击，比如说在 a 标签的 href 属性里构建一个请求，然后诱导用户去点击。</p>
+<p>CSRF 可以用下面几种方法来防护：</p>
+<p>第一种是同源检测的方法，服务器根据 http 请求头中 origin 或者 referer 信息来判断请求是否为允许访问的站点，从而对请求进行过滤。当 origin 或者 referer 信息都不存在的时候，直接阻止。这种方式的缺点是有些情况下 referer 可以被伪造。还有就是我们这种方法同时把搜索引擎的链接也给屏蔽了，所以一般网站会允许搜索引擎的页面请求，但是相应的页面请求这种请求方式也可能被攻击者给利用。</p>
+<p>第二种方法是使用 CSRF Token 来进行验证，服务器向用户返回一个随机数 Token ，当网站再次发起请求时，在请求参数中加入服务器端返回的 token ，然后服务器对这个 token 进行验证。这种方法解决了使用 cookie 单一验证方式时，可能会被冒用的问题，但是这种方法存在一个缺点就是，我们需要给网站中的所有请求都添加上这个 token，操作比较繁琐。还有一个问题是一般不会只有一台网站服务器，如果我们的请求经过负载平衡转移到了其他的服务器，但是这个服务器的 session 中没有保留这个 token 的话，就没有办法验证了。这种情况我们可以通过改变 token 的构建方式来解决。</p>
+<p>第三种方式使用双重 Cookie 验证的办法，服务器在用户访问网站页面时，向请求域名注入一个Cookie，内容为随机字符串，然后当用户再次向服务器发送请求的时候，从 cookie 中取出这个字符串，添加到 URL 参数中，然后服务器通过对 cookie 中的数据和参数中的数据进行比较，来进行验证。使用这种方式是利用了攻击者只能利用 cookie，但是不能访问获取 cookie 的特点。并且这种方法比 CSRF Token 的方法更加方便，并且不涉及到分布式访问的问题。这种方法的缺点是如果网站存在 XSS 漏洞的，那么这种方式会失效。同时这种方式不能做到子域名的隔离。</p>
+<p>第四种方式是使用在设置 cookie 属性的时候设置 Samesite ，限制 cookie 不能作为被第三方使用，从而可以避免被攻击者利用。Samesite 一共有两种模式，一种是严格模式，在严格模式下 cookie 在任何情况下都不可能作为第三方 Cookie 使用，在宽松模式下，cookie 可以被请求是 GET 请求，且会发生页面跳转的请求所使用。</p>
+<h3 id="什么是-Samesite-Cookie-属性？"><a href="#什么是-Samesite-Cookie-属性？" class="headerlink" title="什么是 Samesite Cookie 属性？"></a>什么是 Samesite Cookie 属性？</h3><p>Samesite Cookie 表示同站 cookie，避免 cookie 被第三方所利用。</p>
+<p>将 Samesite 设为 strict ，这种称为严格模式，表示这个 cookie 在任何情况下都不可能作为第三方 cookie。</p>
+<p>将 Samesite 设为 Lax ，这种模式称为宽松模式，如果这个请求是个 GET 请求，并且这个请求改变了当前页面或者打开了新的页面，那么这个 cookie 可以作为第三方 cookie，其余情况下都不能作为第三方 cookie。</p>
+<p>使用这种方法的缺点是，因为它不支持子域，所以子域没有办法与主域共享登录信息，每次转入子域的网站，都回重新登录。还有一个问题就是它的兼容性不够好。</p>
+<h3 id="什么是点击劫持？如何防范点击劫持？"><a href="#什么是点击劫持？如何防范点击劫持？" class="headerlink" title="什么是点击劫持？如何防范点击劫持？"></a>什么是点击劫持？如何防范点击劫持？</h3><p>点击劫持是一种视觉欺骗的攻击手段，攻击者将需要攻击的网站通过 iframe 嵌套的方式嵌入自己的网页中，并将 iframe 设置为透明，在页面中透出一个按钮诱导用户点击。</p>
+<p>我们可以在 http 相应头中设置 X-FRAME-OPTIONS 来防御用 iframe 嵌套的点击劫持攻击。通过不同的值，可以规定页面在特<br>定的一些情况才能作为 iframe 来使用。</p>
+<h3 id="SQL-注入攻击？"><a href="#SQL-注入攻击？" class="headerlink" title="SQL 注入攻击？"></a>SQL 注入攻击？</h3><p>SQL 注入攻击指的是攻击者在 HTTP 请求中注入恶意的 SQL 代码，服务器使用参数构建数据库 SQL 命令时，恶意 SQL 被一起构<br>造，破坏原有 SQL 结构，并在数据库中执行，达到编写程序时意料之外结果的攻击行为。</p>
+
             </div>
             <hr>
             <div>
