@@ -1,0 +1,546 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/2.jpg">
+  <link rel="icon" href="/img/2.jpg">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="DragonPeng">
+  <meta name="keywords" content="">
+  
+  <title>计网+HTTP+浏览器+网络安全面试题总结 - DragonPeng的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>DragonPeng' blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/page1.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="计网+HTTP+浏览器+网络安全面试题总结">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-02-18 20:15" pubdate>
+        February 18, 2022 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.8k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      30
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">计网+HTTP+浏览器+网络安全面试题总结</h1>
+            
+            <div class="markdown-body">
+              <p>总结了最近的一些面试题和之前的知识点</p>
+<hr>
+<h2 id="计网-HTTP"><a href="#计网-HTTP" class="headerlink" title="计网+HTTP"></a>计网+HTTP</h2><h3 id="应用层"><a href="#应用层" class="headerlink" title="应用层"></a>应用层</h3><p>应用层协议定义了应用进程间的交互和通信规则，不同主机的应用进程间如何相互传递报文，比如传递的报文的类型、格式、  有哪些字段等等。</p>
+<h3 id="HTTP-协议"><a href="#HTTP-协议" class="headerlink" title="HTTP 协议"></a>HTTP 协议</h3><p>HTTP 是超文本传输协议，它定义了客户端和服务器之间交换报文的格式和方式，默认使用 80 端口。它使用 TCP 作为传输层协议，保证了数据传输的可靠性。<br>HTTP 是一个无状态的协议，HTTP 服务器不会保存关于客户的任何信息。</p>
+<p>HTTP 有两种连接模式，一种是持续连接，一种非持续连接。非持续连接指的是服务器必须为每一个请求的对象建立和维护一个全新的连接。持续连接下，TCP 连接默认不关闭，可以被多个请求复用。采用持续连接的好处是可以避免每次建立 TCP连接三次握手时所花费的时间。</p>
+<p>在 HTTP1.0 以前使用的非持续的连接，但是可以在请求时，加上 Connection: keep-alive 来要求服务器不要关闭 TCP 连接。HTTP1.1 以后默认采用的是持续的连接。目前对于同一个域，大多数浏览器支持同时建立 6 个持久连接。</p>
+<h3 id="HTTP-请求报文"><a href="#HTTP-请求报文" class="headerlink" title="HTTP 请求报文"></a>HTTP 请求报文</h3><h4 id="HTTP-报文有两种，一种是请求报文，一种是响应报文"><a href="#HTTP-报文有两种，一种是请求报文，一种是响应报文" class="headerlink" title="HTTP 报文有两种，一种是请求报文，一种是响应报文"></a>HTTP 报文有两种，一种是请求报文，一种是响应报文</h4><p>HTTP 请求报文的格式如下：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">GET</span> / HTTP/<span class="hljs-number">1</span>.<span class="hljs-number">1</span>User-Agent: Mozilla/<span class="hljs-number">5</span>.<span class="hljs-number">0</span> (Macintosh; Intel Mac OS X <span class="hljs-number">10</span>_<span class="hljs-number">10</span>_<span class="hljs-number">5</span>)Accept: */*<br></code></pre></td></tr></table></figure>
+
+<p>HTTP 请求报文的第一行叫做请求行，后面的行叫做首部行，首部行后还可以跟一个实体主体。请求首部之后有一个空行，这<br>个空行不能省略，它用来划分首部与实体。</p>
+<p>请求行包含三个字段：方法字段、URL 字段和 HTTP 版本字段。</p>
+<p>方法字段可以取几种不同的值，一般有 GET、POST、HEAD、PUT 和 DELETE。<br>一般 GET 方法只被用于向服务器获取数据。<br>POST 方法用于将实体提交到指定的资源，通常会造成服务器资源的修改。<br>HEAD 方法与 GET 方法类似，但是在返回的响应中，不包含请求对象。<br>PUT 方法用于上传文件到服务器，<br>DELETE 方法用于删除服务器上的对象。<br>虽然请求的方法很多，但更多表达的是一种语义上的区别，并不是说 POST 能做的事情，GET 就不能做了，主要看我们如何选择。更多的方法可以参<br>看  <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Methods">文档</a>。</p>
+<h3 id="HTTP-响应报文"><a href="#HTTP-响应报文" class="headerlink" title="HTTP 响应报文"></a>HTTP 响应报文</h3><p>HTTP 响应报文的格式如下：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">HTTP</span>/<span class="hljs-number">1</span>.<span class="hljs-number">0</span> <span class="hljs-number">200</span> OKContent-Type: text/plainContent-Length: <span class="hljs-number">137582</span>Expires: Thu, <span class="hljs-number">05</span> Dec <span class="hljs-number">1997</span> <span class="hljs-number">16</span>:<span class="hljs-number">00</span>:<span class="hljs-number">00</span> GMTLast-Modified: Wed, <span class="hljs-number">5</span> August <span class="hljs-number">1996</span> <span class="hljs-number">15</span>:<span class="hljs-number">55</span>:<span class="hljs-number">28</span> GMTServer: Apache <span class="hljs-number">0</span>.<span class="hljs-number">84</span>&lt;html&gt; &lt;body&gt;Hello World&lt;/body&gt;&lt;/html&gt;<br></code></pre></td></tr></table></figure>
+
+<p>HTTP 响应报文的第一行叫做状态行，后面的行是首部行，最后是实体主体。<br>状态行包含了三个字段：协议版本字段、状态码和相应的状态信息。<br>实体部分是报文的主要部分，它包含了所请求的对象。<br>常见的状态有</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs plain">200-请求成功、202-服务器端已经收到请求消息，但是尚未进行处理<br>301-永久移动、302-临时移动、304-所请求的资源未修改、<br>400-客户端请求的语法错误、404-请求的资源不存在<br>500-服务器内部错误。<br>一般 1XX 代表服务器接收到请求、2XX 代表成功、3XX 代表重定向、4XX 代表客户端错误、5XX 代表服务器端错误。<br></code></pre></td></tr></table></figure>
+
+<p>更多关于状态码的可以查看：</p>
+<p><a target="_blank" rel="noopener" href="https://www.runoob.com/http/http-status-codes.html">《HTTP 状态码》</a></p>
+<h4 id="首部行"><a href="#首部行" class="headerlink" title="首部行"></a>首部行</h4><p>首部可以分为四种首部，请求首部、响应首部、通用首部和实体首部。通用首部和实体首部在请求报文和响应报文中都可以设<br>置，区别在于请求首部和响应首部。<br>常见的请求首部有 Accept 可接收媒体资源的类型、Accept-Charset 可接收的字符集、Host 请求的主机名。<br>常见的响应首部有 ETag 资源的匹配信息，Location 客户端重定向的 URI。<br>常见的通用首部有 Cache-Control 控制缓存策略、Connection 管理持久连接。<br>常见的实体首部有 Content-Length 实体主体的大小、Expires 实体主体的过期时间、Last-Modified 资源的最后修改时间。<br>更多关于首部的资料可以查看：<br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/jycboy/p/http_head.html">《HTTP 首部字段详细介绍》</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_34289537/article/details/52971516">《图解 HTTP》</a></p>
+<h3 id="1-http-和-https-的基本概念"><a href="#1-http-和-https-的基本概念" class="headerlink" title="1.http 和 https 的基本概念"></a>1.http 和 https 的基本概念</h3><p>http: 是一个客户端和服务器端请求和应答的标准（TCP），用于从 WWW 服务器传输超文本到本地浏览器的超文本传输协议。<br>https:是以安全为目标的 HTTP 通道，即 HTTP 下 加入 SSL 层进行加密。其作用是：建立一个信息安全通道，来确保数据的传输，确保网站的真实性。</p>
+<h3 id="2-http-和-https-的区别及优缺点？"><a href="#2-http-和-https-的区别及优缺点？" class="headerlink" title="2.http 和 https 的区别及优缺点？"></a>2.http 和 https 的区别及优缺点？</h3><ol>
+<li>http 是超文本传输协议，信息是明文传输，HTTPS 协议要比 http 协议安全，https 是具有安全性的 ssl 加密传输协议，可防止数据在传输过程中被窃取、改变，确保数据的完整性(当然这种安全性并非绝对的，对于更深入的 Web 安全问题，此处暂且不表)。</li>
+<li>http 协议的默认端口为 80，https 的默认端口为 443。</li>
+<li>http 的连接很简单，是无状态的。https 握手阶段比较费时，会使页面加载时间延长 50%，增加 10%~20%的耗电。</li>
+<li>https 缓存不如 http 高效，会增加数据开销。</li>
+<li>Https 协议需要 ca 证书，费用较高，功能越强大的证书费用越高。</li>
+<li>SSL 证书需要绑定 IP，不能再同一个 IP 上绑定多个域名，IPV4 资源支持不了这种消耗。</li>
+</ol>
+<h3 id="3-https-协议的工作原理"><a href="#3-https-协议的工作原理" class="headerlink" title="3.https 协议的工作原理"></a>3.https 协议的工作原理</h3><p>客户端在使用 HTTPS 方式与 Web 服务器通信时有以下几个步骤：</p>
+<ol>
+<li>客户端使用 https url 访问服务器，则要求 web 服务器建立 ssl 链接。</li>
+<li>web 服务器接收到客户端的请求之后，会将网站的证书（证书中包含了公钥），传输给客户端。</li>
+<li>客户端和 web 服务器端开始协商 SSL 链接的安全等级，也就是加密等级。</li>
+<li>客户端浏览器通过双方协商一致的安全等级，建立会话密钥，然后通过网站的公钥来加密会话密钥，并传送给网站。</li>
+<li>web 服务器通过自己的私钥解密出会话密钥。</li>
+<li>web 服务器通过会话密钥加密与客户端之间的通信。<br>传送门 ☞ #<a target="_blank" rel="noopener" href="https://juejin.cn/post/6995109407545622542">解读 HTTP1/HTTP2/HTTP3</a></li>
+</ol>
+<h3 id="TCP三次握手"><a href="#TCP三次握手" class="headerlink" title="TCP三次握手"></a>TCP三次握手</h3><ol>
+<li>第一次握手：建立连接时，客户端发送syn包（syn=j）到服务器，并进入SYN_SENT状态，等待服务器确认；SYN：同步序列编号（Synchronize Sequence Numbers）。</li>
+<li>第二次握手：服务器收到syn包并确认客户的SYN（ack=j+1），同时也发送一个自己的SYN包（syn=k），即SYN+ACK包，此时服务器进入SYN_RECV状态；</li>
+<li>第三次握手：客户端收到服务器的SYN+ACK包，向服务器发送确认包ACK(ack=k+1），此包发送完毕，客户端和服务器进入ESTABLISHED（TCP连接成功）状态，完成三次握手。</li>
+</ol>
+<blockquote>
+<p>握手过程中传送的包里不包含数据，三次握手完毕后，客户端与服务器才正式开始传送数据。</p>
+</blockquote>
+<h4 id="目的：-建立可靠的通信通道-，数据的发送和接收（双方正常）"><a href="#目的：-建立可靠的通信通道-，数据的发送和接收（双方正常）" class="headerlink" title="目的： 建立可靠的通信通道 ，数据的发送和接收（双方正常）"></a>目的： 建立可靠的通信通道 ，数据的发送和接收（双方正常）</h4><p>翻译成大白话就是： 客户端：你能接收到我的消息吗？ 服务端：可以的，那你能接收到我的回复吗？ 客户端：可以，那我们开始聊正事吧。</p>
+<h4 id="为什么是3次？：避免历史连接，确认客户端发来的请求是这次通信的人-为什么不是4次？：3次够了第四次浪费"><a href="#为什么是3次？：避免历史连接，确认客户端发来的请求是这次通信的人-为什么不是4次？：3次够了第四次浪费" class="headerlink" title="为什么是3次？：避免历史连接，确认客户端发来的请求是这次通信的人 为什么不是4次？：3次够了第四次浪费"></a>为什么是3次？：避免历史连接，确认客户端发来的请求是这次通信的人 为什么不是4次？：3次够了第四次浪费</h4><h3 id="TCP-协议四次挥手"><a href="#TCP-协议四次挥手" class="headerlink" title="TCP 协议四次挥手"></a>TCP 协议四次挥手</h3><p>客户端-发送一个FIN,用来关闭客户端到服务器的数据传输<br>服务器-收到这个FIN,它发回一个ACK，确认序号为收到的序号加1.和SYN一样，一个FIN将占用一个序号<br>服务器-关闭与客户端的连接，发送一个FIN给客户端<br>客户端-发回ACK报文确认，并将确认序号设置为收到序号加1</p>
+<h4 id="为什么不是两次？"><a href="#为什么不是两次？" class="headerlink" title="为什么不是两次？"></a>为什么不是两次？</h4><p>两次情况客户端说完结束就立马断开不再接收，无法确认服务端是否接收到断开消息，但且服务端可能还有消息未发送完。</p>
+<h4 id="为什么不是三次？"><a href="#为什么不是三次？" class="headerlink" title="为什么不是三次？"></a>为什么不是三次？</h4><p>3次情况服务端接收到断开消息，向客户端发送确认接受消息，客户端未给最后确认断开的回复。</p>
+<h4 id="为什么要四次挥手"><a href="#为什么要四次挥手" class="headerlink" title="为什么要四次挥手"></a>为什么要四次挥手</h4><p>任何一方都可以在数据传送结束后发出连接释放的通知，待对方确认后进入关闭状态。当另一方也没有数据再发送的时候，则发出连接释放通知，对方确认后就完全关闭了TCP连接。</p>
+<h4 id="TCP作为一种可靠的传输控制协议，其核心思想就是：既要保证数据的可靠传输，又要提高传输的效率，而用三次恰恰可以满足以上俩方面的需求"><a href="#TCP作为一种可靠的传输控制协议，其核心思想就是：既要保证数据的可靠传输，又要提高传输的效率，而用三次恰恰可以满足以上俩方面的需求" class="headerlink" title="TCP作为一种可靠的传输控制协议，其核心思想就是：既要保证数据的可靠传输，又要提高传输的效率，而用三次恰恰可以满足以上俩方面的需求"></a>TCP作为一种可靠的传输控制协议，其核心思想就是：既要保证数据的可靠传输，又要提高传输的效率，而用三次恰恰可以满足以上俩方面的需求</h4><p><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2021/05/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E8%B7%AF%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B/">博客</a></p>
+<h3 id="TCP-IP-如何保证数据包传输的有序可靠？"><a href="#TCP-IP-如何保证数据包传输的有序可靠？" class="headerlink" title="TCP/IP / 如何保证数据包传输的有序可靠？"></a>TCP/IP / 如何保证数据包传输的有序可靠？</h3><p>对字节流分段并进行编号然后通过 ACK 回复和超时重发这两个机制来保证。<br>（1）为了保证数据包的可靠传递，发送方必须把已发送的数据包保留在缓冲区；<br>（2）并为每个已发送的数据包启动一个超时定时器；<br>（3）如在定时器超时之前收到了对方发来的应答信息（可能是对本包的应答，也可以是对本包后续包的应答），则释放该数据包占用的缓冲区;<br>（4）否则，重传该数据包，直到收到应答或重传次数超过规定的最大次数为止。<br>（5）接收方收到数据包后，先进行CRC校验，如果正确则把数据交给上层协议，然后给发送方发送一个累计应答包，表明该数据已收到，如果接收方正好也有数据要发给发送方，应答包也可方在数据包中捎带过去。</p>
+<h3 id="TCP和UDP的区别"><a href="#TCP和UDP的区别" class="headerlink" title="TCP和UDP的区别"></a>TCP和UDP的区别</h3><ol>
+<li>TCP是面向链接的，而UDP是面向无连接的。</li>
+<li>TCP仅支持单播传输，UDP 提供了单播，多播，广播的功能。</li>
+<li>TCP的三次握手保证了连接的可靠性; UDP是无连接的、不可靠的一种数据传输协议，首先不可靠性体现在无连接上，通信都不需要建立连接，对接收到的数据也不发送确认信号，发送端不知道数据是否会正确接收。</li>
+<li>UDP的头部开销比TCP的更小，数据传输速率更高，实时性更好。</li>
+</ol>
+<p>传送门 ☞<a target="_blank" rel="noopener" href="https://juejin.cn/post/6992743999756845087"># 深度剖析TCP与UDP的区别</a><br><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2021/07/09/TCP%E5%8D%8F%E8%AE%AE/">博客</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E9%9D%A2%E8%AF%95%E9%A2%98/">面试题</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/">前端基础</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/02/17/Vue%E9%9D%A2%E8%AF%95%E9%A2%98%E6%80%BB%E7%BB%93/">
+                        <span class="hidden-mobile">Vue面试题总结</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
