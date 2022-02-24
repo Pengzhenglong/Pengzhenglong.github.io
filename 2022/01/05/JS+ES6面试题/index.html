@@ -173,8 +173,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2022-02-17 20:15" pubdate>
-        February 17, 2022 pm
+      <time datetime="2022-01-05 20:15" pubdate>
+        January 5, 2022 pm
       </time>
     </span>
   
@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      10.1k 字
+      11.3k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      115
+      130
        分钟
     </span>
   
@@ -246,6 +246,29 @@
 <li>constructor<br>constructor是原型prototype的一个属性，当函数被定义时候，js引擎会为函数添加原型prototype，并且这个prototype中constructor属性指向函数引用， 因此重写prototype会丢失原来的constructor。<br>不过这种方法有问题：<br>1：null 和 undefined 无constructor，这种方法判断不了。<br>2：还有，如果自定义对象，开发者重写prototype之后，原有的constructor会丢失，因此，为了规范开发，在重写对象原型时一般都需要重新给 constructor 赋值，以保证对象实例的类型不被篡改。</li>
 <li>instanceof<br>instanceof 是用来判断 A 是否为 B 的实例，表达式为：A instanceof B，如果 A 是 B 的实例，则返回 true,否则返回 false。 在这里需要特别注意的是：instanceof 检测的是原型，<br><img src="/imageO/instance.jpg" srcset="/img/loading.gif" lazyload alt="instance"><br> 由上图可以看出[]的原型指向Array.prototype，间接指向Object.prototype, 因此 [] instanceof Array 返回true， [] instanceof Object 也返回true。<br>instanceof 只能用来判断两个对象是否属于实例关系， 而不能判断一个对象实例具体属于哪种类型。</li>
 </ol>
+<h3 id="如何判断一个对象是数组还是对象"><a href="#如何判断一个对象是数组还是对象" class="headerlink" title="如何判断一个对象是数组还是对象"></a>如何判断一个对象是数组还是对象</h3><p>一、typeof判断数据类型（判断数组跟对象都返回object）<br>二、instanceof判断对象的原型链是否是指向构造函数的prototype</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs javascript">　　<span class="hljs-keyword">var</span> arr = [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">1</span>];<br>　　<span class="hljs-built_in">console</span>.log(arr <span class="hljs-keyword">instanceof</span> <span class="hljs-built_in">Array</span>)<span class="hljs-comment">//true</span><br></code></pre></td></tr></table></figure>
+
+<p>三、对象的constructor属性</p>
+<figure class="highlight delphi"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs delphi">　　<span class="hljs-keyword">var</span> arr = [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">1</span>];<br>　　console.log(arr.<span class="hljs-keyword">constructor</span> === <span class="hljs-keyword">Array</span>)<span class="hljs-comment">//true</span><br></code></pre></td></tr></table></figure>
+
+<p>四、Object.prototype.toString.call(arr)<br>　　利用对象的toString可以准确判断是什么类型，call()改变this指向，这里是借用Object的方法，然后有人可能会问为什么不直接用arr.toString而要借用Object的方法，</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">console.log(<span class="hljs-keyword">Object</span>.prototype.toString.<span class="hljs-keyword">call</span>(&quot;jerry&quot;));//[<span class="hljs-keyword">object</span> String]<br>console.log(<span class="hljs-keyword">Object</span>.prototype.toString.<span class="hljs-keyword">call</span>(<span class="hljs-number">12</span>));//[<span class="hljs-keyword">object</span> Number]<br>console.log(<span class="hljs-keyword">Object</span>.prototype.toString.<span class="hljs-keyword">call</span>(<span class="hljs-keyword">true</span>));//[<span class="hljs-keyword">object</span> <span class="hljs-type">Boolean</span>]<br>console.log(<span class="hljs-keyword">Object</span>.prototype.toString.<span class="hljs-keyword">call</span>(undefined));//[<span class="hljs-keyword">object</span> Undefined]<br>console.log(<span class="hljs-keyword">Object</span>.prototype.toString.<span class="hljs-keyword">call</span>(<span class="hljs-keyword">null</span>));//[<span class="hljs-keyword">object</span> <span class="hljs-keyword">Null</span>]<br>console.log(<span class="hljs-keyword">Object</span>.prototype.toString.<span class="hljs-keyword">call</span>(&#123;<span class="hljs-type">name</span>: &quot;jerry&quot;&#125;));//[<span class="hljs-keyword">object</span> <span class="hljs-keyword">Object</span>]<br>console.log(<span class="hljs-keyword">Object</span>.prototype.toString.<span class="hljs-keyword">call</span>(<span class="hljs-keyword">function</span>()&#123;&#125;));//[<span class="hljs-keyword">object</span> <span class="hljs-keyword">Function</span>]<br>console.log(<span class="hljs-keyword">Object</span>.prototype.toString.<span class="hljs-keyword">call</span>([]));//[<span class="hljs-keyword">object</span> <span class="hljs-keyword">Array</span>]<br>console.log(<span class="hljs-keyword">Object</span>.prototype.toString.<span class="hljs-keyword">call</span>(<span class="hljs-built_in">new</span> <span class="hljs-type">Date</span>));//[<span class="hljs-keyword">object</span> <span class="hljs-type">Date</span>]<br>console.log(<span class="hljs-keyword">Object</span>.prototype.toString.<span class="hljs-keyword">call</span>(/\d/));//[<span class="hljs-keyword">object</span> RegExp]<br>console.log(<span class="hljs-keyword">Object</span>.prototype.toString.<span class="hljs-keyword">call</span>(<span class="hljs-built_in">new</span> Person));//[<span class="hljs-keyword">object</span> <span class="hljs-keyword">Object</span>]<br></code></pre></td></tr></table></figure>
+
+<p>直接用tostring()</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">console.log(<span class="hljs-string">&quot;jerry&quot;</span>.<span class="hljs-keyword">to</span><span class="hljs-constructor">String()</span>);<span class="hljs-comment">//jerry</span><br>console.log((<span class="hljs-number">1</span>).<span class="hljs-keyword">to</span><span class="hljs-constructor">String()</span>);<span class="hljs-comment">//1</span><br>console.log(<span class="hljs-literal">[<span class="hljs-number">1</span>,<span class="hljs-number">2</span>]</span>.<span class="hljs-keyword">to</span><span class="hljs-constructor">String()</span>);<span class="hljs-comment">//1,2</span><br>console.log(<span class="hljs-keyword">new</span> <span class="hljs-constructor">Date()</span>.<span class="hljs-keyword">to</span><span class="hljs-constructor">String()</span>);<span class="hljs-comment">//Wed Dec 21 2016 20:35:48 GMT+0800 (中国标准时间)</span><br>console.log(<span class="hljs-keyword">function</span><span class="hljs-literal">()</span>&#123;&#125;.<span class="hljs-keyword">to</span><span class="hljs-constructor">String()</span>);<span class="hljs-comment">//function ()&#123;&#125;</span><br>console.log(null.<span class="hljs-keyword">to</span><span class="hljs-constructor">String()</span>);<span class="hljs-comment">//error</span><br>console.log(undefined.<span class="hljs-keyword">to</span><span class="hljs-constructor">String()</span>);<span class="hljs-comment">//error</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="因为toString为Object原型上的方法，而Array、Function都是Object的实例，实例重新改写了原型上的toString方法，不同的对象调用toString方法，调用的是改写之后的方法"><a href="#因为toString为Object原型上的方法，而Array、Function都是Object的实例，实例重新改写了原型上的toString方法，不同的对象调用toString方法，调用的是改写之后的方法" class="headerlink" title="因为toString为Object原型上的方法，而Array、Function都是Object的实例，实例重新改写了原型上的toString方法，不同的对象调用toString方法，调用的是改写之后的方法"></a>因为toString为Object原型上的方法，而Array、Function都是Object的实例，实例重新改写了原型上的toString方法，不同的对象调用toString方法，调用的是改写之后的方法</h4><p>（转成各种类型的字符串），而不会调用Object原型上的toString()方法，因此直接调用不能判断对象类型</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">var arr=<span class="hljs-literal">[<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>]</span>;<br>console.log(<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Array</span>.</span></span>prototype.has<span class="hljs-constructor">OwnProperty(<span class="hljs-string">&quot;toString&quot;</span>)</span>);<span class="hljs-comment">//true</span><br>console.log(arr.<span class="hljs-keyword">to</span><span class="hljs-constructor">String()</span>);<span class="hljs-comment">//1,2,3</span><br>delete <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Array</span>.</span></span>prototype.toString;<span class="hljs-comment">//delete操作符可以删除实例属性</span><br>console.log(<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Array</span>.</span></span>prototype.has<span class="hljs-constructor">OwnProperty(<span class="hljs-string">&quot;toString&quot;</span>)</span>);<span class="hljs-comment">//false</span><br>console.log(arr.<span class="hljs-keyword">to</span><span class="hljs-constructor">String()</span>);<span class="hljs-comment">//&quot;[object Array]&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>　我们可以看到，删除实例上的toString方法后调用的是Object原型上的toString()方法，返回对象类型</p>
+<p>五、es6的方法——Array.isArray()</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">　　<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Array</span>.</span></span>is<span class="hljs-constructor">Array([])</span> <span class="hljs-comment">//true</span><br></code></pre></td></tr></table></figure>
+
+<p>六、看好多博客说用length判断，这个其实不准确</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs stylus"><span class="hljs-selector-tag">var</span> obj=&#123;<span class="hljs-selector-tag">a</span>:<span class="hljs-number">1</span>&#125;<br><span class="hljs-selector-tag">var</span> arr = <span class="hljs-selector-attr">[]</span><br>console<span class="hljs-selector-class">.log</span>(obj.length)<span class="hljs-comment">//undefined</span><br>console<span class="hljs-selector-class">.log</span>(arr.length)<span class="hljs-comment">//0</span><br><br>obj<span class="hljs-selector-class">.length</span> = <span class="hljs-number">1</span><br>console<span class="hljs-selector-class">.log</span>(obj.length)<span class="hljs-comment">//1</span><br></code></pre></td></tr></table></figure>
+
+<p>对象可以直接添加length这个属性，就无法区分了</p>
 <h3 id="事件是什么？IE-与火狐的事件机制有什么区别？-如何阻止冒泡？"><a href="#事件是什么？IE-与火狐的事件机制有什么区别？-如何阻止冒泡？" class="headerlink" title="事件是什么？IE 与火狐的事件机制有什么区别？ 如何阻止冒泡？"></a>事件是什么？IE 与火狐的事件机制有什么区别？ 如何阻止冒泡？</h3><p>1.事件是用户操作网页时发生的交互动作，比如 click/move， 事件除了用户触发的动作外，还可以是文档加载，窗口滚动和大小调整。事件被封装成一个 event 对象，包含了该事件发生时的所有相关信息（ event 的属性）以及可以对事件进行的操作（ event 的方法）。<br>2.事件处理机制：IE 支持事件冒泡、Firefox 同时支持两种事件模型，也就是：事件冒泡和事件捕获。<br>3.event.stopPropagation() 或者 ie 下的方法 event.cancelBubble = true;</p>
 <p>详细资料可以参考：<br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/lvdabao/p/3265870.html">《Javascript 事件模型系列（一）事件及事件的三种模型》</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/wuseyukui/article/details/13771493">《Javascript 事件模型：事件捕获和事件冒泡》</a></p>
 <h3 id="●-数组去重"><a href="#●-数组去重" class="headerlink" title="● 数组去重"></a>● 数组去重</h3><p>法一：indexOf循环去重<br>法二：ES6 Set去重；Array.from(new Set(array))<br>法三：Object 键值对去重；把数组的值存成 Object 的 key 值，比如 Object[value1] = true，在判断另一个值的时候，如果 Object[value2]存在的话，就说明该值是重复的。<br><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844904121380667399#heading-65">掘金</a></p>
@@ -324,6 +347,25 @@
 <h3 id="js-获取原型的方法？"><a href="#js-获取原型的方法？" class="headerlink" title="js 获取原型的方法？"></a>js 获取原型的方法？</h3><p>p.<code>__proto__</code><br>p.constructor.prototype<br>Object.getPrototypeOf(p)</p>
 <h3 id="闭包是什么？有什么优点和缺点？"><a href="#闭包是什么？有什么优点和缺点？" class="headerlink" title="闭包是什么？有什么优点和缺点？"></a>闭包是什么？有什么优点和缺点？</h3><p> 解答：闭包是指有权访问另一个函数作用域中的变量的函数。<br>  优点：① 能够读取函数内部的变量；②让这些变量一直存在于内存中，不会在调用结束后被垃圾回收机制回收；<br>  缺点：由于闭包会使用函数中的变量存在在内存中，内存消耗很大，所以不能滥用闭包；解决的办法是退出函数之前，将不使用的局部变量删除；<br><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2021/04/26/JS%E9%97%AD%E5%8C%85%E7%90%86%E8%A7%A3/">博客：</a></p>
 <h3 id="This"><a href="#This" class="headerlink" title="This"></a>This</h3><p>谈一谈你对this的理解，以及在各种环境下的this<br>在浏览器里，在全局范围内this指向window对象<br>在函数中，this永远指向最后调用他的那个对象(箭头函数除外)。<br>在构造函数中，this指向new出来的新对象。<br>call、apply、bind中的this被强绑定在指定的那个对象上。<br>箭头函数this为父作用域的this，不是调用时的this。<br><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2021/05/12/JS&this%E6%8C%87%E5%90%91/">博客：</a></p>
+<h3 id="箭头函数和普通函数的区别"><a href="#箭头函数和普通函数的区别" class="headerlink" title="箭头函数和普通函数的区别"></a>箭头函数和普通函数的区别</h3><p>本篇我们重点比较一下箭头函数与普通函数。<br>主要区别包括：</p>
+<h4 id="没有-this"><a href="#没有-this" class="headerlink" title="没有 this"></a>没有 this</h4><p>箭头函数没有 this，所以需要通过查找作用域链来确定 this 的值。<br>这就意味着如果箭头函数被非箭头函数包含，this 绑定的就是最近一层非箭头函数的 this。</p>
+<h4 id="1-箭头函数this为父作用域的this，不是调用时的this"><a href="#1-箭头函数this为父作用域的this，不是调用时的this" class="headerlink" title="1.箭头函数this为父作用域的this，不是调用时的this"></a>1.箭头函数this为父作用域的this，不是调用时的this</h4><p><img src="/imageO/JTHS.jpg" srcset="/img/loading.gif" lazyload alt="this"><br>箭头函数的this永远指向其父作用域，任何方法都改变不了，包括call，apply，bind。</p>
+<p>普通函数的this指向调用它的那个对象。</p>
+<blockquote>
+<p>上例中，init为箭头函数，其内部的this为全局window，onclick的this也就是init函数的this，也是window，得到的this.name就为undefined。</p>
+</blockquote>
+<h4 id="没有-arguments"><a href="#没有-arguments" class="headerlink" title="没有 arguments"></a>没有 arguments</h4><p>箭头函数没有自己的 arguments 对象，这不一定是件坏事，因为箭头函数可以访问外围函数的 arguments 对象：<br>那如果我们就是要访问箭头函数的参数呢？<br>你可以通过命名参数或者 rest 参数的形式访问参数:<br>let nums = (…nums) =&gt; nums;</p>
+<h4 id="不能通过-new-关键字调用"><a href="#不能通过-new-关键字调用" class="headerlink" title="不能通过 new 关键字调用"></a>不能通过 new 关键字调用</h4><p>JavaScript 函数有两个内部方法：[[Call]] 和 [[Construct]]。</p>
+<p>当通过 new 调用函数时，执行 [[Construct]] 方法，创建一个实例对象，然后再执行函数体，将 this 绑定到实例上。</p>
+<p>当直接调用的时候，执行 [[Call]] 方法，直接执行函数体。</p>
+<p>箭头函数并没有 [[Construct]] 方法，不能被用作构造函数，如果通过 new 的方式调用，会报错。</p>
+<p>var Foo = () =&gt; {};<br>var foo = new Foo(); // TypeError: Foo is not a constructor</p>
+<h4 id="没有-new-target"><a href="#没有-new-target" class="headerlink" title="没有 new.target"></a>没有 new.target</h4><p>因为不能使用 new 调用，所以也没有 new.target 值。</p>
+<p>关于 new.target，可以参考 <a target="_blank" rel="noopener" href="https://es6.ruanyifeng.com/#docs/class#new-target-%E5%B1%9E%E6%80%A7">es6</a></p>
+<h4 id="没有原型"><a href="#没有原型" class="headerlink" title="没有原型"></a>没有原型</h4><p>由于不能使用 new 调用箭头函数，所以也没有构建原型的需求，于是箭头函数也不存在 prototype 这个属性。</p>
+<p>var Foo = () =&gt; {};<br>console.log(Foo.prototype); // undefined</p>
+<h4 id="没有-super"><a href="#没有-super" class="headerlink" title="没有 super"></a>没有 super</h4><p>连原型都没有，自然也不能通过 super 来访问原型的属性，所以箭头函数也是没有 super 的，不过跟 this、arguments、new.target 一样，这些值由外围最近一层非箭头函数决定。</p>
+<h4 id="箭头函数表达式的语法比函数表达式更短，并且不绑定自己的this，arguments，super或-new-target。这些函数表达式最适合用于非方法函数-non-method-functions-，并且它们不能用作构造函数"><a href="#箭头函数表达式的语法比函数表达式更短，并且不绑定自己的this，arguments，super或-new-target。这些函数表达式最适合用于非方法函数-non-method-functions-，并且它们不能用作构造函数" class="headerlink" title="箭头函数表达式的语法比函数表达式更短，并且不绑定自己的this，arguments，super或 new.target。这些函数表达式最适合用于非方法函数(non-method functions)，并且它们不能用作构造函数"></a>箭头函数表达式的语法比函数表达式更短，并且不绑定自己的this，arguments，super或 new.target。这些函数表达式最适合用于非方法函数(non-method functions)，并且它们不能用作构造函数</h4><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903616231260174#heading-4">参考文章</a></p>
 <h3 id="call-和-apply-的区别？"><a href="#call-和-apply-的区别？" class="headerlink" title="call() 和 .apply() 的区别？"></a>call() 和 .apply() 的区别？</h3><ol>
 <li>它们的作用一模一样，区别仅在于传入参数的形式的不同。</li>
 <li>call 传入的参数数量不固定，跟 apply 相同的是，第一个参数也是代表函数体内的 this 指向，从第二个参数开始往后，每个参数被依次传入函数。</li>
@@ -512,9 +554,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/02/17/Vue%E9%9D%A2%E8%AF%95%E9%A2%98%E6%80%BB%E7%BB%93/">
+                      <a href="/2022/01/07/%E8%AE%A1%E7%BD%91+%E6%B5%8F%E8%A7%88%E5%99%A8+http+%E5%AE%89%E5%85%A8%E9%9D%A2%E8%AF%95%E9%A2%98/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Vue面试题总结</span>
+                        <span class="hidden-mobile">计网+HTTP+浏览器+网络安全面试题总结</span>
                         <span class="visible-mobile">Previous</span>
                       </a>
                     
@@ -522,8 +564,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/02/17/%E5%89%8D%E7%AB%AF%E8%B7%AF%E7%94%B1%E7%9A%84%E4%B8%A4%E7%A7%8D%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/">
-                        <span class="hidden-mobile">前端两种路由实现和使用场景--Hash模式&&History模式</span>
+                      <a href="/2022/01/04/javaScript%E4%B9%8BMath%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/">
+                        <span class="hidden-mobile">javaScript之Math常用方法</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
