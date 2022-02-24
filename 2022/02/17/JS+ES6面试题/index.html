@@ -323,7 +323,7 @@
 <p>特点：<br>JavaScript 对象是通过引用来传递的，我们创建的每个新对象实体中并没有一份属于自己的原型副本。当我们修改原型时，与之相关的对象也会继承这一改变。<br><img src="/imageO/YX.jpg" srcset="/img/loading.gif" lazyload alt="原型链"></p>
 <h3 id="js-获取原型的方法？"><a href="#js-获取原型的方法？" class="headerlink" title="js 获取原型的方法？"></a>js 获取原型的方法？</h3><p>p.<code>__proto__</code><br>p.constructor.prototype<br>Object.getPrototypeOf(p)</p>
 <h3 id="闭包是什么？有什么优点和缺点？"><a href="#闭包是什么？有什么优点和缺点？" class="headerlink" title="闭包是什么？有什么优点和缺点？"></a>闭包是什么？有什么优点和缺点？</h3><p> 解答：闭包是指有权访问另一个函数作用域中的变量的函数。<br>  优点：① 能够读取函数内部的变量；②让这些变量一直存在于内存中，不会在调用结束后被垃圾回收机制回收；<br>  缺点：由于闭包会使用函数中的变量存在在内存中，内存消耗很大，所以不能滥用闭包；解决的办法是退出函数之前，将不使用的局部变量删除；<br><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2021/04/26/JS%E9%97%AD%E5%8C%85%E7%90%86%E8%A7%A3/">博客：</a></p>
-<h3 id="his"><a href="#his" class="headerlink" title="his"></a>his</h3><p>谈一谈你对this的理解，以及在各种环境下的this<br>在浏览器里，在全局范围内this指向window对象<br>在函数中，this永远指向最后调用他的那个对象(箭头函数除外)。<br>在构造函数中，this指向new出来的新对象。<br>call、apply、bind中的this被强绑定在指定的那个对象上。<br>箭头函数this为父作用域的this，不是调用时的this。<br><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2021/05/12/JS&this%E6%8C%87%E5%90%91/">博客：</a></p>
+<h3 id="This"><a href="#This" class="headerlink" title="This"></a>This</h3><p>谈一谈你对this的理解，以及在各种环境下的this<br>在浏览器里，在全局范围内this指向window对象<br>在函数中，this永远指向最后调用他的那个对象(箭头函数除外)。<br>在构造函数中，this指向new出来的新对象。<br>call、apply、bind中的this被强绑定在指定的那个对象上。<br>箭头函数this为父作用域的this，不是调用时的this。<br><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2021/05/12/JS&this%E6%8C%87%E5%90%91/">博客：</a></p>
 <h3 id="call-和-apply-的区别？"><a href="#call-和-apply-的区别？" class="headerlink" title="call() 和 .apply() 的区别？"></a>call() 和 .apply() 的区别？</h3><ol>
 <li>它们的作用一模一样，区别仅在于传入参数的形式的不同。</li>
 <li>call 传入的参数数量不固定，跟 apply 相同的是，第一个参数也是代表函数体内的 this 指向，从第二个参数开始往后，每个参数被依次传入函数。</li>
@@ -403,8 +403,10 @@
 <p>for of遍历的只是数组内的元素，而不包括数组的原型属性method和索引name<br>小结</p>
 </blockquote>
 <ol>
-<li>for..of适用遍历数/数组对象/字符串/map/set等拥有迭代器对象的集合，不能遍历对象，因为没有迭代对象，与forEach()不同的是，它可以正确响应break、continue和return语句。</li>
-<li>for in 可以遍历一个普通的对象，这样也是它的本质工作，for in会遍历原型以及可枚举属性，最好的情况下，使用hasOwnProperty判断是不是实例属性。</li>
+<li><p>for in 可以遍历一个普通的对象，这样也是它的本质工作，for in会遍历原型以及可枚举属性，最好的情况下，使用hasOwnProperty判断是不是实例属性。</p>
+</li>
+<li><p>for..of适用遍历数/数组对象/字符串/map/set等拥有迭代器对象的集合，不能遍历对象，因为没有迭代对象，与forEach()不同的是，它可以正确响应break、continue和return语句。</p>
+</li>
 </ol>
 <h3 id="new-操作符具体干了什么呢？如何实现？"><a href="#new-操作符具体干了什么呢？如何实现？" class="headerlink" title="new 操作符具体干了什么呢？如何实现？"></a>new 操作符具体干了什么呢？如何实现？</h3><p>// （1）首先创建了一个新的空对象<br>// （2）设置原型，将对象的原型设置为函数的 prototype 对象。<br>// （3）让函数的 this 指向这个对象，执行构造函数的代码（为这个新对象添加属性）<br>// （4）判断函数的返回值类型，如果是值类型，返回创建的对象。如果是引用类型，就返回这个引用类型的对象。</p>
 <p>new共经历了四个过程。</p>
