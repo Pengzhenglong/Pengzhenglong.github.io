@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      11.8k 字
+      11.9k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      137
+      138
        分钟
     </span>
   
@@ -315,7 +315,7 @@
 </li>
 <li><p>第三种是使用 generator 的方式，它可以在函数的执行过程中，将函数的执行权转移出去，在函数外部我们还可以将执行权转移回来。当我们遇到异步函数执行的时候，将函数执行权转移出去，当异步函数执行完毕的时候我们再将执行权给转移回来。因此我们在 generator 内部对于异步操作的方式，可以以同步的顺序来书写。使用这种方式我们需要考虑的问题是何时将函数的控制权转移回来，因此我们需要有一个自动执行 generator 的机制，比如说 co 模块等方式来实现 generator 的自动执行。</p>
 </li>
-<li><p>第四种是使用 async 函数的形式，async 函数是 generator 和 promise 实现的一个自动执行的语法糖，它内部自带执行器，当函数内部执行到一个 await 语句的时候，如果语句返回一个 promise 对象，那么函数将会等待 promise 对象的状态变为 resolve 后再继续向下执行。因此我们可以将异步逻辑，转化为同步的顺序来书写，并且这个函数可以自动执行。<br><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2021/05/11/Es6async&await/">博客：</a></p>
+<li><p>第四种是使用 async 函数的形式，async 函数是 generator 和 promise 实现的一个自动执行的语法糖，它内部自带执行器，当函数内部执行到一个 await 语句的时候， <strong>如果语句返回一个 promise 对象，那么函数将会等待 promise 对象的状态变为 resolve 后再继续向下执行</strong>。因此我们可以将异步逻辑，转化为同步的顺序来书写，并且这个函数可以自动执行。<br><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2021/05/11/Es6async&await/">博客：</a></p>
 </li>
 </ol>
 <h3 id="Promise、Promise-all、Promise-race-分别怎么用？"><a href="#Promise、Promise-all、Promise-race-分别怎么用？" class="headerlink" title="Promise、Promise.all、Promise.race 分别怎么用？"></a>Promise、Promise.all、Promise.race 分别怎么用？</h3><p>Promise 异步操作有三种状态：pending（进行中）、fulfilled（已成功）和 rejected（已失败）。除了异步操作的结果，任何其他操作都无法改变这个状态。<br>Promise 对象只有：从 pending 变为 fulfilled 和从 pending 变为 rejected 的状态改变。只要处于 fulfilled 和 rejected ，状态就不会再变了即 resolved（已定型）。<br>语法：</p>
@@ -338,6 +338,8 @@
 <blockquote>
 <p>promise1和promise2只要有一个成功就会调用success1<br>Promise.race其实使用的并不多，如果真要使用。我们可以提出这样一个需求：<br><strong>比如：点击按钮发请求，当后端的接口超过一定时间，假设超过三秒，没有返回结果，我们就提示用户请求超时</strong></p>
 </blockquote>
+<h4 id="Promise-allSettled"><a href="#Promise-allSettled" class="headerlink" title="Promise.allSettled"></a>Promise.allSettled</h4><p>Promise.allSettled(promises) 允许您并行执行互相独立的promise, 并每一个promise执行之后的状态（已完成或拒绝）存放在数组中。</p>
+<p>当您需要执行并行和独立的异步操作并获取到异步操作的所有结果时，Promise.allSettled(…) 非常有用，即使某些异步操作可能会失败。</p>
 <p><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2021/04/17/ES6(promise)/#Promise-all">博客</a><br><a target="_blank" rel="noopener" href="https://juejin.cn/post/6998891444312211492#heading-4">博客</a></p>
 <h3 id="js-延迟加载的方式有哪些？"><a href="#js-延迟加载的方式有哪些？" class="headerlink" title="js 延迟加载的方式有哪些？"></a>js 延迟加载的方式有哪些？</h3><p>相关知识点：</p>
 <h5 id="js-延迟加载，也就是等页面加载完成之后再加载-JavaScript-文件。-js-延迟加载有助于提高页面加载速度"><a href="#js-延迟加载，也就是等页面加载完成之后再加载-JavaScript-文件。-js-延迟加载有助于提高页面加载速度" class="headerlink" title="js 延迟加载，也就是等页面加载完成之后再加载 JavaScript 文件。 js 延迟加载有助于提高页面加载速度"></a>js 延迟加载，也就是等页面加载完成之后再加载 JavaScript 文件。 js 延迟加载有助于提高页面加载速度</h5><p>一般有以下几种方式：<br>defer 属性<br>async 属性<br>动态创建 DOM 方式<br>使用 setTimeout 延迟方法<br>让 JS 最后加载</p>
