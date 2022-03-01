@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      7.3k 字
+      7.6k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      84
+      87
        分钟
     </span>
   
@@ -338,6 +338,16 @@
 <li>display:none : 这个是彻底隐藏了元素，元素从⽂档流中消失，既不占据空间也不交互，也不影响布局</li>
 <li>z-index:-9999 : 原理是将层级放到底部，这样就被覆盖了，看起来隐藏了</li>
 <li>transform: scale(0,0) : 平⾯变换，将元素缩放为0，但是依然占据空间，但不可交互</li>
+</ol>
+<h4 id="display-none与visible-hidden的区别"><a href="#display-none与visible-hidden的区别" class="headerlink" title="display:none与visible:hidden的区别"></a>display:none与visible:hidden的区别</h4><p>一般在面试中问display:none和visibility:hidden两者区别，面试者都能回答出：两者都是隐藏元素，前者不会占据空间，后者隐藏了依然占据空间。</p>
+<p> visibility:隐藏对应的元素但不挤占该元素原来的空间。<br> display:隐藏对应的元素并且挤占该元素原来的空间。</p>
+<p>两者区别：</p>
+<ol>
+<li>visibility具有继承性，给父元素设置visibility:hidden;子元素也会继承这个属性。但是如果重新给子元素设置visibility: visible,则子元素又会显示出来。这个和display: none有着质的区别</li>
+<li>visibility: hidden不会影响计数器的计数，如图所示，visibility: hidden虽然让一个元素不见了，但是其计数器仍在运行。这和display: none完全不一样</li>
+<li>visibility用来设置元素的可见状态。</li>
+<li>display:none是会有回流，HTML元素（对象）的宽度、高度等各种属性值都将“丢失”。</li>
+<li>visibility: hidden; 不会有回流，HTML元素（对象）仅仅是在视觉上看不见（完全透明），而它所占据的空间位置仍然存在，也即是说它仍具有高度、宽度等属性值。</li>
 </ol>
 <h3 id="水平垂直居中"><a href="#水平垂直居中" class="headerlink" title="水平垂直居中"></a>水平垂直居中</h3><p>一般常见的几种居中的方法有：</p>
 <p>对于宽高固定的元素</p>
