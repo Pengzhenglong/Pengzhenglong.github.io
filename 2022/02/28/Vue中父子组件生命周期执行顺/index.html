@@ -18,7 +18,7 @@
   <meta name="author" content="DragonPeng">
   <meta name="keywords" content="">
   
-  <title>Vue--Observer、Dep、Watcher - DragonPeng的博客</title>
+  <title>Vue中父子组件生命周期执行顺 - DragonPeng的博客</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -163,7 +163,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="Vue--Observer、Dep、Watcher">
+            <span class="h2" id="subtitle" title="Vue中父子组件生命周期执行顺">
               
             </span>
 
@@ -173,8 +173,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2022-02-25 12:15" pubdate>
-        February 25, 2022 pm
+      <time datetime="2022-02-28 12:15" pubdate>
+        February 28, 2022 pm
       </time>
     </span>
   
@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      930 字
+      856 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      12
+      9
        分钟
     </span>
   
@@ -225,40 +225,34 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Vue--Observer、Dep、Watcher</h1>
+            <h1 style="display: none">Vue中父子组件生命周期执行顺</h1>
             
             <div class="markdown-body">
-              <hr>
-<h3 id="Vue-初始化"><a href="#Vue-初始化" class="headerlink" title="Vue 初始化"></a>Vue 初始化</h3><p>我觉得搞清楚这些，首先要知道 vue 初始化的过程。我们从 new Vue() 开始，构造函数会执行 this._init，在_init 中会进行合并配置、初始化生命周期、事件、渲染等，最后执行 vm.$mount 进行挂载。</p>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">//</span> src<span class="hljs-regexp">/core/i</span>nstance/index.js<br><span class="hljs-keyword">function</span> Vue (options) &#123;<br>    <span class="hljs-regexp">//</span> ...<br>    this._init(options)<br>&#125;<br><br><span class="hljs-regexp">//</span> src<span class="hljs-regexp">/core/i</span>nstance/init.js<br>Vue.prototype._init = <span class="hljs-keyword">function</span> (options?: Object) &#123;<br>    <span class="hljs-regexp">//</span> 合并配置<br>    <span class="hljs-regexp">//</span> ...<br>    <br>    <span class="hljs-regexp">//</span> 一系列初始化<br>    <span class="hljs-regexp">//</span> ...<br>    initState(vm)<br>    <span class="hljs-regexp">//</span> ...<br>    <br>    <span class="hljs-keyword">if</span> (vm.<span class="hljs-variable">$options</span>.el) &#123;<br>      vm.<span class="hljs-variable">$mount</span>(vm.<span class="hljs-variable">$options</span>.el)<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+              <p>问题背景</p>
+<p>在单一组件中，钩子的执行顺序是beforeCreate-&gt; created -&gt; mounted-&gt;… -&gt;destroyed，但当父子组件嵌套时，父组件和子组件各拥有各自独立的钩子函数，这些父子组件的这些钩子是如何交融执行，且执行顺序又是怎样的呢?</p>
+<hr>
+<h3 id="父子组件生命周期执行顺序"><a href="#父子组件生命周期执行顺序" class="headerlink" title="父子组件生命周期执行顺序"></a>父子组件生命周期执行顺序</h3><p>组件，分别在他们的钩子函数中打印日志，观察执行顺序。得到的结果如图所示，父组件先创建，然后子组件创建；子组件先挂载，然后父组件挂载。</p>
+<p>父beforeCreate-&gt; 父create -&gt; 子beforeCreate-&gt; 子created -&gt; 子mounted -&gt; 父mounted</p>
+<blockquote>
+<p>子组件挂载完成后，父组件还未挂载。所以组件数据回显的时候，在父组件mounted中获取api的数据，子组件的mounted是拿不到的。子组件挂载完成后，父组件还未挂载。所以组件数据回显的时候，在父组件mounted中获取api的数据，子组件的mounted是拿不到的。</p>
+</blockquote>
+<h4 id="仔细看看父子组件生命周期钩子的执行顺序，会发现created这个钩子是按照从外内顺序执行，所以父子组件传递接口数据的解决方案是"><a href="#仔细看看父子组件生命周期钩子的执行顺序，会发现created这个钩子是按照从外内顺序执行，所以父子组件传递接口数据的解决方案是" class="headerlink" title="仔细看看父子组件生命周期钩子的执行顺序，会发现created这个钩子是按照从外内顺序执行，所以父子组件传递接口数据的解决方案是"></a>仔细看看父子组件生命周期钩子的执行顺序，会发现created这个钩子是按照从外内顺序执行，所以父子组件传递接口数据的解决方案是</h4><p>在created中发起请求获取数据，依次在子组件的created或者mounted中会接收到这个数据。</p>
+<h3 id="父子组件生命周期执行顺序-1"><a href="#父子组件生命周期执行顺序-1" class="headerlink" title="父子组件生命周期执行顺序"></a>父子组件生命周期执行顺序</h3><p>加载渲染过程</p>
+<figure class="highlight xl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs xl">父<span class="hljs-function"><span class="hljs-title">beforeCreate</span>-&gt;</span>父<span class="hljs-function"><span class="hljs-title">created</span>-&gt;</span>父<span class="hljs-function"><span class="hljs-title">beforeMount</span>-&gt;</span>子<span class="hljs-function"><span class="hljs-title">beforeCreate</span>-&gt;</span>子<span class="hljs-function"><span class="hljs-title">created</span>-&gt;</span>子<span class="hljs-function"><span class="hljs-title">beforeMount</span>-&gt;</span>子<span class="hljs-function"><span class="hljs-title">mounted</span>-&gt;</span>父mounted<br></code></pre></td></tr></table></figure>
 
-<p>这里主要来看 <strong>initState(vm)</strong>，响应式的核心均在于此，会进行<strong>props、data、computed、watch</strong>  的初始化操作。</p>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">//</span> src<span class="hljs-regexp">/core/i</span>nstance/state.js<br>export <span class="hljs-keyword">function</span> initState (vm: Component) &#123;<br>    vm._watchers = []<br>    const opts = vm.<span class="hljs-variable">$options</span><br>    <span class="hljs-keyword">if</span> (opts.props) initProps(vm, opts.props) <span class="hljs-regexp">//</span> 初始化 props<br>    <span class="hljs-regexp">//</span> ...<br>    <span class="hljs-keyword">if</span> (opts.data) &#123;<br>        initData(vm) <span class="hljs-regexp">//</span> 初始化 data<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        observe(vm._data = &#123;&#125;, true <span class="hljs-regexp">/* asRootData */</span>)<br>    &#125;<br>    <span class="hljs-regexp">//</span> ...<br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="更新过程"><a href="#更新过程" class="headerlink" title="更新过程"></a>更新过程</h3><figure class="highlight xl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs xl">父<span class="hljs-function"><span class="hljs-title">beforeUpdate</span>-&gt;</span>子<span class="hljs-function"><span class="hljs-title">beforeUpdate</span>-&gt;</span>子<span class="hljs-function"><span class="hljs-title">updated</span>-&gt;</span>父updated<br></code></pre></td></tr></table></figure>
 
-<p>了解了初始化过程，接下来就引出 Observer。</p>
-<h3 id="Obserber-「数据的观察者」"><a href="#Obserber-「数据的观察者」" class="headerlink" title="Obserber 「数据的观察者」"></a>Obserber 「数据的观察者」</h3><p>在上面的 initData 中会执行 observe 方法进而实例化 Observer。Observer 的实例化过程就是递归地把 data 对象和子对象添加 <strong>ob</strong> 属性同时通过我们熟知的 defindReactive 为属性定义 getter/setter。</p>
-<p>那么 Observer 顾名思义是观察者，观察的就是 data，它通过数据劫持使 data 的读写都处于它的监管之下。那么在观察到数据发生变化时会做出怎样的操作呢？</p>
-<p>来到 defindReactive 的核心代码，会看到 getter 里的 dep.depend() 和 setter 里的 dep.notify()，这就是依赖收集和触发更新的起点。这里的 dep 是 defindReactive 内定义的一个常量，getter/setter 函数内持有对它的闭包引用，Dep 就是引出的下一个概念。</p>
-<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs actionscript"><span class="hljs-comment">// src/core/observer/index.js</span><br><span class="hljs-comment">// ...</span><br><span class="hljs-keyword">const</span> dep = <span class="hljs-keyword">new</span> Dep()<br><span class="hljs-comment">// ...</span><br>Object.defineProperty(obj, key, &#123;<br>    enumerable: <span class="hljs-literal">true</span>,<br>    configurable: <span class="hljs-literal">true</span>,<br>    <span class="hljs-keyword">get</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">reactiveGetter</span> <span class="hljs-params">()</span> </span>&#123;<br>        <span class="hljs-comment">// ...</span><br>        dep.depend()<br>        <span class="hljs-comment">//...</span><br>    &#125;,<br>    <span class="hljs-keyword">set</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">reactiveSetter</span> <span class="hljs-params">(newVal)</span> </span>&#123;<br>        <span class="hljs-comment">// ...</span><br>        dep.notify()<br>    &#125;,<br></code></pre></td></tr></table></figure>
+<h3 id="销毁过程"><a href="#销毁过程" class="headerlink" title="销毁过程"></a>销毁过程</h3><figure class="highlight xl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs xl">父<span class="hljs-function"><span class="hljs-title">beforeDestroy</span>-&gt;</span>子<span class="hljs-function"><span class="hljs-title">beforeDestroy</span>-&gt;</span>子<span class="hljs-function"><span class="hljs-title">destroyed</span>-&gt;</span>父destroyed<br></code></pre></td></tr></table></figure>
 
-<h3 id="Dep-「依赖管理」"><a href="#Dep-「依赖管理」" class="headerlink" title="Dep 「依赖管理」"></a>Dep 「依赖管理」</h3><p>先看下 Dep 类的定义</p>
-<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs perl">// src/core/observer/dep.js<br>export default class Dep &#123;<br>    constructor () &#123;<br>        this.id = uid++<br>        this.subs = []<br>    &#125;<br><br>    addSub (<span class="hljs-function"><span class="hljs-keyword">sub</span>: <span class="hljs-title">Watcher</span>) </span>&#123;&#125;<br><br>    removeSub (<span class="hljs-function"><span class="hljs-keyword">sub</span>: <span class="hljs-title">Watcher</span>) </span>&#123;&#125;<br><br>    depend () &#123;&#125;<br>    <br>    notify () &#123;&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="注意-在父组件传递接口的数据给子组件时，一定要在子组件标签上加上v-if-”传递的接口数据”"><a href="#注意-在父组件传递接口的数据给子组件时，一定要在子组件标签上加上v-if-”传递的接口数据”" class="headerlink" title="注意 在父组件传递接口的数据给子组件时，一定要在子组件标签上加上v-if=”传递的接口数据”"></a>注意 在父组件传递接口的数据给子组件时，一定要在子组件标签上加上v-if=”传递的接口数据”</h3><p>在父组件的created中发请求获取数据，通过prop传递给子组件。子组件在created或者mounted中拿父组件传递过来的数据  这样处理是有问题的。</p>
+<p>在父组件调用接口传递数据给子组件时，接口响应显然是异步的。这会导致无论你在父组件哪个钩子发请求，在子组件哪个钩子接收数据。都是取不到的。当子组件的mounted都执行完之后，此时可能父组件的请求才返回数据。会导致，从父组件传递给子组件的数据是undefined。</p>
+<h4 id="解决方法1-v-if"><a href="#解决方法1-v-if" class="headerlink" title="解决方法1:v-if"></a>解决方法1:v-if</h4><p>在渲染子组件的时候加上一个条件,data1是父组件调用接口返回的数据。当有数据的时候在去渲染子组件。这样就会形成天然的阻塞。在父组件的created中的请求返回数据后，才会执行子组件的created，mounted。最后执行父组件的mounted。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;test&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">children</span> <span class="hljs-attr">v-if</span>=<span class="hljs-string">&quot;data1&quot;</span> <span class="hljs-attr">:data</span>=<span class="hljs-string">&quot;data1&quot;</span> &gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">children</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br></code></pre></td></tr></table></figure>
 
-<p>可以看到 Dep 有一个实例属性 subs 数组，实例方法 addSub/removeSub 添加和删除数组中的某项。由此可以确定 dep 实例并非依赖而是依赖的管理者，subs 数组即为依赖(订阅者)列表，它们就是接下来登场的 Watcher</p>
-<h3 id="Watcher-「订阅者」"><a href="#Watcher-「订阅者」" class="headerlink" title="Watcher 「订阅者」"></a>Watcher 「订阅者」</h3><p>从上面知道 Observer Dep 都已经在 initState 中实例化了，响应式数据和依赖管理都准备好了，接下来就需要 Wacther 来订阅了。那么 Wacther 什么时候实例化呢，回到开头的初始化过程最后 vm.$mount 挂载，在这之后会执行 mountComponent 方法，Watcher 就是在这里实例化的（暂不关注 computed watcher 和 watch 选项的 watcher）。</p>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">//</span> src<span class="hljs-regexp">/core/i</span>nstance/lifecycle.js<br>export <span class="hljs-keyword">function</span> mountComponent () &#123;<br>    <span class="hljs-regexp">//</span> ...<br>    new Watcher(vm, updateComponent, noop, &#123;<br>        <span class="hljs-regexp">//</span> ...<br>    &#125;, true <span class="hljs-regexp">/* isRenderWatcher */</span>)<br>&#125;<br></code></pre></td></tr></table></figure>
+<h4 id="在子组件中-watch-监听，父组件获取到值，这个值就会变化，自然是可以监听到的"><a href="#在子组件中-watch-监听，父组件获取到值，这个值就会变化，自然是可以监听到的" class="headerlink" title="在子组件中 watch 监听，父组件获取到值，这个值就会变化，自然是可以监听到的"></a>在子组件中 watch 监听，父组件获取到值，这个值就会变化，自然是可以监听到的</h4><figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs haxe">watch:<span class="hljs-type"></span>&#123;<br>    data:<span class="hljs-type"></span>&#123;<br>      deep:<span class="hljs-type">true</span>,<br>      handler:<span class="hljs-type">function</span>(<span class="hljs-keyword">new</span><span class="hljs-type">Val</span>,oldVal) &#123;<br>        <span class="hljs-built_in">this</span>.$nextTick(() =&gt; &#123;<br>          <span class="hljs-built_in">this</span>.data = <span class="hljs-keyword">new</span><span class="hljs-type">Val</span><br><span class="hljs-type"></span>          <span class="hljs-built_in">this</span>.data = <span class="hljs-keyword">new</span><span class="hljs-type">Val</span>.url ? <span class="hljs-keyword">new</span><span class="hljs-type">Val</span>.url : <span class="hljs-type"></span>&#x27;<span class="hljs-string">&#x27;</span><br><span class="hljs-string">        &#125;)</span><br><span class="hljs-string">      &#125;</span><br><span class="hljs-string">    &#125;,</span><br><span class="hljs-string">&#125;</span><br></code></pre></td></tr></table></figure>
 
-<p>Watcher 的定义如下，实例化时会执行 get 方法对传入的 updateComponent 进行求值，updateComponent 也就是 _render 函数，执行_render 函数会读取 data 数据从而触发 getter 进行依赖收集。</p>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">//</span> src<span class="hljs-regexp">/core/</span>observer/watcher.js<br>export default class Watcher &#123;<br>    <br>    <span class="hljs-regexp">//</span> 对 getter 求值，进行依赖收集<br>    get () &#123;&#125;<br>    <br>    <span class="hljs-regexp">//</span> 触发更新<br>    update() &#123;&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>至此，我们可以总结一下三者的关系：</p>
-<ol>
-<li><p>Observer 将数据定义为响应式，每个 Observer 实例都有自己的 Dep 来管理依赖。实例化 Wacther 的时候进行求值会触发 getter ，进而执行 dep.depend() 将当前 Wacther 加入 Dep 维护的依赖列表，这就是依赖收集过程。</p>
-</li>
-<li><p>数据发生变化触发 setter 执行 dep.notify，Dep 会执行所有依赖的 update 方法并加入异步更新队列，这就是触发依赖过程。<br><img src="/imageO/Dep.jpg" srcset="/img/loading.gif" lazyload alt="dep"></p>
-</li>
-</ol>
-<h4 id="转载文章"><a href="#转载文章" class="headerlink" title="转载文章"></a>转载文章</h4><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844904128028622861">Observer、Dep、Watcher 傻傻搞不清楚</a></p>
+<p>从父组件点击调用接口并显示子组件，子组件拿到数据并监听在watch中调用方法并显示</p>
+<h4 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h4><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844904113914773518#comment">Vue中父子组件生命周期执行顺序回顾</a></p>
 
             </div>
             <hr>
@@ -295,18 +289,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/02/28/Vue%E4%B8%AD%E7%88%B6%E5%AD%90%E7%BB%84%E4%BB%B6%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E6%89%A7%E8%A1%8C%E9%A1%BA/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Vue中父子组件生命周期执行顺</span>
-                        <span class="visible-mobile">Previous</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/02/20/Vue--diff%E7%AE%97%E6%B3%95/">
-                        <span class="hidden-mobile">Vue diff算法</span>
+                      <a href="/2022/02/25/Vue--Observer%E3%80%81Dep%E3%80%81Watcher/">
+                        <span class="hidden-mobile">Vue--Observer、Dep、Watcher</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
