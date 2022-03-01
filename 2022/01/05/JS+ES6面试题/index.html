@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      11.9k 字
+      12.6k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      138
+      146
        分钟
     </span>
   
@@ -532,7 +532,25 @@
 
 <p><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2021/04/13/ES6(%E5%9B%9B)/">博客：</a></p>
 <h3 id="模块化"><a href="#模块化" class="headerlink" title="模块化"></a>模块化</h3><p>模块化就是把代码进行拆分，方便重复利用，类似java中的导包，需要使用一个包，必须先导包，而js中没有包的概念，换来的是模块<br>ES6 的模块化分为导出（export） @与导入（import）两个模块。</p>
-<h4 id="模块化优点"><a href="#模块化优点" class="headerlink" title="模块化优点"></a>模块化优点</h4><p>避免命名冲突（减少命名空间污染）<br>更好的分类，按需加载<br>更高的复用性<br>高可维护性<br><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2021/04/17/ES6%E6%A8%A1%E5%9D%97%E5%8C%96/">博客：</a></p>
+<h4 id="模块化优点"><a href="#模块化优点" class="headerlink" title="模块化优点"></a>模块化优点</h4><p>避免命名冲突（减少命名空间污染）<br>更好的分类，按需加载<br>更高的复用性<br>高可维护性</p>
+<h3 id="CommomJS-node应用由模块组成"><a href="#CommomJS-node应用由模块组成" class="headerlink" title="CommomJS(node应用由模块组成)"></a>CommomJS(node应用由模块组成)</h3><p>CommonJS定义了两个主要概念：<br>require函数，用于导入模块<br>module.exports变量，用于导出模块<br>require<br>导入，代码很简单，let {count,addCount}=require(“./utils”)就可以了。<br>require的第一步是解析路径获取到模块内容：</p>
+<p>如果是核心模块，比如fs，就直接返回模块<br>如果是带有路径的如/,./等等，则拼接出一个绝对路径，然后先读取缓存require.cache再读取文件。如果没有加后缀，则自动加后缀然后一一识别。</p>
+<p>.js 解析为JavaScript 文本文件<br>.json解析JSON对象<br>.node解析为二进制插件模块</p>
+<p>首次加载后的模块会缓存在require.cache之中，所以多次加载require，得到的对象是同一个。<br>在执行模块代码的时候，会将模块包装成如下模式，以便于作用域在模块范围之内。</p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs xquery"><span class="hljs-keyword">module</span><br><span class="hljs-keyword">let</span><span class="hljs-built_in"> count</span>=<span class="hljs-number">0</span><br><span class="hljs-keyword">function</span> addCount()&#123;<br>   <span class="hljs-built_in"> count</span>++<br>&#125;<br><span class="hljs-keyword">module</span>.exports=<span class="hljs-built_in">&#123;count</span>,addCount&#125;<br></code></pre></td></tr></table></figure>
+
+<p>然后根据require执行代码时需要加上的，那么实际上我们的代码长成这样：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs javascript">(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"><span class="hljs-built_in">exports</span>, <span class="hljs-built_in">require</span>, <span class="hljs-built_in">module</span>, __filename, __dirname</span>) </span>&#123;<br>    <span class="hljs-keyword">let</span> count=<span class="hljs-number">0</span><br>    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">addCount</span>(<span class="hljs-params"></span>)</span>&#123;<br>        count++<br>    &#125;<br>    <span class="hljs-built_in">module</span>.exports=&#123;count,addCount&#125;<br>&#125;);<br></code></pre></td></tr></table></figure>
+
+<h3 id="ES6模块与CommonJS的区别"><a href="#ES6模块与CommonJS的区别" class="headerlink" title="ES6模块与CommonJS的区别"></a>ES6模块与CommonJS的区别</h3><h4 id="CommonJS-模块输出的是一个值的拷贝，ES6"><a href="#CommonJS-模块输出的是一个值的拷贝，ES6" class="headerlink" title="CommonJS 模块输出的是一个值的拷贝，ES6"></a>CommonJS 模块输出的是一个值的拷贝，ES6</h4><ol>
+<li>CommonJS 模块输出的是值的拷贝，也就是说，一旦输出一个值，模块内部的变化就影响不到这个值。</li>
+<li>ES6 模块的运行机制与 CommonJS 不一样。JS 引擎对脚本静态分析的时候，遇到模块加载命令import，就会生成一个只读引用。等到脚本真正执行时，再根据这个只读引用，到被加载的那个模块里面去取值。换句话说，ES6 的import有点像 Unix 系统的“符号连接”，原始值变了，import加载的值也会跟着变。因此，ES6 模块是动态引用，并且不会缓存值，模块里面的变量绑定其所在的模块。</li>
+</ol>
+<h4 id="CommonJS-模块是运行时加载，ES6-模块是编译时输出接口"><a href="#CommonJS-模块是运行时加载，ES6-模块是编译时输出接口" class="headerlink" title="CommonJS 模块是运行时加载，ES6 模块是编译时输出接口"></a>CommonJS 模块是运行时加载，ES6 模块是编译时输出接口</h4><ol>
+<li>运行时加载: CommonJS 模块就是对象；即在输入时是先加载整个模块，生成一个对象，然后再从这个对象上面读取方法，这种加载称为“运行时加载”。</li>
+<li>编译时加载: ES6 模块不是对象，而是通过 export 命令显式指定输出的代码，import时采用静态命令的形式。即在import时可以指定加载某个输出值，而不是加载整个模块，这种加载称为“编译时加载”。</li>
+</ol>
+<h4 id="CommonJs导出有有缓存，而ES6没有"><a href="#CommonJs导出有有缓存，而ES6没有" class="headerlink" title="CommonJs导出有有缓存，而ES6没有"></a>CommonJs导出有有缓存，而ES6没有</h4><p><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2021/04/17/ES6%E6%A8%A1%E5%9D%97%E5%8C%96/">博客：</a></p>
 
             </div>
             <hr>
