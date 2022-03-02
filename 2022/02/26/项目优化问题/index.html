@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      2.6k 字
+      2.9k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      28
+      32
        分钟
     </span>
   
@@ -266,7 +266,15 @@
 <h4 id="使用节流函数进行性能优化"><a href="#使用节流函数进行性能优化" class="headerlink" title="使用节流函数进行性能优化"></a>使用节流函数进行性能优化</h4><p>如果直接将函数绑定在scroll事件上，当页面滚动时，函数会被高频触发，这非常影响浏览器的性能。</p>
 <p>我想实现限制触发频率，来优化性能。</p>
 <p>节流函数：只允许一个函数在N秒内执行一次。<br><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903455048335368">实现图片懒加载(Lazyload)</a></p>
-<h3 id="图片预加载"><a href="#图片预加载" class="headerlink" title="图片预加载"></a>图片预加载</h3>
+<h3 id="图片预加载"><a href="#图片预加载" class="headerlink" title="图片预加载"></a>图片预加载</h3><p>预加载</p>
+<h4 id="1-什么是预加载"><a href="#1-什么是预加载" class="headerlink" title="1.什么是预加载"></a>1.什么是预加载</h4><p>资源预加载是另一个性能优化技术，我们可以使用该技术来预先告知浏览器某些资源可能在将来会被使用到。预加载简单来说就是将所有所需的资源提前请求加载到本地，这样后面在需要用到时就直接从缓存取资源。</p>
+<h4 id="2-为什么要用预加载"><a href="#2-为什么要用预加载" class="headerlink" title="2.为什么要用预加载"></a>2.为什么要用预加载</h4><p>在网页全部加载之前，对一些主要内容进行加载，以提供给用户更好的体验，减少等待的时间。否则，如果一个页面的内容过于庞大，没有使用预加载技术的页面就会长时间的展现为一片空白，直到所有内容加载完毕。</p>
+<h4 id="3-实现预加载的几种办法"><a href="#3-实现预加载的几种办法" class="headerlink" title="3.实现预加载的几种办法"></a>3.实现预加载的几种办法</h4><h5 id="使用HTML标签"><a href="#使用HTML标签" class="headerlink" title="使用HTML标签"></a>使用HTML标签</h5><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">&lt;img <span class="hljs-attribute">src</span>=<span class="hljs-string">&quot;http://pic26.nipic.com/20121213/6168183 0044449030002.jpg&quot;</span> <span class="hljs-attribute">style</span>=<span class="hljs-string">&quot;display:none&quot;</span>/&gt;<br></code></pre></td></tr></table></figure>
+
+<h5 id="使用Image对象"><a href="#使用Image对象" class="headerlink" title="使用Image对象"></a>使用Image对象</h5><figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs arduino">&lt;script src=<span class="hljs-string">&quot;./myPreload.js&quot;</span>&gt;&lt;/script&gt;<br><span class="hljs-comment">//myPreload.js文件</span><br>var image= <span class="hljs-keyword">new</span> <span class="hljs-built_in">Image</span>()<br>image.src=<span class="hljs-string">&quot;http://pic26.nipic.com/20121213/6168183 004444903000 2.jpg&quot;</span><br></code></pre></td></tr></table></figure>
+
+<h6 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h6><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903614138286094#heading-5">懒加载和预加载</a></p>
+
             </div>
             <hr>
             <div>
