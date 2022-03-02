@@ -1,0 +1,530 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/2.jpg">
+  <link rel="icon" href="/img/2.jpg">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="DragonPeng">
+  <meta name="keywords" content="">
+  
+  <title>JS项目优化问题 - DragonPeng的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>DragonPeng' blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/page1.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="JS项目优化问题">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-02-26 20:15" pubdate>
+        February 26, 2022 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.6k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      28
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">JS项目优化问题</h1>
+            
+            <div class="markdown-body">
+              <p>总结了最近的一些面试题和之前的知识点</p>
+<hr>
+<h3 id="防止表单重复提交的解决方案"><a href="#防止表单重复提交的解决方案" class="headerlink" title="防止表单重复提交的解决方案"></a>防止表单重复提交的解决方案</h3><p>用户在操作表单Post数据时往往会出现表单数据重复提交的问题，尤其在Web开发中此类问题比较常见。刷新页面，后退操作以前的页面，单机多次按钮都会导致数据重复提交。此类问题是因为浏览器重复提交HTTP请求导致。</p>
+<h4 id="1、-在数据库添加唯一字段"><a href="#1、-在数据库添加唯一字段" class="headerlink" title="1、 在数据库添加唯一字段"></a>1、 在数据库添加唯一字段</h4><p>在数据库建表的时候在ID字段添加主键约束，账号，名称的信息添加唯一性约束。确保数据库只可以添加一条数据。<br>此方法从根本上的防止了数据重复提交。</p>
+<h4 id="2、-用js为添加按钮禁用"><a href="#2、-用js为添加按钮禁用" class="headerlink" title="2、 用js为添加按钮禁用"></a>2、 用js为添加按钮禁用</h4><p>当用户提交表单之后，可以使用js将提交按钮隐藏（disable属性），防止用户多次点击按钮提交数据。<br>注意：如果客户端禁用了js，则此方法无效。</p>
+<h4 id="3、-使用Post-Redirect-Get"><a href="#3、-使用Post-Redirect-Get" class="headerlink" title="3、 使用Post/Redirect/Get"></a>3、 使用Post/Redirect/Get</h4><p>Post/Redirect/Get简称PRG，是一种可以防止表单数据重复提交的一种Web设计模式，像用户刷新提交响应页面等比较典型的重复提交表单数据的问题可以使用PRG模式来避免。例如：当用户提交成功之后，执行客户端重定向，跳转到提交成功页面。<br>注意：PRG设计模式并不适用所有的重复提交情况，比如：</p>
+<p>1）由于服务器响应缓慢，用户刷新提交POST请求造成的重复提交。</p>
+<p>2）用户点击后退按钮，返回到数据提交界面，导致的数据重复提交。</p>
+<p>3）用户多次点击提交按钮，导致的数据重复提交。</p>
+<p>4）用户恶意避开客户端预防多次提交手段，进行重复数据提交。</p>
+<h4 id="4、-使用Session设置令牌"><a href="#4、-使用Session设置令牌" class="headerlink" title="4、 使用Session设置令牌"></a>4、 使用Session设置令牌</h4><p>客户端请求页面时，服务器为每次产生的Form表单分配唯一的随机标识号，并且在Form的一个隐藏字段中设置这个标识号，同时在当前用户的Session中保存这个标识号。当提交表单时，服务器比较hidden和session中的标识号是否相同，相同则继续，处理完后清空Session，否则服务器忽略请求。</p>
+<p>注意：恶意用户可利用这一性质，不断重复访问页面，以致Session中保存的标识号不断增多，最终严重消耗服务器内存。可以采用在Session中记录用户发帖的时间，然后通过一个时间间隔来限制用户连续发帖的数量来解决这一问题。</p>
+<h5 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h5><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6968747879682801672">防止表单重复提交的解决方案整理</a></p>
+<h3 id="面试题：渲染十万条数据解决方案"><a href="#面试题：渲染十万条数据解决方案" class="headerlink" title="面试题：渲染十万条数据解决方案"></a>面试题：渲染十万条数据解决方案</h3><p>虚拟列表是最主流的解决方案，不渲染所有的数据，只渲染可视区域中的数据。当用户滑（滚）动时，通过监听 scroll 来判断是上滑还是下拉，从而更新数据。同理 IntersectionObserver 和 getBoundingClientRect 都能实现</p>
+<p>延迟渲染，也叫懒加载。顾名思义，最开始不渲染所有数据，只渲染可视区域中的数据（同虚拟列表一致）。当滚动到页面底部时，添加数据（concat），视图渲染新增DOM</p>
+<p>时间分片主要是分批渲染DOM，使用 requestAnimationFrame 来让动画更加流畅</p>
+<h4 id="虚拟列表（也叫按需渲染或可视区域渲染）"><a href="#虚拟列表（也叫按需渲染或可视区域渲染）" class="headerlink" title="虚拟列表（也叫按需渲染或可视区域渲染）"></a>虚拟列表（也叫按需渲染或可视区域渲染）</h4><h5 id="什么是虚拟列表"><a href="#什么是虚拟列表" class="headerlink" title="什么是虚拟列表"></a>什么是虚拟列表</h5><p>虚拟列表是按需显示的一种实现，即只对可见区域进行渲染，对非可见区域中的数据不渲染或部分渲染的技术，是对长列表渲染的优化手段<br>说的明白一点，就是展示可视区域中的内容，当你向上向下滚动时，通过 DOM API 替换可视区域中的数据，做到动态加载十万条数据</p>
+<h5 id="两种解决思路"><a href="#两种解决思路" class="headerlink" title="两种解决思路"></a>两种解决思路</h5><p>关于无限滚动，早期通过监听 scroll 事件，这是最常见的解决方案。可去 图片懒加载 中查看，简单来说，就是通过子项的 offsetTop（偏移高度）与 innerHeight（视窗高度）+ scrollTop（滚动高度）做对比来实现，当偏移高度 &lt; 视窗高度+滚动高度时，说明已经滚到下方，就可展示图片<br>在 图片懒加载 中我们也提及 IntersectionObserver（交叉观察者）API，以此来解决 scroll 所不具备的效果，即  IntersectionObserver API 是异步的，不随目标元素的滚动同步触发，性能消耗小。当然还可以通过 getBoundingClientRect 来实现，getBoundingClientRect 方法返回元素的大小机器相对于视窗的位置</p>
+<h6 id="scroll-解决方案"><a href="#scroll-解决方案" class="headerlink" title="scroll 解决方案"></a>scroll 解决方案</h6><p>先说 scroll 解决方案，简单来说，就是对其传来的数据进行分割展示，用到 slice 方法，它会返回一个新的数组<br>我们假设单个列表高度为 30px，一页展示的列表数量为 const count = Math.ceil(列表高度 / 30)，展示的数据就是 visibleData = data.slice(start, start + count)（start 一开始为0）<br>当滚动时，动态修改 start 和 visibleData</p>
+<p>虚拟列表scroll无virtual-list-phantom</p>
+<p>这种方法的精髓在于设置开始渲染的点和展示的数据，当他滚动时动态修改，但是因为 scroll 会频繁触发，当渲染的数据变多后会有性能问题</p>
+<h6 id="IntersectionObserver-解决方案"><a href="#IntersectionObserver-解决方案" class="headerlink" title="IntersectionObserver 解决方案"></a>IntersectionObserver 解决方案</h6><p>通过 IntersectionObserver 的特性，当目标对象中的 entry.isIntersecting 为 true 或者 intersectionRatio &gt; 0 （元素与祖先元素交叉、可见）时，说明本来不可见的元素浮现在视图中，表示它向上或向下滑动，我们动态设置视图中的顶部和底部 id 即可对其判断。当下滑时 entry.traget.id === ‘bottom’，我们修改 start 和 end；同理，当上滑时entry.traget.id === ‘top 时，我们也一样修改 start 和 end</p>
+<h4 id="延迟渲染（即懒渲染）"><a href="#延迟渲染（即懒渲染）" class="headerlink" title="延迟渲染（即懒渲染）"></a>延迟渲染（即懒渲染）</h4><h5 id="懒加载"><a href="#懒加载" class="headerlink" title="懒加载"></a>懒加载</h5><p>不多介绍，一句话解释：最开始不渲染所有数据，只展示视图上可见的数据，当滚动到页面底部时，加载更多数据<br>实现原理：通过监听父级元素的 scroll 事件，当然也可以通过 IntersectionObserver 或 getBoundingClientRect 等 API 实现<br>但 scroll 事件会频繁触发，所以需要手写节流；滚动元素内有大量 DOM ，容易造成卡顿，建议使用 IntersectionObserver</p>
+<h4 id="时间分片"><a href="#时间分片" class="headerlink" title="时间分片"></a>时间分片</h4><p>参考 如何高性能的渲染十万条数据(时间分片)  所举例子，对于大量数据渲染时，JS 运算并不是性能的瓶颈，性能的瓶颈主要在于渲染阶段。也就是说 JS 执行是很快的，页面卡顿是因为同时渲染大量 DOM 所引起的，可采用分批渲染的方式来解决</p>
+<p>我的理解是，通过递归来渲染DOM，刚开始可以是20个，20个渲染完后再渲染剩下的，循环如此，将其全部渲染完。又因为浏览器的渲染机制是“宏任务—微任务—GUI渲染—宏任务…”。遂第一个 loop 执行后，先等页面渲染完，再执行下一轮的 setTimeout（宏任务）</p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>渲染十万条数据有三种解决方案，为虚拟列表、懒加载、时间分片。最优选是虚拟列表，DOM 树上只挂载有限的DOM；懒加载和时间分片的缺点在于插入大量的DOM，占内存运行时会造成卡顿<br>无论是虚拟列表还是懒加载，传统的做法是 scroll + 节流，这种做法的优势是老 API，兼容性刚刚的，缺点是，滑多了还是会引起性能问题，当然 IntersectionObserver 也是一样的，无非是换了个 API 做“元素是否出现在视图”判断，最好的方案是用 IntersectionObserver（交叉观察器），异步加载、性能消耗小</p>
+<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/7065218958663614500#heading-3">面试题：渲染十万条数据解决方案</a></p>
+<h3 id="实现图片懒加载-Lazyload"><a href="#实现图片懒加载-Lazyload" class="headerlink" title="实现图片懒加载(Lazyload)"></a>实现图片懒加载(Lazyload)</h3><p>懒加载的意义（为什么要使用懒加载）<br>对页面加载速度影响最大的就是图片，一张普通的图片可以达到几M的大小，而代码也许就只有几十KB。当页面图片很多时，页面的加载速度缓慢，几S钟内页面没有加载完成，也许会失去很多的用户。<br>所以，对于图片过多的页面，为了加速页面加载速度，所以很多时候我们需要将页面内未出现在可视区域内的图片先不做加载， 等到滚动到可视区域后再去加载。这样子对于页面加载性能上会有很大的提升，也提高了用户体验。</p>
+<h4 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h4><p>将页面中的img标签src指向一张小图片或者src为空，然后定义data-src（这个属性可以自定义命名，我才用data-src）属性指向真实的图片。src指向一张默认的图片，否则当src为空时也会向服务器发送一次请求。可以指向loading的地址。</p>
+<p>注：图片要指定宽高</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">&lt;img <span class="hljs-attribute">src</span>=<span class="hljs-string">&quot;default.jpg&quot;</span> <span class="hljs-attribute">data-src</span>=<span class="hljs-string">&quot;http://ww4.sinaimg.cn/large/006y8mN6gw1fa5obmqrmvj305k05k3yh.jpg&quot;</span> /&gt;复制代码当载入页面时，先把可视区域内的img标签的<br></code></pre></td></tr></table></figure>
+
+<p>data-src属性值负给src，然后监听滚动事件，把用户即将看到的图片加载。这样便实现了懒加载。<br>JavaScript</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><br><span class="javascript">    <span class="hljs-keyword">var</span> num = <span class="hljs-built_in">document</span>.getElementsByTagName(<span class="hljs-string">&#x27;img&#x27;</span>).length;</span><br><span class="javascript">    <span class="hljs-keyword">var</span> img = <span class="hljs-built_in">document</span>.getElementsByTagName(<span class="hljs-string">&quot;img&quot;</span>);</span><br><span class="javascript">    <span class="hljs-keyword">var</span> n = <span class="hljs-number">0</span>; <span class="hljs-comment">//存储图片加载到的位置，避免每次都从第一张图片开始遍历</span></span><br><br><span class="javascript">    lazyload(); <span class="hljs-comment">//页面载入完毕加载可是区域内的图片</span></span><br><br><span class="javascript">    <span class="hljs-built_in">window</span>.onscroll = lazyload;</span><br><br><span class="javascript">    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">lazyload</span>(<span class="hljs-params"></span>) </span>&#123; <span class="hljs-comment">//监听页面滚动事件</span></span><br><span class="javascript">        <span class="hljs-keyword">var</span> seeHeight = <span class="hljs-built_in">document</span>.documentElement.clientHeight; <span class="hljs-comment">//可见区域高度</span></span><br><span class="javascript">        <span class="hljs-keyword">var</span> scrollTop = <span class="hljs-built_in">document</span>.documentElement.scrollTop || <span class="hljs-built_in">document</span>.body.scrollTop; <span class="hljs-comment">//滚动条距离顶部高度</span></span><br><span class="javascript">        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = n; i &lt; num; i++) &#123;</span><br>            if (img[i].offsetTop &lt; seeHeight + scrollTop) &#123;<br><span class="javascript">                <span class="hljs-keyword">if</span> (img[i].getAttribute(<span class="hljs-string">&quot;src&quot;</span>) == <span class="hljs-string">&quot;default.jpg&quot;</span>) &#123;</span><br><span class="javascript">                    img[i].src = img[i].getAttribute(<span class="hljs-string">&quot;data-src&quot;</span>);</span><br>                &#125;<br>                n = i + 1;<br>            &#125;<br>        &#125;<br>    &#125;<br><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="使用节流函数进行性能优化"><a href="#使用节流函数进行性能优化" class="headerlink" title="使用节流函数进行性能优化"></a>使用节流函数进行性能优化</h4><p>如果直接将函数绑定在scroll事件上，当页面滚动时，函数会被高频触发，这非常影响浏览器的性能。</p>
+<p>我想实现限制触发频率，来优化性能。</p>
+<p>节流函数：只允许一个函数在N秒内执行一次。</p>
+<h3 id="图片预加载"><a href="#图片预加载" class="headerlink" title="图片预加载"></a>图片预加载</h3><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903455048335368">实现图片懒加载(Lazyload)</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E9%9D%A2%E8%AF%95%E9%A2%98/">面试题</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/">前端基础</a>
+                    
+                      <a class="hover-with-bg" href="/tags/JS/">JS</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/02/28/Vue%E4%B8%AD%E7%88%B6%E5%AD%90%E7%BB%84%E4%BB%B6%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E6%89%A7%E8%A1%8C%E9%A1%BA/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Vue中父子组件生命周期执行顺</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/02/25/Vue--Observer%E3%80%81Dep%E3%80%81Watcher/">
+                        <span class="hidden-mobile">Vue--Observer、Dep、Watcher</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
