@@ -1,0 +1,525 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/2.jpg">
+  <link rel="icon" href="/img/2.jpg">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="DragonPeng">
+  <meta name="keywords" content="">
+  
+  <title>Js数组基本问题 - DragonPeng的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>DragonPeng' blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/page1.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Js数组基本问题">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-02-28 20:15" pubdate>
+        February 28, 2022 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      982 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      14
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Js数组基本问题</h1>
+            
+            <div class="markdown-body">
+              <p>总结了最近的一些面试题和之前的知识点</p>
+<hr>
+<h3 id="JS判断数组中是否包含某个值"><a href="#JS判断数组中是否包含某个值" class="headerlink" title="JS判断数组中是否包含某个值"></a>JS判断数组中是否包含某个值</h3><h4 id="方法一：array-indexOf"><a href="#方法一：array-indexOf" class="headerlink" title="方法一：array.indexOf"></a>方法一：array.indexOf</h4><p>此方法判断数组中是否存在某个值，如果存在，则返回数组元素的下标，否则返回-1。</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">var</span> arr=[<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>];<br><span class="hljs-attribute">var</span> index=arr.indexOf(<span class="hljs-number">3</span>);<br><span class="hljs-attribute">console</span>.log(index);<br></code></pre></td></tr></table></figure>
+
+<h4 id="方法二：array-includes-searcElement-fromIndex"><a href="#方法二：array-includes-searcElement-fromIndex" class="headerlink" title="方法二：array.includes(searcElement[,fromIndex])"></a>方法二：array.includes(searcElement[,fromIndex])</h4><p>此方法判断数组中是否存在某个值，如果存在返回true，否则返回false</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">var</span> arr=[<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>];<br><span class="hljs-attribute">if</span>(arr.includes(<span class="hljs-number">3</span>))<br>    <span class="hljs-attribute">console</span>.log(<span class="hljs-string">&quot;存在&quot;</span>);<br><span class="hljs-attribute">else</span><br>    <span class="hljs-attribute">console</span>.log(<span class="hljs-string">&quot;不存在&quot;</span>);<br></code></pre></td></tr></table></figure>
+
+<h4 id="方法三：array-find-callback-thisArg"><a href="#方法三：array-find-callback-thisArg" class="headerlink" title="方法三：array.find(callback[,thisArg])"></a>方法三：array.find(callback[,thisArg])</h4><p>返回数组中满足条件的第一个元素的值，如果没有，返回undefined</p>
+<figure class="highlight arcade"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs arcade"><span class="hljs-keyword">var</span> arr=[<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>];<br><span class="hljs-keyword">var</span> result = arr.find(<span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span>&#123;<br>    <span class="hljs-keyword">return</span> item &gt; <span class="hljs-number">3</span><br>&#125;);<br>console.log(result);<br></code></pre></td></tr></table></figure>
+
+<p>如果元素是对象：</p>
+<figure class="highlight qml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs qml"><span class="hljs-keyword">var</span> items=[<br>    &#123;<span class="hljs-attribute">id:</span><span class="hljs-string">1,name</span>:<span class="hljs-string">&#x27;yxy&#x27;</span>&#125;,<br>    &#123;<span class="hljs-attribute">id:</span><span class="hljs-string">2,name</span>:<span class="hljs-string">&#x27;whc&#x27;</span>&#125;,<br>    &#123;<span class="hljs-attribute">id:</span><span class="hljs-string">3,name</span>:<span class="hljs-string">&#x27;hzj&#x27;</span>&#125;,<br>    &#123;<span class="hljs-attribute">id:</span><span class="hljs-string">4,name</span>:<span class="hljs-string">&#x27;fyq&#x27;</span>&#125;<br>];<br><span class="hljs-keyword">var</span> result = items.find(item=&gt;&#123;<br>    <span class="hljs-keyword">return</span> item.id == <span class="hljs-number">3</span>;<br>&#125;);<br><span class="hljs-built_in">console</span>.log(result);<br></code></pre></td></tr></table></figure>
+
+<h4 id="方法四：array-findeIndex-callback-thisArg"><a href="#方法四：array-findeIndex-callback-thisArg" class="headerlink" title="方法四：array.findeIndex(callback[,thisArg])"></a>方法四：array.findeIndex(callback[,thisArg])</h4><p>返回数组中满足条件的第一个元素的下标，如果没有找到，返回**-1**</p>
+<figure class="highlight arcade"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs arcade"><span class="hljs-keyword">var</span> arr=[<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>];<br><span class="hljs-keyword">var</span> result = arr.findIndex(<span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span>&#123;<br>    <span class="hljs-keyword">return</span> item &gt; <span class="hljs-number">3</span><br>&#125;);<br>console.log(result);<br></code></pre></td></tr></table></figure>
+
+<h4 id="方法五：当然不能忘了养大我们的for循环和if"><a href="#方法五：当然不能忘了养大我们的for循环和if" class="headerlink" title="方法五：当然不能忘了养大我们的for循环和if"></a>方法五：当然不能忘了养大我们的for循环和if</h4><figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs maxima"><span class="hljs-built_in">var</span> arr=[<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>];<br><span class="hljs-built_in">var</span> k=<span class="hljs-number">0</span>;<br><span class="hljs-keyword">for</span>(<span class="hljs-built_in">var</span> i=<span class="hljs-number">0</span>;i&lt;arr.<span class="hljs-built_in">length</span>;i++)&#123;<br>    <span class="hljs-keyword">if</span>(arr[i]==<span class="hljs-number">3</span>)<br>        k=<span class="hljs-number">1</span>;<br>&#125;<br><span class="hljs-keyword">if</span>(k)<br>    console.<span class="hljs-built_in">log</span>(<span class="hljs-string">&quot;存在&quot;</span>);<br><span class="hljs-keyword">else</span><br>    console.<span class="hljs-built_in">log</span>(<span class="hljs-string">&quot;不存在&quot;</span>);<br></code></pre></td></tr></table></figure>
+
+<h3 id="JS如何实现数组扁平化？"><a href="#JS如何实现数组扁平化？" class="headerlink" title="JS如何实现数组扁平化？"></a>JS如何实现数组扁平化？</h3><h4 id="ES6的flat"><a href="#ES6的flat" class="headerlink" title="ES6的flat"></a>ES6的flat</h4><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs stylus">ary = arr<span class="hljs-selector-class">.flat</span>(Infinity)<br>console<span class="hljs-selector-class">.log</span>(<span class="hljs-selector-attr">[1, [2, 3, [4, 5]</span>]]<span class="hljs-selector-class">.flat</span>(Infinity))<br></code></pre></td></tr></table></figure>
+
+<p>Array.protype.flat()用于将数组“拉平”，变成一维数组，返回一个新数组。flat()默认只会拉平一层，flat（n）拉平n层，Infinity无限次。好用归好用，但效率我们就心里明白，这也是我们面试官最不想听到的答案了。</p>
+<h4 id="正则处理"><a href="#正则处理" class="headerlink" title="正则处理"></a>正则处理</h4><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">//</span>第一种处理<br>ary = str.replace(<span class="hljs-regexp">/(\[|\])/g</span>, <span class="hljs-string">&#x27;&#x27;</span>);<br><br><span class="hljs-regexp">//</span>第二种处理<br>str = str.replace(<span class="hljs-regexp">/(\[|\]))/g</span>, <span class="hljs-string">&#x27;&#x27;</span>);<br>str = <span class="hljs-string">&#x27;[&#x27;</span> + str + <span class="hljs-string">&#x27;]&#x27;</span>;<br>ary = JSON.parse(str);<br></code></pre></td></tr></table></figure>
+
+<h4 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h4><figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs reasonml"> <span class="hljs-keyword">let</span> arr = <span class="hljs-literal">[<span class="hljs-number">1</span>, [<span class="hljs-number">2</span>, [<span class="hljs-number">3</span>, <span class="hljs-number">4</span>]</span>]];<br><br> <span class="hljs-keyword">function</span> flattern(arr,result =<span class="hljs-literal">[]</span>) &#123;<br><br>        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; arr.length; i++) &#123;<br>            <span class="hljs-keyword">if</span>(<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Array</span>.</span></span>is<span class="hljs-constructor">Array(<span class="hljs-params">arr</span>[<span class="hljs-params">i</span>])</span>) &#123;<br>                flattern(arr<span class="hljs-literal">[<span class="hljs-identifier">i</span>]</span>, result)<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                result.push(arr<span class="hljs-literal">[<span class="hljs-identifier">i</span>]</span>)<br>            &#125;<br>        &#125;<br>        return result;<br>    &#125;<br>console.log(flattern(arr));<br></code></pre></td></tr></table></figure>
+
+<p>这也是我当时面试想到最简单的解决方案，思路很简单，通过遍历最外层数组的每一个元素，看看是否还是数组，如果是的话，继续递归执行，不是的话，放到最后的结果数组当中</p>
+<h4 id="reduce"><a href="#reduce" class="headerlink" title="reduce"></a>reduce</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> arr = [<span class="hljs-number">1</span>, [<span class="hljs-number">2</span>, [<span class="hljs-number">3</span>, <span class="hljs-number">4</span>]]];<br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">flatten</span>(<span class="hljs-params">arr</span>) </span>&#123;<br>    <span class="hljs-keyword">return</span> arr.reduce(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">prev, next</span>)</span>&#123;<br>        <span class="hljs-keyword">return</span> prev.concat(<span class="hljs-built_in">Array</span>.isArray(next) ? flatten(next) : next)<br>    &#125;, [])<br>&#125;<br><span class="hljs-built_in">console</span>.log(flatten(arr))<br><br><span class="hljs-comment">//reduce搭配扩展运算符</span><br><span class="hljs-keyword">const</span> flatten = <span class="hljs-function">(<span class="hljs-params">array</span>) =&gt;</span> array.reduce(<span class="hljs-function">(<span class="hljs-params">acc,cur</span>)=&gt;</span><br>    (<span class="hljs-built_in">Array</span>.isArray(cur)?[...acc,...flatten(cur)]:[...acc,cur]),[])<br></code></pre></td></tr></table></figure>
+
+<p>提到数组的方法，就会联想到非常常用的2个高阶函数map和reduce。其实思路上和上面递归的很相似。</p>
+<h4 id="ES6扩展运算符"><a href="#ES6扩展运算符" class="headerlink" title="ES6扩展运算符"></a>ES6扩展运算符</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> arr = [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,[<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>,[<span class="hljs-number">6</span>,<span class="hljs-number">7</span>],<span class="hljs-number">8</span>],<span class="hljs-number">9</span>,<span class="hljs-number">10</span>,[<span class="hljs-number">11</span>,[<span class="hljs-number">12</span>,<span class="hljs-number">13</span>]]];<br><span class="hljs-keyword">const</span> flatten = <span class="hljs-function">(<span class="hljs-params">arr</span>) =&gt;</span> &#123;<br>    <span class="hljs-keyword">while</span>(arr.some(<span class="hljs-function"><span class="hljs-params">item</span>=&gt;</span><span class="hljs-built_in">Array</span>.isArray(item)))&#123;<br>        arr=[].concat(...arr);<br>    &#125;<br>    <span class="hljs-keyword">return</span> arr;<br>&#125;<br><span class="hljs-built_in">console</span>.log(flatten(arr)); <span class="hljs-comment">// [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]</span><br></code></pre></td></tr></table></figure>
+
+<p>由于扩展运算符一次只能展开一层数组</p>
+<figure class="highlight inform7"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs inform7">var arr = <span class="hljs-comment">[1, <span class="hljs-comment">[2, <span class="hljs-comment">[3, 4]</span>]</span>]</span>;<br>console.log(<span class="hljs-comment">[]</span>.concat(...arr)); // <span class="hljs-comment">[1, 2, <span class="hljs-comment">[3, 4]</span>]</span><br></code></pre></td></tr></table></figure>
+
+<p>因此考虑只要数组中还有数组，就使用扩展运算符展开一次。</p>
+<h4 id="toString-NaN"><a href="#toString-NaN" class="headerlink" title="toString"></a>toString</h4><figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs perl">function flatten(arr)&#123;<br><br>    //arr.join(<span class="hljs-string">&#x27;,&#x27;</span>).<span class="hljs-keyword">split</span>(<span class="hljs-string">&#x27;,&#x27;</span>);  <span class="hljs-keyword">join</span>也可以实现  <br>    <span class="hljs-keyword">return</span> arr.toString().<span class="hljs-keyword">split</span>(<span class="hljs-string">&#x27;,&#x27;</span>).map(function(item)&#123;<br>        <span class="hljs-keyword">return</span> +item;  <span class="hljs-regexp">//</span>+将字符转换为数字<br> &#125;)<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>如果数组的元素都是数字，可以考虑使用 toString 方法，因为：toString会将数组中的数以逗号形式结合起来。toString之后再split转成数组，并将其转换回数字。所以这种场景只适用于数组内全部是数字的情况，因为中间是全部转换为字符串了。</p>
+<h5 id="转载文章"><a href="#转载文章" class="headerlink" title="转载文章"></a>转载文章</h5><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6978115075672375326">🔥🔥JS如何实现数组扁平化？不同的方法有什么区别？</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E9%9D%A2%E8%AF%95%E9%A2%98/">面试题</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/">前端基础</a>
+                    
+                      <a class="hover-with-bg" href="/tags/JS/">JS</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/02/28/Vue%E4%B8%AD%E7%88%B6%E5%AD%90%E7%BB%84%E4%BB%B6%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E6%89%A7%E8%A1%8C%E9%A1%BA/">
+                        <span class="hidden-mobile">Vue中父子组件生命周期执行顺</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
