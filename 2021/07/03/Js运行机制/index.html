@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.4k 字
+      2.5k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      15
+      27
        分钟
     </span>
   
@@ -265,7 +265,8 @@
 <li>ajax事件完成，回调函数success进入Event Queue。</li>
 <li>主线程从Event Queue读取回调函数success并执行。</li>
 </ul>
-<h3 id="事件循环Event-Loop是js实现异步的一种方法，也是js的执行机制"><a href="#事件循环Event-Loop是js实现异步的一种方法，也是js的执行机制" class="headerlink" title="事件循环Event Loop是js实现异步的一种方法，也是js的执行机制"></a>事件循环Event Loop是js实现异步的一种方法，也是js的执行机制</h3><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>javascript是一门单线程语言<br>Event Loop是javascript的执行机制</p>
+<h3 id="事件循环Event-Loop是js实现异步的一种方法，也是js的执行机制"><a href="#事件循环Event-Loop是js实现异步的一种方法，也是js的执行机制" class="headerlink" title="事件循环Event Loop是js实现异步的一种方法，也是js的执行机制"></a>事件循环Event Loop是js实现异步的一种方法，也是js的执行机制</h3><p>首先要知道，JS分为同步任务和异步任务<br>同步任务都在主线程(这里的主线程就是JS引擎线程)上执行，会形成一个执行栈<br>主线程之外，事件触发线程管理着一个任务队列，只要异步任务有了运行结果，就在任务队列之中放一个事件回调<br>一旦执行栈中的所有同步任务执行完毕(也就是JS引擎线程空闲了)，系统就会读取任务队列，将可运行的异步任务(任务队列中的事件回调，只要任务队列中有事件回调，就说明可以执行)添加到执行栈中，开始执行</p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>javascript是一门单线程语言<br>Event Loop是javascript的执行机制</p>
 <h3 id="宏任务-macrotask-amp-微任务-microtask"><a href="#宏任务-macrotask-amp-微任务-microtask" class="headerlink" title="宏任务(macrotask) &amp; 微任务(microtask)"></a>宏任务(macrotask) &amp; 微任务(microtask)</h3><h4 id="宏任务-macrotask"><a href="#宏任务-macrotask" class="headerlink" title="宏任务(macrotask)"></a>宏任务(macrotask)</h4><p>在ECMAScript中，macrotask也被称为task</p>
 <p>我们可以将每次执行栈执行的代码当做是一个宏任务(包括每次从事件队列中获取一个事件回调并放到执行栈中执行)， 每一个宏任务会从头到尾执行完毕，不会执行其他</p>
 <p>由于JS引擎线程和GUI渲染线程是互斥的关系，浏览器为了能够使宏任务和DOM任务有序的进行，会在一个宏任务执行结果后，在下一个宏任务执行前，GUI渲染线程开始工作，对页面进行渲染</p>
@@ -296,10 +297,31 @@
 <h3 id="微任务宏任务注意点"><a href="#微任务宏任务注意点" class="headerlink" title="微任务宏任务注意点"></a>微任务宏任务注意点</h3><ul>
 <li><p>浏览器会先执行一个宏任务，紧接着执行当前执行栈产生的微任务，再进行渲染，然后再执行下一个宏任务</p>
 </li>
-<li><p>微任务和宏任务不在一个任务队列，不在一个任务队列<br>例如setTimeout是一个宏任务，它的事件回调在宏任务队列，Promise.then()是一个微任务，它的事件回调在微任务队列，二者并不是一个任务队列</p>
+<li><p>微任务和宏任务不在一个任务队列，不在一个任务队列</p>
 </li>
 </ul>
-<h3 id="图解完整的Event-Loop"><a href="#图解完整的Event-Loop" class="headerlink" title="图解完整的Event Loop"></a>图解完整的Event Loop</h3><p><img src="/imageO/20.png" srcset="/img/loading.gif" lazyload alt="如图"></p>
+<ol>
+<li>例如setTimeout是一个宏任务，它的事件回调在宏任务队列，Promise.then()是一个微任务，它的事件回调在微任务队列，二者并不是一个任务队列</li>
+<li>以Chrome 为例，有关渲染的都是在渲染进程中执行，渲染进程中的任务（DOM树构建，js解析…等等）需要主线程执行的任务都会在主线程中执行，而浏览器维护了一套事件循环机制，主线程上的任务都会放到消息队列中执行，主线程会循环消息队列，并从头部取出任务进行执行，如果执行过程中产生其他任务需要主线程执行的，渲染进程中的其他线程会把该任务塞入到消息队列的尾部，消息队列中的任务都是宏任务</li>
+<li>微任务是如何产生的呢？当执行到script脚本的时候，js引擎会为全局创建一个执行上下文，在该执行上下文中维护了一个微任务队列，当遇到微任务，就会把微任务回调放在微队列中，当所有的js代码执行完毕，在退出全局上下文之前引擎会去检查该队列，有回调就执行，没有就退出执行上下文，这也就是为什么微任务要早于宏任务，也是大家常说的，每个宏任务都有一个微任务队列（由于定时器是浏览器的API，所以定时器是宏任务，在js中遇到定时器会也是放入到浏览器的队列中）</li>
+</ol>
+<h4 id="图解宏任务和微任务"><a href="#图解宏任务和微任务" class="headerlink" title="图解宏任务和微任务"></a>图解宏任务和微任务</h4><p><img src="/imageO/Hong.jpg" srcset="/img/loading.gif" lazyload alt="如图"><br>首先执行一个宏任务，执行结束后判断是否存在微任务</p>
+<p>有微任务先执行所有的微任务，再渲染，没有微任务则直接渲染</p>
+<p>然后再接着执行下一个宏任务</p>
+<h3 id="图解完整的Event-Loop"><a href="#图解完整的Event-Loop" class="headerlink" title="图解完整的Event Loop"></a>图解完整的Event Loop</h3><p><img src="/imageO/20.png" srcset="/img/loading.gif" lazyload alt="如图"><br>首先，整体的script(作为第一个宏任务)开始执行的时候，会把所有代码分为同步任务、异步任务两部分</p>
+<p>同步任务会直接进入主线程依次执行</p>
+<p>异步任务会再分为宏任务和微任务</p>
+<p>宏任务进入到Event Table中，并在里面注册回调函数，每当指定的事件完成时，Event Table会将这个函数移到Event Queue中</p>
+<p>微任务也会进入到另一个Event Table中，并在里面注册回调函数，每当指定的事件完成时，Event Table会将这个函数移到Event Queue中</p>
+<p>当主线程内的任务执行完毕，主线程为空时，会检查微任务的Event Queue，如果有任务，就全部执行，如果没有就执行下一个宏任务</p>
+<p>上述过程会不断重复，这就是Event Loop，比较完整的事件循环</p>
+<h3 id="关于Promise"><a href="#关于Promise" class="headerlink" title="关于Promise"></a>关于Promise</h3><p>new Promise(() =&gt; {}).then() ，我们来看这样一个Promise代码<br>前面的<strong>new Promise() 这一部分是一个构造函数，这是一个同步任务<br>后面的 .then() 才是一个异步微任务</strong> ，这一点是非常重要的</p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs coffeescript"><span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function"><span class="hljs-params">(resolve)</span> =&gt;</span> &#123;<br> <span class="hljs-built_in">console</span>.log(<span class="hljs-number">1</span>)<br>  resolve()<br>&#125;).<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-params">()</span>=&gt;</span>&#123;<br> <span class="hljs-built_in">console</span>.log(<span class="hljs-number">2</span>)<br>&#125;)<br><span class="hljs-built_in">console</span>.log(<span class="hljs-number">3</span>)<br>上面代码输出<span class="hljs-number">1</span> <span class="hljs-number">3</span> <span class="hljs-number">2</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="关于-async-await-函数"><a href="#关于-async-await-函数" class="headerlink" title="关于 async/await 函数"></a>关于 async/await 函数</h3><p>async/await本质上还是基于Promise的一些封装，而Promise是属于微任务的一种<br>所以在使用await关键字与Promise.then效果类似</p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs coffeescript"><span class="hljs-built_in">setTimeout</span>(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-number">4</span>))<br><br><span class="hljs-keyword">async</span> function test() &#123;<br>  <span class="hljs-built_in">console</span>.log(<span class="hljs-number">1</span>)<br>  <span class="hljs-keyword">await</span> <span class="hljs-built_in">Promise</span>.resolve()<br>  <span class="hljs-built_in">console</span>.log(<span class="hljs-number">3</span>)<br>&#125;<br>test()<br><span class="hljs-built_in">console</span>.log(<span class="hljs-number">2</span>)<br></code></pre></td></tr></table></figure>
+
+<p>上述代码输出1 2 3 4<br>可以理解为，await 以前的代码，相当于与 new Promise 的同步代码，await 以后的代码相当于 Promise.then的异步</p>
 <h4 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h4><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844904050543034376#heading-1">「硬核JS」一次搞懂JS运行机制</a></p>
 <p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844904072240201736#heading-1">JavaScript运行机制</a></p>
 <p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903512845860872#heading-2">这一次，彻底弄懂 JavaScript 执行机制</a></p>
