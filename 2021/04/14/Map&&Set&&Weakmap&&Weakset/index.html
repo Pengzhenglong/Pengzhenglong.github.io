@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      308 字
+      1.3k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      4
+      14
        分钟
     </span>
   
@@ -228,15 +228,63 @@
             <h1 style="display: none">ES6-map&amp;reduce</h1>
             
             <div class="markdown-body">
-              <p>以下是对 map&amp;reduce  的学习</p>
-<hr>
-<h3 id="map-接受一个函数，将原数组中的所有元素用这个函数处理后放入新数组返回"><a href="#map-接受一个函数，将原数组中的所有元素用这个函数处理后放入新数组返回" class="headerlink" title="map() 接受一个函数，将原数组中的所有元素用这个函数处理后放入新数组返回"></a>map() 接受一个函数，将原数组中的所有元素用这个函数处理后放入新数组返回</h3><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs awk">let arr = [<span class="hljs-string">&#x27;1&#x27;</span>, <span class="hljs-string">&#x27;2&#x27;</span>, <span class="hljs-string">&#x27;3&#x27;</span>, <span class="hljs-string">&#x27;5&#x27;</span>];<br><span class="hljs-regexp">//</span> 方法一<br><span class="hljs-regexp">//</span>  arr   =arr.map((item)=&gt;&#123;<br><span class="hljs-regexp">//</span>        return  item*<span class="hljs-number">2</span><br><span class="hljs-regexp">//</span>  &#125;);<br><span class="hljs-regexp">//</span>方法二<br>arr = arr.map((item) =&gt; item * <span class="hljs-number">2</span>);<br>console.log(arr); <span class="hljs-regexp">//</span>Array(<span class="hljs-number">4</span>)<span class="hljs-number">0</span>: <span class="hljs-number">2</span> <span class="hljs-number">1</span>: <span class="hljs-number">4</span> <span class="hljs-number">2</span>: <span class="hljs-number">6</span> <span class="hljs-number">3</span>: <span class="hljs-number">10</span><br></code></pre></td></tr></table></figure>
-
-<ol>
-<li> =&gt; 则是一种简写方法。   <figure class="highlight llvm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs llvm"><span class="hljs-keyword">x</span> <span class="hljs-operator">=</span>&gt; <span class="hljs-keyword">x</span> * <span class="hljs-keyword">x</span> <br>相当于：<br>function(<span class="hljs-keyword">x</span>)&#123;return <span class="hljs-keyword">x</span>*<span class="hljs-keyword">x</span>&#125;<br></code></pre></td></tr></table></figure>
-<h3 id="reduce-方法接收一个函数作为累加器，数组中的每个值（从左到右）开始缩减，最终计算为一个值。"><a href="#reduce-方法接收一个函数作为累加器，数组中的每个值（从左到右）开始缩减，最终计算为一个值。" class="headerlink" title="reduce() 方法接收一个函数作为累加器，数组中的每个值（从左到右）开始缩减，最终计算为一个值。"></a>reduce() 方法接收一个函数作为累加器，数组中的每个值（从左到右）开始缩减，最终计算为一个值。</h3></li>
+              <hr>
+<h3 id="Map"><a href="#Map" class="headerlink" title="Map"></a>Map</h3><h4 id="1-传统对象结构"><a href="#1-传统对象结构" class="headerlink" title="1. 传统对象结构"></a>1. 传统对象结构</h4><p>Map本质上是一个键值对的集合。和传统对象结构相比，传统的对象只能用字符串作为键名，这就在使用上造成了很大的限制了。这也是新增 Map 的原因之一。</p>
+<h4 id="2-Map-结构"><a href="#2-Map-结构" class="headerlink" title="2. Map 结构"></a>2. Map 结构</h4><p>Map类似于对象，但是键名不限于字符串，可以说Object结构提供键-值对应，Map结构提供值-值对应因此其实采用map结构会优于传统对象</p>
+<h4 id="3-Map-的特点"><a href="#3-Map-的特点" class="headerlink" title="3. Map 的特点"></a>3. Map 的特点</h4><ol>
+<li><p>Map 默认情况下不包含任何键，所有键都是自己添加进去的。不同于 Object 原型链上有一些默认的键。</p>
+</li>
+<li><p>Map 的键可以是<strong>任意类型数据</strong>，就连函数都可以。</p>
+</li>
+<li><p>Map 的键值对个数可以<strong>轻易</strong>通过size属性获取，Object 需要手动计算。</p>
+</li>
+<li><p>Map 在频繁增删键值对的场景下<strong>性能</strong>要比 Object 好。</p>
+</li>
 </ol>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">//</span>reduce()为数组中的每一个元素一次执行回调函数，不包括数组中被删除或从未被赋值的元素<br><span class="hljs-regexp">//</span>[<span class="hljs-string">&#x27;1&#x27;</span>,<span class="hljs-string">&#x27;2&#x27;</span>,<span class="hljs-string">&#x27;3&#x27;</span>,<span class="hljs-string">&#x27;5&#x27;</span>]<br><span class="hljs-regexp">//</span>arr.reduce(callback,[initialValue])<br>/**四个参数<br>    <span class="hljs-number">1</span>.previousValue(上一次调用回调返回的值，或者是提供的初始值(initialValue))<br>    <span class="hljs-number">2</span>.currenValue(数组中当前被处理的元素)<br>    <span class="hljs-number">3</span>.index  (当前元素在数组中的元素)<br>    <span class="hljs-number">4</span>.array  (调用reduce的数组)   */<br>let result = arr.reduce((a, b) =&gt; &#123;<br>  console.log(<span class="hljs-string">&#x27;上一次处理后：&#x27;</span> + a);<br>  console.log(<span class="hljs-string">&#x27;当前正在处理：&#x27;</span> + b);<br>  return a + b;<br>&#125;, <span class="hljs-number">100</span>); <span class="hljs-regexp">//</span>初始值<span class="hljs-number">100</span><br>console.log(result);<br></code></pre></td></tr></table></figure>
+<h4 id="4-什么时候用-Map"><a href="#4-什么时候用-Map" class="headerlink" title="4. 什么时候用 Map"></a>4. 什么时候用 Map</h4><ol>
+<li>要添加的键值名和 Object 上的默认键值名冲突，又不想改名时，用 Map</li>
+<li>需要 String 和 Symbol 以外的数据类型做键值时，用 Map</li>
+<li>键值对很多，有需要计算数量时，用 Map</li>
+<li>需要频繁增删键值对时，用 Map</li>
+</ol>
+<h3 id="Map-实例属性和方法"><a href="#Map-实例属性和方法" class="headerlink" title="Map 实例属性和方法"></a>Map 实例属性和方法</h3><h4 id="1-set"><a href="#1-set" class="headerlink" title="1. set"></a>1. set</h4><p>set方法设置键名key对应的键值为value，然后会返回整个Map结构，如果设置的key已经存在，则会更新value值，否则会新生成该键</p>
+<h4 id="2-get"><a href="#2-get" class="headerlink" title="2. get"></a>2. get</h4><p>通过get方法读取key对应的键值，如果传入的键值不存在，则会返回undefined</p>
+<h4 id="3-has"><a href="#3-has" class="headerlink" title="3. has"></a>3. has</h4><p>判断传入的键是否存在当前Map对象中，该方法返回一个布尔值</p>
+<h4 id="4-delete"><a href="#4-delete" class="headerlink" title="4. delete"></a>4. delete</h4><p>删除传入的键，返回true，如果删除失败，则返回false</p>
+<h4 id="5-clear"><a href="#5-clear" class="headerlink" title="5. clear"></a>5. clear</h4><p>清除所有成员，没有返回值</p>
+<h3 id="三、遍历方法"><a href="#三、遍历方法" class="headerlink" title="三、遍历方法"></a>三、遍历方法</h3><p>可以采用for…of循环和forEach两种方法。由于Map实例会维护键值对的插入顺序，因此可以根据插入顺序进行遍历<br>采用for…of</p>
+<p>for…of可以遍历有iterator接口的数据结构</p>
+<p>keys()：返回键名的遍历器<br>values()：返回键值的遍历器<br>entries()：返回键值对的遍历器<br>forEach()：使用回调函数遍历每个成员</p>
+<h4 id="map-entries"><a href="#map-entries" class="headerlink" title="map.entries()"></a>map.entries()</h4><p>在Map实例中有一个迭代器，能以插入顺序生成[key,value]形式的数据。<br>我们可以通过entries方法来获得这个迭代器，从而利用for…of进行遍历操作</p>
+<h4 id="map-values"><a href="#map-values" class="headerlink" title="map.values()"></a>map.values()</h4><p>可以采用遍历map.values()的方式来遍历map容器的属性值</p>
+<h4 id="map-keys"><a href="#map-keys" class="headerlink" title="map.keys()"></a>map.keys()</h4><p>可以采用map.keys()来遍历键名</p>
+<h4 id="采用-forEach-回调遍历"><a href="#采用-forEach-回调遍历" class="headerlink" title="采用 forEach() 回调遍历"></a>采用 forEach() 回调遍历</h4><h3 id="四、Map-类型转化"><a href="#四、Map-类型转化" class="headerlink" title="四、Map 类型转化"></a>四、Map 类型转化</h3><p>几种与map相互类型转化的方法</p>
+<h4 id="Map-转为数组"><a href="#Map-转为数组" class="headerlink" title="Map 转为数组"></a>Map 转为数组</h4><p>通过扩展运算符实现</p>
+<figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs lasso"><span class="hljs-keyword">let</span> <span class="hljs-built_in">map</span> = <span class="hljs-literal">new</span> <span class="hljs-built_in">Map</span>()<br><span class="hljs-keyword">let</span> arr = <span class="hljs-meta">[</span><span class="hljs-params">...</span><span class="hljs-built_in">map</span><span class="hljs-meta">]</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="数组转为-Map"><a href="#数组转为-Map" class="headerlink" title="数组转为 Map"></a>数组转为 Map</h4><figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs lasso"><span class="hljs-keyword">let</span> <span class="hljs-built_in">map</span> = <span class="hljs-literal">new</span> <span class="hljs-built_in">Map</span>(arr)<br></code></pre></td></tr></table></figure>
+
+<h4 id="Map-转为对象"><a href="#Map-转为对象" class="headerlink" title="Map 转为对象"></a>Map 转为对象</h4><p>通过遍历利用set将键值对加入对象中</p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs nix"><span class="hljs-keyword">let</span> <span class="hljs-attr">obj</span> = &#123;&#125;<br>for (<span class="hljs-keyword">let</span> [k, v] of <span class="hljs-built_in">map</span>) &#123;<br>  obj[k] = v<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>对象转为 Map</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs stylus"><span class="hljs-function"><span class="hljs-title">for</span><span class="hljs-params">( let k of Object.keys(obj)</span></span>)&#123;<br>  map<span class="hljs-selector-class">.set</span>(k,obj<span class="hljs-selector-attr">[k]</span>)<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="五、什么是-WeakMap-？"><a href="#五、什么是-WeakMap-？" class="headerlink" title="五、什么是 WeakMap ？"></a>五、什么是 WeakMap ？</h3><p>总所周知，WeakMap是 ES6 中新增的一种集合类型，叫做“弱映射”。它和Map是兄弟关系，与Map的区别就在于这个弱字，API 还是Map的那套（只有set get has delete)<br>那它真正是什么意思呢？</p>
+<blockquote>
+<p>这其实描述的是 JS 中垃圾回收程序对待“弱映射”中键的方式</p>
+</blockquote>
+<h4 id="六、WeakMap-的特性"><a href="#六、WeakMap-的特性" class="headerlink" title="六、WeakMap 的特性"></a>六、WeakMap 的特性</h4><p>我们先从 WeakMap 的特性讲起</p>
+<ol>
+<li>WeakMap 只能将对象作为键名<br>只接受对象作为键名（null 除外），不接受其他类型的值作为键名<br>null 除外</li>
+<li>WeakMap 的键名引用的对象是弱引用<br>这里懵了挺久的，但是这是WeakMap结构的关键所在</li>
+</ol>
+<p>要想读懂这句话，不容易，我们需要先知道强引用和弱引用</p>
+<h6 id="在上面我们谈到强引用数据被删除时，需要手动解除引用，而弱引用则可以等待垃圾回收机制自动清除"><a href="#在上面我们谈到强引用数据被删除时，需要手动解除引用，而弱引用则可以等待垃圾回收机制自动清除" class="headerlink" title="在上面我们谈到强引用数据被删除时，需要手动解除引用，而弱引用则可以等待垃圾回收机制自动清除"></a>在上面我们谈到强引用数据被删除时，需要手动解除引用，而弱引用则可以等待垃圾回收机制自动清除</h6><p>总的来说， WeakMap 保持了对键名所引用的对象的弱引用，即垃圾回收机制不将该引用考虑在内。只要所引用的对象的其他引用都被清除，垃圾回收机制就会释放该对象所占用的内存。也就是说，一旦不再需要，WeakMap 里面的键名对象和所对应的键值对会自动消失，不用手动删除引用。</p>
+<h4 id="七、Map-和-WeakMap-的区别"><a href="#七、Map-和-WeakMap-的区别" class="headerlink" title="七、Map 和 WeakMap 的区别"></a>七、Map 和 WeakMap 的区别</h4><p>看到这里相信心中已经有答案了</p>
+<p>1.Map 的键可以是任意类型，WeakMap 只接受对象作为键（null除外），不接受其他类型的值作为键<br>2. Map 的键实际上是跟内存地址绑定的，只要内存地址不一样，就视为两个键； WeakMap 的键是弱引用，键所指向的对象可以被垃圾回收，此时键是无效的<br>3. Map 可以被遍历， WeakMap 不能被遍历</p>
+<h5 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h5><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6993101968545677319">浅析 Map 和 WeakMap 区别以及使用场景</a></p>
+
             </div>
             <hr>
             <div>
