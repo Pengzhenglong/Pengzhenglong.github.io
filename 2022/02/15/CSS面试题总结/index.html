@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      7.7k 字
+      8.5k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      88
+      98
        分钟
     </span>
   
@@ -450,6 +450,17 @@
 <li>在 CSS 中，可替换元素（replaced element）的展示效果不是由 CSS 来控制的。这些元素是一种外部对象，它们外观的渲染，是独立于 CSS 的。</li>
 <li>替换元素<br>简单来讲，它们的内容不受当前文档的样式的影响。CSS 能够影响可替换元素的位置，但不会影响到可替换元素自身的内容。例如<code>&lt;iframe&gt;</code>元素，可能具备本身的样式表，但它们不会继承父文档的样式。<br>典型的可替换元素有：浏览器<code>&lt;iframe&gt;&lt;video&gt;&lt;embed&gt;&lt;img&gt;</code><br>有些元素仅在特定状况下被做为可替换元素处理，例如：<code>&lt;input&gt;</code></li>
 </ol>
+<h3 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h3><h4 id="html第一行！doctype是做什么用的"><a href="#html第一行！doctype是做什么用的" class="headerlink" title="html第一行！doctype是做什么用的"></a>html第一行！doctype是做什么用的</h4><p>告诉浏览器用什么样的模式来解析文档。如html5则为声明为html5文档<br>DOCTYPE 不存在或格式不正确会导致文档以兼容模式呈现。</p>
+<h4 id="HTML5-新特性、语义化"><a href="#HTML5-新特性、语义化" class="headerlink" title="HTML5 新特性、语义化"></a>HTML5 新特性、语义化</h4><ol>
+<li>概念：HTML5的语义化指的是合理正确的使用语义化的标签来创建页面结构。【正确的标签做正确的事】</li>
+<li>语义化标签：header nav main article section aside footer</li>
+<li>语义化的优点:<br>在没CSS样式的情况下，页面整体也会呈现很好的结构效果<br>代码结构清晰，易于阅读，<br>利于开发和维护 方便其他设备解析（如屏幕阅读器）根据语义渲染网页。<br>有利于搜索引擎优化（SEO），搜索引擎爬虫会根据不同的标签来赋予不同的权重</li>
+</ol>
+<h4 id="前端需要注意哪些-SEO-？"><a href="#前端需要注意哪些-SEO-？" class="headerlink" title="前端需要注意哪些 SEO ？"></a>前端需要注意哪些 SEO ？</h4><p> （1）合理的 title、description、keywords：搜索对着三项的权重逐个减小，title 值强调重点即可，重要关键词出现不要超过2次，而且要靠前，不同页面 title 要有所不同；description 把页面内容高度概括，长度合适，不可过分堆砌关键词，不同页面 description 有所不同；keywords 列举出重要关键词即可。<br>（2）语义化的 HTML 代码，符合 W3C 规范：语义化代码让搜索引擎容易理解网页。<br> （3）重要内容 HTML 代码放在最前：搜索引擎抓取 HTML 顺序是从上到下，有的搜索引擎对抓取长度有限制，保证重要内容肯定被抓取。<br> （4）重要内容不要用 js 输出：爬虫不会执行 js 获取内容<br> （5）少用 iframe：搜索引擎不会抓取 iframe 中的内容<br> （6）非装饰性图片必须加 alt<br> （7）提高网站速度：网站速度是搜索引擎排序的一个重要指标</p>
+<h4 id="行内元素、块元素有哪些？它们有什么不同？"><a href="#行内元素、块元素有哪些？它们有什么不同？" class="headerlink" title="行内元素、块元素有哪些？它们有什么不同？"></a>行内元素、块元素有哪些？它们有什么不同？</h4><p>行内元素：b、span、a、u、em、i、img、input、select、label、textarea、button<br>块级元素：div、h、ol、ul、dl、li、table、td、th、tr、dd、dt、p、caption</p>
+<h5 id="行内元素的特点"><a href="#行内元素的特点" class="headerlink" title="行内元素的特点"></a>行内元素的特点</h5><p>1、行内元素只能容纳文本或者其他行内元素。<br>2、宽度只与内容有关。<br>3、和其他元素都在一行上。<br>4、高，行高及外边距和内边距部分可改变。</p>
+<h5 id="块级元素的特点"><a href="#块级元素的特点" class="headerlink" title="块级元素的特点"></a>块级元素的特点</h5><p>1、高度，行高以及外边距和内边距都可控制。<br>2、总是在新行上开始，占据一整行。<br>3、它可以容纳内联元素和其他块元素。<br>4、宽度始终是与浏览器宽度一样，与内容无关。</p>
+<h5 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h5><p>1、行内元素会在一条直线上分列，都是统一行的，程度偏向分列。<br>块级元素各盘踞一行，垂直偏向分列；块级元素重新行开端停止接着一个断行。<br>2、行内元素不可以包括块级元素，只能包容文本或许其余行内元素。<br>块级元素能够包括行内元素和块级元素，还能够包容内联元素和其余元素；。<br>3、行内元素与块级元素属性的分歧，主要在盒模子属性上。<br>行内元素设置width无效，height无效（能够设置line-height），margin、padding设置上下有效。</p>
 
             </div>
             <hr>
