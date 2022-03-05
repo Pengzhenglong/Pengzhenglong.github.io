@@ -231,38 +231,47 @@
               <p>模块化就是把代码进行拆分，方便重复利用，类似java中的导包，需要使用一个包，必须先导包，而js中没有包的概念，换来的是<strong>模块</strong></p>
 <p>ES6 的模块化分为导出（export） @与导入（import）两个模块。</p>
 <hr>
-<h3 id="一个页面需要引入多个js文件引发的问题："><a href="#一个页面需要引入多个js文件引发的问题：" class="headerlink" title="一个页面需要引入多个js文件引发的问题："></a>一个页面需要引入多个js文件引发的问题：</h3><ol>
+<h3 id="一个页面需要引入多个js文件引发的问题"><a href="#一个页面需要引入多个js文件引发的问题" class="headerlink" title="一个页面需要引入多个js文件引发的问题"></a>一个页面需要引入多个js文件引发的问题</h3><ol>
 <li>请求过多</li>
 <li>依赖模糊</li>
-<li>难以维护 这些问题可以通过现代模块化编码和项目构建来解决<h2 id="模块化优点"><a href="#模块化优点" class="headerlink" title="模块化优点"></a>模块化优点</h2></li>
+<li>难以维护 这些问题可以通过现代模块化编码和项目构建来解决</li>
+</ol>
+<h2 id="模块化优点"><a href="#模块化优点" class="headerlink" title="模块化优点"></a>模块化优点</h2><ol>
 <li>避免命名冲突（减少命名空间污染）</li>
 <li>更好的分类，按需加载</li>
 <li>更高的复用性</li>
 <li>高可维护性</li>
 </ol>
 <h3 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h3><ol>
-<li><p>ES6 的模块自动开启严格模式，不管你有没有在模块头部加上 use strict;。        </p>
+<li><p>ES6 的模块自动开启严格模式，不管你有没有在模块头部加上 use strict;。</p>
 </li>
-<li><p>模块中可以导入和导出各种类型的变量，如函数，对象，字符串，数字，布尔值，类等。      </p>
+<li><p>模块中可以导入和导出各种类型的变量，如函数，对象，字符串，数字，布尔值，类等。</p>
 </li>
-<li><p>每个模块都有自己的上下文，每一个模块内声明的变量都是局部变量，不会污染全局作用域。       </p>
+<li><p>每个模块都有自己的上下文，每一个模块内声明的变量都是局部变量，不会污染全局作用域。</p>
 </li>
-<li><p>每一个模块只加载一次（是单例的）， 若再去加载同目录下同文件，直接从内存中读取。 </p>
+<li><p>每一个模块只加载一次（是单例的）， 若再去加载同目录下同文件，直接从内存中读取。</p>
 </li>
 </ol>
 <h3 id="export-与-import"><a href="#export-与-import" class="headerlink" title="export 与 import"></a>export 与 import</h3><p>模块导入导出各种类型的变量，如字符串，数值，函数，类。</p>
 <ol>
-<li>导出的函数声明与类声明必须要有名称（export default 导出了一个对象，没给这个对象起名字，导入的时候可以随意起名字）。     </li>
+<li>导出的函数声明与类声明必须要有名称（export default 导出了一个对象，没给这个对象起名字，导入的时候可以随意起名字）。</li>
 <li>不仅能导出声明还能导出引用（例如函数）。</li>
-<li>export 命令可以出现在模块的任何位置，但必需处于模块顶层。(如果处于块级作用域内，就会报错)<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-string">&#x27;bar&#x27;</span> <span class="hljs-comment">// SyntaxError</span><br>&#125;<br>foo()<br></code></pre></td></tr></table></figure></li>
+<li>export 命令可以出现在模块的任何位置，但必需处于模块顶层。(如果处于块级作用域内，就会报错)</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-string">&#x27;bar&#x27;</span> <span class="hljs-comment">// SyntaxError</span><br>&#125;<br>foo()<br></code></pre></td></tr></table></figure>
+
+<ol start="4">
 <li>import 命令会提升到整个模块的头部，首先执行。</li>
 </ol>
 <p>代码示例<br>hello.js</p>
 <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">//</span>  export   const  util=&#123;<br><span class="hljs-regexp">//</span>     sum(a,b)&#123;<br><span class="hljs-regexp">//</span>         return  a+b;<br><span class="hljs-regexp">//</span>     &#125;<br><span class="hljs-regexp">//</span> &#125;<br><br><span class="hljs-regexp">//</span> 这两个等效<br><span class="hljs-regexp">//</span> 导出了一个对象，没给这个对象起名字，导入的时候可以随意起名字<br>export  default&#123;<br>        sum(a,b)&#123;<br>            return  a+b;<br>        &#125;<br>    &#125;<br><br></code></pre></td></tr></table></figure>
+
 <p>user.js</p>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs routeros">var  <span class="hljs-attribute">name</span>=<span class="hljs-string">&quot;jack&quot;</span><br>var  <span class="hljs-attribute">age</span>=21<br><br>function  <span class="hljs-builtin-name">add</span>(a,b)&#123;<br>    return  a+b;<br>&#125;<br><br><span class="hljs-builtin-name">export</span>  &#123;name,age,add&#125;<br></code></pre></td></tr></table></figure>
+
 <p>main.js</p>
 <figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs pgsql"><span class="hljs-keyword">import</span> abc  <span class="hljs-keyword">from</span>  &quot;./hello.js&quot;<br><span class="hljs-keyword">import</span>  &#123;<span class="hljs-type">name</span>,<span class="hljs-keyword">add</span>&#125;  <span class="hljs-keyword">from</span>  &quot;./user.js&quot;<br><br>abc.sum(<span class="hljs-number">1</span>,<span class="hljs-number">2</span>);<br>console.log(<span class="hljs-type">name</span>);<br><span class="hljs-keyword">add</span>(<span class="hljs-number">1</span>,<span class="hljs-number">3</span>);<br></code></pre></td></tr></table></figure>
+
 <p>标签导入</p>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">&lt;script <span class="hljs-attribute">type</span>=<span class="hljs-string">&quot;module&quot;</span> <span class="hljs-attribute">src</span>=<span class="hljs-string">&quot;./main.js&quot;</span>&gt;<br></code></pre></td></tr></table></figure>
 

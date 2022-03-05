@@ -1,0 +1,555 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/2.jpg">
+  <link rel="icon" href="/img/2.jpg">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="DragonPeng">
+  <meta name="keywords" content="">
+  
+  <title>CommonJS和ES6模块 - DragonPeng的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>DragonPeng' blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/page1.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="CommonJS和ES6模块">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-03-01 21:15" pubdate>
+        March 1, 2022 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.8k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      24
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">CommonJS和ES6模块</h1>
+            
+            <div class="markdown-body">
+              <hr>
+<h3 id="一、CommonJS-模块输出的是一个值的拷贝，ES6-模块输出的是值的引用"><a href="#一、CommonJS-模块输出的是一个值的拷贝，ES6-模块输出的是值的引用" class="headerlink" title="一、CommonJS 模块输出的是一个值的拷贝，ES6 模块输出的是值的引用"></a>一、CommonJS 模块输出的是一个值的拷贝，ES6 模块输出的是值的引用</h3><h4 id="commonjs的用法，我们一起来看一下"><a href="#commonjs的用法，我们一起来看一下" class="headerlink" title="commonjs的用法，我们一起来看一下"></a>commonjs的用法，我们一起来看一下</h4><p>1.首先创建一个lib.js的文件</p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs coffeescript"><span class="hljs-regexp">//</span> lib.js<br>const counter = <span class="hljs-number">3</span>;<br>const incCounter = <span class="hljs-function"><span class="hljs-params">()</span>=&gt;</span>&#123;<br>  counter++<br>&#125;<br><br><span class="hljs-built_in">module</span>.<span class="hljs-built_in">exports</span> = &#123;<br>  counter,<br>  incCounter<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<p>2.再次创建一个main.js,使用commonjs的方式导入</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// main.js</span><br><span class="hljs-keyword">var</span> lib = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;./lib&#x27;</span>);<br><span class="hljs-built_in">console</span>.log(lib)<br><span class="hljs-built_in">console</span>.log(lib.counter);  <span class="hljs-comment">// 3</span><br>lib.incCounter();<br><span class="hljs-built_in">console</span>.log(lib.counter); <span class="hljs-comment">// 3</span><br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>lib.js模块加载以后，它的内部变化就影响不到输出的lib.counter了。这是因为mod.counter是一个原始类型的值，会被缓存；</p>
+</blockquote>
+<h4 id="esmodule的用法，我们一起来看一下"><a href="#esmodule的用法，我们一起来看一下" class="headerlink" title="esmodule的用法，我们一起来看一下"></a>esmodule的用法，我们一起来看一下</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// lib.js</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">let</span> counter = <span class="hljs-number">3</span>;<br><span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">incCounter</span> (<span class="hljs-params"></span>) </span>&#123;<br>  counter++;<br>&#125;<br><br><span class="hljs-comment">// main.js</span><br><span class="hljs-keyword">import</span> &#123; counter, incCounter &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./util.mjs&#x27;</span><br><br><span class="hljs-built_in">console</span>.log(counter);  <span class="hljs-comment">//3</span><br>incCounter()<br><span class="hljs-built_in">console</span>.log(counter)  <span class="hljs-comment">//4</span><br><br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>ES6 模块不会缓存运行结果，而是动态地去被加载的模块取值，并且变量总是绑定其所在的模块。</p>
+</blockquote>
+<h5 id="补充：通过esmodule导入的变量是不能重新赋值修改的"><a href="#补充：通过esmodule导入的变量是不能重新赋值修改的" class="headerlink" title="补充：通过esmodule导入的变量是不能重新赋值修改的"></a>补充：通过esmodule导入的变量是不能重新赋值修改的</h5><h3 id="二、CommonJS-模块是运行时加载，ES6-模块是编译时输出接口"><a href="#二、CommonJS-模块是运行时加载，ES6-模块是编译时输出接口" class="headerlink" title="二、CommonJS 模块是运行时加载，ES6 模块是编译时输出接口"></a>二、CommonJS 模块是运行时加载，ES6 模块是编译时输出接口</h3><figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs reasonml"><span class="hljs-comment">// CommonJS模块</span><br><span class="hljs-keyword">let</span> &#123; stat, exists, readFile &#125; = require(&#x27;fs&#x27;);<br><br><span class="hljs-comment">// 等同于</span><br><span class="hljs-keyword">let</span> _fs = require(&#x27;fs&#x27;);<br><span class="hljs-keyword">let</span> stat =<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">_fs</span>.</span></span>stat;<br><span class="hljs-keyword">let</span> exists = <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">_fs</span>.</span></span>exists;<br><span class="hljs-keyword">let</span> readfile =<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">_fs</span>.</span></span>readfile;<br></code></pre></td></tr></table></figure>
+
+<p>上面代码的实质是整体加载fs模块（即加载fs的所有方法），生成一个对象（_fs），然后再从这个对象上面读取 3 个方法。这种加载称为“运行时加载”，因为只有运行时才能得到这个对象，导致完全没办法在编译时做“静态优化”。因此commonjs属于再运行时才会加载模块的方式。</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs pgsql"><span class="hljs-keyword">import</span> &#123; stat, <span class="hljs-keyword">exists</span>, readFile &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;fs&#x27;</span>;<br></code></pre></td></tr></table></figure>
+
+<p>上面代码的实质是从fs模块加载 3 个方法，其他方法不加载。这种加载称为“编译时加载”或者静态加载，即 ES6 可以在编译时就完成模块加载，效率要比 CommonJS 模块的加载方式高;</p>
+<h3 id="三、CommonJS-模块的require-是同步加载模块，ES6-模块的import命令是异步加载，有一个独立的模块依赖的解析阶段"><a href="#三、CommonJS-模块的require-是同步加载模块，ES6-模块的import命令是异步加载，有一个独立的模块依赖的解析阶段" class="headerlink" title="三、CommonJS 模块的require()是同步加载模块，ES6 模块的import命令是异步加载，有一个独立的模块依赖的解析阶段"></a>三、CommonJS 模块的require()是同步加载模块，ES6 模块的import命令是异步加载，有一个独立的模块依赖的解析阶段</h3><blockquote>
+<p>同步加载：所谓同步加载就是加载资源或者模块的过程会阻塞后续代码的执行；<br>异步加载：不会阻塞后续代码的执行；</p>
+</blockquote>
+<p>我们来看一个案例,创建如下的目录；</p>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs ada">| <span class="hljs-comment">-- a.js</span><br>| <span class="hljs-comment">-- index.js</span><br>| <span class="hljs-comment">-- c.js</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs coffeescript"><span class="hljs-regexp">//</span> a.js<br><span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;a.js文件的执行&#x27;</span>);<br>const importFun = <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> &#123;<br>  <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;./c&#x27;</span>).c);<br>&#125;<br><br>importFun()<br><br><span class="hljs-built_in">module</span>.<span class="hljs-built_in">exports</span> = &#123;<br>  importFun<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// index.js</span><br><span class="hljs-keyword">const</span> A = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;./a&#x27;</span>);<br><span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;index.js的执行&#x27;</span>);<br><br><span class="hljs-comment">// c.js</span><br><span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;c.js的运行&#x27;</span>);<br><br><span class="hljs-keyword">const</span> c = <span class="hljs-number">3</span><br><br><span class="hljs-built_in">module</span>.exports = &#123;<br>  c<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<p>执行命令 node index.js</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">//</span> a.js文件的执行<br><span class="hljs-regexp">//</span> c.js的运行<br><span class="hljs-regexp">//</span> <span class="hljs-number">3</span><br><span class="hljs-regexp">//</span> index.js的执行<br></code></pre></td></tr></table></figure>
+
+<p>我们会发现,require的内容会阻塞后续代码的执行。因为c.js先打印出来，然后在是index.js的打印，所以说require()是同步加载的；</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// a.js</span><br><span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;a.js文件的执行&#x27;</span>);<br><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> importFun = <span class="hljs-function">() =&gt;</span> &#123;<br>  <span class="hljs-keyword">import</span>(<span class="hljs-string">&#x27;./c.js&#x27;</span>).then(<span class="hljs-function">(<span class="hljs-params">&#123;c&#125;</span>)=&gt;</span>&#123;<br>    <span class="hljs-built_in">console</span>.log(c)<br>  &#125;)<br>&#125;<br><br>importFun()<br><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// index.js</span><br><span class="hljs-keyword">import</span> &#123;importFun&#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./a.js&#x27;</span><br><span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;index.js的执行&#x27;</span>);<br><br><span class="hljs-comment">// c.js</span><br><span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;c.js的运行&#x27;</span>);<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> c = <span class="hljs-number">3</span><br><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">//</span> 结果<br><span class="hljs-regexp">//</span> a.js文件的执行<br><span class="hljs-regexp">//</span> index.js的执行<br><span class="hljs-regexp">//</span> c.js的运行<br><span class="hljs-regexp">//</span> <span class="hljs-number">3</span><br></code></pre></td></tr></table></figure>
+
+<p>可以看的出来:import()是异步加载资源的，因为c.js是在index.js的后面打印出来的，并不会阻塞后续代码的执行；</p>
+<h3 id="总结：以上便是commonjs和esmodule的几个区别"><a href="#总结：以上便是commonjs和esmodule的几个区别" class="headerlink" title="总结：以上便是commonjs和esmodule的几个区别"></a>总结：以上便是commonjs和esmodule的几个区别</h3><p>1: CommonJS 模块输出的是一个值的拷贝，ES6 模块输出的是值的引用<br>2: CommonJS 模块是运行时加载，ES6 模块是编译时输出接口<br>3: CommonJS 模块的require()是同步加载模块，ES6 模块的import命令是异步加载，有一个独立的模块依赖的解析阶段</p>
+<h3 id="Babel"><a href="#Babel" class="headerlink" title="Babel"></a>Babel</h3><p>鉴于浏览器支持度的问题，如果要使用 ES6 的语法，一般都会借助 Babel，可对于 import 和 export 而言，只借助 Babel 就可以吗？</p>
+<p>让我们看看 Babel 是怎么编译 import 和 export 语法的。</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs dart"><span class="hljs-comment">// ES6</span><br><span class="hljs-keyword">var</span> firstName = <span class="hljs-string">&#x27;Michael&#x27;</span>;<br><span class="hljs-keyword">var</span> lastName = <span class="hljs-string">&#x27;Jackson&#x27;</span>;<br><span class="hljs-keyword">var</span> year = <span class="hljs-number">1958</span>;<br><br><span class="hljs-keyword">export</span> &#123;firstName, lastName, year&#125;;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// Babel 编译后</span><br><br><span class="hljs-meta">&#x27;use strict&#x27;</span>;<br><br><span class="hljs-built_in">Object</span>.defineProperty(<span class="hljs-built_in">exports</span>, <span class="hljs-string">&quot;__esModule&quot;</span>, &#123;<br>  value: <span class="hljs-literal">true</span><br>&#125;);<br><span class="hljs-keyword">var</span> firstName = <span class="hljs-string">&#x27;Michael&#x27;</span>;<br><span class="hljs-keyword">var</span> lastName = <span class="hljs-string">&#x27;Jackson&#x27;</span>;<br><span class="hljs-keyword">var</span> year = <span class="hljs-number">1958</span>;<br><br><span class="hljs-built_in">exports</span>.firstName = firstName;<br><span class="hljs-built_in">exports</span>.lastName = lastName;<br><span class="hljs-built_in">exports</span>.year = year;<br></code></pre></td></tr></table></figure>
+
+<p>是不是感觉有那么一点奇怪？编译后的语法更像是 CommonJS 规范，再看 import 的编译结果：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// ES6</span><br><span class="hljs-keyword">import</span> &#123;firstName, lastName, year&#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./profile&#x27;</span>;<br>复制代码<br><span class="hljs-comment">// Babel 编译后</span><br><span class="hljs-meta">&#x27;use strict&#x27;</span>;<br><br><span class="hljs-keyword">var</span> _profile = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;./profile&#x27;</span>);<br></code></pre></td></tr></table></figure>
+
+<p>你会发现 Babel 只是把 ES6 模块语法转为 CommonJS 模块语法，然而<strong>浏览器是不支持这种模块语法的，所以直接跑在浏览器会报错的，如果想要在浏览器中运行，还是需要使用打包工具将代码打包。</strong></p>
+<h3 id="webpack"><a href="#webpack" class="headerlink" title="webpack"></a>webpack</h3><p>Babel 将 ES6 模块转为 CommonJS 后， webpack 又是怎么做的打包的呢？它该如何将这些文件打包在一起，从而能保证正确的处理依赖，以及能在浏览器中运行呢？</p>
+<p>首先为什么浏览器中不支持 CommonJS 语法呢？</p>
+<p>这是因为浏览器环境中并没有 module、 exports、 require 等环境变量。</p>
+<p>换句话说，webpack 打包后的文件之所以在浏览器中能运行，就是靠模拟了这些变量的行为。</p>
+<p>那怎么模拟呢？</p>
+<p>我们以 CommonJS 项目中的 square.js 为例，它依赖了 multiply 模块：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;加载了 square 模块&#x27;</span>)<br><br><span class="hljs-keyword">var</span> multiply = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;./multiply.js&#x27;</span>);<br><br><span class="hljs-keyword">var</span> square = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">num</span>) </span>&#123;&amp;emsp;<br>    <span class="hljs-keyword">return</span> multiply.multiply(num, num);<br>&#125;;<br><br><span class="hljs-built_in">module</span>.exports.square = square;<br></code></pre></td></tr></table></figure>
+
+<p>webpack 会将其包裹一层，注入这些变量：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"><span class="hljs-built_in">module</span>, <span class="hljs-built_in">exports</span>, <span class="hljs-built_in">require</span></span>) </span>&#123;<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;加载了 square 模块&#x27;</span>);<br><br>    <span class="hljs-keyword">var</span> multiply = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;./multiply&quot;</span>);<br>    <span class="hljs-built_in">module</span>.exports = &#123;<br>        square: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">num</span>) </span>&#123;<br>            <span class="hljs-keyword">return</span> multiply.multiply(num, num);<br>        &#125;<br>    &#125;;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>那 webpack 又会将 CommonJS 项目的代码打包成什么样呢？我写了一个精简的例子，你可以直接复制到浏览器中查看效果：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 自执行函数</span><br>(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">modules</span>) </span>&#123;<br><br>    <span class="hljs-comment">// 用于储存已经加载过的模块</span><br>    <span class="hljs-keyword">var</span> installedModules = &#123;&#125;;<br><br>    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">require</span>(<span class="hljs-params">moduleName</span>) </span>&#123;<br><br>        <span class="hljs-keyword">if</span> (installedModules[moduleName]) &#123;<br>            <span class="hljs-keyword">return</span> installedModules[moduleName].exports;<br>        &#125;<br><br>        <span class="hljs-keyword">var</span> <span class="hljs-built_in">module</span> = installedModules[moduleName] = &#123;<br>            <span class="hljs-built_in">exports</span>: &#123;&#125;<br>        &#125;;<br><br>        modules[moduleName](<span class="hljs-built_in">module</span>, <span class="hljs-built_in">module</span>.exports, <span class="hljs-built_in">require</span>);<br><br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">module</span>.exports;<br>    &#125;<br><br>    <span class="hljs-comment">// 加载主模块</span><br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;main&quot;</span>);<br><br>&#125;)(&#123;<br>    <span class="hljs-string">&quot;main&quot;</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"><span class="hljs-built_in">module</span>, <span class="hljs-built_in">exports</span>, <span class="hljs-built_in">require</span></span>) </span>&#123;<br><br>        <span class="hljs-keyword">var</span> addModule = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;./add&quot;</span>);<br>        <span class="hljs-built_in">console</span>.log(addModule.add(<span class="hljs-number">1</span>, <span class="hljs-number">1</span>))<br><br>        <span class="hljs-keyword">var</span> squareModule = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;./square&quot;</span>);<br>        <span class="hljs-built_in">console</span>.log(squareModule.square(<span class="hljs-number">3</span>));<br><br>    &#125;,<br>    <span class="hljs-string">&quot;./add&quot;</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"><span class="hljs-built_in">module</span>, <span class="hljs-built_in">exports</span>, <span class="hljs-built_in">require</span></span>) </span>&#123;<br>        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;加载了 add 模块&#x27;</span>);<br><br>        <span class="hljs-built_in">module</span>.exports = &#123;<br>            add: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">x, y</span>) </span>&#123;<br>                <span class="hljs-keyword">return</span> x + y;<br>            &#125;<br>        &#125;;<br>    &#125;,<br>    <span class="hljs-string">&quot;./square&quot;</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"><span class="hljs-built_in">module</span>, <span class="hljs-built_in">exports</span>, <span class="hljs-built_in">require</span></span>) </span>&#123;<br>        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;加载了 square 模块&#x27;</span>);<br><br>        <span class="hljs-keyword">var</span> multiply = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;./multiply&quot;</span>);<br>        <span class="hljs-built_in">module</span>.exports = &#123;<br>            square: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">num</span>) </span>&#123;<br>                <span class="hljs-keyword">return</span> multiply.multiply(num, num);<br>            &#125;<br>        &#125;;<br>    &#125;,<br><br>    <span class="hljs-string">&quot;./multiply&quot;</span>: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"><span class="hljs-built_in">module</span>, <span class="hljs-built_in">exports</span>, <span class="hljs-built_in">require</span></span>) </span>&#123;<br>        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;加载了 multiply 模块&#x27;</span>);<br><br>        <span class="hljs-built_in">module</span>.exports = &#123;<br>            multiply: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">x, y</span>) </span>&#123;<br>                <span class="hljs-keyword">return</span> x * y;<br>            &#125;<br>        &#125;;<br>    &#125;<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs livecodeserver">最终的执行结果为：<br><br>加载了 <span class="hljs-built_in">add</span> 模块<br><span class="hljs-number">2</span><br>加载了 square 模块<br>加载了 <span class="hljs-built_in">multiply</span> 模块<br><span class="hljs-number">9</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h4><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/7048139060983889950#heading-1">CommonJS和ES6模块有什么区别!</a><br><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903712553435149#heading-11">ES6 系列之模块加载方案</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/ES6/">ES6</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/">前端基础</a>
+                    
+                      <a class="hover-with-bg" href="/tags/ES6/">ES6</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/02/28/Js%E6%95%B0%E7%BB%84%E9%97%AE%E9%A2%98/">
+                        <span class="hidden-mobile">Js数组基本问题</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
