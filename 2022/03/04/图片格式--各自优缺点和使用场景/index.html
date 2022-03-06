@@ -18,7 +18,7 @@
   <meta name="author" content="DragonPeng">
   <meta name="keywords" content="">
   
-  <title>Node相关&amp;&amp;Koa与Express的区别 - DragonPeng的博客</title>
+  <title>图片格式&amp;&amp;各自优缺点和使用场景 - DragonPeng的博客</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -163,7 +163,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="Node相关&&Koa与Express的区别">
+            <span class="h2" id="subtitle" title="图片格式&&各自优缺点和使用场景">
               
             </span>
 
@@ -173,8 +173,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2022-03-01 21:15" pubdate>
-        March 1, 2022 pm
+      <time datetime="2022-03-04 11:15" pubdate>
+        March 4, 2022 am
       </time>
     </span>
   
@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1k 字
+      925 字
     </span>
   
 
@@ -225,46 +225,34 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Node相关&amp;&amp;Koa与Express的区别</h1>
+            <h1 style="display: none">图片格式&amp;&amp;各自优缺点和使用场景</h1>
             
             <div class="markdown-body">
               <hr>
-<h3 id="node有哪些相关的文件路径？"><a href="#node有哪些相关的文件路径？" class="headerlink" title="node有哪些相关的文件路径？"></a>node有哪些相关的文件路径？</h3><p>答案是：Node 中的文件路径有 __dirname,__filename, process.cwd(), ./ 或者 ../下面用一个例子来介绍这几种文件路径的区别</p>
-<p>__dirname: 总是返回被执行的 js 所在文件夹的绝对路径<br>__filename: 总是返回被执行的 js 的绝对路径<br>process.cwd(): 总是返回运行 node 命令时所在的文件夹的绝对路径</p>
-<h3 id="node的http模块创建服务与Express或Koa框架有何不同"><a href="#node的http模块创建服务与Express或Koa框架有何不同" class="headerlink" title="node的http模块创建服务与Express或Koa框架有何不同?"></a>node的http模块创建服务与Express或Koa框架有何不同?</h3><p>答案是：express是一个服务端框架,框架简单封装了node的http模块,express支持node原生的写法,express不仅封装好服务器，还封装了中间件、路由等特征，方便开发web服务器，</p>
-<blockquote>
-<p>换句话说express = http模块 + 中间件 + 路由</p>
-</blockquote>
-<h3 id="Express和Koa框架中间件有什么不同？"><a href="#Express和Koa框架中间件有什么不同？" class="headerlink" title="Express和Koa框架中间件有什么不同？"></a>Express和Koa框架中间件有什么不同？</h3><p>答案：中间件： app.use方法就是往中间件队列中塞入新的中间件，express中间件处理方式是线性的，next过后继续寻找下一个中间件，当然如果没有调用next()的话，就不会调用下一个函数了，调用就会被终止</p>
-<h5 id="express-中间件：是通过-next-的机制，即上一个中间件会通过-next-触发下一个中间件"><a href="#express-中间件：是通过-next-的机制，即上一个中间件会通过-next-触发下一个中间件" class="headerlink" title="express 中间件：是通过 next 的机制，即上一个中间件会通过 next 触发下一个中间件"></a>express 中间件：是通过 next 的机制，即上一个中间件会通过 next 触发下一个中间件</h5><h5 id="koa2-中间件：是通过-async-await-实现的，中间件执行顺序是“洋葱圈”模型（推荐）"><a href="#koa2-中间件：是通过-async-await-实现的，中间件执行顺序是“洋葱圈”模型（推荐）" class="headerlink" title="koa2 中间件：是通过 async await 实现的，中间件执行顺序是“洋葱圈”模型（推荐）"></a>koa2 中间件：是通过 async await 实现的，中间件执行顺序是“洋葱圈”模型（推荐）</h5><p><img src="/imageO/YC.jpg" srcset="/img/loading.gif" lazyload alt="洋葱模型"></p>
-<h3 id="Koa与Express的区别"><a href="#Koa与Express的区别" class="headerlink" title="Koa与Express的区别"></a>Koa与Express的区别</h3><h4 id="Koa"><a href="#Koa" class="headerlink" title="Koa"></a>Koa</h4><ul>
-<li>基于node的一个web开发框架，利用co作为底层运行框架，利用Generator的特性，实现“无回调”的异步处理；</li>
-<li>ES7;</li>
-<li>更小、更富有表现力、更健壮的基石；</li>
-<li>利用async函数、Koa丢弃回调函数，增强错误处理；</li>
-<li>很小的体积，因为没有捆绑任何中间件；</li>
-<li>类似堆栈的方式组织和执行；</li>
-<li>低级中间件层中提供高级“语法糖”，提高了互操性、稳健性；</li>
-</ul>
-<h4 id="Express"><a href="#Express" class="headerlink" title="Express"></a>Express</h4><ul>
-<li>Node的基础框架，基础Connect中间件，自身封装了路由、视图处理等功能；</li>
-<li>线性逻辑，路由和中间件完美融合，清晰明了；</li>
-<li>弊端是callback回调方式，不可组合、异常不可捕获；</li>
-<li>ES5;</li>
-<li>connect的执行流程： connect的中间件模型是线性的，即一个一个往下执行；</li>
-</ul>
-<h4 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h4><h5 id="Handler的处理"><a href="#Handler的处理" class="headerlink" title="Handler的处理"></a>Handler的处理</h5><p>Express普通回调函数，在同一线程上完成当前进程的所有Http请求；<br>Koa利用Generator Function作为响应器，co作为底层运行框架，利用Generator特性，实现“协程响应”；</p>
-<h5 id="路由"><a href="#路由" class="headerlink" title="路由"></a>路由</h5><p>Express的路由是自身集成的；<br>Koa的需要引入中间件Koa-router；</p>
-<h5 id="启动方式"><a href="#启动方式" class="headerlink" title="启动方式"></a>启动方式</h5><p>koa采用new Koa()<br>express采用传统的函数形式function；</p>
-<h5 id="回调"><a href="#回调" class="headerlink" title="回调"></a>回调</h5><p>Koa没有回调<br>express有回调；</p>
-<h5 id="Http-Request"><a href="#Http-Request" class="headerlink" title="Http Request"></a>Http Request</h5><p>koa1使用this取代Express的req、res；</p>
-<h5 id="Context"><a href="#Context" class="headerlink" title="Context"></a>Context</h5><p>Koa新增了一个Context对象，用来代替Express的Request和Response，作为请求的上下文对象。<br>还有Node原生提供的req、res、socket等对象；</p>
-<h5 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h5><p>Express的生命周期不确定：express内部执行异步函数，不能确定什么时候执行完；<br>Koa确定：koa是基于await/async，在执行下一步操作的时候，必须等待前端await执行完；</p>
-<h5 id="异步流程"><a href="#异步流程" class="headerlink" title="异步流程"></a>异步流程</h5><p> Express采用callback来处理异步(ES5)；<br> Koa1采用generator(ES6)；<br> Koa2采用async/await(ES7)；</p>
-<h5 id="错误处理"><a href="#错误处理" class="headerlink" title="错误处理"></a>错误处理</h5><p> Express使用callback捕获异常，深层次的异常捕获不了；<br> Koa使用try catch，很好的解决异常捕获；</p>
-<h5 id="中间件"><a href="#中间件" class="headerlink" title="中间件"></a>中间件</h5><h6 id="koa2的中间件"><a href="#koa2的中间件" class="headerlink" title="koa2的中间件"></a>koa2的中间件</h6><p>   1、通过async await实现的，中间件执行的顺序是“洋葱圈”模型。<br>   2、中间件之间通过next函数联系，当一个中间件调用next()后，会将控制权交给下一个中间件，直到下一个中间件不再执行next()后，会沿路返回，将控制权交给前一个中间件。</p>
-<h6 id="Express中间件"><a href="#Express中间件" class="headerlink" title="Express中间件"></a>Express中间件</h6><p>  1、一个接一个顺序执行，response响应写在最后一个中间件中。<br>  2、特点：<br>   a.app.use用来注册中间件；<br>   b.遇到http请求，根据path和method判断触发哪些中间件；<br>   c.实现next机制，即上一个中间件会通过next触发下一个中间件；</p>
-<h4 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h4><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844904196265754638#comment">面试官问你关于node的那些事（基础篇）</a><br><a target="_blank" rel="noopener" href="https://juejin.cn/post/6875152985949732872">前端面试—Koa与Express的区别</a></p>
+<h3 id="前置知识：二进制位数与色彩的关系"><a href="#前置知识：二进制位数与色彩的关系" class="headerlink" title="前置知识：二进制位数与色彩的关系"></a>前置知识：二进制位数与色彩的关系</h3><p>　　在计算机中，像素用二进制数来表示。不同的图片格式中像素与二进制位数之间的对应关系是不同的，<br>　　一个像素对应的二进制位数越多，它可以表示的颜色种类就越多，成像效果也就越清晰，文件体积相应也会越大</p>
+<h3 id="JPG-JPEG"><a href="#JPG-JPEG" class="headerlink" title="JPG / JPEG"></a>JPG / JPEG</h3><p>　　优点<br>　　　　①：体积小<br>　　　　②：加载快<br>　　　　③：支持颜色种类多<br>　　 缺点<br>　　　　①：有损压缩<br>　　　　②：不支持透明</p>
+<h4 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h4><p>　　JPG 适用于呈现色彩丰富的图片，在日常开发中，JPG 图片经常作为大的背景图、轮播图或 Banner 图出现</p>
+<h4 id="注：JPEG和JPG指代同一种图片格式，前者是后者的全称，后者是简称"><a href="#注：JPEG和JPG指代同一种图片格式，前者是后者的全称，后者是简称" class="headerlink" title="注：JPEG和JPG指代同一种图片格式，前者是后者的全称，后者是简称"></a>注：JPEG和JPG指代同一种图片格式，前者是后者的全称，后者是简称</h4><h3 id="PNG-8-PNG-24"><a href="#PNG-8-PNG-24" class="headerlink" title="PNG-8 / PNG-24"></a>PNG-8 / PNG-24</h3><p>　　优点<br>　　　　①：支持透明，弥补了JPG的不足<br>　　　　 ②：无损压缩，图片质量更高<br>　　缺点<br>　　　　①：什么都好，就是体积太大</p>
+<h4 id="使用场景-1"><a href="#使用场景-1" class="headerlink" title="使用场景"></a>使用场景</h4><p>　主要用它来呈现小的 Logo 和需要透明效果的图片（比如透明背景图，透明Logo图）</p>
+<h4 id="注：PNG-8和PNG-24区别在于支持色彩多少的不同。前者最多支持256种颜色，后者支持1600万种颜色"><a href="#注：PNG-8和PNG-24区别在于支持色彩多少的不同。前者最多支持256种颜色，后者支持1600万种颜色" class="headerlink" title="注：PNG-8和PNG-24区别在于支持色彩多少的不同。前者最多支持256种颜色，后者支持1600万种颜色"></a>注：PNG-8和PNG-24区别在于支持色彩多少的不同。前者最多支持256种颜色，后者支持1600万种颜色</h4><h3 id="GIF"><a href="#GIF" class="headerlink" title="GIF"></a>GIF</h3><p>　　优点<br>　　　　①：体积小<br>　　　　②：支持透明<br>　　　　③：支持动图<br>　缺点<br>　　　①：最多只支持256种颜色，成像效果较差</p>
+<h4 id="使用场景-2"><a href="#使用场景-2" class="headerlink" title="使用场景"></a>使用场景</h4><p>主要用于需要有动画效果的图片</p>
+<h3 id="SVG（矢量图形）"><a href="#SVG（矢量图形）" class="headerlink" title="SVG（矢量图形）"></a>SVG（矢量图形）</h3><p>　　优点<br>　　　　①：即使无限放大，图片依然不失真<br>　　　　②：相对于JPG和PNG，体积更小<br>　　缺点<br>　　　　①：对性能有一定影响</p>
+<h4 id="使用场景-3"><a href="#使用场景-3" class="headerlink" title="使用场景"></a>使用场景</h4><p>　　SVG 是文本文件，我们既可以像写代码一样定义 SVG，把它写在 HTML 里、成为 DOM 的一部分，<br>　　也可以把对图形的描述写入以 .svg 为后缀的独立文件（SVG 文件在使用上与普通图片文件无异）</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;en&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;UTF-8&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">svg</span> <span class="hljs-attr">xmlns</span>=<span class="hljs-string">&quot;http://www.w3.org/2000/svg&quot;</span>   <span class="hljs-attr">width</span>=<span class="hljs-string">&quot;200&quot;</span> <span class="hljs-attr">height</span>=<span class="hljs-string">&quot;200&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">circle</span> <span class="hljs-attr">cx</span>=<span class="hljs-string">&quot;50&quot;</span> <span class="hljs-attr">cy</span>=<span class="hljs-string">&quot;50&quot;</span> <span class="hljs-attr">r</span>=<span class="hljs-string">&quot;50&quot;</span> /&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">svg</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>　将 SVG 写入独立文件后引入 HTML</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">&lt;img <span class="hljs-attribute">src</span>=<span class="hljs-string">&quot;文件名.svg&quot;</span> <span class="hljs-attribute">alt</span>=<span class="hljs-string">&quot;&quot;</span>&gt;<br></code></pre></td></tr></table></figure>
+
+<h3 id="补充——Base64"><a href="#补充——Base64" class="headerlink" title="补充——Base64"></a>补充——Base64</h3><h4 id="前置知识"><a href="#前置知识" class="headerlink" title="前置知识"></a>前置知识</h4><p>　　雪碧图（又被称为CSS Sprites、CSS 精灵、图像精灵）<br>　　 是一种将小图标和背景图像合并到一张图片上，然后利用 CSS 的背景定位来显示其中每一部分的技术，从而减少http请求</p>
+<h4 id="Base64严格意义上来说并不是一种图片格式，而是作为小图标解决方案而存在的，可以理解为是雪碧图的一种补充"><a href="#Base64严格意义上来说并不是一种图片格式，而是作为小图标解决方案而存在的，可以理解为是雪碧图的一种补充" class="headerlink" title="Base64严格意义上来说并不是一种图片格式，而是作为小图标解决方案而存在的，可以理解为是雪碧图的一种补充"></a>Base64严格意义上来说并不是一种图片格式，而是作为小图标解决方案而存在的，可以理解为是雪碧图的一种补充</h4><p>　　Base64 通过对图片进行编码，可以直接将编码结果写入 HTML 或者 CSS，从而减少 HTTP 请求的次数<br>　　比如现在有一个放大镜图标</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">　　 图片路径是：&lt;https:<span class="hljs-regexp">//u</span>ser-gold-cdn.xitu.io<span class="hljs-regexp">/2018/</span><span class="hljs-number">9</span><span class="hljs-regexp">/15/</span><span class="hljs-number">165</span>db7e94699824b?w=<span class="hljs-number">22</span>&amp;h=<span class="hljs-number">22</span>&amp;f=png&amp;s=<span class="hljs-number">3680</span>&gt;<br></code></pre></td></tr></table></figure>
+
+<p>　   按照一贯思路，我们加载图片需要把图片链接写入 img 标签，然后向服务器发送请求</p>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dts"><span class="hljs-params">&lt;img src=&quot;https://user-gold-cdn.xitu.io/<span class="hljs-number">2018</span>/<span class="hljs-number">9</span>/<span class="hljs-number">15</span>/<span class="hljs-number">165</span>db7e94699824b?w=<span class="hljs-number">22</span><span class="hljs-variable">&amp;h</span>=<span class="hljs-number">22</span><span class="hljs-variable">&amp;f</span>=png<span class="hljs-variable">&amp;s</span>=<span class="hljs-number">3680</span>&quot;&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>　 但如果我们对这个图片进行 Base64 编码，会得到一个下图所示的字符串：</p>
+<p> 　　原来浏览器是可以理解这个字符串的，它自动将这个字符串解码为一张图片，而不需再去发送 HTTP 请求</p>
+<h4 id="转载文章"><a href="#转载文章" class="headerlink" title="转载文章"></a>转载文章</h4><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/tu-0718/p/10091432.html">前端常用图片格式优缺点及使用场景简述</a></p>
 
             </div>
             <hr>
@@ -274,7 +262,7 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/%E9%9D%A2%E8%AF%95%E9%A2%98/">面试题</a>
+                      <a class="hover-with-bg" href="/categories/CSS/">CSS</a>
                     
                   </div>
                 
@@ -284,7 +272,7 @@
                     
                       <a class="hover-with-bg" href="/tags/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/">前端基础</a>
                     
-                      <a class="hover-with-bg" href="/tags/Node/">Node</a>
+                      <a class="hover-with-bg" href="/tags/CSS/">CSS</a>
                     
                   </div>
                 
@@ -301,18 +289,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/03/01/CommonJS%E5%92%8CES6%E6%A8%A1%E5%9D%97/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">CommonJS和ES6模块</span>
-                        <span class="visible-mobile">Previous</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/02/28/Js%E6%95%B0%E7%BB%84%E9%97%AE%E9%A2%98/">
-                        <span class="hidden-mobile">Js数组基本问题</span>
+                      <a href="/2022/03/01/CommonJS%E5%92%8CES6%E6%A8%A1%E5%9D%97/">
+                        <span class="hidden-mobile">CommonJS和ES6模块</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
