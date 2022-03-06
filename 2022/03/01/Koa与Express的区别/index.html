@@ -1,0 +1,528 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/2.jpg">
+  <link rel="icon" href="/img/2.jpg">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="DragonPeng">
+  <meta name="keywords" content="">
+  
+  <title>Node相关&amp;&amp;Koa与Express的区别 - DragonPeng的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>DragonPeng' blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/page1.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Node相关&&Koa与Express的区别">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-03-01 21:15" pubdate>
+        March 1, 2022 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      11
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Node相关&amp;&amp;Koa与Express的区别</h1>
+            
+            <div class="markdown-body">
+              <hr>
+<h3 id="node有哪些相关的文件路径？"><a href="#node有哪些相关的文件路径？" class="headerlink" title="node有哪些相关的文件路径？"></a>node有哪些相关的文件路径？</h3><p>答案是：Node 中的文件路径有 __dirname,__filename, process.cwd(), ./ 或者 ../下面用一个例子来介绍这几种文件路径的区别</p>
+<p>__dirname: 总是返回被执行的 js 所在文件夹的绝对路径<br>__filename: 总是返回被执行的 js 的绝对路径<br>process.cwd(): 总是返回运行 node 命令时所在的文件夹的绝对路径</p>
+<h3 id="node的http模块创建服务与Express或Koa框架有何不同"><a href="#node的http模块创建服务与Express或Koa框架有何不同" class="headerlink" title="node的http模块创建服务与Express或Koa框架有何不同?"></a>node的http模块创建服务与Express或Koa框架有何不同?</h3><p>答案是：express是一个服务端框架,框架简单封装了node的http模块,express支持node原生的写法,express不仅封装好服务器，还封装了中间件、路由等特征，方便开发web服务器，</p>
+<blockquote>
+<p>换句话说express = http模块 + 中间件 + 路由</p>
+</blockquote>
+<h3 id="Express和Koa框架中间件有什么不同？"><a href="#Express和Koa框架中间件有什么不同？" class="headerlink" title="Express和Koa框架中间件有什么不同？"></a>Express和Koa框架中间件有什么不同？</h3><p>答案：中间件： app.use方法就是往中间件队列中塞入新的中间件，express中间件处理方式是线性的，next过后继续寻找下一个中间件，当然如果没有调用next()的话，就不会调用下一个函数了，调用就会被终止</p>
+<h5 id="express-中间件：是通过-next-的机制，即上一个中间件会通过-next-触发下一个中间件"><a href="#express-中间件：是通过-next-的机制，即上一个中间件会通过-next-触发下一个中间件" class="headerlink" title="express 中间件：是通过 next 的机制，即上一个中间件会通过 next 触发下一个中间件"></a>express 中间件：是通过 next 的机制，即上一个中间件会通过 next 触发下一个中间件</h5><h5 id="koa2-中间件：是通过-async-await-实现的，中间件执行顺序是“洋葱圈”模型（推荐）"><a href="#koa2-中间件：是通过-async-await-实现的，中间件执行顺序是“洋葱圈”模型（推荐）" class="headerlink" title="koa2 中间件：是通过 async await 实现的，中间件执行顺序是“洋葱圈”模型（推荐）"></a>koa2 中间件：是通过 async await 实现的，中间件执行顺序是“洋葱圈”模型（推荐）</h5><p><img src="/imageO/YC.jpg" srcset="/img/loading.gif" lazyload alt="洋葱模型"></p>
+<h3 id="Koa与Express的区别"><a href="#Koa与Express的区别" class="headerlink" title="Koa与Express的区别"></a>Koa与Express的区别</h3><h4 id="Koa"><a href="#Koa" class="headerlink" title="Koa"></a>Koa</h4><ul>
+<li>基于node的一个web开发框架，利用co作为底层运行框架，利用Generator的特性，实现“无回调”的异步处理；</li>
+<li>ES7;</li>
+<li>更小、更富有表现力、更健壮的基石；</li>
+<li>利用async函数、Koa丢弃回调函数，增强错误处理；</li>
+<li>很小的体积，因为没有捆绑任何中间件；</li>
+<li>类似堆栈的方式组织和执行；</li>
+<li>低级中间件层中提供高级“语法糖”，提高了互操性、稳健性；</li>
+</ul>
+<h4 id="Express"><a href="#Express" class="headerlink" title="Express"></a>Express</h4><ul>
+<li>Node的基础框架，基础Connect中间件，自身封装了路由、视图处理等功能；</li>
+<li>线性逻辑，路由和中间件完美融合，清晰明了；</li>
+<li>弊端是callback回调方式，不可组合、异常不可捕获；</li>
+<li>ES5;</li>
+<li>connect的执行流程： connect的中间件模型是线性的，即一个一个往下执行；</li>
+</ul>
+<h4 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h4><h5 id="Handler的处理"><a href="#Handler的处理" class="headerlink" title="Handler的处理"></a>Handler的处理</h5><p>Express普通回调函数，在同一线程上完成当前进程的所有Http请求；<br>Koa利用Generator Function作为响应器，co作为底层运行框架，利用Generator特性，实现“协程响应”；</p>
+<h5 id="路由"><a href="#路由" class="headerlink" title="路由"></a>路由</h5><p>Express的路由是自身集成的；<br>Koa的需要引入中间件Koa-router；</p>
+<h5 id="启动方式"><a href="#启动方式" class="headerlink" title="启动方式"></a>启动方式</h5><p>koa采用new Koa()<br>express采用传统的函数形式function；</p>
+<h5 id="回调"><a href="#回调" class="headerlink" title="回调"></a>回调</h5><p>Koa没有回调<br>express有回调；</p>
+<h5 id="Http-Request"><a href="#Http-Request" class="headerlink" title="Http Request"></a>Http Request</h5><p>koa1使用this取代Express的req、res；</p>
+<h5 id="Context"><a href="#Context" class="headerlink" title="Context"></a>Context</h5><p>Koa新增了一个Context对象，用来代替Express的Request和Response，作为请求的上下文对象。<br>还有Node原生提供的req、res、socket等对象；</p>
+<h5 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h5><p>Express的生命周期不确定：express内部执行异步函数，不能确定什么时候执行完；<br>Koa确定：koa是基于await/async，在执行下一步操作的时候，必须等待前端await执行完；</p>
+<h5 id="异步流程"><a href="#异步流程" class="headerlink" title="异步流程"></a>异步流程</h5><p> Express采用callback来处理异步(ES5)；<br> Koa1采用generator(ES6)；<br> Koa2采用async/await(ES7)；</p>
+<h5 id="错误处理"><a href="#错误处理" class="headerlink" title="错误处理"></a>错误处理</h5><p> Express使用callback捕获异常，深层次的异常捕获不了；<br> Koa使用try catch，很好的解决异常捕获；</p>
+<h5 id="中间件"><a href="#中间件" class="headerlink" title="中间件"></a>中间件</h5><h6 id="koa2的中间件"><a href="#koa2的中间件" class="headerlink" title="koa2的中间件"></a>koa2的中间件</h6><p>   1、通过async await实现的，中间件执行的顺序是“洋葱圈”模型。<br>   2、中间件之间通过next函数联系，当一个中间件调用next()后，会将控制权交给下一个中间件，直到下一个中间件不再执行next()后，会沿路返回，将控制权交给前一个中间件。</p>
+<h6 id="Express中间件"><a href="#Express中间件" class="headerlink" title="Express中间件"></a>Express中间件</h6><p>  1、一个接一个顺序执行，response响应写在最后一个中间件中。<br>  2、特点：<br>   a.app.use用来注册中间件；<br>   b.遇到http请求，根据path和method判断触发哪些中间件；<br>   c.实现next机制，即上一个中间件会通过next触发下一个中间件；</p>
+<h4 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h4><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844904196265754638#comment">面试官问你关于node的那些事（基础篇）</a><br><a target="_blank" rel="noopener" href="https://juejin.cn/post/6875152985949732872">前端面试—Koa与Express的区别</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/ES6/">ES6</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/">前端基础</a>
+                    
+                      <a class="hover-with-bg" href="/tags/ES6/">ES6</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/03/01/CommonJS%E5%92%8CES6%E6%A8%A1%E5%9D%97/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">CommonJS和ES6模块</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/02/28/Js%E6%95%B0%E7%BB%84%E9%97%AE%E9%A2%98/">
+                        <span class="hidden-mobile">Js数组基本问题</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
