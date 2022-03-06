@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      5.8k 字
+      6.1k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      62
+      65
        分钟
     </span>
   
@@ -244,7 +244,12 @@
 <p>如果 data 是一个返回对象的函数，因为每次重用组件时返回的都是一个新对象，引用地址不同，便不会出现如上问题。</p>
 <h3 id="vue和jquery的区别"><a href="#vue和jquery的区别" class="headerlink" title="vue和jquery的区别"></a>vue和jquery的区别</h3><p>vue相对于jquery有什么优点：<br>一. 解除jquery频繁操作dom，转为直接操作数据的思想。<br>二. vue支持双向绑定<br>view的变化，viewmodel感知到变化view变化，通知model发生改变。反之model发生改变，view也改变。<br>三. vue支持组件化<br>提高开发效率。重复功能可单独写到组件中，供其他地方调用。</p>
 <h3 id="单向数据流"><a href="#单向数据流" class="headerlink" title="单向数据流"></a>单向数据流</h3><p>一：单向数据流</p>
-<h4 id="单向数据流的意思是指数据的改变只能从一个方向修改"><a href="#单向数据流的意思是指数据的改变只能从一个方向修改" class="headerlink" title="单向数据流的意思是指数据的改变只能从一个方向修改"></a>单向数据流的意思是指数据的改变只能从一个方向修改</h4><p>举个栗子：如一个父组件有两个子组件，分别为1和2。父组件向子组件传递数据，两个组件都接收到了父组件传递过来的数据，在组件1中修改父组件传递过来的数据，子组件2和父组件的值不会发生变化。这就是单向的数据流，子组件不能直接改变父组件的状态。但是如果父组件改变相应的数据，两个子组件的数据也会发生相应的改变。</p>
+<h4 id="单向数据流的意思是指数据的改变只能从一个方向修改"><a href="#单向数据流的意思是指数据的改变只能从一个方向修改" class="headerlink" title="单向数据流的意思是指数据的改变只能从一个方向修改"></a>单向数据流的意思是指数据的改变只能从一个方向修改</h4><p>数据总是从父组件传到子组件，子组件没有权利修改父组件传过来的数据，只能请求父组件对原始数据进行修改。这样会防止从子组件意外改变父级组件的状态，从而导致你的应用的数据流向难以理解。</p>
+<blockquote>
+<p>注意：在子组件直接用 v-model 绑定父组件传过来的 prop 这样是不规范的写法 开发环境会报警告</p>
+</blockquote>
+<p>如果实在要改变父组件的 prop 值 可以再 data 里面定义一个变量 并用 prop 的值初始化它 之后用$emit 通知父组件去修改</p>
+<p>举个栗子：如一个父组件有两个子组件，分别为1和2。父组件向子组件传递数据，两个组件都接收到了父组件传递过来的数据，在组件1中修改父组件传递过来的数据，子组件2和父组件的值不会发生变化。这就是单向的数据流，子组件不能直接改变父组件的状态。但是如果父组件改变相应的数据，两个子组件的数据也会发生相应的改变。</p>
 <h3 id="MVVM思想-重要"><a href="#MVVM思想-重要" class="headerlink" title="MVVM思想(重要)"></a>MVVM思想(重要)</h3><h4 id="什么是MVVM？"><a href="#什么是MVVM？" class="headerlink" title="什么是MVVM？"></a>什么是MVVM？</h4><p>视图模型双向绑定，是Model-View-ViewModel的缩写，也就是把MVC中的Controller演变成ViewModel。Model层代表数据模型，View代表UI组件，ViewModel是View和Model层的桥梁，数据会绑定到viewModel层并自动将数据渲染到页面中，视图变化的时候会通知viewModel层更新数据。以前是操作DOM结构更新视图，现在是数据驱动视图。</p>
 <h4 id="MVVM的优点"><a href="#MVVM的优点" class="headerlink" title="MVVM的优点"></a>MVVM的优点</h4><p>1.低耦合。视图（View）可以独立于Model变化和修改，一个Model可以绑定到不同的View上，当View变化的时候Model可以不变化，当Model变化的时候View也可以不变；<br>2.可重用性。你可以把一些视图逻辑放在一个Model里面，让很多View重用这段视图逻辑。<br>3.独立开发。开发人员可以专注于业务逻辑和数据的开发(ViewModel)，设计人员可以专注于页面设计。<br>4.可测试。</p>
 <h3 id="Vue底层实现原理"><a href="#Vue底层实现原理" class="headerlink" title="Vue底层实现原理"></a>Vue底层实现原理</h3><p>vue.js是采用数据劫持结合发布者-订阅者模式的方式，通过Object.defineProperty()来劫持各个属性的setter和getter，在数据变动时发布消息给订阅者，触发相应的监听回调<br>Vue是一个典型的MVVM框架，模型（Model）只是普通的javascript对象，修改它则试图（View）会自动更新。这种设计让状态管理变得非常简单而直观</p>
@@ -259,6 +264,7 @@
 <h3 id="vue-双向数据绑定原理？"><a href="#vue-双向数据绑定原理？" class="headerlink" title="vue 双向数据绑定原理？"></a>vue 双向数据绑定原理？</h3><ol>
 <li>vue2是采用数据劫持结合发布者-订阅者模式的方式，通过Object.defineProperty()来劫持各个属性的setter，getter，在数据变动时发布消息给订阅者，触发相应的监听回调。vue3中则采用Proxy，它可以监听到数组内的数据变化。<br>相比于vue2.x，使用proxy的优势如下</li>
 </ol>
+<p>使用 Object.defineProperty 将属性进行劫持（只会劫持已经存在的属性），数组则是通过重写数组方法来实现。当页面使用对应属性时，每个属性都拥有自己的 dep 属性，存放他所依赖的 watcher（依赖收集），当属性变化后会通知自己对应的 watcher 去更新(派发更新)。</p>
 <figure class="highlight llvm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs llvm">defineProperty只能监听某个属性，不能对全对象监听<br>可以省去for in、闭包等内容来提升效率（直接绑定整个对象即可）<br>可以监听数组，不用再去单独的对数组做特异性操作 vue<span class="hljs-number">3</span>.<span class="hljs-keyword">x</span>可以检测到数组内部数据的变化<br></code></pre></td></tr></table></figure>
 
 <ol start="2">
@@ -345,6 +351,7 @@
 </ol>
 <p><img src="/imageO/VueX.jpg" srcset="/img/loading.gif" lazyload alt="vuex"></p>
 <p><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2021/05/07/Vue%E5%85%A5%E9%97%A8%E5%AD%A6%E4%B9%A0(%E4%B8%83)/">博客</a></p>
+<h3 id="Vue动态加载组件的四种方式"><a href="#Vue动态加载组件的四种方式" class="headerlink" title="Vue动态加载组件的四种方式"></a>Vue动态加载组件的四种方式</h3><h4 id="import-require"><a href="#import-require" class="headerlink" title="import /require"></a>import /require</h4><p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/686ce86f4042">Vue动态加载组件的四种方式</a></p>
 
             </div>
             <hr>

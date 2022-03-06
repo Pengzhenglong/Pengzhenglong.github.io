@@ -18,7 +18,7 @@
   <meta name="author" content="DragonPeng">
   <meta name="keywords" content="">
   
-  <title>图片格式&amp;&amp;各自优缺点和使用场景 - DragonPeng的博客</title>
+  <title>http1.0，http1.1，http2，http3 - DragonPeng的博客</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -163,7 +163,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="图片格式&&各自优缺点和使用场景">
+            <span class="h2" id="subtitle" title="http1.0，http1.1，http2，http3">
               
             </span>
 
@@ -173,8 +173,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2022-03-04 11:15" pubdate>
-        March 4, 2022 am
+      <time datetime="2022-03-06 22:15" pubdate>
+        March 6, 2022 pm
       </time>
     </span>
   
@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      925 字
+      1.3k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      11
+      13
        分钟
     </span>
   
@@ -225,34 +225,39 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">图片格式&amp;&amp;各自优缺点和使用场景</h1>
+            <h1 style="display: none">http1.0，http1.1，http2，http3</h1>
             
             <div class="markdown-body">
               <hr>
-<h3 id="前置知识：二进制位数与色彩的关系"><a href="#前置知识：二进制位数与色彩的关系" class="headerlink" title="前置知识：二进制位数与色彩的关系"></a>前置知识：二进制位数与色彩的关系</h3><p>　　在计算机中，像素用二进制数来表示。不同的图片格式中像素与二进制位数之间的对应关系是不同的，<br>　　一个像素对应的二进制位数越多，它可以表示的颜色种类就越多，成像效果也就越清晰，文件体积相应也会越大</p>
-<h3 id="JPG-JPEG"><a href="#JPG-JPEG" class="headerlink" title="JPG / JPEG"></a>JPG / JPEG</h3><p>　　优点<br>　　　　①：体积小<br>　　　　②：加载快<br>　　　　③：支持颜色种类多<br>　　 缺点<br>　　　　①：有损压缩<br>　　　　②：不支持透明</p>
-<h4 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h4><p>　　JPG 适用于呈现色彩丰富的图片，在日常开发中，JPG 图片经常作为大的背景图、轮播图或 Banner 图出现</p>
-<h4 id="注：JPEG和JPG指代同一种图片格式，前者是后者的全称，后者是简称"><a href="#注：JPEG和JPG指代同一种图片格式，前者是后者的全称，后者是简称" class="headerlink" title="注：JPEG和JPG指代同一种图片格式，前者是后者的全称，后者是简称"></a>注：JPEG和JPG指代同一种图片格式，前者是后者的全称，后者是简称</h4><h3 id="PNG-8-PNG-24"><a href="#PNG-8-PNG-24" class="headerlink" title="PNG-8 / PNG-24"></a>PNG-8 / PNG-24</h3><p>　　优点<br>　　　　①：支持透明，弥补了JPG的不足<br>　　　　 ②：无损压缩，图片质量更高<br>　　缺点<br>　　　　①：什么都好，就是体积太大</p>
-<h4 id="使用场景-1"><a href="#使用场景-1" class="headerlink" title="使用场景"></a>使用场景</h4><p>　主要用它来呈现小的 Logo 和需要透明效果的图片（比如透明背景图，透明Logo图）</p>
-<h4 id="注：PNG-8和PNG-24区别在于支持色彩多少的不同。前者最多支持256种颜色，后者支持1600万种颜色"><a href="#注：PNG-8和PNG-24区别在于支持色彩多少的不同。前者最多支持256种颜色，后者支持1600万种颜色" class="headerlink" title="注：PNG-8和PNG-24区别在于支持色彩多少的不同。前者最多支持256种颜色，后者支持1600万种颜色"></a>注：PNG-8和PNG-24区别在于支持色彩多少的不同。前者最多支持256种颜色，后者支持1600万种颜色</h4><h3 id="GIF"><a href="#GIF" class="headerlink" title="GIF"></a>GIF</h3><p>　　优点<br>　　　　①：体积小<br>　　　　②：支持透明<br>　　　　③：支持动图<br>　缺点<br>　　　①：最多只支持256种颜色，成像效果较差</p>
-<h4 id="使用场景-2"><a href="#使用场景-2" class="headerlink" title="使用场景"></a>使用场景</h4><p>主要用于需要有动画效果的图片</p>
-<h3 id="SVG（矢量图形）"><a href="#SVG（矢量图形）" class="headerlink" title="SVG（矢量图形）"></a>SVG（矢量图形）</h3><p>　　优点<br>　　　　①：即使无限放大，图片依然不失真<br>　　　　②：相对于JPG和PNG，体积更小<br>　　缺点<br>　　　　①：对性能有一定影响</p>
-<h4 id="使用场景-3"><a href="#使用场景-3" class="headerlink" title="使用场景"></a>使用场景</h4><p>　　SVG 是文本文件，我们既可以像写代码一样定义 SVG，把它写在 HTML 里、成为 DOM 的一部分，<br>　　也可以把对图形的描述写入以 .svg 为后缀的独立文件（SVG 文件在使用上与普通图片文件无异）</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;en&quot;</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;UTF-8&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">svg</span> <span class="hljs-attr">xmlns</span>=<span class="hljs-string">&quot;http://www.w3.org/2000/svg&quot;</span>   <span class="hljs-attr">width</span>=<span class="hljs-string">&quot;200&quot;</span> <span class="hljs-attr">height</span>=<span class="hljs-string">&quot;200&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">circle</span> <span class="hljs-attr">cx</span>=<span class="hljs-string">&quot;50&quot;</span> <span class="hljs-attr">cy</span>=<span class="hljs-string">&quot;50&quot;</span> <span class="hljs-attr">r</span>=<span class="hljs-string">&quot;50&quot;</span> /&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">svg</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br></code></pre></td></tr></table></figure>
-
-<p>　将 SVG 写入独立文件后引入 HTML</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">&lt;img <span class="hljs-attribute">src</span>=<span class="hljs-string">&quot;文件名.svg&quot;</span> <span class="hljs-attribute">alt</span>=<span class="hljs-string">&quot;&quot;</span>&gt;<br></code></pre></td></tr></table></figure>
-
-<h3 id="补充——Base64"><a href="#补充——Base64" class="headerlink" title="补充——Base64"></a>补充——Base64</h3><h4 id="前置知识"><a href="#前置知识" class="headerlink" title="前置知识"></a>前置知识</h4><p>　　雪碧图（又被称为CSS Sprites、CSS 精灵、图像精灵）<br>　　 是一种将小图标和背景图像合并到一张图片上，然后利用 CSS 的背景定位来显示其中每一部分的技术，从而减少http请求</p>
-<h4 id="Base64严格意义上来说并不是一种图片格式，而是作为小图标解决方案而存在的，可以理解为是雪碧图的一种补充"><a href="#Base64严格意义上来说并不是一种图片格式，而是作为小图标解决方案而存在的，可以理解为是雪碧图的一种补充" class="headerlink" title="Base64严格意义上来说并不是一种图片格式，而是作为小图标解决方案而存在的，可以理解为是雪碧图的一种补充"></a>Base64严格意义上来说并不是一种图片格式，而是作为小图标解决方案而存在的，可以理解为是雪碧图的一种补充</h4><p>　　Base64 通过对图片进行编码，可以直接将编码结果写入 HTML 或者 CSS，从而减少 HTTP 请求的次数<br>　　比如现在有一个放大镜图标</p>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">　　 图片路径是：&lt;https:<span class="hljs-regexp">//u</span>ser-gold-cdn.xitu.io<span class="hljs-regexp">/2018/</span><span class="hljs-number">9</span><span class="hljs-regexp">/15/</span><span class="hljs-number">165</span>db7e94699824b?w=<span class="hljs-number">22</span>&amp;h=<span class="hljs-number">22</span>&amp;f=png&amp;s=<span class="hljs-number">3680</span>&gt;<br></code></pre></td></tr></table></figure>
-
-<p>　   按照一贯思路，我们加载图片需要把图片链接写入 img 标签，然后向服务器发送请求</p>
-<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dts"><span class="hljs-params">&lt;img src=&quot;https://user-gold-cdn.xitu.io/<span class="hljs-number">2018</span>/<span class="hljs-number">9</span>/<span class="hljs-number">15</span>/<span class="hljs-number">165</span>db7e94699824b?w=<span class="hljs-number">22</span><span class="hljs-variable">&amp;h</span>=<span class="hljs-number">22</span><span class="hljs-variable">&amp;f</span>=png<span class="hljs-variable">&amp;s</span>=<span class="hljs-number">3680</span>&quot;&gt;</span><br></code></pre></td></tr></table></figure>
-
-<p>　 但如果我们对这个图片进行 Base64 编码，会得到一个下图所示的字符串：</p>
-<p> 　　原来浏览器是可以理解这个字符串的，它自动将这个字符串解码为一张图片，而不需再去发送 HTTP 请求</p>
-<h4 id="转载文章"><a href="#转载文章" class="headerlink" title="转载文章"></a>转载文章</h4><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/tu-0718/p/10091432.html">前端常用图片格式优缺点及使用场景简述</a></p>
+<h3 id="http1-0"><a href="#http1-0" class="headerlink" title="http1.0"></a>http1.0</h3><p>HTTP1.0最早在网页中使用是在1996年，那个时候只是使用一些较为简单的网页上和网络请求上,是一种<strong>无状态、无连接</strong>的应用层协议，几年后被HTTP1.1代替并广泛使用</p>
+<h3 id="http1-1"><a href="#http1-1" class="headerlink" title="http1.1"></a>http1.1</h3><p>http1.1基于文本解析,把所有请求和响应作为纯文本<br>http1.1加入了缓存处理（强缓存和协商缓存）<br>http1.1拥有长连接，并支持请求管道化（pipelining），<br>http1.1流控制基于tcp连接。当连接建立时，两端通过系统默认机制建立缓冲区。并通过ack报文来通知对方接收窗口大小，因为http1.1 依靠传输层来避免流溢出，每个tcp连接需要一个独立的流控制机制</p>
+<h4 id="缓存处理（强缓存和协商缓存）"><a href="#缓存处理（强缓存和协商缓存）" class="headerlink" title="缓存处理（强缓存和协商缓存）"></a>缓存处理（强缓存和协商缓存）</h4><p>浏览器缓存能优化性能，而浏览器缓存分为强缓存和协商缓存，都是从客户端读取缓存<br>强缓存</p>
+<ol>
+<li>强缓存不发送请求，直接读取资源，可以获得返回200的状态码</li>
+<li>利用http头中的Expires和Cache-Control两个字段来控制，都用来表示资源的缓存时间，Expires能设置失效时间，而Cache-Control能做到更多选项更细致，如果同时设置的话，其优先级高于Expires</li>
+</ol>
+<h4 id="协商缓存"><a href="#协商缓存" class="headerlink" title="协商缓存"></a>协商缓存</h4><ol>
+<li>通过服务器来确定缓存资源是否可用，通过request header判断是否命中请求，命中后返回304状态码，并返回新的request header通知客户端从缓存里取</li>
+<li>普通刷新会启用弱缓存，忽略强缓存。只有在地址栏或收藏夹输入网址、通过链接引用资源等情况下，浏览器才会启用强缓存</li>
+<li>如果时间过期，则向服务器发送header带有If-None-Match和If-Modified-Since的请求，回到1</li>
+</ol>
+<h3 id="http2"><a href="#http2" class="headerlink" title="http2"></a>http2</h3><ol>
+<li>http2相比于http1.1，<strong>性能</strong>大幅度提升</li>
+<li>http2通过一个连接来<strong>多路复用</strong></li>
+<li>http2拥有<strong>头部压缩</strong></li>
+<li>http2拥有<strong>新的二进制格式</strong>，使用二进制框架层把所有消息封装成二进制，且仍然保持http语法</li>
+<li>http2允许客户端和服务器端实现他们自己的流控制机制，而不是依赖传输层,两端在传输层交换可用的缓冲区大小，来让他们在多路复用流上设置自己的接收窗口</li>
+<li>http2让服务器可以将响应主动<strong>“推送”</strong>到客户端缓存中</li>
+</ol>
+<h4 id="htpp2头部压缩"><a href="#htpp2头部压缩" class="headerlink" title="htpp2头部压缩"></a>htpp2头部压缩</h4><p>http2头部压缩又称为HAPCK，设计简单而灵活，是因为HPACK格式有意地简单且不灵活能降低由于实现错误而导致的互操作性或安全问题的风险<br>http1.1没有头部压缩，随着请求增加，冗余头部字段会不必要地占用带宽，从而显着增加延迟，而头部压缩可消除冗余报头字段，限制已知安全攻击的漏洞，并且在受限环境中使用有限的内存要求</p>
+<p>http2多路复用</p>
+<p>http 性能优化的关键并不在于高带宽，而是低延迟</p>
+<p>tcp 连接会随着时间进行自我「调谐」，起初会限制连接的最大速度，如果数据成功传输，会随着时间的推移提高传输的速度,这种调谐则被称为 tcp 慢启动,由于这种原因，让原本就具有突发性和短时性的 http 连接变的十分低效</p>
+<p>http/2 通过让所有数据流共用同一个连接，可以更有效地使用 tcp 连接，让高带宽也能真正的服务于 http 的性能提升。而http1.1存在低性能的线头阻塞，一旦有一个请求超时，便会出现阻塞等待的情况</p>
+<h3 id="http3"><a href="#http3" class="headerlink" title="http3"></a>http3</h3><p>之前说了http2，那么http3就是为了解决http2相关问题而诞生，它基于一个新的传输层协议QUIC，而http3就是建立一个在<strong>QUIC</strong>上运行的HTTP新规范，而http3之前的版本都是基于TCP，QUIC就是为了替代TCP，解决TCP的一些缺陷<br>tcp</p>
+<p>不支持流级复用，TCP会将所有对象序列化在同一个流中，因此，它不知道TCP段的对象级分区，无法在同一个流中复用数据包<br>会产生冗余通信，tco三次连接握手会有冗余的消息交换序列<br>可能会间歇性地挂起数据传输，tcp中有个因为序列顺序处理丢失的问题的缺陷称为行头阻塞</p>
+<h3 id="QUIC"><a href="#QUIC" class="headerlink" title="QUIC"></a>QUIC</h3><p>同样拥有头部压缩，并优化了对乱序发送的支持，也优化了压缩率<br>放弃tcp，通过udp建立，提高了连接建立的速度，降低了延迟<br>tcp本身是无法解决队头拥塞，quic则解决了这个问题<br>Connection ID使得http3支持连接迁移以及NAT的重绑定</p>
+<h4 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h4><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/7001510315514937375">一文总结http1.0，http1.1，http2，http3，面试强心剂</a></p>
 
             </div>
             <hr>
@@ -262,7 +267,7 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/CSS/">CSS</a>
+                      <a class="hover-with-bg" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
                     
                   </div>
                 
@@ -272,7 +277,7 @@
                     
                       <a class="hover-with-bg" href="/tags/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/">前端基础</a>
                     
-                      <a class="hover-with-bg" href="/tags/CSS/">CSS</a>
+                      <a class="hover-with-bg" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
                     
                   </div>
                 
@@ -289,18 +294,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/03/06/Http/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">http1.0，http1.1，http2，http3</span>
-                        <span class="visible-mobile">Previous</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/03/01/CommonJS%E5%92%8CES6%E6%A8%A1%E5%9D%97/">
-                        <span class="hidden-mobile">CommonJS和ES6模块</span>
+                      <a href="/2022/03/04/%E5%9B%BE%E7%89%87%E6%A0%BC%E5%BC%8F--%E5%90%84%E8%87%AA%E4%BC%98%E7%BC%BA%E7%82%B9%E5%92%8C%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF/">
+                        <span class="hidden-mobile">图片格式&&各自优缺点和使用场景</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
