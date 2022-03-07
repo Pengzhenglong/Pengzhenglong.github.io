@@ -261,10 +261,10 @@
 <li>待属性变动dep.notice()通知时，能调用自身的update()方法，并触发Compile中绑定的回调</li>
 </ol>
 <h4 id="Compile（指令解析器）"><a href="#Compile（指令解析器）" class="headerlink" title="Compile（指令解析器）"></a>Compile（指令解析器）</h4><p> Compile主要做的事情是解析模板指令，将模板中变量替换成数据，然后初始化渲染页面视图，并将每个指令对应的节点绑定更新函数，添加鉴定数据的订阅者，一旦数据有变动，收到通知，更新试图</p>
-<h3 id="vue-双向数据绑定原理？"><a href="#vue-双向数据绑定原理？" class="headerlink" title="vue 双向数据绑定原理？"></a>vue 双向数据绑定原理？</h3><ol>
+<h3 id="vue-双向数据绑定原理？"><a href="#vue-双向数据绑定原理？" class="headerlink" title="vue 双向数据绑定原理？"></a>vue 双向数据绑定原理？</h3><p>使用 Object.defineProperty 将属性进行劫持（只会劫持已经存在的属性），数组则是通过重写数组方法来实现。当页面使用对应属性时，每个属性都拥有自己的 dep 属性，存放他所依赖的 watcher（依赖收集），当属性变化后会通知自己对应的 watcher 去更新(派发更新)。</p>
+<ol>
 <li>vue2是采用数据劫持结合发布者-订阅者模式的方式，通过Object.defineProperty()来劫持各个属性的setter，getter，在数据变动时发布消息给订阅者，触发相应的监听回调。vue3中则采用Proxy，它可以监听到数组内的数据变化。<br>相比于vue2.x，使用proxy的优势如下</li>
 </ol>
-<p>使用 Object.defineProperty 将属性进行劫持（只会劫持已经存在的属性），数组则是通过重写数组方法来实现。当页面使用对应属性时，每个属性都拥有自己的 dep 属性，存放他所依赖的 watcher（依赖收集），当属性变化后会通知自己对应的 watcher 去更新(派发更新)。</p>
 <figure class="highlight llvm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs llvm">defineProperty只能监听某个属性，不能对全对象监听<br>可以省去for in、闭包等内容来提升效率（直接绑定整个对象即可）<br>可以监听数组，不用再去单独的对数组做特异性操作 vue<span class="hljs-number">3</span>.<span class="hljs-keyword">x</span>可以检测到数组内部数据的变化<br></code></pre></td></tr></table></figure>
 
 <ol start="2">
