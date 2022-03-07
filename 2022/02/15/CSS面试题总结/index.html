@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      9k 字
+      9.1k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      103
+      104
        分钟
     </span>
   
@@ -327,7 +327,9 @@
 <h3 id="transition（过渡）和animation（动画）的区别"><a href="#transition（过渡）和animation（动画）的区别" class="headerlink" title="transition（过渡）和animation（动画）的区别"></a>transition（过渡）和animation（动画）的区别</h3><p>Animation和transition大部分属性是相同的，他们都是随时间改变元素的属性值，<br>他们的主要区别是<strong>transition需要触发一个事件才能改变属性</strong>，而animation不需要触发任何事件的情况下才会随时间改变属性值，并且transition为2帧，从from …. to，而animation可以一帧一帧的。</p>
 <h3 id="Js-动画与-CSS-动画区别及相应实现"><a href="#Js-动画与-CSS-动画区别及相应实现" class="headerlink" title="Js 动画与 CSS 动画区别及相应实现"></a>Js 动画与 CSS 动画区别及相应实现</h3><h4 id="CSS3-的动画的优点"><a href="#CSS3-的动画的优点" class="headerlink" title="CSS3 的动画的优点"></a>CSS3 的动画的优点</h4><p>在性能上会稍微好一些，浏览器会对 CSS3 的动画做一些优化<br>代码相对简单</p>
 <h4 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h4><p>在动画控制上不够灵活<br>兼容性不好</p>
-<h4 id="JavaScript-的动画正好弥补了这两个缺点，控制能力很强，可以单帧的控制、变换，同时写得好完全可以兼容-IE6，并且功能强大。对于一些复杂控制的动画，使用-javascript-会比较靠谱。而在实现一些小的交互动效的时候，就多考虑考虑-CSS-吧"><a href="#JavaScript-的动画正好弥补了这两个缺点，控制能力很强，可以单帧的控制、变换，同时写得好完全可以兼容-IE6，并且功能强大。对于一些复杂控制的动画，使用-javascript-会比较靠谱。而在实现一些小的交互动效的时候，就多考虑考虑-CSS-吧" class="headerlink" title="JavaScript 的动画正好弥补了这两个缺点，控制能力很强，可以单帧的控制、变换，同时写得好完全可以兼容 IE6，并且功能强大。对于一些复杂控制的动画，使用 javascript 会比较靠谱。而在实现一些小的交互动效的时候，就多考虑考虑 CSS 吧"></a>JavaScript 的动画正好弥补了这两个缺点，控制能力很强，可以单帧的控制、变换，同时写得好完全可以兼容 IE6，并且功能强大。对于一些复杂控制的动画，使用 javascript 会比较靠谱。而在实现一些小的交互动效的时候，就多考虑考虑 CSS 吧</h4><h3 id="用纯-CSS-创建一个三角形的原理是什么？"><a href="#用纯-CSS-创建一个三角形的原理是什么？" class="headerlink" title="用纯 CSS 创建一个三角形的原理是什么？"></a>用纯 CSS 创建一个三角形的原理是什么？</h3><p>采用的是相邻边框连接处的均分原理。<br> 将元素的宽高设为0，只设置<br> border，把任意三条边隐藏掉（颜色设为transparent），剩下的就是一个三角形。</p>
+<h4 id="Js动画"><a href="#Js动画" class="headerlink" title="Js动画"></a>Js动画</h4><p>JavaScript 的动画正好弥补了这两个缺点，控制能力很强，可以单帧的控制、变换，同时写得好完全可以兼容 IE6，并且功能强大。对于一些复杂控制的动画，使用 javascript 会比较靠谱。而在实现一些小的交互动效的时候，就多考虑考虑 CSS 吧</p>
+<h4 id="那我们什么时候使用-CSS-动画，什么时候使用-JS-动画呢？"><a href="#那我们什么时候使用-CSS-动画，什么时候使用-JS-动画呢？" class="headerlink" title="那我们什么时候使用 CSS 动画，什么时候使用 JS 动画呢？"></a>那我们什么时候使用 CSS 动画，什么时候使用 JS 动画呢？</h4><p>我个人觉得<br>只要能用 CSS 实现的动画，就不要采用 JS 去实现，可以多采用 CSS 预处理器去做更多复杂的动画，就像我之前用 SCSS 做的流星雨动画一样<br>如果动画相较复杂，我们可以采用 JS + canvas 去尝试，能不能实现<br>最后再考虑纯 JS 实现<br><a target="_blank" rel="noopener" href="https://juejin.cn/post/6999934705957077029#heading-8">为什么 CSS 动画比 JavaScript 高效？</a></p>
+<h3 id="用纯-CSS-创建一个三角形的原理是什么？"><a href="#用纯-CSS-创建一个三角形的原理是什么？" class="headerlink" title="用纯 CSS 创建一个三角形的原理是什么？"></a>用纯 CSS 创建一个三角形的原理是什么？</h3><p>采用的是相邻边框连接处的均分原理。<br> 将元素的宽高设为0，只设置<br> border，把任意三条边隐藏掉（颜色设为transparent），剩下的就是一个三角形。</p>
 <figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs maxima"> #<span class="hljs-built_in">demo</span> &#123;<br> <span class="hljs-built_in">width</span>: <span class="hljs-number">0</span>;<br> <span class="hljs-built_in">height</span>: <span class="hljs-number">0</span>;<br> <span class="hljs-built_in">border</span>-<span class="hljs-built_in">width</span>: 20px;<br> <span class="hljs-built_in">border</span>-<span class="hljs-built_in">style</span>: solid;<br> <span class="hljs-built_in">border</span>-<span class="hljs-built_in">color</span>: <span class="hljs-built_in">transparent</span> <span class="hljs-built_in">transparent</span> red <span class="hljs-built_in">transparent</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <p><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2021/06/27/CSS%E7%BB%98%E5%88%B6%E4%B8%89%E8%A7%92%E5%BD%A2%E2%80%94border%E6%B3%95/">博客：CSS绘制三角形—border法</a></p>

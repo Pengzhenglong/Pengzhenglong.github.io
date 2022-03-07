@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      925 字
+      1.1k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      11
+      13
        分钟
     </span>
   
@@ -243,6 +243,10 @@
 <p>　将 SVG 写入独立文件后引入 HTML</p>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">&lt;img <span class="hljs-attribute">src</span>=<span class="hljs-string">&quot;文件名.svg&quot;</span> <span class="hljs-attribute">alt</span>=<span class="hljs-string">&quot;&quot;</span>&gt;<br></code></pre></td></tr></table></figure>
 
+<h3 id="HTML-5-Canvas-vs-SVG"><a href="#HTML-5-Canvas-vs-SVG" class="headerlink" title="HTML 5 Canvas vs. SVG"></a>HTML 5 Canvas vs. SVG</h3><p>Canvas 和 SVG 都允许您在浏览器中创建图形，但是它们在根本上是不同的。</p>
+<h4 id="Canvas-与-SVG-的比较"><a href="#Canvas-与-SVG-的比较" class="headerlink" title="Canvas 与 SVG 的比较"></a>Canvas 与 SVG 的比较</h4><p>下表列出了 canvas 与 SVG 之间的一些不同之处。</p>
+<h4 id="Canvas"><a href="#Canvas" class="headerlink" title="Canvas"></a>Canvas</h4><p>依赖分辨率<br>不支持事件处理器<br>弱的文本渲染能力<br>能够以 .png 或 .jpg 格式保存结果图像<br>最适合图像密集型的游戏，其中的许多对象会被频繁重绘</p>
+<h4 id="SVG"><a href="#SVG" class="headerlink" title="SVG"></a>SVG</h4><p>不依赖分辨率<br>支持事件处理器<br>最适合带有大型渲染区域的应用程序（比如谷歌地图）<br>复杂度高会减慢渲染速度（任何过度使用 DOM 的应用都不快）<br>不适合游戏应用</p>
 <h3 id="补充——Base64"><a href="#补充——Base64" class="headerlink" title="补充——Base64"></a>补充——Base64</h3><h4 id="前置知识"><a href="#前置知识" class="headerlink" title="前置知识"></a>前置知识</h4><p>　　雪碧图（又被称为CSS Sprites、CSS 精灵、图像精灵）<br>　　 是一种将小图标和背景图像合并到一张图片上，然后利用 CSS 的背景定位来显示其中每一部分的技术，从而减少http请求</p>
 <h4 id="Base64严格意义上来说并不是一种图片格式，而是作为小图标解决方案而存在的，可以理解为是雪碧图的一种补充"><a href="#Base64严格意义上来说并不是一种图片格式，而是作为小图标解决方案而存在的，可以理解为是雪碧图的一种补充" class="headerlink" title="Base64严格意义上来说并不是一种图片格式，而是作为小图标解决方案而存在的，可以理解为是雪碧图的一种补充"></a>Base64严格意义上来说并不是一种图片格式，而是作为小图标解决方案而存在的，可以理解为是雪碧图的一种补充</h4><p>　　Base64 通过对图片进行编码，可以直接将编码结果写入 HTML 或者 CSS，从而减少 HTTP 请求的次数<br>　　比如现在有一个放大镜图标</p>
 <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs awk">　　 图片路径是：&lt;https:<span class="hljs-regexp">//u</span>ser-gold-cdn.xitu.io<span class="hljs-regexp">/2018/</span><span class="hljs-number">9</span><span class="hljs-regexp">/15/</span><span class="hljs-number">165</span>db7e94699824b?w=<span class="hljs-number">22</span>&amp;h=<span class="hljs-number">22</span>&amp;f=png&amp;s=<span class="hljs-number">3680</span>&gt;<br></code></pre></td></tr></table></figure>
