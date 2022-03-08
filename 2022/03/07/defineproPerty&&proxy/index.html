@@ -1,0 +1,570 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/2.jpg">
+  <link rel="icon" href="/img/2.jpg">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="DragonPeng">
+  <meta name="keywords" content="">
+  
+  <title>Object.defineProperty和Proxy，Vue3.0为什么采用Proxy？ - DragonPeng的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>DragonPeng' blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/page1.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Object.defineProperty和Proxy，Vue3.0为什么采用Proxy？">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-03-07 12:15" pubdate>
+        March 7, 2022 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      3.2k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      39
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Object.defineProperty和Proxy，Vue3.0为什么采用Proxy？</h1>
+            
+            <div class="markdown-body">
+              <hr>
+<h3 id="Object-defineProperty"><a href="#Object-defineProperty" class="headerlink" title="Object.defineProperty()"></a>Object.defineProperty()</h3><p>作用：在一个对象上定义一个新属性，或者修改一个对象的现有属性，并返回这个对象。</p>
+<h4 id="1-基本使用"><a href="#1-基本使用" class="headerlink" title="1. 基本使用"></a>1. 基本使用</h4><p>语法：Object.defineProperty(obj, prop, descriptor)<br>参数：</p>
+<p>要添加属性的对象<br>要定义或修改的属性的名称或 [Symbol]<br>要定义或修改的属性描述符</p>
+<p>看一个简单的例子</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> person = &#123;&#125;<br><span class="hljs-keyword">let</span> personName = <span class="hljs-string">&#x27;lihua&#x27;</span><br><br><span class="hljs-comment">//在person对象上添加属性namep,值为personName</span><br><span class="hljs-built_in">Object</span>.defineProperty(person, <span class="hljs-string">&#x27;namep&#x27;</span>, &#123;<br>    <span class="hljs-comment">//但是默认是不可枚举的(for in打印打印不出来)，可：enumerable: true</span><br>    <span class="hljs-comment">//默认不可以修改，可：wirtable：true</span><br>    <span class="hljs-comment">//默认不可以删除，可：configurable：true</span><br>    get: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;触发了get方法&#x27;</span>)<br>        <span class="hljs-keyword">return</span> personName<br>    &#125;,<br>    set: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">val</span>) </span>&#123;<br>        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;触发了set方法&#x27;</span>)<br>        personName = val<br>    &#125;<br>&#125;)<br><br><span class="hljs-comment">//当读取person对象的namp属性时，触发get方法</span><br><span class="hljs-built_in">console</span>.log(person.namep)<br><br><span class="hljs-comment">//当修改personName时，重新访问person.namep发现修改成功</span><br>personName = <span class="hljs-string">&#x27;liming&#x27;</span><br><span class="hljs-built_in">console</span>.log(person.namep)<br><br><span class="hljs-comment">// 对person.namep进行修改，触发set方法</span><br>person.namep = <span class="hljs-string">&#x27;huahua&#x27;</span><br><span class="hljs-built_in">console</span>.log(person.namep)<br></code></pre></td></tr></table></figure>
+
+<p>通过这种方法，我们成功监听了person上的name属性的变化。</p>
+<h4 id="2-监听对象上的多个属性"><a href="#2-监听对象上的多个属性" class="headerlink" title="2.监听对象上的多个属性"></a>2.监听对象上的多个属性</h4><p>上面的使用中，我们只监听了一个属性的变化，但是在实际情况中，我们通常需要一次监听多个属性的变化。<br>这时我们需要配合Object.keys(obj)进行遍历。这个方法可以返回obj对象身上的所有可枚举属性组成的字符数组。（其实用for in遍历也可以<br>下面是该API一个简单的使用效果：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs awk">var obj = &#123; <span class="hljs-number">0</span>: <span class="hljs-string">&#x27;a&#x27;</span>, <span class="hljs-number">1</span>: <span class="hljs-string">&#x27;b&#x27;</span>, <span class="hljs-number">2</span>: <span class="hljs-string">&#x27;c&#x27;</span> &#125;;<br>console.log(Object.keys(obj)); <span class="hljs-regexp">//</span> console: [<span class="hljs-string">&#x27;0&#x27;</span>, <span class="hljs-string">&#x27;1&#x27;</span>, <span class="hljs-string">&#x27;2&#x27;</span>]<br></code></pre></td></tr></table></figure>
+
+<p>利用这个API，我们就可以遍历劫持对象的所有属性<br>但是如果只是上面的思路与该API的简单结合，我们就会发现并达不到效果，下面是我写的一个错误的版本：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-built_in">Object</span>.keys(person).forEach(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">key</span>) </span>&#123;<br>    <span class="hljs-built_in">Object</span>.defineProperty(person, key, &#123;<br>        enumerable: <span class="hljs-literal">true</span>,<br>        configurable: <span class="hljs-literal">true</span>,<br>        <span class="hljs-comment">// 默认会传入this</span><br>        <span class="hljs-function"><span class="hljs-title">get</span>(<span class="hljs-params"></span>)</span> &#123;<br>            <span class="hljs-keyword">return</span> person[key]<br>        &#125;,<br>        <span class="hljs-function"><span class="hljs-title">set</span>(<span class="hljs-params">val</span>)</span> &#123;<br>            <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`对person中的<span class="hljs-subst">$&#123;key&#125;</span>属性进行了修改`</span>)<br>            person[key] = val<br>            <span class="hljs-comment">// 修改之后可以执行渲染操作</span><br>        &#125;<br>    &#125;)<br>&#125;)<br><span class="hljs-built_in">console</span>.log(person.age)<br></code></pre></td></tr></table></figure>
+
+<p>看起来感觉上面的代码没有什么错误，但是试着运行一下吧~你会和我一样栈溢出。这是为什么呢？让我们聚焦在get方法里，我们在访问person身上的属性时，就会触发get方法，返回person[key]，但是访问person[key]也会触发get方法，导致递归调用，最终栈溢出。这也引出了我们下面的方法，我们需要设置一个中转Obsever，来让get中return的值并不是直接访问obj[key]。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> person = &#123;<br>    name: <span class="hljs-string">&#x27;&#x27;</span>,<br>    age: <span class="hljs-number">0</span><br>&#125;<br><span class="hljs-comment">// 实现一个响应式函数</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">defineProperty</span>(<span class="hljs-params">obj, key, val</span>) </span>&#123;<br>    <span class="hljs-built_in">Object</span>.defineProperty(obj, key, &#123;<br>        <span class="hljs-function"><span class="hljs-title">get</span>(<span class="hljs-params"></span>)</span> &#123;<br>            <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`访问了<span class="hljs-subst">$&#123;key&#125;</span>属性`</span>)<br>            <span class="hljs-keyword">return</span> val<br>        &#125;,<br>        <span class="hljs-function"><span class="hljs-title">set</span>(<span class="hljs-params">newVal</span>)</span> &#123;<br>            <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`<span class="hljs-subst">$&#123;key&#125;</span>属性被修改为<span class="hljs-subst">$&#123;newVal&#125;</span>了`</span>)<br>            val = newVal<br>        &#125;<br>    &#125;)<br>&#125;<br><span class="hljs-comment">// 实现一个遍历函数Observer</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Observer</span>(<span class="hljs-params">obj</span>) </span>&#123;<br>    <span class="hljs-built_in">Object</span>.keys(obj).forEach(<span class="hljs-function">(<span class="hljs-params">key</span>) =&gt;</span> &#123;<br>        defineProperty(obj, key, obj[key])<br>    &#125;)<br>&#125;<br>Observer(person)<br><span class="hljs-built_in">console</span>.log(person.age)<br>person.age = <span class="hljs-number">18</span><br><span class="hljs-built_in">console</span>.log(person.age)<br></code></pre></td></tr></table></figure>
+
+<h4 id="3-深度监听一个对象"><a href="#3-深度监听一个对象" class="headerlink" title="3.深度监听一个对象"></a>3.深度监听一个对象</h4><p>那么我们如何解决对象中嵌套一个对对象的情况呢？其实在上述代码的基础上，加上一个递归，就可以轻松实现啦~<br>我们可以观察到，其实Obsever就是我们想要实现的监听函数，我们预期的目标是:只要把对象传入其中，就可以实现对这个对象的属性监视，即使该对象的属性也是一个对象。<br>我们在defineProperty()函数中，添加一个递归的情况：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">defineProperty</span>(<span class="hljs-params">obj, key, val</span>) </span>&#123;<br>    <span class="hljs-comment">//如果某对象的属性也是一个对象，递归进入该对象，进行监听</span><br>    <span class="hljs-keyword">if</span>(<span class="hljs-keyword">typeof</span> val === <span class="hljs-string">&#x27;object&#x27;</span>)&#123;<br>    observer(val)<br>    &#125;<br>    <span class="hljs-built_in">Object</span>.defineProperty(obj, key, &#123;<br>        <span class="hljs-function"><span class="hljs-title">get</span>(<span class="hljs-params"></span>)</span> &#123;<br>            <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`访问了<span class="hljs-subst">$&#123;key&#125;</span>属性`</span>)<br>            <span class="hljs-keyword">return</span> val<br>        &#125;,<br>        <span class="hljs-function"><span class="hljs-title">set</span>(<span class="hljs-params">newVal</span>)</span> &#123;<br>            <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`<span class="hljs-subst">$&#123;key&#125;</span>属性被修改为<span class="hljs-subst">$&#123;newVal&#125;</span>了`</span>)<br>            val = newVal<br>        &#125;<br>    &#125;)<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>当然啦，我们也要在observer里面加一个递归停止的条件:</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs reasonml"><span class="hljs-keyword">function</span> <span class="hljs-constructor">Observer(<span class="hljs-params">obj</span>)</span> &#123;<br>    <span class="hljs-comment">//如果传入的不是一个对象，return</span><br>    <span class="hljs-keyword">if</span> (typeof obj !== <span class="hljs-string">&quot;object&quot;</span><span class="hljs-operator"> || </span>obj<span class="hljs-operator"> === </span>null) &#123;<br>        return<br>    &#125;<br>    <span class="hljs-comment">// for (key in obj) &#123;</span><br>    <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Object</span>.</span></span>keys(obj).<span class="hljs-keyword">for</span><span class="hljs-constructor">Each((<span class="hljs-params">key</span>)</span> =&gt; &#123;<br>        define<span class="hljs-constructor">Property(<span class="hljs-params">obj</span>, <span class="hljs-params">key</span>, <span class="hljs-params">obj</span>[<span class="hljs-params">key</span>])</span><br>    &#125;)<br>    <span class="hljs-comment">// &#125;</span><br><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>其实到这里就差不多解决了，但是还有一个小问题，如果对某属性进行修改时，如果原本的属性值是一个字符串，但是我们重新赋值了一个对象，我们要如何监听新添加的对象的所有属性呢？其实也很简单，只需要修改set函数：</p>
+<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs haxe"><span class="hljs-keyword">set</span>(<span class="hljs-keyword">new</span><span class="hljs-type">Val</span>) &#123;<br>    <span class="hljs-comment">// 如果newVal是一个对象，递归进入该对象进行监听</span><br>    <span class="hljs-keyword">if</span>(typeof val === <span class="hljs-string">&#x27;object&#x27;</span>)&#123;<br>        observer(key)<br>    &#125;<br>    console.log(`$&#123;key&#125;属性被修改为$&#123;<span class="hljs-keyword">new</span><span class="hljs-type">Val</span>&#125;了`)<br>    val = <span class="hljs-keyword">new</span><span class="hljs-type">Val</span><br><span class="hljs-type"></span>        &#125;<br><br></code></pre></td></tr></table></figure>
+
+<p>到这里我们就完成啦~</p>
+<h4 id="4-监听数组"><a href="#4-监听数组" class="headerlink" title="4.监听数组"></a>4.监听数组</h4><p>那么如果对象的属性是一个数组呢？我们要如何实现监听？请看下面一段代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> arr = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]<br><span class="hljs-keyword">let</span> obj = &#123;&#125;<br><span class="hljs-comment">//把arr作为obj的属性监听</span><br><span class="hljs-built_in">Object</span>.defineProperty(obj, <span class="hljs-string">&#x27;arr&#x27;</span>, &#123;<br>    <span class="hljs-function"><span class="hljs-title">get</span>(<span class="hljs-params"></span>)</span> &#123;<br>        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;get arr&#x27;</span>)<br>        <span class="hljs-keyword">return</span> arr<br>    &#125;,<br>    <span class="hljs-function"><span class="hljs-title">set</span>(<span class="hljs-params">newVal</span>)</span> &#123;<br>        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;set&#x27;</span>, newVal)<br>        arr = newVal<br>    &#125;<br>&#125;)<br><span class="hljs-built_in">console</span>.log(obj.arr)<span class="hljs-comment">//输出get arr [1,2,3]  正常</span><br>obj.arr = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>] <span class="hljs-comment">//输出set [1,2,3,4] 正常</span><br>obj.arr.push(<span class="hljs-number">3</span>) <span class="hljs-comment">//输出get arr 不正常，监听不到push</span><br></code></pre></td></tr></table></figure>
+
+<p>我们发现，通过push方法给数组增加的元素，set方法是监听不到的。<br>事实上，通过索引访问或者修改数组中已经存在的元素，是可以出发get和set的，但是对于通过push、unshift增加的元素，会增加一个索引，这种情况需要手动初始化，新增加的元素才能被监听到。另外， 通过 pop 或 shift 删除元素，会删除并更新索引，也会触发 setter 和 getter 方法。<br>在Vue2.x中，通过重写Array原型上的方法解决了这个问题，此处就不展开说了，有兴趣的uu可以再去了解下~</p>
+<h3 id="Proxy"><a href="#Proxy" class="headerlink" title="Proxy"></a>Proxy</h3><p>是不是感觉有点复杂？事实上，在上面的讲述中，我们还有问题没有解决：那就是当我们要给对象新增加一个属性时，也需要手动去监听这个新增属性。</p>
+<blockquote>
+<p>也正是因为这个原因，使用vue给 data 中的数组或对象新增属性时，需要使用 vm.$set 才能保证新增的属性也是响应式的。</p>
+</blockquote>
+<p>可以看到，通过Object.definePorperty()进行数据监听是比较麻烦的，需要大量的手动处理。这也是为什么在Vue3.0中尤雨溪转而采用Proxy。接下来让我们一起看一下Proxy是怎么解决这些问题的吧~</p>
+<h4 id="1-基本使用-1"><a href="#1-基本使用-1" class="headerlink" title="1.基本使用"></a>1.基本使用</h4><p>语法：const p = new Proxy(target, handler)<br>参数:</p>
+<ol>
+<li>target:要使用 Proxy 包装的目标对象（可以是任何类型的对象，包括原生数组，函数，甚至另一个代理）</li>
+<li>handler:一个通常以函数作为属性的对象，各属性中的函数分别定义了在执行各种操作时代理 p 的行为。</li>
+</ol>
+<p>通过Proxy，我们可以对设置代理的对象上的一些操作进行拦截，外界对这个对象的各种操作，都要先通过这层拦截。（和defineProperty差不多）<br>先看一个简单例子</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">//定义一个需要代理的对象</span><br><span class="hljs-keyword">let</span> person = &#123;<br>    age: <span class="hljs-number">0</span>,<br>    school: <span class="hljs-string">&#x27;西电&#x27;</span><br>&#125;<br><span class="hljs-comment">//定义handler对象</span><br><span class="hljs-keyword">let</span> hander = &#123;<br>    <span class="hljs-function"><span class="hljs-title">get</span>(<span class="hljs-params">obj, key</span>)</span> &#123;<br>        <span class="hljs-comment">// 如果对象里有这个属性，就返回属性值，如果没有，就返回默认值66</span><br>        <span class="hljs-keyword">return</span> key <span class="hljs-keyword">in</span> obj ? obj[key] : <span class="hljs-number">66</span><br>    &#125;,<br>    <span class="hljs-function"><span class="hljs-title">set</span>(<span class="hljs-params">obj, key, val</span>)</span> &#123;<br>        obj[key] = val<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span><br>    &#125;<br>&#125;<br><span class="hljs-comment">//把handler对象传入Proxy</span><br><span class="hljs-keyword">let</span> proxyObj = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Proxy</span>(person, hander)<br><br><span class="hljs-comment">// 测试get能否拦截成功</span><br><span class="hljs-built_in">console</span>.log(proxyObj.age)<span class="hljs-comment">//输出0</span><br><span class="hljs-built_in">console</span>.log(proxyObj.school)<span class="hljs-comment">//输出西电</span><br><span class="hljs-built_in">console</span>.log(proxyObj.name)<span class="hljs-comment">//输出默认值66</span><br><br><span class="hljs-comment">// 测试set能否拦截成功</span><br>proxyObj.age = <span class="hljs-number">18</span><br><span class="hljs-built_in">console</span>.log(proxyObj.age)<span class="hljs-comment">//输出18 修改成功</span><br></code></pre></td></tr></table></figure>
+
+<p>可以看出，Proxy代理的是整个对象，而不是对象的某个特定属性，不需要我们通过遍历来逐个进行数据绑定。</p>
+<blockquote>
+<p>值得注意的是:之前我们在使用Object.defineProperty()给对象添加一个属性之后，我们对对象属性的读写操作仍然在对象本身。<br>但是一旦使用Proxy，如果想要读写操作生效，我们就要对Proxy的实例对象proxyObj进行操作。</p>
+</blockquote>
+<blockquote>
+<p>另外，MDN上明确指出set()方法应该返回一个布尔值，否则会报错TypeError。</p>
+</blockquote>
+<h4 id="2-轻松解决Object-defineProperty中遇到的问题"><a href="#2-轻松解决Object-defineProperty中遇到的问题" class="headerlink" title="2.轻松解决Object.defineProperty中遇到的问题"></a>2.轻松解决Object.defineProperty中遇到的问题</h4><p>在上面使用Object.defineProperty的时候，我们遇到的问题有：</p>
+<ol>
+<li>一次只能对一个属性进行监听，需要遍历来对所有属性监听。这个我们在上面已经解决了。</li>
+<li>在遇到一个对象的属性还是一个对象的情况下，需要递归监听。</li>
+<li>对于对象的新增属性，需要手动监听</li>
+<li>对于数组通过push、unshift方法增加的元素，也无法监听</li>
+</ol>
+<h4 id="3-Proxy支持13种拦截操作"><a href="#3-Proxy支持13种拦截操作" class="headerlink" title="3.Proxy支持13种拦截操作"></a>3.Proxy支持13种拦截操作</h4><p>除了get和set来拦截读取和赋值操作之外，Proxy还支持对其他多种行为的拦截。下面是一个简单介绍，想要深入了解的可以去MDN上看看。</p>
+<p>get(target, propKey, receiver)：拦截对象属性的读取，比如proxy.foo和proxy[‘foo’]。</p>
+<p>set(target, propKey, value, receiver)：拦截对象属性的设置，比如proxy.foo = v或proxy[‘foo’] = v，返回一个布尔值。</p>
+<p>has(target, propKey)：拦截propKey in proxy的操作，返回一个布尔值。</p>
+<p>deleteProperty(target, propKey)：拦截delete proxy[propKey]的操作，返回一个布尔值。</p>
+<p>ownKeys(target)：拦截Object.getOwnPropertyNames(proxy)、Object.getOwnPropertySymbols(proxy)、Object.keys(proxy)、for…in循环，返回一个数组。该方法返回目标对象所有自身的属性的属性名，而Object.keys()的返回结果仅包括目标对象自身的可遍历属性。</p>
+<p>getOwnPropertyDescriptor(target, propKey)：拦截Object.getOwnPropertyDescriptor(proxy, propKey)，返回属性的描述对象。</p>
+<p>defineProperty(target, propKey, propDesc)：拦截Object.defineProperty(proxy, propKey, propDesc）、Object.defineProperties(proxy, propDescs)，返回一个布尔值。</p>
+<p>preventExtensions(target)：拦截Object.preventExtensions(proxy)，返回一个布尔值。</p>
+<p>getPrototypeOf(target)：拦截Object.getPrototypeOf(proxy)，返回一个对象。</p>
+<p>isExtensible(target)：拦截Object.isExtensible(proxy)，返回一个布尔值。</p>
+<p>setPrototypeOf(target, proto)：拦截Object.setPrototypeOf(proxy, proto)，返回一个布尔值。如果目标对象是函数，那么还有两种额外操作可以拦截。</p>
+<p>apply(target, object, args)：拦截 Proxy 实例作为函数调用的操作，比如proxy(…args)、proxy.call(object, …args)、proxy.apply(…)。</p>
+<p>construct(target, args)：拦截 Proxy 实例作为构造函数调用的操作，比如new proxy(…args)。</p>
+<h4 id="4-Proxy中有关this的问题"><a href="#4-Proxy中有关this的问题" class="headerlink" title="4. Proxy中有关this的问题"></a>4. Proxy中有关this的问题</h4><p>虽然Proxy完成了对目标对象的代理，但是它不是透明代理,也就是说：即使handler为空对象（即不做任何代理），他所代理的对象中的this指向也不是该对象，而是proxyObj对象。让我们来看一个例子：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> target = &#123;<br>    <span class="hljs-function"><span class="hljs-title">m</span>(<span class="hljs-params"></span>)</span> &#123;<br>        <span class="hljs-comment">// 检查this的指向是不是proxyObkj</span><br>        <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">this</span> === proxyObj)<br>    &#125;<br>&#125;<br><span class="hljs-keyword">let</span> handler = &#123;&#125;<br><span class="hljs-keyword">let</span> proxyObj = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Proxy</span>(target, handler)<br><br>proxyObj.m()<span class="hljs-comment">//输出:true</span><br>target.m()<span class="hljs-comment">//输出:false</span><br><br></code></pre></td></tr></table></figure>
+
+<p>可以看到，被代理的对象target内部的this指向了proxyObj。这种指向有时候就会导致问题出现，我们来看看下面一个例子：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><br><span class="hljs-keyword">const</span> _name = <span class="hljs-keyword">new</span> <span class="hljs-built_in">WeakMap</span>();<br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span> </span>&#123;<br>   <span class="hljs-comment">//把person的name存储到_name的name属性上</span><br>  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">name</span>)</span> &#123;<br>    _name.set(<span class="hljs-built_in">this</span>, name);<br>  &#125;<br>  <span class="hljs-comment">//获取person的name属性时，返回_name的name</span><br>  <span class="hljs-keyword">get</span> <span class="hljs-title">name</span>() &#123;<br>    <span class="hljs-keyword">return</span> _name.get(<span class="hljs-built_in">this</span>);<br>  &#125;<br>&#125;<br><br><span class="hljs-keyword">const</span> jane = <span class="hljs-keyword">new</span> Person(<span class="hljs-string">&#x27;Jane&#x27;</span>);<br>jane.name <span class="hljs-comment">// &#x27;Jane&#x27;</span><br><br><span class="hljs-keyword">const</span> proxyObj = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Proxy</span>(jane, &#123;&#125;);<br>proxyObj.name <span class="hljs-comment">// undefined</span><br><br></code></pre></td></tr></table></figure>
+
+<p>在上面的例子中，由于jane对象的name属性的获取依靠this的指向，而this又指向proxyObj，所以导致了无法正常代理。<br>除此之外，有的js内置对象的内部属性，也依靠正确的this才能获取，所以Proxy 也无法代理这些原生对象的属性。请看下面一个例子：</p>
+<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs aspectj"><br><span class="hljs-keyword">const</span> <span class="hljs-keyword">target</span> = <span class="hljs-keyword">new</span> Date();<br><span class="hljs-keyword">const</span> <span class="hljs-keyword">handler</span> = &#123;&#125;;<br><span class="hljs-keyword">const</span> proxyObj = <span class="hljs-keyword">new</span> Proxy(<span class="hljs-keyword">target</span>, <span class="hljs-keyword">handler</span>);<br><br>proxyObj.getDate();<br><span class="hljs-comment">// TypeError: this is not a Date object.</span><br><br></code></pre></td></tr></table></figure>
+
+<p>可以看到，通过proxy代理访问Date对象中的getDate方法时抛出了一个错误，这是因为getDate方法只能在Date对象实例上面拿到，如果this不是Date对象实例就会报错。那么我们要如何解决这个问题呢？只要手动把this绑定在Date对象实例上即可，请看下面一个例子：</p>
+<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs aspectj"><br><span class="hljs-keyword">const</span> <span class="hljs-keyword">target</span> = <span class="hljs-keyword">new</span> Date(<span class="hljs-string">&#x27;2015-01-01&#x27;</span>);<br><span class="hljs-keyword">const</span> <span class="hljs-keyword">handler</span> = &#123;<br>    get(<span class="hljs-keyword">target</span>, prop) &#123;<br>        <span class="hljs-keyword">if</span> (prop === <span class="hljs-string">&#x27;getDate&#x27;</span>) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-keyword">target</span>.getDate.bind(<span class="hljs-keyword">target</span>);<br>        &#125;<br>        <span class="hljs-function"><span class="hljs-keyword">return</span> Reflect.<span class="hljs-title">get</span><span class="hljs-params">(<span class="hljs-keyword">target</span>, prop)</span></span>;<br>    &#125;<br>&#125;;<br><span class="hljs-keyword">const</span> proxy = <span class="hljs-keyword">new</span> Proxy(<span class="hljs-keyword">target</span>, <span class="hljs-keyword">handler</span>);<br>proxy.getDate() <span class="hljs-comment">// 1</span><br><br></code></pre></td></tr></table></figure>
+
+<h4 id="转载文章"><a href="#转载文章" class="headerlink" title="转载文章"></a>转载文章</h4><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/7069397770766909476#comment">一文搞懂Object.defineProperty和Proxy，Vue3.0为什么采用Proxy？</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Vue/">Vue</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/">前端基础</a>
+                    
+                      <a class="hover-with-bg" href="/tags/Vue/">Vue</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/03/06/Http/">
+                        <span class="hidden-mobile">http1.0，http1.1，http2，http3</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
