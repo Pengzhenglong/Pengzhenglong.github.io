@@ -180,6 +180,68 @@
     
     
       <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2022/03/08/%E4%B8%AD%E6%96%AD%E8%AF%B7%E6%B1%82%E4%B8%8E%E5%B9%B6%E5%8F%91/" target="_self">
+          <img src="/imageO/MS.jpg" srcset="/img/loading.gif" lazyload alt="如何中断已经发出去的请求&amp;&amp;大文件上传处理">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/03/08/%E4%B8%AD%E6%96%AD%E8%AF%B7%E6%B1%82%E4%B8%8E%E5%B9%B6%E5%8F%91/">如何中断已经发出去的请求&amp;&amp;大文件上传处理</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/03/08/%E4%B8%AD%E6%96%AD%E8%AF%B7%E6%B1%82%E4%B8%8E%E5%B9%B6%E5%8F%91/">
+          
+          
+            
+          
+          总结了最近的一些面试题和之前的知识点
+
+前端上传大文件怎么处理背景当我们在做文件的导入功能的时候,如果导入的文件过大,可能会导所需要的时间够长,且失败后需要重新上传,我们需要前后端结合的方式解决这个问题
+思路我们需要做几件事情如下:
+
+对文件做切片,即将一个请求拆分成多个请求，每个请求的时间就会缩短，且如果某个请求失败，只需要重新发送这一次请求即可，无需从头开始
+通知服务器合并切片,在上传完切片后
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-03-08 20:15" pubdate>
+              2022-03-08
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E9%9D%A2%E8%AF%95%E9%A2%98/">面试题</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/">前端基础</a>
+            
+              <a href="/tags/JS/">JS</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
         <a href="/2022/03/07/defineproPerty&&proxy/" target="_self">
           <img src="/image/11.PNG" srcset="/img/loading.gif" lazyload alt="Object.defineProperty和Proxy，Vue3.0为什么采用Proxy？">
         </a>
@@ -682,64 +744,6 @@ Vue 初始化我觉得搞清楚这些，首先要知道 vue 初始化的过程�
             <i class="iconfont icon-date"></i>
             <time datetime="2022-02-25 12:15" pubdate>
               2022-02-25
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Vue/">Vue</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/">前端基础</a>
-            
-              <a href="/tags/Vue/">Vue</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2022/02/20/Vue--diff%E7%AE%97%E6%B3%95/" target="_self">
-          <img src="/image/11.PNG" srcset="/img/loading.gif" lazyload alt="Vue diff算法">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/02/20/Vue--diff%E7%AE%97%E6%B3%95/">Vue diff算法</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2022/02/20/Vue--diff%E7%AE%97%E6%B3%95/">
-          
-          
-            
-          
-          
-1. 当数据发生变化时，vue是怎么更新节点的？要知道渲染真实DOM的开销是很大的，比如有时候我们修改了某个数据，如果直接渲染到真实dom上会引起整个dom树的重绘和重排，有没有可能我们只更新我们修改的那一小块dom而不要更新整个dom呢？diff算法能够帮助我们。
-我们先根据真实DOM生成一颗virtual DOM，当virtual DOM某个节点的数据改变后会生成一个新的Vnode，然后Vn
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-02-20 12:15" pubdate>
-              2022-02-20
             </time>
           </div>
         
