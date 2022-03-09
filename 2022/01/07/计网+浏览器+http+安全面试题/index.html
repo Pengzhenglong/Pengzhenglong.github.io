@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      10k 字
+      10.3k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      106
+      110
        分钟
     </span>
   
@@ -336,6 +336,15 @@
 <p>4xx: 客户端错误——表示请求有语法错误或请求无法实现</p>
 <p>5xx: 服务端错误——表示服务器未能实现合法的请求</p>
 <h4 id="常见状态码"><a href="#常见状态码" class="headerlink" title="常见状态码"></a>常见状态码</h4><p>状态码 描述<br>200 请求成功<br>206 已完成指定范围的请求(带Range头的GET请求),场景如video,audio播放文件较大,文件分片时<br>301 永久重定向<br>永久移动。请求的资源已被永久的移动到新URI，返回信息会包括新的URI，浏览器会自动定向到新URI。今后任何新的请求都应使用新的URI代替<br>302 临时重定向<br> 临时移动。与301类似。但资源只是临时被移动。客户端应继续使用原有URI<br>304 请求资源未修改，可以使用缓存的资源，不用在服务器取<br>400 请求有语法错误<br>401 没有权限访问<br>403 服务器拒绝执行请求，场景如不允许直接访问，只能通过服务器访问时<br>404 请求资源不存在<br>500 服务器内部错误，无法完成请求<br>503 请求未完成，因服务器过载、宕机或维护等</p>
+<h3 id="长轮询和短轮询"><a href="#长轮询和短轮询" class="headerlink" title="长轮询和短轮询"></a>长轮询和短轮询</h3><h4 id="长轮询"><a href="#长轮询" class="headerlink" title="长轮询"></a>长轮询</h4><p>客户端发送请求后服务器端不会立即返回数据，服务器端会阻塞请求<strong>连接不会立即断开，直到服务器端有数据更新或者是连接超时才返回，客户端才再次发出请求新建连接、如此反复从而获取最新数据</strong>。</p>
+<figure class="highlight arcade"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs arcade"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">LongAjax</span>(<span class="hljs-params"></span>) </span>&#123;<br>    fetch(url).then(<span class="hljs-function"><span class="hljs-params">data</span> =&gt;</span> &#123;<br>     <span class="hljs-comment">// 数据正确拿到后，</span><br>        LongPolling();<br>    &#125;).catch(<span class="hljs-function"><span class="hljs-params">err</span> =&gt;</span> &#123;<br>     <span class="hljs-comment">// 出错或者就是超时间</span><br>        LongPolling();<br><br>    &#125;);<br>&#125;<br>LongAjax()<br></code></pre></td></tr></table></figure>
+
+<p>优点：长轮询与短轮询相比，明显减少了很多不必要的http请求，节约资源。<br>节点：连接挂起也会导致资源的浪费，停留在服务器端。</p>
+<h4 id="短轮询"><a href="#短轮询" class="headerlink" title="短轮询"></a>短轮询</h4><p>短轮询(Polling)的实现思路就是浏览器端每隔几秒钟向服务器端<strong>发送http请求，服务端在收到请求后，不论是否有数据更新，都直接进行响应。</strong>在服务端响应完成，就会关闭这个Tcp连接。</p>
+<p>优点：就是兼容性比较好，只要支持http协议就可以实现该方式。<br>缺点：很明显消耗资源，因为下一次的建立Tcp是非常消耗资源的，服务器端响应后就会关闭这个Tcp连接。</p>
+<figure class="highlight arcade"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs arcade"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">LongAjax</span>(<span class="hljs-params"></span>) </span>&#123;<br>    fetch(url).then(<span class="hljs-function"><span class="hljs-params">data</span> =&gt;</span> &#123;<br>        <span class="hljs-comment">// 数据正确拿到后，dosometing</span><br><br>    &#125;).catch(<span class="hljs-function"><span class="hljs-params">err</span> =&gt;</span> &#123;<br>        <span class="hljs-comment">// 发现错误，比如返回的数据为空等。</span><br>        console.log(err);<br>    &#125;);<br>&#125;<br>setInterval(LongAjax, <span class="hljs-number">5000</span>);<br></code></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6864398060702760968#heading-105">长轮询和短轮询</a></p>
 <h3 id="说下进程、线程和协程"><a href="#说下进程、线程和协程" class="headerlink" title="说下进程、线程和协程"></a>说下进程、线程和协程</h3><p> 进程是一个具有一定独立功能的程序在一个数据集上的一次动态执行的过程，<strong>是操作系统进行资源分配和调度的一个独立单位</strong>，是应用程序运行的载体。进程是一种抽象的概念，从来没有统一的标准定义</p>
 <p> 线程是程序执行中一个单一的顺序控制流程，是<strong>程序执行流的最小单元</strong>，是处理器调度和分派的基本单位。一个进程可以有一个或多个线程，各个线程之间共享程序的内存空间(也就是所在进程的内存空间)。一个标准的线程由线程ID、当前指令指针(PC)、寄存器和堆栈组成。而进程由内存空间(代码、数据、进程空间、打开的文件)和一个或多个线程组成</p>
 <p> 协程，英文Coroutines，<strong>是一种基于线程之上</strong>，但又比线程更加轻量级的存在，这种由程序员自己写程序来管理的轻量级线程叫做『用户空间线程』，具有对内核来说不可见的特性</p>
