@@ -1,0 +1,515 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/2.jpg">
+  <link rel="icon" href="/img/2.jpg">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="DragonPeng">
+  <meta name="keywords" content="">
+  
+  <title>整理Ts常见知识 - DragonPeng的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>DragonPeng' blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/page1.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="整理Ts常见知识">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-03-11 20:15" pubdate>
+        March 11, 2022 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      555 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      8
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">整理Ts常见知识</h1>
+            
+            <div class="markdown-body">
+              <p>总结了最近的一些面试题和之前的知识点</p>
+<hr>
+<h3 id="typescript-中-interface-和-type-的区别"><a href="#typescript-中-interface-和-type-的区别" class="headerlink" title="typescript 中 interface 和 type 的区别"></a>typescript 中 interface 和 type 的区别</h3><h4 id="相同点-都可以描述一个对象或者函数-amp-amp-都允许拓展（extends）"><a href="#相同点-都可以描述一个对象或者函数-amp-amp-都允许拓展（extends）" class="headerlink" title="相同点 (都可以描述一个对象或者函数&amp;&amp;都允许拓展（extends）)"></a>相同点 (都可以描述一个对象或者函数&amp;&amp;都允许拓展（extends）)</h4><h5 id="都可以描述一个对象或者函数"><a href="#都可以描述一个对象或者函数" class="headerlink" title="都可以描述一个对象或者函数"></a>都可以描述一个对象或者函数</h5><figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs angelscript"><span class="hljs-keyword">interface</span><br><span class="hljs-symbol">interface</span> <span class="hljs-symbol">User</span> &#123;<br>  name: <span class="hljs-built_in">string</span><br>  age: number<br>&#125;<br><br><span class="hljs-keyword">interface</span> <span class="hljs-symbol">SetUser</span> &#123;<br>  (name: <span class="hljs-built_in">string</span>, age: number): <span class="hljs-built_in">void</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>type</p>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs crmsh"><span class="hljs-keyword">type</span> <span class="hljs-keyword">User</span> <span class="hljs-title">= &#123;</span><br><span class="hljs-title">  name</span>: <span class="hljs-keyword">string</span><br>  age: <span class="hljs-keyword">number</span><br>&#125;;<br><br><span class="hljs-keyword">type</span> SetUser = (name: <span class="hljs-keyword">string</span>, age: <span class="hljs-keyword">number</span>)=&gt; void;<br></code></pre></td></tr></table></figure>
+
+<h5 id="都允许拓展（extends）"><a href="#都允许拓展（extends）" class="headerlink" title="都允许拓展（extends）"></a>都允许拓展（extends）</h5><p>interface 和 type 都可以拓展，并且两者并不是相互独立的，也就是说 interface 可以 extends type, type 也可以 extends interface 。 虽然效果差不多，但是两者语法不同。</p>
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs angelscript"><span class="hljs-keyword">interface</span> <span class="hljs-symbol">extends</span> <span class="hljs-symbol">interface</span><br><span class="hljs-symbol">interface</span> <span class="hljs-symbol">Name</span> &#123;<br>  name: <span class="hljs-built_in">string</span>;<br>&#125;<br><span class="hljs-keyword">interface</span> <span class="hljs-symbol">User</span> <span class="hljs-symbol">extends</span> <span class="hljs-symbol">Name</span> &#123;<br>  age: number;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs angelscript"><span class="hljs-keyword">interface</span> <span class="hljs-symbol">extends</span> <span class="hljs-symbol">type</span><br><span class="hljs-symbol">type</span> <span class="hljs-symbol">Name</span> = &#123;<br>  name: <span class="hljs-built_in">string</span>;<br>&#125;<br><span class="hljs-keyword">interface</span> <span class="hljs-symbol">User</span> <span class="hljs-symbol">extends</span> <span class="hljs-symbol">Name</span> &#123;<br>  age: number;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs scala"><span class="hljs-class"><span class="hljs-keyword">type</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">type</span></span><br><span class="hljs-class"><span class="hljs-title">type</span> <span class="hljs-title">Name</span> </span>= &#123;<br>  name: string;<br>&#125;<br><span class="hljs-class"><span class="hljs-keyword">type</span> <span class="hljs-title">User</span> </span>= <span class="hljs-type">Name</span> &amp; &#123; age: number  &#125;;<br><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs scala"><span class="hljs-class"><span class="hljs-keyword">type</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">interface</span></span><br><span class="hljs-class"><span class="hljs-title">interface</span> <span class="hljs-title">Name</span> </span>&#123;<br>  name: string;<br>&#125;<br><span class="hljs-class"><span class="hljs-keyword">type</span> <span class="hljs-title">User</span> </span>= <span class="hljs-type">Name</span> &amp; &#123;<br>  age: number;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="不同点-type-可以声明基本类型别名，联合类型，元组等类型-type-语句中还可以使用-typeof-获取实例的-类型进行赋值-interface-能够声明合并"><a href="#不同点-type-可以声明基本类型别名，联合类型，元组等类型-type-语句中还可以使用-typeof-获取实例的-类型进行赋值-interface-能够声明合并" class="headerlink" title="不同点 (type 可以声明基本类型别名，联合类型，元组等类型,type 语句中还可以使用 typeof 获取实例的 类型进行赋值 ,interface 能够声明合并)"></a>不同点 (type 可以声明基本类型别名，联合类型，元组等类型,type 语句中还可以使用 typeof 获取实例的 类型进行赋值 ,interface 能够声明合并)</h4><h5 id="type-可以而-interface-不行"><a href="#type-可以而-interface-不行" class="headerlink" title="type 可以而 interface 不行"></a>type 可以而 interface 不行</h5><p>type 可以声明基本类型别名，联合类型，元组等类型</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// 基本类型别名</span><br><span class="hljs-keyword">type</span> Name = <span class="hljs-keyword">string</span><br><br><span class="hljs-comment">// 联合类型</span><br><span class="hljs-keyword">interface</span> Dog &#123;<br>    wong();<br>&#125;<br><span class="hljs-keyword">interface</span> Cat &#123;<br>    miao();<br>&#125;<br><br><span class="hljs-keyword">type</span> Pet = Dog | Cat<br><br><span class="hljs-comment">// 具体定义数组每个位置的类型</span><br><span class="hljs-keyword">type</span> PetList = [Dog, Pet]<br><br></code></pre></td></tr></table></figure>
+
+<p>type 语句中还可以使用 typeof 获取实例的 类型进行赋值</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-comment">// 当你想获取一个变量的类型时，使用 typeof</span><br><span class="hljs-keyword">let</span> div = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">&#x27;div&#x27;</span>);<br><span class="hljs-keyword">type</span> B = <span class="hljs-keyword">typeof</span> div<br></code></pre></td></tr></table></figure>
+
+<p>其他骚操作</p>
+<figure class="highlight elm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs elm"><span class="hljs-keyword">type</span> <span class="hljs-type">StringOrNumber</span> = string | number;  <br><span class="hljs-keyword">type</span> <span class="hljs-type">Text</span> = string | &#123; text: string &#125;;  <br><span class="hljs-keyword">type</span> <span class="hljs-type">NameLookup</span> = <span class="hljs-type">Dictionary</span>&lt;string, <span class="hljs-type">Person</span>&gt;;  <br><span class="hljs-keyword">type</span> <span class="hljs-type">Callback</span>&lt;<span class="hljs-type">T</span>&gt; = (data: <span class="hljs-type">T</span>) =&gt; void;  <br><span class="hljs-keyword">type</span> <span class="hljs-type">Pair</span>&lt;<span class="hljs-type">T</span>&gt; = [<span class="hljs-type">T</span>, <span class="hljs-type">T</span>];  <br><span class="hljs-keyword">type</span> <span class="hljs-type">Coordinates</span> = <span class="hljs-type">Pair</span>&lt;number&gt;;  <br><span class="hljs-keyword">type</span> <span class="hljs-type">Tree</span>&lt;<span class="hljs-type">T</span>&gt; = <span class="hljs-type">T</span> | &#123; left: <span class="hljs-type">Tree</span>&lt;<span class="hljs-type">T</span>&gt;, right: <span class="hljs-type">Tree</span>&lt;<span class="hljs-type">T</span>&gt; &#125;;<br></code></pre></td></tr></table></figure>
+
+<h5 id="interface-可以而-type-不行"><a href="#interface-可以而-type-不行" class="headerlink" title="interface 可以而 type 不行"></a>interface 可以而 type 不行</h5><p>interface 能够声明合并</p>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">interface <span class="hljs-keyword">User</span> <span class="hljs-title">&#123;</span><br><span class="hljs-title">  name</span>: <span class="hljs-keyword">string</span><br>  age: <span class="hljs-keyword">number</span><br>&#125;<br><br>interface <span class="hljs-keyword">User</span> <span class="hljs-title">&#123;</span><br><span class="hljs-title">  sex</span>: <span class="hljs-keyword">string</span><br>&#125;<br><br>/*<br><span class="hljs-keyword">User</span> <span class="hljs-title">接口为 &#123;</span><br><span class="hljs-title">  name</span>: <span class="hljs-keyword">string</span><br>  age: <span class="hljs-keyword">number</span><br>  sex: <span class="hljs-keyword">string</span><br>&#125;<br>*/<br><br></code></pre></td></tr></table></figure>
+
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>一般来说，如果不清楚什么时候用interface/type，能用 interface 实现，就用 interface , 如果不能就用 type 。其他更多详情参看 官方规范文档</p>
+<h5 id="转载文章"><a href="#转载文章" class="headerlink" title="转载文章"></a>转载文章</h5><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903749501059085">Typescript 中的 interface 和 type 到底有什么区别</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E9%9D%A2%E8%AF%95%E9%A2%98/">面试题</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/">前端基础</a>
+                    
+                      <a class="hover-with-bg" href="/tags/JS/">JS</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/03/10/Vue%E8%AE%A1%E7%AE%97%E5%B1%9E%E6%80%A7%E5%92%8Ccomputed%E7%9A%84%E5%8E%9F%E7%90%86/">
+                        <span class="hidden-mobile">计算属性和watch的原理</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
