@@ -256,7 +256,7 @@
 <h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>渲染十万条数据有三种解决方案，为虚拟列表、懒加载、时间分片。最优选是虚拟列表，DOM 树上只挂载有限的DOM；懒加载和时间分片的缺点在于插入大量的DOM，占内存运行时会造成卡顿<br>无论是虚拟列表还是懒加载，传统的做法是 scroll + 节流，这种做法的优势是老 API，兼容性刚刚的，缺点是，滑多了还是会引起性能问题，当然 IntersectionObserver 也是一样的，无非是换了个 API 做“元素是否出现在视图”判断，最好的方案是用 IntersectionObserver（交叉观察器），异步加载、性能消耗小</p>
 <p><a target="_blank" rel="noopener" href="https://juejin.cn/post/7065218958663614500#heading-3">面试题：渲染十万条数据解决方案</a></p>
 <h3 id="实现图片懒加载-Lazyload"><a href="#实现图片懒加载-Lazyload" class="headerlink" title="实现图片懒加载(Lazyload)"></a>实现图片懒加载(Lazyload)</h3><p>懒加载的意义（为什么要使用懒加载）<br>对页面加载速度影响最大的就是图片，一张普通的图片可以达到几M的大小，而代码也许就只有几十KB。当页面图片很多时，页面的加载速度缓慢，几S钟内页面没有加载完成，也许会失去很多的用户。<br>所以，对于图片过多的页面，为了加速页面加载速度，所以很多时候我们需要将页面内未出现在可视区域内的图片先不做加载， 等到滚动到可视区域后再去加载。这样子对于页面加载性能上会有很大的提升，也提高了用户体验。</p>
-<h4 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h4><p>将页面中的img标签src指向一张小图片或者src为空，然后定义data-src（这个属性可以自定义命名，我才用data-src）属性指向真实的图片。src指向一张默认的图片，否则当src为空时也会向服务器发送一次请求。可以指向loading的地址。</p>
+<h4 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h4><p>将页面中的img标签src指向一张小图片或者字符串，然后定义data-src（这个属性可以自定义命名，我才用data-src）属性指向真实的图片。src指向一张默认的图片，否则当src为空时也会向服务器发送一次请求。可以指向loading的地址。</p>
 <p>注：图片要指定宽高</p>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">&lt;img <span class="hljs-attribute">src</span>=<span class="hljs-string">&quot;default.jpg&quot;</span> <span class="hljs-attribute">data-src</span>=<span class="hljs-string">&quot;http://ww4.sinaimg.cn/large/006y8mN6gw1fa5obmqrmvj305k05k3yh.jpg&quot;</span> /&gt;复制代码当载入页面时，先把可视区域内的img标签的<br></code></pre></td></tr></table></figure>
 
