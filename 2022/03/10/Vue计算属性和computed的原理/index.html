@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      4 字
+      1.3k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      1
+      14
        分钟
     </span>
   
@@ -229,7 +229,41 @@
             
             <div class="markdown-body">
               <hr>
-<h4 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h4>
+<h3 id="Watcher是什么？Watcher的种类有哪些？"><a href="#Watcher是什么？Watcher的种类有哪些？" class="headerlink" title="Watcher是什么？Watcher的种类有哪些？"></a>Watcher是什么？Watcher的种类有哪些？</h3><p>大家要注意，这里说的是Watcher，要跟vue里使用的watch属性区分一下哦</p>
+<h4 id="1-什么是Watcher呢？"><a href="#1-什么是Watcher呢？" class="headerlink" title="1.什么是Watcher呢？"></a>1.什么是Watcher呢？</h4><p>举个例子，请看下面代码：</p>
+<p>// 例子代码，与本章代码无关</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs applescript">&lt;<span class="hljs-keyword">div</span>&gt;&#123;&#123;<span class="hljs-built_in">name</span>&#125;&#125;&lt;/<span class="hljs-keyword">div</span>&gt;<br><br>data() &#123;<br><span class="hljs-built_in">        return</span> &#123;<br>            <span class="hljs-built_in">name</span>: &#x27;林三心&#x27;<br>        &#125;<br>    &#125;,<br>    computed: &#123;<br>        info () &#123;<br><span class="hljs-built_in">            return</span> this.<span class="hljs-built_in">name</span><br>        &#125;<br>    &#125;,<br>    watch: &#123;<br>        <span class="hljs-built_in">name</span>(newVal) &#123;<br>            console.<span class="hljs-built_in">log</span>(newVal)<br>        &#125;<br>    &#125;<br></code></pre></td></tr></table></figure>
+
+<p>上方代码可知，name变量被三处地方所依赖，分别是html里，computed里，watch里。只要name一改变，html里就会重新渲染，computed里就会重新计算，watch里就会重新执行。那么是谁去通知这三个地方name修改了呢？那就是Watcher了</p>
+<h4 id="2-Watcher的种类有哪些呢？"><a href="#2-Watcher的种类有哪些呢？" class="headerlink" title="2.Watcher的种类有哪些呢？"></a>2.Watcher的种类有哪些呢？</h4><p>上面所说的三处地方就刚刚好代表了三种Watcher，分别是：</p>
+<ol>
+<li>渲染Watcher：变量修改时，负责通知HTML里的重新渲染</li>
+<li>computed Watcher：变量修改时，负责通知computed里依赖此变量的computed属性变量的修改</li>
+<li>user Watcher：变量修改时，负责通知watch属性里所对应的变量函数的执行</li>
+</ol>
+<h3 id="Vue–Observer、Dep、Watcher"><a href="#Vue–Observer、Dep、Watcher" class="headerlink" title="Vue–Observer、Dep、Watcher"></a>Vue–Observer、Dep、Watcher</h3><ol>
+<li><p>Observer 将数据定义为响应式，每个 Observer 实例都有自己的 Dep 来管理依赖。实例化 Wacther 的时候进行求值会触发 getter ，进而执行 dep.depend() 将当前 Wacther 加入 Dep 维护的依赖列表，这就是依赖收集过程</p>
+</li>
+<li><p>数据发生变化触发 setter 执行 dep.notify，Dep 会执行所有依赖的 update 方法并加入异步更新队列，这就是触发依赖过程。<br><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2022/02/25/Vue--Observer%E3%80%81Dep%E3%80%81Watcher/#Dep-%E3%80%8C%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86%E3%80%8D">博客</a></p>
+</li>
+</ol>
+<h4 id="4-Watcher为何也要反过来收集Dep？"><a href="#4-Watcher为何也要反过来收集Dep？" class="headerlink" title="4.Watcher为何也要反过来收集Dep？"></a>4.Watcher为何也要反过来收集Dep？</h4><p>上面说到了，dep是name的管家，他的职责是：name更新时，dep会带着主人的命令去通知subs里的Watcher去做该做的事，那么，dep收集Watcher很合理。那为什么watcher也需要反过来收集dep呢？</p>
+<blockquote>
+<p>这是因为computed属性里的变量没有自己的dep，也就是他没有自己的管家，看以下例子：</p>
+</blockquote>
+<p>这里先说一个知识点：如果html里不依赖name这个变量，那么无论name再怎么变，他都不会主动去刷新视图，因为html没引用他（说专业点就是：name的dep里没有渲染Watcher），注意，这里说的是不会主动，但这并不代表他不会被动去更新。什么情况下他会被动去更新呢？那就是computed有依赖他的属性变量。</p>
+<p>// 例子代码，与本章代码无关</p>
+<figure class="highlight handlebars"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs handlebars"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></span><span class="hljs-template-variable">&#123;&#123;<span class="hljs-name">person</span>&#125;&#125;</span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><br><span class="xml">computed: &#123;</span><br><span class="xml">    person &#123;</span><br><span class="xml">        return `名称：$&#123;this.name&#125;`</span><br><span class="xml">        &#125;</span><br><span class="xml">    &#125;</span><br></code></pre></td></tr></table></figure>
+
+<p>这里的person事依赖于name的，但是person是没有自己的dep的（因为他是computed属性变量），而name是有的。好了，继续看，请注意，此例子html里只有person的引用没有name的引用，所以name一改变，按理说虽然person跟着变了，但是html不会重新渲染，因为name虽然有dep，有更新视图的能力，但是奈何人家html不引用他啊！person想要自己去更新视图，但他却没这个能力啊，毕竟他没有dep这个管家！这个时候computed Watcher里收集的name的dep就派上用场了，可以借助这些dep去更新视图，达到更新html里的person的效果。具体会在下面computed里实现。</p>
+<h3 id="computed"><a href="#computed" class="headerlink" title="computed"></a>computed</h3><p>计算属性实现原理<br>这里还是按照惯例，将定义的computed属性的每一项使用Watcher类进行实例化，不过这里是按照computed-watcher的形式，来看下如何实例化的：</p>
+<p>这里的变量watcher就是之前computed对应的computed-watcher实例，接下来会执行Watcher类专门为计算属性定义的两个方法，在执行evaluate方法进行求值的过程中又会触发computed内可以访问到的响应式数据的get，它们会将当前的computed-watcher作为依赖收集到自己的dep里，计算完毕之后将dirty置为false，表示已经计算过了。<br>然后执行depend让计算属性内的响应式数据订阅当前的render-watcher，所以computed内的响应式数据会收集computed-watcher和render-watcher两个watcher，当computed内的状态发生变更触发set后，首先通知computed需要进行重新计算，然后通知到视图执行渲染，再渲染中会访问到computed计算后的值，最后渲染到页面。</p>
+<p>Ps: 计算属性内的值须是响应式数据才能触发重新计算。</p>
+<blockquote>
+<p>watch总结：为什么计算属性有缓存功能？因为当计算属性经过计算后，内部的标志位会表明已经计算过了，再次访问时会直接读取计算后的值；为什么计算属性内的响应式数据发生变更后，计算属性会重新计算？因为内部的响应式数据会收集computed-watcher，变更后通知计算属性要进行计算，也会通知页面重新渲染，渲染时会读取到重新计算后的值。</p>
+</blockquote>
+<h4 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h4><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903926819454983#heading-6">Vue原理解析（九）：搞懂computed和watch原理，减少使用场景思考时间</a><br><a target="_blank" rel="noopener" href="https://juejin.cn/post/6974293549135167495#heading-24">「Vue源码学习(四)」立志写一篇人人都看的懂的computed，watch原理</a></p>
+
             </div>
             <hr>
             <div>
