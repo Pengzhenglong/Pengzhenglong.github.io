@@ -576,7 +576,7 @@
 <h4 id="let与var对比-做项目中习惯用let声明变量"><a href="#let与var对比-做项目中习惯用let声明变量" class="headerlink" title="let与var对比(做项目中习惯用let声明变量)"></a>let与var对比(做项目中习惯用let声明变量)</h4><p>var声明的变量往往会越狱 (let 是在代码块内有效，var 是在全局范围内有效:)<br>let声明的变量有严格局部作用域<br>var可以声明多次<br>let只能声明一次<br>let 不存在变量提升var 会变量提升</p>
 <h4 id="const声明变量-只读变量"><a href="#const声明变量-只读变量" class="headerlink" title="const声明变量 (只读变量)"></a>const声明变量 (只读变量)</h4><p>声明之后不允许改变<br>一旦声明必须初始化，否者会报错<br>const 如何做到变量在声明初始化之后不允许改变的？其实 const 其实保证的不是变量的值不变，而是保证变量指向的内存地址所保存的数据不允许改动</p>
 <h3 id="Set-Map-Reduce"><a href="#Set-Map-Reduce" class="headerlink" title="Set  Map  Reduce"></a>Set  Map  Reduce</h3><blockquote>
-<p>Set类似于数组，但是它里面每一项的值是唯一的，没有重复的值，Set是一个构造函数，用来生成set的数据结构</p>
+<p>Set类似于数组，但是它里面每一项的值是唯一的，没有重复的值，Set是一个构造函数，用来生成set的数据结构<br>Set中两个对象永远是不相等的，即使键和值都是一样的</p>
 </blockquote>
 <blockquote>
 <p>Map类似于对象，也是键值对的集合，但是“键”的范围不限制于字符串，各种类型的值（包含对象）都可以当作键。Map 也可以接受一个数组作为参数，数组的成员是一个个表示键值对的数组。<br>map() 接受一个函数，将原数组中的所有元素用这个函数处理后放入新数组返回</p>

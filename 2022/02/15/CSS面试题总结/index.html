@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      9.1k 字
+      9.3k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      104
+      106
        分钟
     </span>
   
@@ -466,6 +466,10 @@
 <li>概念：HTML5的语义化指的是合理正确的使用语义化的标签来创建页面结构。【正确的标签做正确的事】</li>
 <li>语义化标签：header nav main article section aside footer</li>
 <li>语义化的优点:<br>在没CSS样式的情况下，页面整体也会呈现很好的结构效果<br>代码结构清晰，易于阅读，<br>利于开发和维护 方便其他设备解析（如屏幕阅读器）根据语义渲染网页。<br>有利于搜索引擎优化（SEO），搜索引擎爬虫会根据不同的标签来赋予不同的权重</li>
+</ol>
+<h4 id="src和href的区别？-src相当于同步执行，href相当于并行处理"><a href="#src和href的区别？-src相当于同步执行，href相当于并行处理" class="headerlink" title="src和href的区别？(src相当于同步执行，href相当于并行处理)"></a>src和href的区别？(src相当于同步执行，href相当于并行处理)</h4><ol>
+<li>src是指向外部资源的位置，指向的内容会嵌⼊到⽂档中当前标签所在的位置，在请求src资源时会将其指向的资源<br>下载并应⽤到⽂档内，如js脚本，img图⽚和frame等元素。<strong>当浏览器解析到该元素时，会暂停其他资源的下载和处理，知道将该资源加载、编译、执⾏完毕，所以⼀般js脚本会放在底部⽽不是头部。</strong></li>
+<li>href是指向⽹络资源所在位置（的超链接），⽤来建⽴和当前元素或⽂档之间的连接，<strong>当浏览器识别到它他指向的<br>⽂件时，就会并⾏下载资源，不会停⽌对当前⽂档的处理。</strong></li>
 </ol>
 <h4 id="前端需要注意哪些-SEO-？"><a href="#前端需要注意哪些-SEO-？" class="headerlink" title="前端需要注意哪些 SEO ？"></a>前端需要注意哪些 SEO ？</h4><p> （1）合理的 title、description、keywords：搜索对着三项的权重逐个减小，title 值强调重点即可，重要关键词出现不要超过2次，而且要靠前，不同页面 title 要有所不同；description 把页面内容高度概括，长度合适，不可过分堆砌关键词，不同页面 description 有所不同；keywords 列举出重要关键词即可。<br>（2）语义化的 HTML 代码，符合 W3C 规范：语义化代码让搜索引擎容易理解网页。<br> （3）重要内容 HTML 代码放在最前：搜索引擎抓取 HTML 顺序是从上到下，有的搜索引擎对抓取长度有限制，保证重要内容肯定被抓取。<br> （4）重要内容不要用 js 输出：爬虫不会执行 js 获取内容<br> （5）少用 iframe：搜索引擎不会抓取 iframe 中的内容<br> （6）非装饰性图片必须加 alt<br> （7）提高网站速度：网站速度是搜索引擎排序的一个重要指标</p>
 <h4 id="行内元素、块元素有哪些？它们有什么不同？"><a href="#行内元素、块元素有哪些？它们有什么不同？" class="headerlink" title="行内元素、块元素有哪些？它们有什么不同？"></a>行内元素、块元素有哪些？它们有什么不同？</h4><p>行内元素：b、span、a、u、em、i、img、input、select、label、textarea、button<br>块级元素：div、h、ol、ul、dl、li、table、td、th、tr、dd、dt、p、caption</p>
