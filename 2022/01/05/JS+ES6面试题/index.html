@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      15.6k 字
+      15.7k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      180
+      182
        分钟
     </span>
   
@@ -499,15 +499,19 @@
 
 <p>for of语法遍历的是数组元素的值<br>for in 遍历的是索引</p>
 <blockquote>
-<p>for of遍历的只是数组内的元素，而不包括数组的原型属性method和索引name<br>小结</p>
+<p>for of遍历的只是数组内的元素(value)，而不包括数组的原型属性method和索引name</p>
 </blockquote>
-<ol>
+<h4 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h4><ol>
 <li><p>for in 可以遍历一个普通的对象，这样也是它的本质工作，for in<strong>会遍历原型以及可枚举属性</strong>，最好的情况下，使用hasOwnProperty判断是不是实例属性。</p>
 </li>
 <li><p>for..of<strong>适用遍历数/数组对象/字符串/map/set等拥有迭代器对象的集合，不能遍历对象</strong>，因为没有迭代对象，与forEach()不同的是，它可以正确响应break、continue和return语句。</p>
 </li>
 </ol>
-<h4 id="forEach（数组方法）"><a href="#forEach（数组方法）" class="headerlink" title="forEach（数组方法）"></a>forEach（数组方法）</h4><p>特性：</p>
+<h4 id="如何使用for-of-循环遍历对象-给对象添加迭代器"><a href="#如何使用for-of-循环遍历对象-给对象添加迭代器" class="headerlink" title="如何使用for of 循环遍历对象(给对象添加迭代器)"></a>如何使用for of 循环遍历对象(给对象添加迭代器)</h4><ol>
+<li>类数组对象<br>如果对象是一个类数组对象，那好办，用Array.from转成数组即可。</li>
+<li>非类数组对象<br>如果不是类数组对象，也有办法，添加一个[Symbol.iterator]属性，并指向一个迭代器即可。<br>Object.keys/Object.values/Object.entries</li>
+</ol>
+<h4 id="forEach（数组方法）首先forEach是不能使用任何手段跳出循环的"><a href="#forEach（数组方法）首先forEach是不能使用任何手段跳出循环的" class="headerlink" title="forEach（数组方法）首先forEach是不能使用任何手段跳出循环的"></a>forEach（数组方法）首先forEach是不能使用任何手段跳出循环的</h4><p>特性：</p>
 <p>便利的时候更加简洁，效率和for循环相同，不用关心集合下标的问题，减少了出错的概率。<br>没有返回值<br>不能使用break中断循环，不能使用return返回到外层函数</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs javascript">实例：<br><span class="hljs-keyword">let</span> newarr=arr.forEach(<span class="hljs-function"><span class="hljs-params">i</span>=&gt;</span>&#123;<br> i+=<span class="hljs-number">1</span>;<br><span class="hljs-built_in">console</span>.log(i);<span class="hljs-comment">//2,4,5</span><br>&#125;)<br><span class="hljs-built_in">console</span>.log(arr)<span class="hljs-comment">//[1,3,4]</span><br><span class="hljs-built_in">console</span>.log(newarr)<span class="hljs-comment">//undefined</span><br></code></pre></td></tr></table></figure>
 
