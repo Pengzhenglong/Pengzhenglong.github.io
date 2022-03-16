@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      3.2k 字
+      3.6k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      37
+      41
        分钟
     </span>
   
@@ -281,6 +281,16 @@
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-meta-keyword">HTML</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;utf-8&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>img - complete attribute<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;img1&quot;</span><span class="hljs-attr">src</span>=<span class="hljs-string">&quot;http://pic1.win4000.com/wallpaper/f/51c3bb99a21ea.jpg&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">p</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;p1&quot;</span>&gt;</span>loading...<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text/javascript&quot;</span>&gt;</span><br><span class="javascript">        <span class="hljs-function"><span class="hljs-title">functionimgLoad</span>(<span class="hljs-params">img, callback</span>)</span> &#123;</span><br><span class="javascript">            vartimer = <span class="hljs-built_in">setInterval</span>(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;</span><br>                if(img.complete) &#123;<br>                    callback(img)<br><span class="javascript">                    <span class="hljs-built_in">clearInterval</span>(timer)</span><br>                &#125;<br>            &#125;, 50)<br>        &#125;<br><span class="javascript">        imgLoad(img1,<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;</span><br><span class="javascript">            p1.innerHTML(<span class="hljs-string">&#x27;加载完毕&#x27;</span>)</span><br>        &#125;)<br>    <span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span><br></code></pre></td></tr></table></figure>
 
 <p>轮询不断监测img的complete属性，如果为true则表明图片已经加载完毕，停止轮询。该属性所有浏览器都支持。<br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/zhusf/p/10607957.html">参考文章</a></p>
+<h3 id="原生JS实现轮播图-方法总结"><a href="#原生JS实现轮播图-方法总结" class="headerlink" title="原生JS实现轮播图 方法总结"></a>原生JS实现轮播图 方法总结</h3><ol>
+<li><p>方法一：<br>利用绝对定位absolute偏移量的改变来实现<br>具有往左往右滑动的效果</p>
+</li>
+<li><p>方法二：<br>利用 display/opacity/visibility状态切换来实现<br>没有往左往右滑动的效果</p>
+</li>
+<li><p>方法三<br>旋转木马轮播图<br>存储每个图片的位置信息（absolute位置信息+z-index属性+opacity透明度 等等）到一个数组。对数组进行pop push shift unshift等操作再引用到DOM元素上，产生轮播效果。<br><a target="_blank" rel="noopener" href="https://juejin.cn/post/6850418121606594568">参考</a></p>
+</li>
+</ol>
+<h3 id="实现一个div元素的拖拽-（addEventListen-removeEventListen"><a href="#实现一个div元素的拖拽-（addEventListen-removeEventListen" class="headerlink" title="实现一个div元素的拖拽  （addEventListen/removeEventListen)"></a>实现一个div元素的拖拽  （addEventListen/removeEventListen)</h3><p>1.js 如何实现拖动滑块( mousedown，mousemove，mouseup)<br>实现拖动滑块，先分析，滑块可以拖动应该改变滑块在页面中的坐标，那就采用定位拿到元素的 top 和 left 对它们进行赋值，接下来就是准备事件，既然是鼠标拖动应该具备 mousedown，mousemove，mouseup 三种事件，通过 mousedown 鼠标按下事件选中滑块，mousemove 事件拖动滑块，在拖动滑块的时候获取鼠标在可视窗口的坐标赋值给滑块的 top 和 left<br><a target="_blank" rel="noopener" href="https://juejin.cn/post/7001022287981838350">参考</a></p>
+<p>2.实现思路：<br>鼠标按下开始拖拽<br>记录摁下鼠标时的鼠标位置以及元素位置<br>拖动鼠标记下当前鼠标的位置<br>鼠标当前位置-摁下时鼠标位置= 鼠标移动距离<br>元素位置= 鼠标移动距离+鼠标摁下时元素的位置<br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/yinping/p/10697083.html">参考</a></p>
 
             </div>
             <hr>
