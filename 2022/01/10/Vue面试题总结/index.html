@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      6.9k 字
+      7k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      75
+      76
        分钟
     </span>
   
@@ -325,6 +325,8 @@
 <h3 id="路由实现原理是什么"><a href="#路由实现原理是什么" class="headerlink" title="路由实现原理是什么"></a>路由实现原理是什么</h3><p>a.控制地址栏改变；b.根据地址栏的改变来控制组件的切换</p>
 <p>hash通过window.onhashchange监听地址栏的改变；</p>
 <p>history通过window.onpopState监听地址栏的改变</p>
+<p>URL的hash:<br> URL的hash也就是锚点(#), <strong>本质上是改变window.location的href属性；</strong><br> 我们可以通过直接赋值location.hash来改变href, 但是页面不发生刷新;</p>
+<p>history接口是HTML5新增的, 它有六种模式改变URL而不刷新页面：<br> replaceState：替换原来的路径；<br> pushState：使用新的路径；<br> popState：路径的回退；<br> go：向前或向后改变路径；<br> forward：向前改变路径；<br> back：向后改变路径；</p>
 <h4 id="vue-router的push和replace的区别"><a href="#vue-router的push和replace的区别" class="headerlink" title="vue-router的push和replace的区别"></a>vue-router的push和replace的区别</h4><p>1.this.$router.push()</p>
 <p>描述：跳转到不同的url，但这个方法会向history栈<strong>添加一个记录</strong>，点击后退会返回到上一个页面。</p>
 <p>2.this.$router.replace()</p>
@@ -342,7 +344,7 @@
 <p>parent、children Ref 获取实例的方式调用组件的属性或者方法</p>
 <p>父-&gt;子孙 Provide、inject 官方不推荐使用，但是写组件库时很常用</p>
 <p>$emit/$on 自定义事件 兄弟组件通信Event Bus 实现跨组件通信 Vue.prototype.$bus = new Vue() 自定义事件</p>
-<p>vuex 跨级组件通信Vuex、$attrs、$listeners Provide、inject</p>
+<p>vuex 跨级组件通信<strong>Vuex、$attrs、$listeners Provide、inject</strong></p>
 <h3 id="为何vue采用异步渲染"><a href="#为何vue采用异步渲染" class="headerlink" title="为何vue采用异步渲染"></a>为何vue采用异步渲染</h3><p>最终一次性更新DOM，避免重复操作DOM，耗费性能。</p>
 <h3 id="nextTick的实现原理是什么？"><a href="#nextTick的实现原理是什么？" class="headerlink" title="nextTick的实现原理是什么？"></a>nextTick的实现原理是什么？</h3><p>在下次 DOM 更新循环结束之后执行延迟回调，在修改数据之后立即使用 nextTick 来获取更新后的 DOM。 nextTick主要使用了宏任务和微任务。 根据执行环境分别尝试采用Promise、MutationObserver、setImmediate，如果以上都不行则采用setTimeout定义了一个异步方法，多次调用nextTick会将方法存入队列中，通过这个异步方法清空当前队列。</p>
 <h3 id="nextTick的实现"><a href="#nextTick的实现" class="headerlink" title="nextTick的实现"></a>nextTick的实现</h3><ol>
