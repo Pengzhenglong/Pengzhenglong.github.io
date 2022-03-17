@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      6.3k 字
+      6.6k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      68
+      71
        分钟
     </span>
   
@@ -230,7 +230,12 @@
             <div class="markdown-body">
               <p>总结了最近的一些面试题和之前的知识点</p>
 <hr>
-<h3 id="diff算法与虚拟dom"><a href="#diff算法与虚拟dom" class="headerlink" title="diff算法与虚拟dom"></a>diff算法与虚拟dom</h3><p><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2022/02/20/Vue--diff%E7%AE%97%E6%B3%95/">博客</a></p>
+<h3 id="diff算法与虚拟dom"><a href="#diff算法与虚拟dom" class="headerlink" title="diff算法与虚拟dom"></a>diff算法与虚拟dom</h3><p>虚拟DOM实现原理?<br>虚拟DOM本质上是JavaScript对象,是对真实DOM的抽象<br>状态变更时，记录新树和旧树的差异<br>最后把差异更新到真正的dom中<br><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2022/02/20/Vue--diff%E7%AE%97%E6%B3%95/">博客</a></p>
+<h4 id="虚拟DOM的优劣如何"><a href="#虚拟DOM的优劣如何" class="headerlink" title="虚拟DOM的优劣如何?"></a>虚拟DOM的优劣如何?</h4><p>优点:</p>
+<p>保证性能下限: 虚拟DOM可以经过diff找出最小差异,然后批量进行patch,这种操作虽然比不上手动优化,但是比起粗暴的DOM操作性能要好很多,因此虚拟DOM可以保证性能下限<br>无需手动操作DOM: 虚拟DOM的diff和patch都是在一次更新中自动进行的,我们无需手动操作DOM,极大提高开发效率<br>跨平台: 虚拟DOM本质上是JavaScript对象,而DOM与平台强相关,相比之下虚拟DOM可以进行更方便地跨平台操作,例如服务器渲染、移动端开发等等</p>
+<p>缺点:</p>
+<p>无法进行极致优化: 在一些性能要求极高的应用中虚拟DOM无法进行针对性的极致优化,比如VScode采用直接手动操作DOM的方式进行极端的性能优化</p>
+<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903903968903175#heading-14">虚拟DOM的优劣如何?</a></p>
 <h3 id="dep-watcher"><a href="#dep-watcher" class="headerlink" title="dep  watcher"></a>dep  watcher</h3><p><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2022/02/25/Vue--Observer%E3%80%81Dep%E3%80%81Watcher/">博客</a></p>
 <h3 id="开发中有没有遇见过数据修改了页面不刷新的情况"><a href="#开发中有没有遇见过数据修改了页面不刷新的情况" class="headerlink" title="开发中有没有遇见过数据修改了页面不刷新的情况"></a>开发中有没有遇见过数据修改了页面不刷新的情况</h3><p>最近在开发中遇到了这样一些情况，通过点击事件改变了对象里面得数据，但是页面却不刷新，后来发现，是在给对象添加属性时出现的问题。</p>
 <p><strong>当vue的data里边声明或者已经赋值过的对象或者数组(数组里边的值是对象)时，向对象中添加新的属性，如果更新此属性的值，是不会更新视图的。</strong></p>

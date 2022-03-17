@@ -434,12 +434,11 @@ Axios 如何取消重复请求？在 Web 项目开发过程中，我们经常会
           
             
           
-          
-Object.defineProperty()作用：在一个对象上定义一个新属性，或者修改一个对象的现有属性，并返回这个对象。
-1. 基本使用语法：Object.defineProperty(obj, prop, descriptor)参数：
-要添加属性的对象要定义或修改的属性的名称或 [Symbol]要定义或修改的属性描述符
-看一个简单的例子
-12345678910111213141516171
+          Vue3.0 中，响应式数据部分弃用了 Object.defineProperty，使用Proxy来代替它。本文将主要通过以下三个方面来分析为什么 Vue 选择弃用 Object.defineProperty。
+
+Object.defineProperty 真的无法监测数组下标的变化吗？
+分析 Vue2.x 中对数组 Observe 部分源码。
+对比Object.defineProperty和 P
         </a>
       </p>
 
