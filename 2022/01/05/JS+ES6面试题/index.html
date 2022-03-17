@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      16k 字
+      16.1k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      184
+      186
        分钟
     </span>
   
@@ -311,7 +311,7 @@
 <figure class="highlight mel"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs mel">$.<span class="hljs-keyword">trim</span>(str) <br></code></pre></td></tr></table></figure>
 
 <h3 id="●-暂停死区"><a href="#●-暂停死区" class="headerlink" title="● 暂停死区"></a>● 暂停死区</h3><p>在代码块内，使用let、const命令声明变量之前，该变量都是不可用的。这在语法上，称为“暂时性死区”</p>
-<h3 id="●-数组常用方法"><a href="#●-数组常用方法" class="headerlink" title="● 数组常用方法"></a>● 数组常用方法</h3><p>push()，pop()，shift()，unshift()，splice()，sort()，reverse()，map()等</p>
+<h3 id="●-数组常用方法-一般方法"><a href="#●-数组常用方法-一般方法" class="headerlink" title="● 数组常用方法(一般方法)"></a>● 数组常用方法(一般方法)</h3><p>push()，pop()，shift()，unshift()，splice()，sort()，reverse()，map()等</p>
 <ol>
 <li>indexOf() 方法可返回某个指定的字符串值在字符串中首次出现的位置。如果没有找到匹配的字符串则返回 -1。</li>
 <li>slice() 截取Array的一部分，返回一个新数组，类似于String中的substring  [)</li>
@@ -322,6 +322,55 @@
 <li>concat() 方法用于连接两个或多个数组。该方法不会改变现有的数组，而仅仅会返回被连接数组的一个副本。</li>
 <li>splice() 方法用于添加或删除数组中的元素。注意：这种方法会改变原始数组。</li>
 </ol>
+<h3 id="数组和对象方法（进阶）"><a href="#数组和对象方法（进阶）" class="headerlink" title="数组和对象方法（进阶）"></a>数组和对象方法（进阶）</h3><p>8.数组常用的方法  find  filter(返回数组，包含了符合条件的所有元素。如果没有符合条件的元素则返回空数组。)  every  some</p>
+<p>9.判断一个数组中有符合我需求的元素用哪个比较合适–indexof    find(返回数组中满足条件的第一个元素的值，如果没有，返回undefined)</p>
+<blockquote>
+<p>如果要返回一个布尔值—   includes  some every<br><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2022/02/28/Js%E6%95%B0%E7%BB%84%E9%97%AE%E9%A2%98/#JS%E5%88%A4%E6%96%AD%E6%95%B0%E7%BB%84%E4%B8%AD%E6%98%AF%E5%90%A6%E5%8C%85%E5%90%AB%E6%9F%90%E4%B8%AA%E5%80%BC">博客</a></p>
+</blockquote>
+<h4 id="遍历一个对象-for-of-Object-key-Object-value-Object-entries"><a href="#遍历一个对象-for-of-Object-key-Object-value-Object-entries" class="headerlink" title="遍历一个对象  for  of   Object.key  Object.value  Object.entries"></a>遍历一个对象  for  of   Object.key  Object.value  Object.entries</h4><p>工作中遍历对象都用for  in 嘛，遍历用的比较多的方法是(有用过forEach嘛)</p>
+<h3 id="for-in和for-of-区别"><a href="#for-in和for-of-区别" class="headerlink" title="for in和for of 区别"></a>for in和for of 区别</h3><h4 id="for-in"><a href="#for-in" class="headerlink" title="for in"></a>for in</h4><p>我们直接从一段代码来看</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-built_in">Array</span>.prototype.method=<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>&#123;<br>　　<span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">this</span>.length);<br>&#125;<br><span class="hljs-keyword">var</span> myArray=[<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>,<span class="hljs-number">6</span>,<span class="hljs-number">7</span>]<br>myArray.name=<span class="hljs-string">&quot;数组&quot;</span><br><span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> index <span class="hljs-keyword">in</span> myArray) &#123;<br>  <span class="hljs-built_in">console</span>.log(myArray[index]);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>有哪些缺陷呢👇<br>index获取的是索引<br>遍历的顺序可能不是按照顺序进行的<br>使用for in 会遍历数组所有可枚举属性，包括原型。例如上面的method和name都会遍历</p>
+<blockquote>
+<p>for in 更适合遍历对象，不要使用for in去遍历数组</p>
+</blockquote>
+<h4 id="for-of"><a href="#for-of" class="headerlink" title="for of"></a>for of</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-built_in">Array</span>.prototype.method=<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>&#123;<br>　　<span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">this</span>.length);<br>&#125;<br><span class="hljs-keyword">var</span> myArray=[<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>,<span class="hljs-number">6</span>,<span class="hljs-number">7</span>]<br>myArray.name=<span class="hljs-string">&quot;数组&quot;</span>;<br><span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> value <span class="hljs-keyword">of</span> myArray) &#123;<br>  <span class="hljs-built_in">console</span>.log(value);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>for of语法遍历的是数组元素的值<br>for in 遍历的是索引</p>
+<blockquote>
+<p>for of遍历的只是数组内的元素(value)，而不包括数组的原型属性method和索引name</p>
+</blockquote>
+<h4 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h4><ol>
+<li><p>for in 可以遍历一个普通的对象，这样也是它的本质工作，for in<strong>会遍历原型以及可枚举属性</strong>，最好的情况下，使用hasOwnProperty判断是不是实例属性。</p>
+</li>
+<li><p>for..of<strong>适用遍历数/数组对象/字符串/map/set等拥有迭代器对象的集合，不能遍历对象</strong>，因为没有迭代对象，与forEach()不同的是，它可以正确响应break、continue和return语句。</p>
+</li>
+</ol>
+<h4 id="如何使用for-of-循环遍历对象-给对象添加迭代器"><a href="#如何使用for-of-循环遍历对象-给对象添加迭代器" class="headerlink" title="如何使用for of 循环遍历对象(给对象添加迭代器)"></a>如何使用for of 循环遍历对象(给对象添加迭代器)</h4><ol>
+<li>类数组对象<br>如果对象是一个类数组对象，那好办，用Array.from转成数组即可。</li>
+<li>非类数组对象<br>如果不是类数组对象，也有办法，添加一个[Symbol.iterator]属性，并指向一个迭代器即可。<br>Object.keys/Object.values/Object.entries</li>
+</ol>
+<h4 id="forEach（数组方法）首先forEach是不能使用任何手段跳出循环的"><a href="#forEach（数组方法）首先forEach是不能使用任何手段跳出循环的" class="headerlink" title="forEach（数组方法）首先forEach是不能使用任何手段跳出循环的"></a>forEach（数组方法）首先forEach是不能使用任何手段跳出循环的</h4><p>特性：</p>
+<p>便利的时候更加简洁，效率和for循环相同，不用关心集合下标的问题，减少了出错的概率。<br>没有返回值<br>不能使用break中断循环，不能使用return返回到外层函数</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs javascript">实例：<br><span class="hljs-keyword">let</span> newarr=arr.forEach(<span class="hljs-function"><span class="hljs-params">i</span>=&gt;</span>&#123;<br> i+=<span class="hljs-number">1</span>;<br><span class="hljs-built_in">console</span>.log(i);<span class="hljs-comment">//2,4,5</span><br>&#125;)<br><span class="hljs-built_in">console</span>.log(arr)<span class="hljs-comment">//[1,3,4]</span><br><span class="hljs-built_in">console</span>.log(newarr)<span class="hljs-comment">//undefined</span><br></code></pre></td></tr></table></figure>
+
+<p>注意：</p>
+<ol>
+<li>forEach() 对于空数组是不会执行回调函数的。</li>
+<li>for可以用continue跳过循环中的一个迭代，forEach用continue会报错。</li>
+<li>forEach() 需要用 return 跳过循环中的一个迭代，跳过之后会执行下一个迭代。</li>
+</ol>
+<h4 id="任何数据结构只要部署-Iterator-接口，就可以完成遍历操作，即依次处理该数据结构的所有成员"><a href="#任何数据结构只要部署-Iterator-接口，就可以完成遍历操作，即依次处理该数据结构的所有成员" class="headerlink" title="任何数据结构只要部署 Iterator 接口，就可以完成遍历操作，即依次处理该数据结构的所有成员"></a>任何数据结构只要部署 Iterator 接口，就可以完成遍历操作，即依次处理该数据结构的所有成员</h4><p>迭代器本质<br>迭代器对象本质上，就是一个指针对象。通过指针对象的next()，用来移动指针。</p>
+<p>【迭代器协议】对象必须提供一个next()，执行该方法要么返回迭代中的下一项，要么就引起一个Stopiteration异常，以终止迭代。</p>
+<p>next()返回一个对象，表示当前数据成员的信息。这个对象具有value和done两个属性，value属性返回当前位置的成员，done属性是一个布尔值，表示遍历是否结束，即是否还有必要再一次调用next()。对于遍历器对象来说，done: false和value: undefined属性都是可以省略的。</p>
+<p>ES6 规定，默认的 Iterator 接口部署在数据结构的Symbol.iterator属性上。</p>
+<p>实现Iterator接口的原生对象<br>原生具备 Iterator 接口的数据结构如下。</p>
+<p>Array<br>Map<br>Set<br>String<br>TypedArray<br>函数的 arguments 对象<br>NodeList 对象</p>
+<h5 id="如何判断一个类型是不是可迭代对象"><a href="#如何判断一个类型是不是可迭代对象" class="headerlink" title="如何判断一个类型是不是可迭代对象"></a>如何判断一个类型是不是可迭代对象</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> someString = <span class="hljs-string">&quot;hi&quot;</span>;<br><span class="hljs-keyword">typeof</span> someString[<span class="hljs-built_in">Symbol</span>.iterator];          <span class="hljs-comment">// &quot;function&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>结论</p>
+<p>常见的可迭代对象，有Array，Map, Set, String,TypeArray, arguments<br>可以通过判断Symbol.iterator判断当前变量是否是可迭代对象</p>
 <h3 id="JS判断数组中是否包含某个值-amp-amp-JS如何实现数组扁平化？"><a href="#JS判断数组中是否包含某个值-amp-amp-JS如何实现数组扁平化？" class="headerlink" title="JS判断数组中是否包含某个值&amp;&amp;JS如何实现数组扁平化？"></a>JS判断数组中是否包含某个值&amp;&amp;JS如何实现数组扁平化？</h3><p><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2022/02/28/Js%E6%95%B0%E7%BB%84%E9%97%AE%E9%A2%98/">博客地址</a></p>
 <h3 id="比较运算符！！！重要"><a href="#比较运算符！！！重要" class="headerlink" title="比较运算符！！！重要"></a>比较运算符！！！重要</h3><p>=    赋值<br>==   等于(类型不一样，值一样，也会判断为true)<br>===   绝对等于 (类型一样，值一样，结果为true)</p>
 <h4 id="Object-is-使用过吗？跟-和-区别"><a href="#Object-is-使用过吗？跟-和-区别" class="headerlink" title="Object.is()使用过吗？跟 === 和 == 区别"></a>Object.is()使用过吗？跟 === 和 == 区别</h4><p>两等号判等，会在比较时进行类型转换。<br>三等号判等（判断严格），比较时不进行隐式类型转换，（类型不同则会返回false）<br>使用 Object.is 来进行相等判断时，一般情况下和三等号的判断相同，它处理了一些特殊的情况，比如 -0 和 +0 不再相等，两个 NaN 认定为是相等的。</p>
@@ -490,49 +539,6 @@
 <p>浅拷贝指的是将一个对象的属性值复制到另一个对象，如果有的属性的值为引用类型的话，那么会将这个引用的地址复制给对象，因此两个对象会有同一个引用类型的引用。浅拷贝可以使用 Object.assign 和展开运算符来实现。</p>
 <p>深拷贝相对浅拷贝而言，如果遇到属性值为引用类型的时候，它新建一个引用类型并将对应的值复制给它，因此对象获得的一个新的引用类型而不是一个原有类型的引用。深拷贝对于一些对象可以使用 JSON 的两个函数来实现，但是由于 JSON 的对象格式比 js 的对象格式更加严格，所以如果属性值里边出现函数或者 Symbol 类型的值时，会转换失败。<br><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2021/04/17/javascript%20%E5%85%B3%E4%BA%8E%E8%B5%8B%E5%80%BC%E3%80%81%E6%B5%85%E6%8B%B7%E8%B4%9D%E3%80%81%E6%B7%B1%E6%8B%B7%E8%B4%9D%E7%9A%84%E4%B8%AA%E4%BA%BA%E7%90%86%E8%A7%A3/#%E4%BE%8B">博客：</a></p>
 <h3 id="slice-和-concat"><a href="#slice-和-concat" class="headerlink" title="slice 和 concat"></a>slice 和 concat</h3><p>Array 的 slice 和 concat 方法 和 jQuery 中的 extend 复制方法，他们都会复制第一层的值，对于 第一层 的值都是 深拷贝，而到 第二层 的时候 Array 的 slice 和 concat 方法就是 复制引用 ，jQuery 中的 extend 复制方法 则 取决于 你的 第一个参数， 也就是是否进行递归复制。所谓第一层 就是 key 所对应的 value 值是基本数据类型，也就像上面栗子中的name、age，而对于 value 值是引用类型 则为第二层，也就像上面栗子中的 company。</p>
-<h3 id="for-in和for-of-区别"><a href="#for-in和for-of-区别" class="headerlink" title="for in和for of 区别"></a>for in和for of 区别</h3><h4 id="for-in"><a href="#for-in" class="headerlink" title="for in"></a>for in</h4><p>我们直接从一段代码来看</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-built_in">Array</span>.prototype.method=<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>&#123;<br>　　<span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">this</span>.length);<br>&#125;<br><span class="hljs-keyword">var</span> myArray=[<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>,<span class="hljs-number">6</span>,<span class="hljs-number">7</span>]<br>myArray.name=<span class="hljs-string">&quot;数组&quot;</span><br><span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> index <span class="hljs-keyword">in</span> myArray) &#123;<br>  <span class="hljs-built_in">console</span>.log(myArray[index]);<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<p>有哪些缺陷呢👇<br>index获取的是索引<br>遍历的顺序可能不是按照顺序进行的<br>使用for in 会遍历数组所有可枚举属性，包括原型。例如上面的method和name都会遍历</p>
-<blockquote>
-<p>for in 更适合遍历对象，不要使用for in去遍历数组</p>
-</blockquote>
-<h4 id="for-of"><a href="#for-of" class="headerlink" title="for of"></a>for of</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-built_in">Array</span>.prototype.method=<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>&#123;<br>　　<span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">this</span>.length);<br>&#125;<br><span class="hljs-keyword">var</span> myArray=[<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>,<span class="hljs-number">6</span>,<span class="hljs-number">7</span>]<br>myArray.name=<span class="hljs-string">&quot;数组&quot;</span>;<br><span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> value <span class="hljs-keyword">of</span> myArray) &#123;<br>  <span class="hljs-built_in">console</span>.log(value);<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<p>for of语法遍历的是数组元素的值<br>for in 遍历的是索引</p>
-<blockquote>
-<p>for of遍历的只是数组内的元素(value)，而不包括数组的原型属性method和索引name</p>
-</blockquote>
-<h4 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h4><ol>
-<li><p>for in 可以遍历一个普通的对象，这样也是它的本质工作，for in<strong>会遍历原型以及可枚举属性</strong>，最好的情况下，使用hasOwnProperty判断是不是实例属性。</p>
-</li>
-<li><p>for..of<strong>适用遍历数/数组对象/字符串/map/set等拥有迭代器对象的集合，不能遍历对象</strong>，因为没有迭代对象，与forEach()不同的是，它可以正确响应break、continue和return语句。</p>
-</li>
-</ol>
-<h4 id="如何使用for-of-循环遍历对象-给对象添加迭代器"><a href="#如何使用for-of-循环遍历对象-给对象添加迭代器" class="headerlink" title="如何使用for of 循环遍历对象(给对象添加迭代器)"></a>如何使用for of 循环遍历对象(给对象添加迭代器)</h4><ol>
-<li>类数组对象<br>如果对象是一个类数组对象，那好办，用Array.from转成数组即可。</li>
-<li>非类数组对象<br>如果不是类数组对象，也有办法，添加一个[Symbol.iterator]属性，并指向一个迭代器即可。<br>Object.keys/Object.values/Object.entries</li>
-</ol>
-<h4 id="forEach（数组方法）首先forEach是不能使用任何手段跳出循环的"><a href="#forEach（数组方法）首先forEach是不能使用任何手段跳出循环的" class="headerlink" title="forEach（数组方法）首先forEach是不能使用任何手段跳出循环的"></a>forEach（数组方法）首先forEach是不能使用任何手段跳出循环的</h4><p>特性：</p>
-<p>便利的时候更加简洁，效率和for循环相同，不用关心集合下标的问题，减少了出错的概率。<br>没有返回值<br>不能使用break中断循环，不能使用return返回到外层函数</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs javascript">实例：<br><span class="hljs-keyword">let</span> newarr=arr.forEach(<span class="hljs-function"><span class="hljs-params">i</span>=&gt;</span>&#123;<br> i+=<span class="hljs-number">1</span>;<br><span class="hljs-built_in">console</span>.log(i);<span class="hljs-comment">//2,4,5</span><br>&#125;)<br><span class="hljs-built_in">console</span>.log(arr)<span class="hljs-comment">//[1,3,4]</span><br><span class="hljs-built_in">console</span>.log(newarr)<span class="hljs-comment">//undefined</span><br></code></pre></td></tr></table></figure>
-
-<p>注意：</p>
-<ol>
-<li>forEach() 对于空数组是不会执行回调函数的。</li>
-<li>for可以用continue跳过循环中的一个迭代，forEach用continue会报错。</li>
-<li>forEach() 需要用 return 跳过循环中的一个迭代，跳过之后会执行下一个迭代。</li>
-</ol>
-<h4 id="任何数据结构只要部署-Iterator-接口，就可以完成遍历操作，即依次处理该数据结构的所有成员"><a href="#任何数据结构只要部署-Iterator-接口，就可以完成遍历操作，即依次处理该数据结构的所有成员" class="headerlink" title="任何数据结构只要部署 Iterator 接口，就可以完成遍历操作，即依次处理该数据结构的所有成员"></a>任何数据结构只要部署 Iterator 接口，就可以完成遍历操作，即依次处理该数据结构的所有成员</h4><p>迭代器本质<br>迭代器对象本质上，就是一个指针对象。通过指针对象的next()，用来移动指针。</p>
-<p>【迭代器协议】对象必须提供一个next()，执行该方法要么返回迭代中的下一项，要么就引起一个Stopiteration异常，以终止迭代。</p>
-<p>next()返回一个对象，表示当前数据成员的信息。这个对象具有value和done两个属性，value属性返回当前位置的成员，done属性是一个布尔值，表示遍历是否结束，即是否还有必要再一次调用next()。对于遍历器对象来说，done: false和value: undefined属性都是可以省略的。</p>
-<p>ES6 规定，默认的 Iterator 接口部署在数据结构的Symbol.iterator属性上。</p>
-<p>实现Iterator接口的原生对象<br>原生具备 Iterator 接口的数据结构如下。</p>
-<p>Array<br>Map<br>Set<br>String<br>TypedArray<br>函数的 arguments 对象<br>NodeList 对象</p>
-<h5 id="如何判断一个类型是不是可迭代对象"><a href="#如何判断一个类型是不是可迭代对象" class="headerlink" title="如何判断一个类型是不是可迭代对象"></a>如何判断一个类型是不是可迭代对象</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> someString = <span class="hljs-string">&quot;hi&quot;</span>;<br><span class="hljs-keyword">typeof</span> someString[<span class="hljs-built_in">Symbol</span>.iterator];          <span class="hljs-comment">// &quot;function&quot;</span><br></code></pre></td></tr></table></figure>
-
-<p>结论</p>
-<p>常见的可迭代对象，有Array，Map, Set, String,TypeArray, arguments<br>可以通过判断Symbol.iterator判断当前变量是否是可迭代对象</p>
 <h3 id="new-操作符具体干了什么呢？如何实现？"><a href="#new-操作符具体干了什么呢？如何实现？" class="headerlink" title="new 操作符具体干了什么呢？如何实现？"></a>new 操作符具体干了什么呢？如何实现？</h3><p>// （1）首先创建了一个新的空对象<br>// （2）设置原型，将对象的原型设置为函数的 prototype 对象。<br>// （3）让函数的 this 指向这个对象，执行构造函数的代码（为这个新对象添加属性）<br>// （4）判断函数的返回值类型，如果是值类型，返回创建的对象。如果是引用类型，就返回这个引用类型的对象。</p>
 <p>new共经历了四个过程。</p>
 <figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><br><span class="hljs-keyword">var</span> fn = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123; &#125;;<br><span class="hljs-keyword">var</span> fnObj = <span class="hljs-keyword">new</span> fn();<br><br><span class="hljs-number">1</span>、创建了一个空对象<br><span class="hljs-keyword">var</span> obj = <span class="hljs-keyword">new</span> <span class="hljs-built_in">object</span>();<br><br><span class="hljs-number">2</span>、设置原型链<br>obj._proto_ = fn.prototype;<br><br><span class="hljs-number">3</span>、让fn的<span class="hljs-built_in">this</span>指向obj，并执行fn的函数体<br><br><span class="hljs-keyword">var</span> result = fn.call(obj);<br><br><span class="hljs-number">4</span>、判断fn的返回值类型，如果是值类型，返回obj。如果是引用类型，就返回这个引用类型的对象。<br><br><span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span>(result) == <span class="hljs-string">&quot;object&quot;</span>)&#123;      fnObj = result;  &#125; <span class="hljs-keyword">else</span> &#123;      fnObj = obj;&#125;  <br><br><span class="hljs-comment">// 实现:</span><br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">objectFactory</span>(<span class="hljs-params"></span>) </span>&#123;<br> <span class="hljs-keyword">let</span> newObject = <span class="hljs-literal">null</span>,<br>    <span class="hljs-title">constructor</span> = <span class="hljs-title">Array</span>.<span class="hljs-title">prototype</span>.<span class="hljs-title">shift</span>.<span class="hljs-title">call</span>(<span class="hljs-params"><span class="hljs-built_in">arguments</span></span>),<br>    <span class="hljs-title">result</span> = <span class="hljs-title">null</span>;<br><br> <span class="hljs-comment">// 参数判断</span><br> <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> <span class="hljs-title">constructor</span> !== &quot;<span class="hljs-title">function</span>&quot;) &#123;<br> <span class="hljs-built_in">console</span>.error(<span class="hljs-string">&quot;type error&quot;</span>);<br> <span class="hljs-keyword">return</span>;<br>  &#125;<br><br> <span class="hljs-comment">// 新建一个空对象，对象的原型为构造函数的 prototype 对象</span><br>  newObject = <span class="hljs-built_in">Object</span>.create(<span class="hljs-title">constructor</span>.<span class="hljs-title">prototype</span>);<br><br> <span class="hljs-comment">// 将 this 指向新建对象，并执行函数</span><br>  result = <span class="hljs-title">constructor</span>.<span class="hljs-title">apply</span>(<span class="hljs-params">newObject, <span class="hljs-built_in">arguments</span></span>);<br><br> <span class="hljs-comment">// 判断返回对象</span><br> <span class="hljs-keyword">let</span> flag =<br>    result &amp;&amp; (<span class="hljs-keyword">typeof</span> result === <span class="hljs-string">&quot;object&quot;</span> || <span class="hljs-keyword">typeof</span> result === <span class="hljs-string">&quot;function&quot;</span>);<br><br> <span class="hljs-comment">// 判断返回结果</span><br> <span class="hljs-keyword">return</span> flag ? result : newObject;<br>&#125;<br><br><span class="hljs-comment">// 使用方法</span><br><span class="hljs-comment">// objectFactory(构造函数, 初始化参数);</span><br><br></code></pre></td></tr></table></figure>
