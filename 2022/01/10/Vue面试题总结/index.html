@@ -289,7 +289,6 @@
 <h3 id="计算属性和watch的原理"><a href="#计算属性和watch的原理" class="headerlink" title="计算属性和watch的原理"></a>计算属性和watch的原理</h3><p><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2022/03/10/Vue%E8%AE%A1%E7%AE%97%E5%B1%9E%E6%80%A7%E5%92%8Ccomputed%E7%9A%84%E5%8E%9F%E7%90%86/">博客：</a></p>
 <h3 id="computed-和-watch-的差异？"><a href="#computed-和-watch-的差异？" class="headerlink" title="computed 和 watch 的差异？"></a>computed 和 watch 的差异？</h3><p>（1）computed 是计算一个新的属性，并将该属性挂载到 Vue 实例上，而 watch 是监听已经存在且已挂载到 Vue 实例上的数据，所以用 watch 同样可以监听 computed 计算属性的变化。<br>（2）computed 本质是一个惰性求值的观察者，具有缓存性，只有当依赖变化后，第一次访问 computed 属性，才会计算新的值。而 watch 则是当数据发生变化便会调用执行函数。<br>（3）从使用场景上说，computed 适用一个数据被多个数据影响，而 watch 适用一个数据影响多个数据。</p>
 <p><a target="_blank" rel="noopener" href="https://juejin.im/post/5b98c4da6fb9a05d353c5fd7">《做面试的不倒翁：浅谈 Vue 中 computed 实现原理》</a><br><a target="_blank" rel="noopener" href="https://juejin.im/post/5af908ea5188254265399009">《深入理解 Vue 的 watch 实现原理及其实现方式》</a><br><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2021/04/18/Vue&computed%E8%AE%A1%E7%AE%97%E5%B1%9E%E6%80%A7/">我的博客</a></p>
-<h3 id="为什么使用axios"><a href="#为什么使用axios" class="headerlink" title="为什么使用axios"></a>为什么使用axios</h3><p>功能特点：<br>支持promise API<br>支持拦截请求和响应<br>支持转换请求和响应数据<br>axios  拦截器</p>
 <h3 id="v-if-v-show"><a href="#v-if-v-show" class="headerlink" title="v-if  v-show"></a>v-if  v-show</h3><p>v-show</p>
 <figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs arduino">该指令的作用是根据真假切换元素的显示状态<br>原理是修改元素的display，实现显示隐藏<br>指令后面的内容，最终都会解析为布尔值<br>值为<span class="hljs-literal">true</span>元素显示，值为<span class="hljs-literal">false</span>元素隐藏<br>数据改变之后，对应元素的显示状态会同步更新<br></code></pre></td></tr></table></figure>
 
@@ -327,7 +326,7 @@
 <p>history通过window.onpopState监听地址栏的改变</p>
 <p>URL的hash:<br> URL的hash也就是锚点(#), <strong>本质上是改变window.location的href属性；</strong><br> 我们可以通过直接赋值location.hash来改变href, 但是页面不发生刷新;</p>
 <p>history接口是HTML5新增的, 它有六种模式改变URL而不刷新页面：<br> replaceState：替换原来的路径；<br> pushState：使用新的路径；<br> popState：路径的回退；<br> go：向前或向后改变路径；<br> forward：向前改变路径；<br> back：向后改变路径；</p>
-<h4 id="vue-router的push和replace的区别"><a href="#vue-router的push和replace的区别" class="headerlink" title="vue-router的push和replace的区别"></a>vue-router的push和replace的区别</h4><p>1.this.$router.push()</p>
+<h3 id=""><a href="#" class="headerlink" title=""></a></h3><h4 id="vue-router的push和replace的区别"><a href="#vue-router的push和replace的区别" class="headerlink" title="vue-router的push和replace的区别"></a>vue-router的push和replace的区别</h4><p>1.this.$router.push()</p>
 <p>描述：跳转到不同的url，但这个方法会向history栈<strong>添加一个记录</strong>，点击后退会返回到上一个页面。</p>
 <p>2.this.$router.replace()</p>
 <p>描述：同样是跳转到指定的url，但是这个方法<strong>不会向history里面添加新的记录</strong>，点击返回，会跳转到上上一个页面。上一个记录是不存在的。</p>
