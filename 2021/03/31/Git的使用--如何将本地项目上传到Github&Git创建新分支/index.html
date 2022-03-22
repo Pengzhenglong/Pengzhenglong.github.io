@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      2.4k 字
+      2.7k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      28
+      32
        分钟
     </span>
   
@@ -230,7 +230,7 @@
             <div class="markdown-body">
               <p>如何将本地项目上传到Github（两种简单、方便的方法）</p>
 <hr>
-<h3 id="第一种-已尝试"><a href="#第一种-已尝试" class="headerlink" title="第一种(已尝试)"></a>第一种(已尝试)</h3><ol>
+<h3 id="创建分支与切换分支"><a href="#创建分支与切换分支" class="headerlink" title="创建分支与切换分支"></a>创建分支与切换分支</h3><h4 id="第一种-已尝试"><a href="#第一种-已尝试" class="headerlink" title="第一种(已尝试)"></a>第一种(已尝试)</h4><ol>
 <li><p>Github上新建一个仓库<br><img src="/image/8.png" srcset="/img/loading.gif" lazyload alt="新建一个仓库"></p>
 </li>
 <li><p>复制仓库地址先(两个都行)<br><img src="/image/8.1.png" srcset="/img/loading.gif" lazyload alt="仓库地址"></p>
@@ -254,10 +254,10 @@
 
 <p><img src="/image/8.5.png" srcset="/img/loading.gif" lazyload alt="Git操作"></p>
 <p><img src="/image/8.6.png" srcset="/img/loading.gif" lazyload alt="上传成功"></p>
-<h3 id="第二种-未尝试"><a href="#第二种-未尝试" class="headerlink" title="第二种(未尝试)"></a>第二种(未尝试)</h3><blockquote>
+<h4 id="第二种"><a href="#第二种" class="headerlink" title="第二种"></a>第二种</h4><blockquote>
 <p>参考链接:<br><code>https://blog.csdn.net/u014135752/article/details/79951802</code></p>
 </blockquote>
-<h3 id="Git创建新分支并提交到github"><a href="#Git创建新分支并提交到github" class="headerlink" title="Git创建新分支并提交到github"></a>Git创建新分支并提交到github</h3><p>因为需求的变更，需要把原来的代码做一下备份，再进行下一步的开发，所以 这是就将原来的代码创建一个新的分支来保存原来的代码，以防后面需要回滚，这里记录一下操作的步骤</p>
+<h5 id="Git创建新分支并提交到github"><a href="#Git创建新分支并提交到github" class="headerlink" title="Git创建新分支并提交到github"></a>Git创建新分支并提交到github</h5><p>因为需求的变更，需要把原来的代码做一下备份，再进行下一步的开发，所以 这是就将原来的代码创建一个新的分支来保存原来的代码，以防后面需要回滚，这里记录一下操作的步骤</p>
 <ol>
 <li>可以先查看一下当前所在分支</li>
 </ol>
@@ -266,6 +266,8 @@
 <ol start="2">
 <li>创建本地分支并切换到新创建的分支</li>
 </ol>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm">创建分支(本地)<br>git  <span class="hljs-keyword">branch </span> xxx<br></code></pre></td></tr></table></figure>
+
 <figure class="highlight isbl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs isbl"><span class="hljs-variable">git</span> <span class="hljs-variable">checkout</span> -<span class="hljs-variable">b</span> <span class="hljs-function"><span class="hljs-title">dev</span>(<span class="hljs-variable">dev</span> 可以命名为自己想取的名字)</span><br></code></pre></td></tr></table></figure>
 
 <ol start="3">
@@ -288,12 +290,7 @@
 </ol>
 <figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">然后切换到主分支<br>$ git checkout <span class="hljs-keyword">master</span> <span class="hljs-title"></span><br><span class="hljs-title"></span><br><span class="hljs-title">然后将新分支提交的改动合并到主分支上</span><br><span class="hljs-title">$</span> git merge newbranch  <br><br>然后就可以push代码了<br>$ git push -u origin <span class="hljs-literal">master</span><br><br>最后还可以删除这个分支<br>$ git branch -D newbranch<br></code></pre></td></tr></table></figure>
 
-<h4 id="删除分支操作"><a href="#删除分支操作" class="headerlink" title="删除分支操作"></a>删除分支操作</h4><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs awk">删除本地分支：<br>git branch  <span class="hljs-regexp">//</span><span class="hljs-number">1</span>.查看本地分支列表<br>git branch -d 分支名称   <span class="hljs-regexp">//</span><span class="hljs-number">2</span>.删除本地分支<br><br><br>删除远程分支：<br>git branch -a    <span class="hljs-regexp">//</span><span class="hljs-number">1</span>.查看远程分支列表<br>git push origin --<span class="hljs-keyword">delete</span> 远程分支名称   <span class="hljs-regexp">//</span><span class="hljs-number">2</span>.删除远程分支<br></code></pre></td></tr></table></figure>
-
-<h3 id="Git的基本操作指令"><a href="#Git的基本操作指令" class="headerlink" title="Git的基本操作指令"></a>Git的基本操作指令</h3><p><img src="/image/8.9.png" srcset="/img/loading.gif" lazyload alt="Git"></p>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs awk">切换分支命令:<br><br>git checkout (branchname)   <span class="hljs-regexp">//</span>切换分支<br>$ git init    <span class="hljs-regexp">//</span> 初始化仓库。<br>$ git add .    <span class="hljs-regexp">//</span>添加文件到暂存区。<br>$ git commit  <span class="hljs-regexp">//</span>将暂存区内容添加到仓库中。<br>$ git push   <span class="hljs-regexp">//</span>上传远程代码并合并<br>$ git pull   <span class="hljs-regexp">//</span>下载远程代码并合并<br><br><br></code></pre></td></tr></table></figure>
-
-<h3 id="开发项目码云与Git分支的使用"><a href="#开发项目码云与Git分支的使用" class="headerlink" title="开发项目码云与Git分支的使用"></a>开发项目码云与Git分支的使用</h3><ol>
+<h4 id="开发项目码云与Git分支的使用"><a href="#开发项目码云与Git分支的使用" class="headerlink" title="开发项目码云与Git分支的使用"></a>开发项目码云与Git分支的使用</h4><ol>
 <li>在码云上你的项目中新建分支</li>
 </ol>
 <p><img src="/image/4.2.png" srcset="/img/loading.gif" lazyload alt="创建分支">  </p>
@@ -308,13 +305,24 @@
 </ol>
 <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs awk">$ git branch -a<br>* br-<span class="hljs-number">2.1</span>.<span class="hljs-number">2.2</span><br>  master<br>  remotes<span class="hljs-regexp">/origin/</span>HEAD -&gt; origin/master<br>  remotes<span class="hljs-regexp">/origin/</span>br-<span class="hljs-number">2.1</span>.<span class="hljs-number">2.1</span><br>  remotes<span class="hljs-regexp">/origin/</span>br-<span class="hljs-number">2.1</span>.<span class="hljs-number">2.2</span><br>  remotes<span class="hljs-regexp">/origin/</span>br-<span class="hljs-number">2.1</span>.<span class="hljs-number">3</span><br>  remotes<span class="hljs-regexp">/origin/m</span>aster<br></code></pre></td></tr></table></figure>
 
-<h3 id="git-stash暂存开发分支，拉去合并线上分支"><a href="#git-stash暂存开发分支，拉去合并线上分支" class="headerlink" title="git  stash暂存开发分支，拉去合并线上分支"></a>git  stash暂存开发分支，拉去合并线上分支</h3><h4 id="git-pull-和-git-fetch-的区别"><a href="#git-pull-和-git-fetch-的区别" class="headerlink" title="git pull 和 git fetch 的区别"></a>git pull 和 git fetch 的区别</h4><ol>
+<h3 id="Git的基本操作指令"><a href="#Git的基本操作指令" class="headerlink" title="Git的基本操作指令"></a>Git的基本操作指令</h3><p><img src="/image/8.9.png" srcset="/img/loading.gif" lazyload alt="Git"></p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs awk">切换分支命令:<br><br>git checkout (branchname)   <span class="hljs-regexp">//</span>切换分支<br>$ git init    <span class="hljs-regexp">//</span> 初始化仓库。<br>$ git add .    <span class="hljs-regexp">//</span>添加文件到暂存区。<br>$ git commit  <span class="hljs-regexp">//</span>将暂存区内容添加到仓库中。<br>$ git push   <span class="hljs-regexp">//</span>上传远程代码并合并<br>$ git pull   <span class="hljs-regexp">//</span>下载远程代码并合并<br><br><br></code></pre></td></tr></table></figure>
+
+<h4 id="删除分支操作"><a href="#删除分支操作" class="headerlink" title="删除分支操作"></a>删除分支操作</h4><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs awk">删除本地分支：<br>git branch  <span class="hljs-regexp">//</span><span class="hljs-number">1</span>.查看本地分支列表<br>git branch -d 分支名称   <span class="hljs-regexp">//</span><span class="hljs-number">2</span>.删除本地分支<br><br><br>删除远程分支：<br>git branch -a    <span class="hljs-regexp">//</span><span class="hljs-number">1</span>.查看远程分支列表<br>git push origin --<span class="hljs-keyword">delete</span> 远程分支名称   <span class="hljs-regexp">//</span><span class="hljs-number">2</span>.删除远程分支<br></code></pre></td></tr></table></figure>
+
+<h3 id="git-stash暂存开发分支，拉去合并线上分支-开发后要合并线上分支-提pr-解决冲突"><a href="#git-stash暂存开发分支，拉去合并线上分支-开发后要合并线上分支-提pr-解决冲突" class="headerlink" title="git  stash暂存开发分支，拉去合并线上分支(开发后要合并线上分支(提pr)解决冲突)"></a>git  stash暂存开发分支，拉去合并线上分支(开发后要合并线上分支(提pr)解决冲突)</h3><h4 id="git-pull-和-git-fetch-的区别"><a href="#git-pull-和-git-fetch-的区别" class="headerlink" title="git pull 和 git fetch 的区别"></a>git pull 和 git fetch 的区别</h4><ol>
 <li><p>git fetch 只是将远程仓库的变化下载下来，并没有和本地分支合并。（fetch  只是下拉远程分支，怎么合并，可以自己再做选择）</p>
 </li>
 <li><p>git pull 会将远程仓库的变化下载下来，并和当前分支合并。pull=fetch+merge</p>
 </li>
 </ol>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs sql">git  stash  <br>git  status<br>git  <span class="hljs-keyword">add</span> .<br>git  <span class="hljs-keyword">fetch</span>  <span class="hljs-operator">-</span><span class="hljs-keyword">all</span> <br>git  <span class="hljs-keyword">merge</span>  origin<span class="hljs-operator">/</span>分支名<br>git  stash  pop<br></code></pre></td></tr></table></figure>
+
+<p>还有一种是你刚刚有一条提交记录，惊觉还有没有提交的，需要在提交上去，又不想产生一条新的记录</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">git review</span><br></code></pre></td></tr></table></figure>
+
+<p>然后在git  push 上去</p>
+<h4 id="git-review"><a href="#git-review" class="headerlink" title="git review"></a>git review</h4><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs awk">git status <span class="hljs-regexp">//</span>用于查询当前目录的状态，反馈回的信息很详尽<br>git log <span class="hljs-regexp">//</span>查看commit的各个版本<br>git log --pretty=oneline <span class="hljs-regexp">//</span>同上，初略显示，只显示一行<br><br>git add &lt;file&gt;... <span class="hljs-regexp">//</span>把工作区的更改提交到stage<br>git rm &lt;file&gt;...  <span class="hljs-regexp">//</span>删除文件，把工作区的删除文件提交到stage<br>git commit -m <span class="hljs-string">&quot;版本名&quot;</span> <span class="hljs-regexp">//</span>将工作区的更改提交到master分支，本地的最高层<br><br>git reset --hard HEAD^ <span class="hljs-regexp">//</span>回退到上一个版本<br>git reset --hard HEAD^^^ <span class="hljs-regexp">//</span>回退到上三个版本<br>git reset --hard HEAD~<span class="hljs-number">100</span> <span class="hljs-regexp">//</span>回退到上<span class="hljs-number">100</span>个版本<br>git reset --hard &lt;版本id&gt;  <span class="hljs-regexp">//</span>回退到这个id版本<br><br>git reset HEAD &lt;file&gt;...  <span class="hljs-regexp">//</span>撤销该文件的git add提交<br><br>git checkout -- &lt;file&gt;... <span class="hljs-regexp">//</span>清除工作区这个文件的更改,恢复到最近一次git add或者git commit时的情形<br></code></pre></td></tr></table></figure>
 
 <h3 id="Git默认拉取的是master分支，拉取指定分支代码命令"><a href="#Git默认拉取的是master分支，拉取指定分支代码命令" class="headerlink" title="Git默认拉取的是master分支，拉取指定分支代码命令"></a>Git默认拉取的是master分支，拉取指定分支代码命令</h3><p>拉取指定分支代码解决方案：</p>
 <p>以拉取1.0分支的代码为例， 要拉取其余分支代码类似操作</p>
@@ -326,7 +334,7 @@
 <p>tag主要用于发布版本的管理，一个版本发布之后，我们可以为git打上 v.1.0.1 v.1.0.2 …这样的标签。</p>
 <p>tag感觉跟branch有点相似，但是本质上和分工上是不同的：</p>
 <p>tag 对应某次commit, 是一个点，是不可移动的。<br>branch 对应一系列commit，是很多点连成的一根线，有一个HEAD 指针，是可以依靠 HEAD 指针移动的。<br>所以，两者的区别决定了使用方式，改动代码用 branch ,不改动只查看用 tag。<br>tag 和 branch 的相互配合使用，有时候起到非常方便的效果，例如：已经发布了 v1.0 v2.0 v3.0 三个版本，这个时候，我突然想不改现有代码的前提下，在 v2.0 的基础上加个新功能，作为 v4.0 发布。就可以检出 v2.0 的代码作为一个 branch ，然后作为开发分支。</p>
-<h4 id="tag的简单使用"><a href="#tag的简单使用" class="headerlink" title="tag的简单使用"></a>tag的简单使用</h4><p>创建 tag 是基于本地分支的 commit，而且与分支的推送是两回事，就是说分支已经推送到远程了，但是你的 tag 并没有，如果把 tag 推送到远程分支上，需要另外执行 tag 的推送命令。</p>
+<h4 id="tag的简单使用（一般在git-commit后打tag）"><a href="#tag的简单使用（一般在git-commit后打tag）" class="headerlink" title="tag的简单使用（一般在git  commit后打tag）"></a>tag的简单使用（一般在git  commit后打tag）</h4><p>创建 tag 是基于本地分支的 commit，而且与分支的推送是两回事，就是说分支已经推送到远程了，但是你的 tag 并没有，如果把 tag 推送到远程分支上，需要另外执行 tag 的推送命令。</p>
 <figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs crmsh">//本地新增无备注的<span class="hljs-keyword">tag</span>（默认在当前分支最后一个commit上添加<span class="hljs-keyword">tag</span>）<br>git <span class="hljs-keyword">tag</span>   <span class="hljs-title">//git</span>查询本地所有<span class="hljs-keyword">tag</span><br>git <span class="hljs-keyword">tag</span> <span class="hljs-title">标签名   //后面是标签命名</span><br><span class="hljs-title">git</span> <span class="hljs-keyword">tag</span> <span class="hljs-title">v1</span>.<span class="hljs-number">1.0</span>  <br><br>//本地新增有备注的<span class="hljs-keyword">tag</span>（默认在当前分支最后一个commit上添加<span class="hljs-keyword">tag</span>）<br>git <span class="hljs-keyword">tag</span> <span class="hljs-title">-a</span> 标签名 -m “备注内容”<br>git <span class="hljs-keyword">tag</span> <span class="hljs-title">-a</span> v1.<span class="hljs-number">1.1</span> -m <span class="hljs-string">&quot;测试&quot;</span>   <br><br>// //在指定commit上新增<span class="hljs-keyword">tag</span><br>git <span class="hljs-keyword">tag</span> <span class="hljs-title">标签名 commit</span>（前几位也可以，尝试过最低<span class="hljs-number">3</span>位报错，最好<span class="hljs-number">5</span>位以上）<br>git <span class="hljs-keyword">tag</span> <span class="hljs-title">v1</span>.<span class="hljs-number">1.0</span>  <span class="hljs-number">105851905</span>c8a0f9cc040cf845b35c1ced1963fcc    <br><br><br><br> // 将<span class="hljs-keyword">tag</span>推送到远程分支<br>git push origin 标签名<br>git push origin v1.<span class="hljs-number">1.0</span>   <br><br><br>//删除本地分支标签<br>git <span class="hljs-keyword">tag</span> <span class="hljs-title">-d</span> 标签名<br>git <span class="hljs-keyword">tag</span> <span class="hljs-title">-d</span> v1.<span class="hljs-number">1.0</span>  <br><br><br>//删除远程分支标签<br>git push origin :refs/tags/标签名<br>git push origin :refs/tags/v1.<span class="hljs-number">1.0</span>   <br></code></pre></td></tr></table></figure>
 
 <h3 id="git-rebase"><a href="#git-rebase" class="headerlink" title="git rebase"></a>git rebase</h3><p>git rebase相对来说是比较复杂的一个命令了,但只要掌握了使用方式,你会深深地喜欢上他,如果有时间我也许会细细地讲一下,现将git rebase的正确使用步骤总结如下:</p>
