@@ -18,7 +18,7 @@
   <meta name="author" content="DragonPeng">
   <meta name="keywords" content="">
   
-  <title>快排&amp;&amp;排序算法 - DragonPeng的博客</title>
+  <title>字符串-回文字符串 - DragonPeng的博客</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -163,7 +163,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="快排&&排序算法">
+            <span class="h2" id="subtitle" title="字符串-回文字符串">
               
             </span>
 
@@ -173,8 +173,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2022-03-16 18:15" pubdate>
-        March 16, 2022 pm
+      <time datetime="2022-03-21 18:15" pubdate>
+        March 21, 2022 pm
       </time>
     </span>
   
@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      761 字
+      340 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      9
+      4
        分钟
     </span>
   
@@ -225,20 +225,28 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">快排&amp;&amp;排序算法</h1>
+            <h1 style="display: none">字符串-回文字符串</h1>
             
             <div class="markdown-body">
               <hr>
-<h3 id="Js实现冒泡排序"><a href="#Js实现冒泡排序" class="headerlink" title="Js实现冒泡排序"></a>Js实现冒泡排序</h3><p>// 是一种计算机科学领域的较简单的排序算法<br>// 它重复的走访过要排序的元素列，依次比较两个相邻的元素，如果顺序（如从大到小，首字母）错误就把他们交换过来。走访元素的工作是重复地进行直到没有相邻元素需要交换，也就是该元素列已经排序完成。</p>
-<p>冒泡排序是效率最低的排序算法，由于算法嵌套了两轮循环，所以<strong>时间复杂度委O(n^2)</strong></p>
-<p>最好的情况给出一个已经排序的数组进行冒泡排序，时间复杂度为O(n)</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs xml">// 冒泡排序<br>function bubbleSort(arr) &#123;<br>  let len = arr.length;<br>  // 遍历数组的长度，以确定循环次数<br>  for (let i = 0; i &lt; len;i++) &#123;<br>    // 遍历数组len次，忽略后面的i项<br>    for (let j = 0; j &lt; len - 1 - i; j++) &#123;<br>      // 将每一项与后一项进行对比，不符合要求的就换位<br>      if (arr[j] &gt; arr[j + 1]) &#123;<br>        <span class="hljs-comment">&lt;!-- es6数组解构赋值 --&gt;</span><br>        [arr[j + 1], arr[j]] = [arr[j], arr[j + 1]]<br>      &#125;<br>    &#125;<br>  &#125;<br>  return arr<br>&#125;<br></code></pre></td></tr></table></figure>
+<h4 id="字符串的一些方法"><a href="#字符串的一些方法" class="headerlink" title="字符串的一些方法"></a>字符串的一些方法</h4><p>似乎字符串的一些算法题都是借助于<strong>数组的还有用指针的还有正则</strong></p>
+<h4 id="大小写转化"><a href="#大小写转化" class="headerlink" title="大小写转化"></a>大小写转化</h4><figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs axapta"><span class="hljs-built_in">str</span>.toUpperCase<br><span class="hljs-built_in">str</span>.toLocaleLowerCase<br></code></pre></td></tr></table></figure>
 
-<h3 id="实现一个快排"><a href="#实现一个快排" class="headerlink" title="实现一个快排"></a>实现一个快排</h3><p>快速排序：通过一趟排序将要排序的数据分割成独立的两部分，其中一部分的所有数据都比另外一部分的所有数据都要小，然后再按此方法对这两部分数据分别进行上述递归排序，以此达到整个数据变成有序序列，时间复杂度为 O(n log n)。</p>
-<p>// 1.Quickersort通过数组选取一个元素表示为基准点，把数组中的所有其他元素分为两类-（大于和小于此基准点的数组）<br>// 2.然后把作为这一轮排序结果的两个数组（数组元素都小于基准点的数组和数组元素都大于基准点的数组）再进行相同的排序。即分别再选个基准点，然后基于基准点分为两个数组元素分别小于和大于基准点的数组。<br>// 3.最终，由于最后数组中没有元素或只有一个元素，因此不用再比较了。剩下的值都已经基于基准点拍好序了。<br><strong>（时间复杂度（平均）O(nlog2n))</strong></p>
-<figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs glsl"><span class="hljs-keyword">const</span> quickSort1 = arr =&gt; &#123;<br>  <span class="hljs-keyword">if</span> (arr.<span class="hljs-built_in">length</span> &lt;= <span class="hljs-number">1</span>) &#123;<span class="hljs-comment">//数组小于等于1时的情况</span><br>    <span class="hljs-keyword">return</span> arr;<br>  &#125;<br>  <span class="hljs-keyword">const</span> midIndex = Math.<span class="hljs-built_in">floor</span>(arr.<span class="hljs-built_in">length</span> / <span class="hljs-number">2</span>)<span class="hljs-comment">//取中间的元素为基准点</span><br>   <span class="hljs-comment">// 使用splice截取中间值，第一个参数为截取的索引，第二个参数为截取的长度；</span><br>    <span class="hljs-comment">// 如果此处使用arrArr=arr[index]; 那么将会出现无限递归的错误；</span><br>    <span class="hljs-comment">// splice影响原数组</span><br>  <span class="hljs-keyword">const</span> arrArr = arr.splice(midIndex, <span class="hljs-number">1</span>)<br>  <span class="hljs-keyword">const</span> midIndexVal = arrArr[<span class="hljs-number">0</span>]<br>  <span class="hljs-keyword">const</span> left = []<br>  <span class="hljs-keyword">const</span> right = []<br>  <span class="hljs-keyword">for</span> (let i = <span class="hljs-number">0</span>; i &lt; arr.<span class="hljs-built_in">length</span>; i++) &#123;<br>    <span class="hljs-keyword">if</span> (arr[i] &lt; midIndexVal) &#123;<br>      left.push(arr[i]);<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>      right.push(arr[i])<br>    &#125;<br>  &#125;<br>  <span class="hljs-keyword">return</span> quickSort1(left).concat(midIndexVal, quickSort1(right));<span class="hljs-comment">//重复进行上面的步骤，直到剩下小于等于一个元素。</span><br>&#125;<br></code></pre></td></tr></table></figure>
+<h4 id="反转字符串"><a href="#反转字符串" class="headerlink" title="反转字符串"></a>反转字符串</h4><p>一定要记住reverse是Array原型上的方法，不要搞错</p>
+<figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs processing">function reverseStr(<span class="hljs-built_in">str</span>)&#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">str</span>.<span class="hljs-built_in">split</span>(<span class="hljs-string">&#x27;&#x27;</span>).<span class="hljs-built_in">reverse</span>().<span class="hljs-built_in">join</span>(<span class="hljs-string">&#x27;&#x27;</span>)<br>&#125;<br></code></pre></td></tr></table></figure>
 
-<h5 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h5>
+<p>split()： 方法用于把一个字符串分割成字符串数组。<br>reverse()： 方法用于颠倒数组中元素的顺序。<br>join() ：方法也就是把数组中的所有元素以字符串的形式输出</p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs 1c">var str = &#x27;<span class="hljs-number">112254</span>,<span class="hljs-number">3344</span>5,<span class="hljs-number">5669</span>9&#x27;;<br>var s=str.split(&#x27;,&#x27;);<br>console.<span class="hljs-built_in">log</span>(s.length);<br>console.<span class="hljs-built_in">log</span>(s[<span class="hljs-number">0</span>]);<br></code></pre></td></tr></table></figure>
+
+<h3 id="判断回文字符串"><a href="#判断回文字符串" class="headerlink" title="判断回文字符串"></a>判断回文字符串</h3><p>方法一： 利用Array的reverse方法</p>
+<figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs processing">functin isHuiwenStr(<span class="hljs-built_in">str</span>) &#123;<br>    <span class="hljs-keyword">return</span> srt.<span class="hljs-built_in">split</span>(<span class="hljs-string">&#x27;&#x27;</span>).<span class="hljs-built_in">reverse</span>().<span class="hljs-built_in">join</span>(<span class="hljs-string">&#x27;&#x27;</span>) === <span class="hljs-built_in">str</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>方法二： 回文字符串是对称的</p>
+<figure class="highlight glsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs glsl">functin isHuiwenStr(str) &#123;<br>    <span class="hljs-keyword">const</span> <span class="hljs-built_in">length</span> = str.<span class="hljs-built_in">length</span><br>    <span class="hljs-keyword">const</span> midIndex = Math.<span class="hljs-built_in">floor</span>(<span class="hljs-built_in">length</span> / <span class="hljs-number">2</span>)<br><br>    <span class="hljs-keyword">for</span>(let i = <span class="hljs-number">0</span>; i &lt; midIndex; i++) &#123;<br>        <span class="hljs-keyword">if</span>(str[i] !== str[<span class="hljs-built_in">length</span> - <span class="hljs-number">1</span> - i]) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>        &#125;<br>    &#125;<br>    <br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="非空字符串删除一个元素，判断能否成为回文字符串"><a href="#非空字符串删除一个元素，判断能否成为回文字符串" class="headerlink" title="非空字符串删除一个元素，判断能否成为回文字符串"></a>非空字符串删除一个元素，判断能否成为回文字符串</h3><p>描述：给定一个非空字符串 s，最多删除一个字符。判断是否能成为回文字符串。<br>    function isTransHuiwenStr(str) {<br>        const arr = str.split(‘’)<br>        for(let i = 0; i &lt; str.length; i++) {<br>            const copy = […arr]<br>            copy.splice(i, 1)<br>            if (copy.reverse().join(‘’) === copy.join(‘’)) {<br>                return true<br>            }<br>        }<br>        return false<br>    }</p>
+<h5 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h5><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6972471622724747277">字符串-回文字符串</a></p>
+
             </div>
             <hr>
             <div>
@@ -274,18 +282,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/03/21/js%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0(5)%20-%E5%9B%9E%E6%96%87%E5%AD%97%E7%AC%A6%E4%B8%B2/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">字符串-回文字符串</span>
-                        <span class="visible-mobile">Previous</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/03/11/Js%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2%E8%A3%85%E7%AE%B1%E4%B8%8E%E6%8B%86%E7%AE%B1/">
-                        <span class="hidden-mobile">Js类型转换装箱与拆箱</span>
+                      <a href="/2022/03/16/js%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0(4)/">
+                        <span class="hidden-mobile">快排&&排序算法</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

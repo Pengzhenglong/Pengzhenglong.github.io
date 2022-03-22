@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      16.1k 字
+      16.2k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      186
+      187
        分钟
     </span>
   
@@ -239,11 +239,23 @@
 <h3 id="js判断类型"><a href="#js判断类型" class="headerlink" title="js判断类型"></a>js判断类型</h3><p>判断方法：typeof()，instanceof，Object.prototype.toString.call()等</p>
 <ol>
 <li>typeof<br>返回数据类型，包含这7种： number、boolean、symbol、string、object、undefined、function。<br>typeof null   返回类型错误，返回object<br>引用类型，除了function返回function类型外，其他均返回object。<br>其中，null 有属于自己的数据类型 Null</li>
-<li>toString 这个是最完美的<br>toString() 是 Object 的原型方法，调用该方法，默认返回当前对象的 [[Class]] 。这是一个内部属性，其格式为 [object Xxx] ，其中 Xxx 就是对象的类型。<br>对于 Object 对象，直接调用 toString()  就能返回 [object Object] 。而对于其他对象，则需要通过 call / apply 来调用才能返回正确的类型信息。<br>判断类型举例：</li>
+<li>toString 这个是最完美的<br>toString() 是 Object 的原型方法，调用该方法，默认返回当前对象的 [[Class]] 。这是一个内部属性，其格式为 [object Xxx] ，其中 Xxx 就是对象的类型。<br>对于 Object 对象，直接调用 toString()  就能返回 [object Object] 。<strong>而对于其他对象，则需要通过 call / apply 来调用才能返回正确的类型信息。</strong></li>
 </ol>
+<blockquote>
+<p>原理：<br>在toString方法被调用时,会执行下面的操作步骤:</p>
+</blockquote>
+<ol>
+<li><p>获取this对象的[[Class]]属性的值.</p>
+</li>
+<li><p>计算出三个字符串”[object “, 第一步的操作结果Result(1), 以及 “]”连接后的新字符串.</p>
+</li>
+<li><p>返回第二步的操作结果Result(2).</p>
+</li>
+</ol>
+<p>判断类型举例：</p>
 <figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs pgsql"><span class="hljs-keyword">Object</span>.prototype.toString.<span class="hljs-keyword">call</span>(<span class="hljs-string">&#x27;&#x27;</span>) ;   // [<span class="hljs-keyword">object</span> String]<br><span class="hljs-keyword">Object</span>.prototype.toString.<span class="hljs-keyword">call</span>(<span class="hljs-number">1</span>) ;    // [<span class="hljs-keyword">object</span> Number]<br><span class="hljs-keyword">Object</span>.prototype.toString.<span class="hljs-keyword">call</span>(<span class="hljs-keyword">true</span>) ; // [<span class="hljs-keyword">object</span> <span class="hljs-type">Boolean</span>]<br><span class="hljs-keyword">Object</span>.prototype.toString.<span class="hljs-keyword">call</span>(Symbol()); //[<span class="hljs-keyword">object</span> Symbol]<br><span class="hljs-keyword">Object</span>.prototype.toString.<span class="hljs-keyword">call</span>(undefined) ; // [<span class="hljs-keyword">object</span> Undefined]<br><span class="hljs-keyword">Object</span>.prototype.toString.<span class="hljs-keyword">call</span>(<span class="hljs-keyword">null</span>) ; // [<span class="hljs-keyword">object</span> <span class="hljs-keyword">Null</span>]<br><span class="hljs-keyword">Object</span>.prototype.toString.<span class="hljs-keyword">call</span>(<span class="hljs-built_in">new</span> <span class="hljs-keyword">Function</span>()) ; // [<span class="hljs-keyword">object</span> <span class="hljs-keyword">Function</span>]<br><span class="hljs-keyword">Object</span>.prototype.toString.<span class="hljs-keyword">call</span>(<span class="hljs-built_in">new</span> <span class="hljs-type">Date</span>()) ; // [<span class="hljs-keyword">object</span> <span class="hljs-type">Date</span>]<br><span class="hljs-keyword">Object</span>.prototype.toString.<span class="hljs-keyword">call</span>([]) ; // [<span class="hljs-keyword">object</span> <span class="hljs-keyword">Array</span>]<br><span class="hljs-keyword">Object</span>.prototype.toString.<span class="hljs-keyword">call</span>(<span class="hljs-built_in">new</span> RegExp()) ; // [<span class="hljs-keyword">object</span> RegExp]<br><span class="hljs-keyword">Object</span>.prototype.toString.<span class="hljs-keyword">call</span>(<span class="hljs-built_in">new</span> Error()) ; // [<span class="hljs-keyword">object</span> Error]<br><span class="hljs-keyword">Object</span>.prototype.toString.<span class="hljs-keyword">call</span>(document) ; // [<span class="hljs-keyword">object</span> HTMLDocument]<br><span class="hljs-keyword">Object</span>.prototype.toString.<span class="hljs-keyword">call</span>(<span class="hljs-keyword">window</span>) ; //[<span class="hljs-keyword">object</span> <span class="hljs-keyword">global</span>] <span class="hljs-keyword">window</span> 是全局对象 <span class="hljs-keyword">global</span> 的引用<br></code></pre></td></tr></table></figure>
 
-<ol start="3">
+<ol>
 <li>constructor<br>constructor是原型prototype的一个属性，当函数被定义时候，js引擎会为函数添加原型prototype，并且这个prototype中constructor属性指向函数引用， 因此重写prototype会丢失原来的constructor。<br>不过这种方法有问题：<br>1：null 和 undefined 无constructor，这种方法判断不了。<br>2：还有，如果自定义对象，开发者重写prototype之后，原有的constructor会丢失，因此，为了规范开发，在重写对象原型时一般都需要重新给 constructor 赋值，以保证对象实例的类型不被篡改。</li>
 <li>instanceof<br>instanceof 是用来判断 A 是否为 B 的实例，表达式为：A instanceof B，如果 A 是 B 的实例，则返回 true,否则返回 false。 在这里需要特别注意的是：instanceof 检测的是原型，<br><img src="/imageO/instance.jpg" srcset="/img/loading.gif" lazyload alt="instance"><br> 由上图可以看出[]的原型指向Array.prototype，间接指向Object.prototype, 因此 [] instanceof Array 返回true， [] instanceof Object 也返回true。<br>instanceof 只能用来判断两个对象是否属于实例关系， 而不能判断一个对象实例具体属于哪种类型。</li>
 </ol>

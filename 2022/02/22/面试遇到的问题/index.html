@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      5.4k 字
+      5.5k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      62
+      64
        分钟
     </span>
   
@@ -327,7 +327,15 @@
 <h6 id="es6-class继承"><a href="#es6-class继承" class="headerlink" title="es6  class继承"></a>es6  class继承</h6><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Point</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">x, y</span>)</span> &#123;<br>        <span class="hljs-built_in">this</span>.x = x<br>        <span class="hljs-built_in">this</span>.y = y<br>    &#125;<br>    <br>    <span class="hljs-function"><span class="hljs-title">toString</span>(<span class="hljs-params"></span>)</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.x + <span class="hljs-string">&#x27;&#x27;</span> + <span class="hljs-built_in">this</span>.y<br>    &#125;<br>&#125;<br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ColorPoint</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Point</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">x, y, color</span>)</span> &#123;<br>        <span class="hljs-built_in">super</span>(x, y) <span class="hljs-comment">//调用父类的constructor(x, y)</span><br>        <span class="hljs-built_in">this</span>.color = color<br>    &#125;<br>    <br>    <span class="hljs-function"><span class="hljs-title">toString</span>(<span class="hljs-params"></span>)</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.color + <span class="hljs-string">&#x27; &#x27;</span> + <span class="hljs-built_in">super</span>.toString() <span class="hljs-comment">// 调用父类的toString()</span><br>    &#125;<br>&#125;<br><span class="hljs-keyword">var</span> colorPoint = <span class="hljs-keyword">new</span> ColorPoint(<span class="hljs-string">&#x27;1&#x27;</span>, <span class="hljs-string">&#x27;2&#x27;</span>, <span class="hljs-string">&#x27;red&#x27;</span>)<br><span class="hljs-built_in">console</span>.log(colorPoint.toString())  <span class="hljs-comment">// red 12</span><br><br></code></pre></td></tr></table></figure>
 
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/ctt08225/article/details/88255411">参考连接</a></p>
-<p>原型链是什么<br>懒加载和预加载（怎么判断一张图片是否加载成功）<br>实现一个div元素的拖拽<br>防抖节流（没怎么讲清楚）<br>实现一个三角形<br>怎么求多个数组之间的交集  （暴力解法/set）<br>set有什么特性</p>
+<p>原型链是什么<br>懒加载和预加载（怎么判断一张图片是否加载成功）</p>
+<p>实现一个div元素的拖拽   (（addEventListen/removeEventListen)mousedown，mousemove，mouseup)<br><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2022/02/26/%E9%A1%B9%E7%9B%AE%E4%BC%98%E5%8C%96%E9%97%AE%E9%A2%98/#%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AAdiv%E5%85%83%E7%B4%A0%E7%9A%84%E6%8B%96%E6%8B%BD-%EF%BC%88addEventListen-removeEventListen">博客</a><br>防抖节流（没怎么讲清楚）</p>
+<p>实现一个三角形  (采用相邻边框连接处均分的原理)</p>
+<p>怎么求多个数组之间的交集  （暴力解法/set）</p>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs livecodeserver">如何求出两个数组的交集和差集？<br>let intersection = <span class="hljs-keyword">a</span>.<span class="hljs-built_in">filter</span>(v =&gt; b.includes(v))<br>let <span class="hljs-built_in">difference</span> = <span class="hljs-keyword">a</span>.concat(b).<span class="hljs-built_in">filter</span>(v =&gt; !<span class="hljs-keyword">a</span>.includes(v) || !b.includes(v))<br></code></pre></td></tr></table></figure>
+
+<p>set有什么特性</p>
+<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs avrasm"><span class="hljs-keyword">Set</span>类似于数组，但是它里面每一项的值是唯一的，没有重复的值，<span class="hljs-keyword">Set</span>是一个构造函数，用来生成<span class="hljs-keyword">set</span>的数据结构<br><span class="hljs-keyword">Set</span>中两个对象永远是不相等的，即使键和值都是一样的<br></code></pre></td></tr></table></figure>
+
 <blockquote>
 <p>总结：讲的磕磕盼盼的，不清楚（表达能力不行）</p>
 </blockquote>
