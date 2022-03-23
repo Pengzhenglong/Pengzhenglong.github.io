@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      3.8k 字
+      3.7k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      43
+      42
        分钟
     </span>
   
@@ -291,9 +291,8 @@
 </ol>
 <h3 id="实现一个div元素的拖拽-（addEventListen-removeEventListen"><a href="#实现一个div元素的拖拽-（addEventListen-removeEventListen" class="headerlink" title="实现一个div元素的拖拽  （addEventListen/removeEventListen)"></a>实现一个div元素的拖拽  （addEventListen/removeEventListen)</h3><p>1.js 如何实现拖动滑块( mousedown，mousemove，mouseup)<br>实现拖动滑块，先分析，滑块可以拖动应该改变滑块在页面中的坐标，那就采用定位拿到元素的 top 和 left 对它们进行赋值，接下来就是准备事件，既然是鼠标拖动应该具备 mousedown，mousemove，mouseup 三种事件，通过 mousedown 鼠标按下事件选中滑块，mousemove 事件拖动滑块，在拖动滑块的时候获取鼠标在可视窗口的坐标赋值给滑块的 top 和 left<br><a target="_blank" rel="noopener" href="https://juejin.cn/post/7001022287981838350">参考</a></p>
 <p>2.实现思路：<br>鼠标按下开始拖拽<br>记录摁下鼠标时的鼠标位置以及元素位置<br>拖动鼠标记下当前鼠标的位置<br>鼠标当前位置-摁下时鼠标位置= 鼠标移动距离<br>元素位置= 鼠标移动距离+鼠标摁下时元素的位置<br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/yinping/p/10697083.html">参考</a></p>
-<h3 id="白屏合理性优化"><a href="#白屏合理性优化" class="headerlink" title="白屏合理性优化"></a>白屏合理性优化</h3><p>1、 DNS解析优化<br>针对DNS Lookup环节，我们可以针对性的进行DNS解析优化。</p>
-<p>DNS缓存优化<br>DNS预加载策略<br>稳定可靠的DNS服务器</p>
-<p>2、 TCP网络链路优化<br>针对网络链路的优化，好像除了花钱没有什么更好的方式！<br>3、 服务端处理优化<br>服务端的处理优化，是一个非常庞大的话题，会涉及到如Redis缓存、数据库存储优化或是系统内的各种中间件以及Gzip压缩等…<br>4、 浏览器下载、解析、渲染页面优化<br>根据浏览器对页面的下载、解析、渲染过程，可以考虑一下的优化处理：<br>尽可能的精简HTML的代码和结构<br>尽可能的优化CSS文件和结构<br>一定要合理的放置JS代码，尽量不要使用内联的JS代码<br><a target="_blank" rel="noopener" href="https://juejin.cn/post/6943471935934185503">「面试」-优化白屏</a></p>
+<h3 id="白屏合理性优化-（骨架屏-loading）"><a href="#白屏合理性优化-（骨架屏-loading）" class="headerlink" title="白屏合理性优化  （骨架屏,loading）"></a>白屏合理性优化  （骨架屏,loading）</h3><p>4.路由懒加载<br>9.骨架屏<br>骨架屏就是在进入项目的FP阶段，给它来一个类似轮廓的东西，当我们的页面加载完成之后就消失，这个也很好做的，很多ui库都有这个东西，可以参考一下<br>10.loading<br>首页加一个loading或许是最原始的方法了，在index.html里加一个loadingcss效果，当页面加载完成消失</p>
+<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6995455015972241444#heading-9">Vue首屏加载白屏问题及解决方案</a></p>
 
             </div>
             <hr>

@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      7.2k 字
+      7.4k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      77
+      80
        分钟
     </span>
   
@@ -314,6 +314,17 @@
 <h4 id="第一种情况是-v-if-中使用-key"><a href="#第一种情况是-v-if-中使用-key" class="headerlink" title="第一种情况是 v-if 中使用 key"></a>第一种情况是 v-if 中使用 key</h4><p>由于 Vue 会尽可能高效地渲染元素，通常会复用已有元素而不是从头开始渲染。因此当我们使用 v-if 来实现元素切换的时候，如果切换前后含有相同类型的元素，那么这个元素就会被复用。如果是相同的 input 元素，那么切换前后用户的输入不会被清除掉，这样是不符合需求的。因此我们可以通过使用 key 来唯一的标识一个元素，这个情况下，使用 key 的元素不会被复用。这个时候 key 的作用是用来标识一个独立的元素。</p>
 <h4 id="第二种情况是-v-for-中使用-key"><a href="#第二种情况是-v-for-中使用-key" class="headerlink" title="第二种情况是 v-for 中使用 key"></a>第二种情况是 v-for 中使用 key</h4><p>用 v-for 更新已渲染过的元素列表时，它默认使用“就地复用”的策略。如果数据项的顺序发生了改变，Vue 不会移动 DOM 元素来匹配数据项的顺序，而是简单复用此处的每个元素。因此通过为每个列表项提供一个 key 值，来以便 Vue 跟踪元素的身份，从而高效的实现复用。这个时候 key 的作用是为了高效的更新渲染虚拟 DOM。</p>
 <p>详细资料可以参考：<br><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000016344599">《Vue 面试中，经常会被问到的面试题 Vue 知识点整理》</a><br><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/61064119">《Vue2.0 v-for 中 :key 到底有什么用？》</a><br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/RainyBear/p/8563101.html">《vue 中 key 的作用》</a></p>
+<h5 id="Vue-为什么不建议用数组的下标index作为key"><a href="#Vue-为什么不建议用数组的下标index作为key" class="headerlink" title="Vue-为什么不建议用数组的下标index作为key"></a>Vue-为什么不建议用数组的下标index作为key</h5><blockquote>
+<p>key 是给每一个 vnode 的唯一id,可以依靠 key,更准确,更快的拿到 oldVnode 中对应的 vnode 节点，高效的更新虚拟DOM</p>
+</blockquote>
+<ol>
+<li><p>用组件唯一的 id（一般由后端返回）作为它的 key，实在没有的情况下，可以在获取到列表的时候通过某种规则为它们创建一个 key，并保证这个 key 在组件整个生命周期中都保持稳定。</p>
+</li>
+<li><p>如果你的列表顺序会改变，别用 index 作为 key，和没写基本上没区别，因为不管你数组的顺序怎么颠倒，index 都是 0, 1, 2 这样排列，导致 Vue 会复用错误的旧子节点，做很多额外的工作。列表顺序不变也尽量别用，可能会误导新人。</p>
+</li>
+<li><p>千万别用随机数作为 key，不然旧节点会被全部删掉，新节点重新创建，你的老板会被你气死。<br><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844904113587634184#heading-9">参考</a></p>
+</li>
+</ol>
 <h3 id="vue-中-mixin-和-mixins-区别？"><a href="#vue-中-mixin-和-mixins-区别？" class="headerlink" title="vue 中 mixin 和 mixins 区别？"></a>vue 中 mixin 和 mixins 区别？</h3><h4 id="mixin"><a href="#mixin" class="headerlink" title="mixin"></a>mixin</h4><p>mixin 项目变得复杂的时候，多个组件间有重复的逻辑就会用到mixin<br>多个组件有相同的逻辑，抽离出来<br>mixin并不是完美的解决方案，会有一些问题<br>vue3提出的Composition API旨在解决这些问题【追求完美是要消耗一定的成本的，如开发成本】<br>场景：PC端新闻列表和详情页一样的右侧栏目，可以使用mixin进行混合<br>劣势：<br>1.变量来源不明确，不利于阅读<br>2.多mixin可能会造成命名冲突<br> 3.mixin和组件可能出现多对多的关系，使得项目复杂度变高</p>
 <p>mixin 用于全局混入，会影响到每个组件实例。<br>mixins 应该是我们最常使用的扩展组件的方式了。如果多个组件中有相同的业务逻辑，就可以将这些逻辑剥离出来，通过mixins 混入代码，比如上拉下拉加载数据这种逻辑等等。另外需要注意的是 mixins 混入的钩子函数会先于组件内的钩子函数执行，并且在遇到同名选项的时候也会有选择性的进行合并<br>详细资料可以参考：<br><a target="_blank" rel="noopener" href="https://juejin.im/book/5bdc715fe51d454e755f75ef/section/5bdc731b51882516c56ced6f">《前端面试之道》</a><br><a target="_blank" rel="noopener" href="https://cn.vuejs.org/v2/guide/mixins.html">《混入》</a></p>
 <h3 id="React-Vue-项目中-key-的作用"><a href="#React-Vue-项目中-key-的作用" class="headerlink" title="React/Vue 项目中 key 的作用"></a>React/Vue 项目中 key 的作用</h3><ol>
