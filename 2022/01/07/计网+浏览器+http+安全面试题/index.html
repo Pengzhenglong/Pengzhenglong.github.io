@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      12.9k 字
+      13.1k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      138
+      141
        分钟
     </span>
   
@@ -391,7 +391,7 @@
 <ol>
 <li>JSONP：注意JSONP只支持GET请求，不支持POST请求。<br>原理：ajax请求受同源策略影响，不允许进行跨域请求，而script标签src属性中的链接却可以访问跨域的js脚本，利用这个特性，服务端不再返回JSON格式的数据，而是返回一段调用某个函数的js代码，在src中进行了调用，这样实现了跨域。 —   callback</li>
 <li>代理：写后端接口，在后端调用页面拿到返回值返回给html文件。相当于绕过了浏览器，就不会存在跨域问题。例；(nigx反向代理)</li>
-<li>CORS CORS(Cross-origin resource sharing)跨域资源共享 服务器设置对CORS的支持原理：服务器设置Access-Control-Allow-Origin HTTP响应头之后，浏览器将会允许跨域请求</li>
+<li>CORS CORS(Cross-origin resource sharing)跨域资源共享 服务器设置对CORS的支持原理：<strong>服务器设置Access-Control-Allow-Origin HTTP响应头</strong>之后，浏览器将会允许跨域请求</li>
 </ol>
 <figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs less"><span class="hljs-selector-tag">header</span>(<span class="hljs-string">&#x27;Access-Control-Allow-Origin:*&#x27;</span>);<span class="hljs-comment">//允许所有来源访问</span><br><span class="hljs-selector-tag">header</span>(<span class="hljs-string">&#x27;Access-Control-Allow-Method:POST,GET&#x27;</span>);<span class="hljs-comment">//允许访问的方式</span><br></code></pre></td></tr></table></figure>
 
@@ -399,6 +399,11 @@
 <li>proxy代理 目前常用方式,通过服务器设置代理</li>
 <li>window.postMessage() 利用h5新特性window.postMessage()</li>
 </ol>
+<h5 id="Options-CORS跨域，非简单请求"><a href="#Options-CORS跨域，非简单请求" class="headerlink" title="Options(CORS跨域，非简单请求)"></a>Options(CORS跨域，非简单请求)</h5><p>1.HTTP的options方法作用</p>
+<blockquote>
+<p>检测服务器所支持的请求方法。（比如：‘／user’路由支持哪些方法：get、post、delete…）<br>CORS中的预检请求（检测某个接口是否支持跨域）</p>
+</blockquote>
+<p>2.allowedMethods方法<br>响应options方法，告诉它所支持的请求方法<br>相应的返回405（不允许）和501（没实现）（比如我使用delete，会返回405，因为我没有写这个接口。但我使用link接口请求，会返回501，因为koa里不支持link请求）<br>options 请求就是预检请求，可用于检测服务器允许的 http 方法。当发起跨域请求时，由于安全原因，触发一定条件时浏览器会在正式请求之前自动先发起 OPTIONS 请求，即 CORS 预检请求，服务器若接受该跨域请求，浏览器才继续发起正式请求。<br><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Methods/OPTIONS">MDN</a></p>
 <h3 id="浏览器会拦截跨域请求，但是只是拦截返回结果，请求还是会被发送到服务器，这样有意义么"><a href="#浏览器会拦截跨域请求，但是只是拦截返回结果，请求还是会被发送到服务器，这样有意义么" class="headerlink" title="浏览器会拦截跨域请求，但是只是拦截返回结果，请求还是会被发送到服务器，这样有意义么"></a>浏览器会拦截跨域请求，但是只是拦截返回结果，请求还是会被发送到服务器，这样有意义么</h3><p>有意义。<br>首先，请求因为跨域被拦截后，会改成OPTIONS请求送达服务器，这样服务器就可以知道有人在请求。<br>至于你说跨域POST也能修改，那因为服务器没对method进行校验，来者不拒，这是你服务器的问题。<br>正常的API数据操作method不包括OPTIONS，OPTIONS只用来确认允许的操作。</p>
 <h3 id="常见的状态码"><a href="#常见的状态码" class="headerlink" title="常见的状态码"></a>常见的状态码</h3><p>仅记录在 RFC2616 上的 HTTP 状态码就达 40 种，若再加上 WebDAV（RFC4918、5842）和附加 HTTP 状态码 （RFC6585）等扩展，数量就达 60 余种。接下来，我们就介绍一下这些具有代表性的一些状态码。</p>
 <p>1xx: 指示信息——表示请求已接收，继续处理</p>

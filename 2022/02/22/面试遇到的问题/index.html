@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      5.5k 字
+      6.7k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      64
+      76
        分钟
     </span>
   
@@ -233,19 +233,37 @@
 <h3 id="同花顺一面（凉经）-2022-3-7-10-00-1h5min"><a href="#同花顺一面（凉经）-2022-3-7-10-00-1h5min" class="headerlink" title="同花顺一面（凉经） 2022.3.7 10:00  1h5min"></a>同花顺一面（凉经） 2022.3.7 10:00  1h5min</h3><h4 id="HTML-语义化"><a href="#HTML-语义化" class="headerlink" title="HTML 语义化"></a>HTML 语义化</h4><p>概念：HTML5的语义化指的是合理正确的使用语义化的标签来创建页面结构。【正确的标签做正确的事】<br>语义化标签：header nav main article section aside footer<br>语义化的优点:<br>在没CSS样式的情况下，页面整体也会呈现很好的结构效果<br>代码结构清晰，易于阅读，<br>利于开发和维护 方便其他设备解析（如屏幕阅读器）根据语义渲染网页。<br>有利于搜索引擎优化（SEO），搜索引擎爬虫会根据不同的标签来赋予不同的权重</p>
 <h4 id="说一下跨域，如何解决跨域"><a href="#说一下跨域，如何解决跨域" class="headerlink" title="说一下跨域，如何解决跨域"></a>说一下跨域，如何解决跨域</h4><p><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2022/01/07/%E8%AE%A1%E7%BD%91+%E6%B5%8F%E8%A7%88%E5%99%A8+http+%E5%AE%89%E5%85%A8%E9%9D%A2%E8%AF%95%E9%A2%98/#%E4%BB%80%E4%B9%88%E6%98%AF%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E5%90%8C%E6%BA%90%E6%94%BF%E7%AD%96%EF%BC%9F">博客</a></p>
 <h4 id="讲讲Dom渲染性能消耗-没理解–讲了diff算法去了"><a href="#讲讲Dom渲染性能消耗-没理解–讲了diff算法去了" class="headerlink" title="讲讲Dom渲染性能消耗 (没理解–讲了diff算法去了)"></a>讲讲Dom渲染性能消耗 (没理解–讲了diff算法去了)</h4><blockquote>
-<p>js 操作 Dom 很耗性能，其实是在说很耗浏览器性能，具体和 js计算 性能没多大的关系</p>
+<p>回流重绘<br><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2022/02/15/CSS%E9%9D%A2%E8%AF%95%E9%A2%98%E6%80%BB%E7%BB%93/#%E4%BB%80%E4%B9%88%E6%98%AF%E9%87%8D%E7%BB%98%E5%92%8C%E5%9B%9E%E6%B5%81%EF%BC%9F%EF%BC%88%E6%B5%8F%E8%A7%88%E5%99%A8%E7%BB%98%E5%88%B6%E8%BF%87%E7%A8%8B%EF%BC%89">博客</a><br>js 操作 Dom 很耗性能，其实是在说很耗浏览器性能，具体和 js计算 性能没多大的关系</p>
 </blockquote>
-<p>优化方案<br>DOM操作的背后，隐藏这不止止是文中所描述的这些代价。为了给用户更好的浏览体验，可以有以下优化的方案：<br>减少DOM操作如果在一个局部方法中需要多次访问同一个dom，则先暂存它的引用<br>采用更高效的API或者更高效的写法<br>1）用querySelectorAll()替代getElementByXX()。<br>2）开启动画的GPU加速，把渲染计算交给GPU<br>3）用事件委托来减少事件处理器的数量。<br>4）<strong>使用react、vue等页面框架来编写View页面。react采用虚拟dom，尽可能的讲多次重排浓缩成一次。<br>减少重排</strong><br>CSS及动画处理<br>1）用更高效的css3效果，通过类名控制动画，尽量避免直接操作DOM属性；<br>2）在动画的元素多嵌套一层div，尽量用绝对定位或者固定定位使其脱离文档流，再进行动画处理；<br>3）尽量在滚动的时候，停止动画；<br>4）动画实现的速度选择。以1px移动最为平滑，但是reflow就会果与频繁，建议以3px移动则会好很多。<br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/86153264">知乎</a></p>
+<p>优化方案<br>DOM操作的背后，隐藏这不止止是文中所描述的这些代价。为了给用户更好的浏览体验，可以有以下优化的方案：</p>
+<blockquote>
+<p>减少DOM操作如果在一个局部方法中需要多次访问同一个dom，则先暂存它的引用<br>采用更高效的API或者更高效的写法<br>1）用querySelectorAll()替代getElementByXX()。<br>2）开启动画的GPU加速，把渲染计算交给GPU<br>3）用事件委托来减少事件处理器的数量。<br>4）<strong>使用react、vue等页面框架来编写View页面。react采用虚拟dom，尽可能的讲多次重排浓缩成一次。<br>减少重排</strong><br>CSS及动画处理<br>1）用更高效的css3效果，通过类名控制动画，尽量避免直接操作DOM属性；<br>2）在动画的元素多嵌套一层div，尽量用绝对定位或者固定定位使其脱离文档流，再进行动画处理；<br>3）尽量在滚动的时候，停止动画；<br>4）动画实现的速度选择。以1px移动最为平滑，但是reflow就会果与频繁，建议以3px移动则会好很多。<br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/86153264">知乎</a></p>
+</blockquote>
 <h4 id="v-if-v-show"><a href="#v-if-v-show" class="headerlink" title="v-if  v-show"></a>v-if  v-show</h4><h4 id="数组的key的作用"><a href="#数组的key的作用" class="headerlink" title="数组的key的作用"></a>数组的key的作用</h4><p><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2022/01/10/Vue%E9%9D%A2%E8%AF%95%E9%A2%98%E6%80%BB%E7%BB%93/#Vue%E4%B8%AD%E7%9A%84key%E5%88%B0%E5%BA%95%E6%9C%89%E4%BB%80%E4%B9%88%E2%BD%A4%EF%BC%9F">博客</a></p>
 <h4 id="vue-data为什么不是一个对象"><a href="#vue-data为什么不是一个对象" class="headerlink" title="vue  data为什么不是一个对象"></a>vue  data为什么不是一个对象</h4><p><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2022/01/10/Vue%E9%9D%A2%E8%AF%95%E9%A2%98%E6%80%BB%E7%BB%93/#%E4%B8%BA%E4%BB%80%E4%B9%88vue%E7%BB%84%E4%BB%B6%E4%B8%AD%E7%9A%84data%E6%98%AF%E4%B8%80%E4%B8%AA%E5%87%BD%E6%95%B0%E8%80%8C%E4%B8%8D%E6%98%AF%E4%B8%80%E4%B8%AA%E5%AF%B9%E8%B1%A1%EF%BC%9F">博客</a></p>
-<h4 id="计算属性的原理"><a href="#计算属性的原理" class="headerlink" title="计算属性的原理"></a>计算属性的原理</h4><h4 id="双向数据绑定原理-defineProperty-proxy"><a href="#双向数据绑定原理-defineProperty-proxy" class="headerlink" title="双向数据绑定原理  defineProperty  proxy"></a>双向数据绑定原理  defineProperty  proxy</h4><p><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2022/01/10/Vue%E9%9D%A2%E8%AF%95%E9%A2%98%E6%80%BB%E7%BB%93/#Vue%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86">博客</a></p>
-<h4 id="vue3有了解吗-为什么可以监听数组"><a href="#vue3有了解吗-为什么可以监听数组" class="headerlink" title="vue3有了解吗  为什么可以监听数组"></a>vue3有了解吗  为什么可以监听数组</h4><p><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2022/01/10/Vue%E9%9D%A2%E8%AF%95%E9%A2%98%E6%80%BB%E7%BB%93/#defineProperty-%E5%92%8C-Proxy-%E7%9A%84%E5%8C%BA%E5%88%AB">博客</a></p>
+<h4 id="计算属性的原理"><a href="#计算属性的原理" class="headerlink" title="计算属性的原理"></a>计算属性的原理</h4><p>这里还是按照惯例，将定义的computed属性的每一项使用Watcher类进行实例化，不过这里是按照computed-watcher的形式，来看下如何实例化的：</p>
+<p>这里的变量watcher就是之前computed对应的computed-watcher实例，接下来会执行Watcher类专门为计算属性定义的两个方法，在执行evaluate方法进行求值的过程中又会触发computed内可以访问到的响应式数据的get，它们会将当前的computed-watcher作为依赖收集到自己的dep里，计算完毕之后将dirty置为false，表示已经计算过了。</p>
+<p>然后执行depend让计算属性内的响应式数据订阅当前的render-watcher，所以computed内的响应式数据会收集computed-watcher和render-watcher两个watcher，当computed内的状态发生变更触发set后，首先通知computed需要进行重新计算，然后通知到视图执行渲染，再渲染中会访问到computed计算后的值，最后渲染到页面。</p>
+<blockquote>
+<p>Ps: 计算属性内的值须是响应式数据才能触发重新计算。</p>
+</blockquote>
+<p>watch总结：为什么计算属性有缓存功能？因为当计算属性经过计算后，内部的标志位会表明已经计算过了，再次访问时会直接读取计算后的值；为什么计算属性内的响应式数据发生变更后，计算属性会重新计算？因为内部的响应式数据会收集computed-watcher，变更后通知计算属性要进行计算，也会通知页面重新渲染，渲染时会读取到重新计算后的值<br><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2022/03/10/Vue%E8%AE%A1%E7%AE%97%E5%B1%9E%E6%80%A7%E5%92%8Ccomputed%E7%9A%84%E5%8E%9F%E7%90%86/">博客</a></p>
+<h4 id="双向数据绑定原理-defineProperty-proxy"><a href="#双向数据绑定原理-defineProperty-proxy" class="headerlink" title="双向数据绑定原理  defineProperty  proxy"></a>双向数据绑定原理  defineProperty  proxy</h4><p><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2022/01/10/Vue%E9%9D%A2%E8%AF%95%E9%A2%98%E6%80%BB%E7%BB%93/#Vue%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86">博客</a><br><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2022/03/07/defineproPerty&&proxy/">Object.defineProperty和Proxy，Vue3.0为什么采用Proxy？</a></p>
+<h4 id="vue3有了解吗-为什么可以监听数组"><a href="#vue3有了解吗-为什么可以监听数组" class="headerlink" title="vue3有了解吗  为什么可以监听数组"></a>vue3有了解吗  为什么可以监听数组</h4><blockquote>
+<p>这种说法是有问题的，事实上，Object.defineProperty 本身是可以监控到数组下标的变化的，只是在 Vue 的实现中，从性能 / 体验的性价比考虑，放弃了这个特性。</p>
+</blockquote>
+<p>可以看到，Vue 的 Observer 对数组做了单独的处理。<br>hasProto 判断数组的实例是否有 proto 属性，如果有 proto 属性就会执行 protoAugment 方法，将 arrayMethods 重写到原型上</p>
+<h5 id="Object-defineProperty-VS-Proxy-重点"><a href="#Object-defineProperty-VS-Proxy-重点" class="headerlink" title="Object.defineProperty VS Proxy(重点)"></a>Object.defineProperty VS Proxy(重点)</h5><p>Object.defineProperty 只能劫持对象的属性，而 Proxy 是直接代理对象。<br>由于 Object.defineProperty 只能对属性进行劫持，需要遍历对象的每个属性，如果属性值也是对象，则需要深度遍历。而 Proxy 直接代理对象，不需要遍历操作。</p>
+<p>Object.defineProperty 对新增属性需要手动进行 Observe。<br>由于 Object.defineProperty 劫持的是对象的属性，所以新增属性时，需要重新遍历对象，对其新增属性再使用 Object.defineProperty 进行劫持。</p>
+<p>也正是因为这个原因，使用 Vue 给 data 中的数组或对象新增属性时，需要使用 vm.$set 才能保证新增的属性也是响应式的。<br><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2022/01/10/Vue%E9%9D%A2%E8%AF%95%E9%A2%98%E6%80%BB%E7%BB%93/#defineProperty-%E5%92%8C-Proxy-%E7%9A%84%E5%8C%BA%E5%88%AB">博客</a></p>
 <h4 id="defineProperty-proxy的区别-源码"><a href="#defineProperty-proxy的区别-源码" class="headerlink" title="defineProperty  proxy的区别 源码"></a>defineProperty  proxy的区别 源码</h4><h4 id="react-–不了解"><a href="#react-–不了解" class="headerlink" title="react  –不了解"></a>react  –不了解</h4><h4 id="选择器-权重"><a href="#选择器-权重" class="headerlink" title="选择器  权重"></a>选择器  权重</h4><p><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2022/02/15/CSS%E9%9D%A2%E8%AF%95%E9%A2%98%E6%80%BB%E7%BB%93/#css%E9%80%89%E6%8B%A9%E5%99%A8%E4%BC%98%E5%85%88%E7%BA%A7">博客</a></p>
-<h4 id="动画了解吗"><a href="#动画了解吗" class="headerlink" title="动画了解吗"></a>动画了解吗</h4><h5 id="js动画了解吗-css动画-canvas"><a href="#js动画了解吗-css动画-canvas" class="headerlink" title="js动画了解吗  css动画  canvas"></a>js动画了解吗  css动画  canvas</h5><h5 id="Js-动画与-CSS-动画区别及相应实现"><a href="#Js-动画与-CSS-动画区别及相应实现" class="headerlink" title="Js 动画与 CSS 动画区别及相应实现"></a>Js 动画与 CSS 动画区别及相应实现</h5><p><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2022/02/15/CSS%E9%9D%A2%E8%AF%95%E9%A2%98%E6%80%BB%E7%BB%93/#Js-%E5%8A%A8%E7%94%BB%E4%B8%8E-CSS-%E5%8A%A8%E7%94%BB%E5%8C%BA%E5%88%AB%E5%8F%8A%E7%9B%B8%E5%BA%94%E5%AE%9E%E7%8E%B0">博客</a></p>
+<h4 id="动画了解吗"><a href="#动画了解吗" class="headerlink" title="动画了解吗"></a>动画了解吗</h4><h5 id="js动画了解吗-css动画-canvas"><a href="#js动画了解吗-css动画-canvas" class="headerlink" title="js动画了解吗  css动画  canvas"></a>js动画了解吗  css动画  canvas</h5><h5 id="Js-动画与-CSS-动画区别及相应实现（JS动画重绘回流，性能影响）"><a href="#Js-动画与-CSS-动画区别及相应实现（JS动画重绘回流，性能影响）" class="headerlink" title="Js 动画与 CSS 动画区别及相应实现（JS动画重绘回流，性能影响）"></a>Js 动画与 CSS 动画区别及相应实现（JS动画重绘回流，性能影响）</h5><p>CSS3 的动画的优点<br>在性能上会稍微好一些，浏览器会对 CSS3 的动画做一些优化<br>代码相对简单</p>
+<p>缺点<br>在动画控制上不够灵活<br>兼容性不好</p>
+<p>Js动画<br>JavaScript 的动画正好弥补了这两个缺点，控制能力很强，可以单帧的控制、变换，同时写得好完全可以兼容 IE6，并且功能强大。对于一些复杂控制的动画，使用 javascript 会比较靠谱。而在实现一些小的交互动效的时候，就多考虑考虑 CSS 吧<br><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2022/02/15/CSS%E9%9D%A2%E8%AF%95%E9%A2%98%E6%80%BB%E7%BB%93/#Js-%E5%8A%A8%E7%94%BB%E4%B8%8E-CSS-%E5%8A%A8%E7%94%BB%E5%8C%BA%E5%88%AB%E5%8F%8A%E7%9B%B8%E5%BA%94%E5%AE%9E%E7%8E%B0">博客</a></p>
 <h4 id="给一张图片用canvas怎么画出来-（api）"><a href="#给一张图片用canvas怎么画出来-（api）" class="headerlink" title="给一张图片用canvas怎么画出来  （api）"></a>给一张图片用canvas怎么画出来  （api）</h4><p>drawImage()向画布上绘制图像、画布或视频。</p>
 <h4 id="css预处理-sass-less-stylus-有什么区别-哪个更好用"><a href="#css预处理-sass-less-stylus-有什么区别-哪个更好用" class="headerlink" title="css预处理  sass  less  stylus 有什么区别  哪个更好用"></a>css预处理  sass  less  stylus 有什么区别  哪个更好用</h4><h5 id="下面从特性上比较三者异同"><a href="#下面从特性上比较三者异同" class="headerlink" title="下面从特性上比较三者异同"></a>下面从特性上比较三者异同</h5><ol>
 <li>变量：<br>Sass声明变量必须是『$』开头，后面紧跟变量名和变量值，而且变量名和变量值需要使用冒号：分隔开。<br>Less 声明变量用『@』开头，其余等同 Sass。<br>Stylus 中声明变量没有任何限定，结尾的分号可有可无，但变量名和变量值之间必须要有『等号』。但需要注意的是，如果用“@”符号来声明变量，Stylus会进行编译，但不会赋值给变量。就是说，Stylus 不要使用『@』声明变量。Stylus 调用变量的方法和Less、Sass完全相同。</li>
-<li>作用域：<br>css 预编译器把变量赋予作用域，也就是存在生命周期。就像 js 一样，它会先从局部作用域查找变量，依次向上级作用域查找。<br><strong>Sass：三者最差，不存在全局变量的概念。也就是说在 Sass 中定义了相同名字的变量时你就要小心蛋疼了。<br>Less：我认为跟 JS 一样，逐级查找，向上冒泡。<br>Stylus：完全等同 Less。Stylus 和 Sass 则更倾向于指令式。</strong></li>
+<li>作用域：<br>css 预编译器把变量赋予作用域，也就是存在生命周期。就像 js 一样，它会先从局部作用域查找变量，依次向上级作用域查找。<br>Sass：三者最差，不存在全局变量的概念。也就是说在 Sass 中定义了相同名字的变量时你就要小心蛋疼了。<br><strong>Less：我认为跟 JS 一样，逐级查找，向上冒泡。<br>Stylus：完全等同 Less。Stylus 和 Sass 则更倾向于指令式。</strong></li>
 </ol>
 <h5 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h5><p>个人认为：<br>Sass和Less语法严谨、Stylus相对自由。因为Less长得更像 css，所以它可能学习起来更容易。<br>Sass 和 Compass、Stylus 和 Nib 都是好基友。<br>Sass 和 Stylus 都具有类语言的逻辑方式处理：条件、循环等，而 Less 需要通过When等关键词模拟这些功能，这方面 Less 比不上 Sass 和 Stylus。<br>Less 在丰富性以及特色上都不及 Sass 和 Stylus，若不是因为 Bootstrap 引入了 Less，可能它不会像现在这样被广泛应用（个人愚见）。<br>身边有几个朋友在 css 预编译器的选择上犹豫不决，其实我认为选择什么无所谓，关键在于你的熟练程度以及团队合作方面的有利性。<br>当然，在大致学习、使用和研究了这三种 css 预编译器之后，我想我会选择 Stylus，它的语法自由度很高，而且写出来的代码非常简洁，这点十分吸引我。</p>
 <h4 id="es6新特性-let-const-模板字符串-扩展运算符-箭头函数-promise-async-await"><a href="#es6新特性-let-const-模板字符串-扩展运算符-箭头函数-promise-async-await" class="headerlink" title="es6新特性   let  const  模板字符串  扩展运算符  箭头函数  promise  async  await"></a>es6新特性   let  const  模板字符串  扩展运算符  箭头函数  promise  async  await</h4><h4 id="暂时性死区"><a href="#暂时性死区" class="headerlink" title="暂时性死区"></a>暂时性死区</h4><p>在代码块内，使用let、const命令声明变量之前，该变量都是不可用的。这在语法上，称为“暂时性死区</p>
@@ -255,17 +273,31 @@
 <h4 id="垃圾回收机制"><a href="#垃圾回收机制" class="headerlink" title="垃圾回收机制  *"></a>垃圾回收机制  *</h4><p><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2022/01/05/JS+ES6%E9%9D%A2%E8%AF%95%E9%A2%98/#JS%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6">博客</a></p>
 <h4 id="基本数据类型-BigInt讲讲（项目中有用过吗）-Symbol"><a href="#基本数据类型-BigInt讲讲（项目中有用过吗）-Symbol" class="headerlink" title="基本数据类型   BigInt讲讲（项目中有用过吗）  Symbol"></a>基本数据类型   BigInt讲讲（项目中有用过吗）  Symbol</h4><p><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2022/01/05/JS+ES6%E9%9D%A2%E8%AF%95%E9%A2%98/#js%E7%A7%8D8%E7%A7%8D%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B">博客</a></p>
 <h4 id="深拷贝-浅拷贝"><a href="#深拷贝-浅拷贝" class="headerlink" title="深拷贝 浅拷贝"></a>深拷贝 浅拷贝</h4><p><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2022/01/05/JS+ES6%E9%9D%A2%E8%AF%95%E9%A2%98/#%E6%B7%B1%E6%8B%B7%E8%B4%9D%E5%92%8C%E6%B5%85%E6%8B%B7%E8%B4%9D">博客</a></p>
-<h4 id="网站性能优化-实习时给公司维护的网站-懒加载-（src先设置为字符串，后改变图片路径src）"><a href="#网站性能优化-实习时给公司维护的网站-懒加载-（src先设置为字符串，后改变图片路径src）" class="headerlink" title="网站性能优化(实习时给公司维护的网站)  懒加载 （src先设置为字符串，后改变图片路径src）"></a>网站性能优化(实习时给公司维护的网站)  懒加载 （src先设置为字符串，后改变图片路径src）</h4><p>预加载：</p>
+<h4 id="网站性能优化-实习时给公司维护的网站-懒加载-（src先设置为字符串或者指向一张小图片，data-src后改变图片路径src）"><a href="#网站性能优化-实习时给公司维护的网站-懒加载-（src先设置为字符串或者指向一张小图片，data-src后改变图片路径src）" class="headerlink" title="网站性能优化(实习时给公司维护的网站)  懒加载 （src先设置为字符串或者指向一张小图片，data-src后改变图片路径src）"></a>网站性能优化(实习时给公司维护的网站)  懒加载 （src先设置为字符串或者指向一张小图片，data-src后改变图片路径src）</h4><p>预加载：</p>
 <ol>
 <li>使用html标签，设置为dispaly:none</li>
 <li>使用Image对象<br><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2022/01/05/JS+ES6%E9%9D%A2%E8%AF%95%E9%A2%98/#%E5%9B%BE%E7%89%87%E7%9A%84%E6%87%92%E5%8A%A0%E8%BD%BD%E5%92%8C%E9%A2%84%E5%8A%A0%E8%BD%BD">博客</a></li>
 </ol>
 <h4 id="pc端和移动端-适配-媒体查询"><a href="#pc端和移动端-适配-媒体查询" class="headerlink" title="pc端和移动端 适配  媒体查询"></a>pc端和移动端 适配  媒体查询</h4><h5 id="判断屏幕宽度（现在有一个折叠屏宽度怎么区分呢）他说要怎么区分，我答的是如何适配（好像不是）"><a href="#判断屏幕宽度（现在有一个折叠屏宽度怎么区分呢）他说要怎么区分，我答的是如何适配（好像不是）" class="headerlink" title="判断屏幕宽度（现在有一个折叠屏宽度怎么区分呢）他说要怎么区分，我答的是如何适配（好像不是）"></a>判断屏幕宽度（现在有一个折叠屏宽度怎么区分呢）他说要怎么区分，我答的是如何适配（好像不是）</h5><h4 id="单位-px-em-rem-vh-vw"><a href="#单位-px-em-rem-vh-vw" class="headerlink" title="单位  px  em  rem  vh  vw"></a>单位  px  em  rem  vh  vw</h4><h4 id="浏览器输入url发生了什么-tcp连接3次握手，四次挥手（详细讲讲）"><a href="#浏览器输入url发生了什么-tcp连接3次握手，四次挥手（详细讲讲）" class="headerlink" title="浏览器输入url发生了什么  tcp连接3次握手，四次挥手（详细讲讲）"></a>浏览器输入url发生了什么  tcp连接3次握手，四次挥手（详细讲讲）</h4><p><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2021/05/27/%E4%BB%8E%E8%BE%93%E5%85%A5URL%E5%88%B0%E6%B5%8F%E8%A7%88%E5%99%A8%E6%98%BE%E7%A4%BA%E9%A1%B5%E9%9D%A2%E8%BF%87%E7%A8%8B%E9%9D%A2%E8%AF%95/#URL%E7%9A%84%E8%BE%93%E5%85%A5%E5%88%B0%E6%B5%8F%E8%A7%88%E5%99%A8%E8%A7%A3%E6%9E%90%E7%9A%84%E4%B8%80%E7%B3%BB%E5%88%97%E4%BA%8B%E4%BB%B6">博客</a></p>
-<h4 id="tcp与udp的区别-再讲一下两个主要的区别"><a href="#tcp与udp的区别-再讲一下两个主要的区别" class="headerlink" title="tcp与udp的区别   (再讲一下两个主要的区别)"></a>tcp与udp的区别   (再讲一下两个主要的区别)</h4><p><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2022/01/07/%E8%AE%A1%E7%BD%91+%E6%B5%8F%E8%A7%88%E5%99%A8+http+%E5%AE%89%E5%85%A8%E9%9D%A2%E8%AF%95%E9%A2%98/#TCP%E5%92%8CUDP%E7%9A%84%E5%8C%BA%E5%88%AB">博客</a></p>
-<h4 id="我们现在视频传输的协议是？-答的是https-百度是udp"><a href="#我们现在视频传输的协议是？-答的是https-百度是udp" class="headerlink" title="我们现在视频传输的协议是？  答的是https    百度是udp"></a>我们现在视频传输的协议是？  答的是https    百度是udp</h4><h4 id="Https和Http的区别"><a href="#Https和Http的区别" class="headerlink" title="Https和Http的区别"></a>Https和Http的区别</h4><p><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2022/01/07/%E8%AE%A1%E7%BD%91+%E6%B5%8F%E8%A7%88%E5%99%A8+http+%E5%AE%89%E5%85%A8%E9%9D%A2%E8%AF%95%E9%A2%98/#1-http-%E5%92%8C-https-%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5">博客</a></p>
+<h4 id="tcp与udp的区别-再讲一下两个主要的区别"><a href="#tcp与udp的区别-再讲一下两个主要的区别" class="headerlink" title="tcp与udp的区别   (再讲一下两个主要的区别)"></a>tcp与udp的区别   (再讲一下两个主要的区别)</h4><p>TCP是面向链接的，而UDP是面向无连接的。<br>TCP仅支持单播传输，UDP 提供了单播，多播，广播的功能。<br>TCP的三次握手保证了连接的可靠性; UDP是无连接的、不可靠的一种数据传输协议，首先不可靠性体现在无连接上，通信都不需要建立连接，对接收到的数据也不发送确认信号，发送端不知道数据是否会正确接收。<br>UDP的头部开销比TCP的更小，数据传输速率更高，实时性更好。<br><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2022/01/07/%E8%AE%A1%E7%BD%91+%E6%B5%8F%E8%A7%88%E5%99%A8+http+%E5%AE%89%E5%85%A8%E9%9D%A2%E8%AF%95%E9%A2%98/#TCP%E5%92%8CUDP%E7%9A%84%E5%8C%BA%E5%88%AB">博客</a></p>
+<h4 id="我们现在视频传输的协议是？-答的是https-百度是udp"><a href="#我们现在视频传输的协议是？-答的是https-百度是udp" class="headerlink" title="我们现在视频传输的协议是？  答的是https    百度是udp"></a>我们现在视频传输的协议是？  答的是https    百度是udp</h4><h4 id="Https和Http的区别"><a href="#Https和Http的区别" class="headerlink" title="Https和Http的区别"></a>Https和Http的区别</h4><p>最简单的，HTTP 在地址栏上的协议是以 http:// 开头，而 HTTPS 在地址栏上的协议是以 https:// 开头</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs awk">http:<span class="hljs-regexp">//</span>pengzhenglong.github.io/<br>https:<span class="hljs-regexp">//</span>pengzhenglong.github.io/<br></code></pre></td></tr></table></figure>
+
+<p>HTTP 是未经安全加密的协议，它的传输过程容易被攻击者监听、数据容易被窃取、发送方和接收方容易被伪造；而 HTTPS 是安全的协议，它通过 密钥交换算法 - 签名算法 - 对称加密算法 - 摘要算法 能够解决上面这些问题。</p>
+<p>HTTP 的默认端口是 80，而 HTTPS 的默认端口是 443。<br><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2022/01/07/%E8%AE%A1%E7%BD%91+%E6%B5%8F%E8%A7%88%E5%99%A8+http+%E5%AE%89%E5%85%A8%E9%9D%A2%E8%AF%95%E9%A2%98/#1-http-%E5%92%8C-https-%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5">博客</a></p>
 <h4 id="项目中用的两个库的有遇到什么难点"><a href="#项目中用的两个库的有遇到什么难点" class="headerlink" title="项目中用的两个库的有遇到什么难点"></a>项目中用的两个库的有遇到什么难点</h4><h4 id="typescript-中-interface-和-type-的区别"><a href="#typescript-中-interface-和-type-的区别" class="headerlink" title="typescript 中 interface 和 type 的区别"></a>typescript 中 interface 和 type 的区别</h4><blockquote>
-<p>相同点 (都可以描述一个对象或者函数&amp;&amp;都允许拓展（extends）)<br>不同点 (<br>  type可以interface不可以：：<br>type 可以声明基本类型别名，联合类型，元组等类型,type 语句中还可以使用 typeof 获取实例的 类型进行赋值 ,<br>  interface可以type不可以：<br>interface 能够声明合并)<br><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903749501059085">参考</a><br>一般来说，如果不清楚什么时候用interface/type，能用 interface 实现，就用 interface , 如果不能就用 type</p>
+<p>相同点 (都可以描述一个对象或者函数&amp;&amp;都允许拓展（extends）)</p>
 </blockquote>
+<blockquote>
+<p>不同点 (<br>  type可以interface不可以：：</p>
+</blockquote>
+<blockquote>
+<p>type 可以声明基本类型别名，联合类型，元组等类型,type 语句中还可以使用 typeof 获取实例的 类型进行赋值 ,<br>  interface可以type不可以：</p>
+</blockquote>
+<blockquote>
+<p>interface 能够声明合并)</p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903749501059085">参考</a><br>一般来说，如果不清楚什么时候用interface/type，能用 interface 实现，就用 interface , 如果不能就用 type</p>
 <h4 id="开始做题（一个数如何转换为千分位（1756346-gt-1-756-346），手撕防抖节流）-没时间了讲讲思路"><a href="#开始做题（一个数如何转换为千分位（1756346-gt-1-756-346），手撕防抖节流）-没时间了讲讲思路" class="headerlink" title="开始做题（一个数如何转换为千分位（1756346-&gt; 1,756,346），手撕防抖节流）(没时间了讲讲思路)"></a>开始做题（一个数如何转换为千分位（1756346-&gt; 1,756,346），手撕防抖节流）(没时间了讲讲思路)</h4><h5 id="千分位分割"><a href="#千分位分割" class="headerlink" title="千分位分割"></a>千分位分割</h5><p>方法一：Number.prototype.toLocaleString()<br>返回这个数字在特定语言环境下的表示字符串。<br>该方法的详细介绍请看mdn developer.mozilla.org / zh - CN / docs /…</p>
 <figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs maxima"><span class="hljs-built_in">let</span> <span class="hljs-built_in">num</span> = <span class="hljs-number">123456789</span>;<br><span class="hljs-built_in">num</span>.toLocaleString()// <span class="hljs-string">&quot;123,456,789&quot;</span><br></code></pre></td></tr></table></figure>
 
