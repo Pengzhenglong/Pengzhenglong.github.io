@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      9.8k 字
+      10.1k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      112
+      115
        分钟
     </span>
   
@@ -419,6 +419,10 @@
 <p>3 p:nth-of-type(1)<br>4 a:hover(鼠标悬浮的颜色 (重要))<br>a:hover {  background: yellow;}</p>
 <h4 id="属性选择器-重要"><a href="#属性选择器-重要" class="headerlink" title="属性选择器(重要)"></a>属性选择器(重要)</h4><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs css"><br><span class="hljs-comment">/*属性名， 属性名= 属性值（正则）</span><br><span class="hljs-comment">=绝对等于</span><br><span class="hljs-comment">*=包含这个元素</span><br><span class="hljs-comment">^= 以这个开头</span><br><span class="hljs-comment">$= 以这个结尾</span><br><span class="hljs-comment"></span><br><span class="hljs-comment">    /*存在id属性的元素   a[]&#123;&#125;*/</span><br>    <span class="hljs-comment">/*a[id]&#123;</span><br><span class="hljs-comment">    background: yellow;</span><br><span class="hljs-comment">&#125;*/</span><br>    <span class="hljs-comment">/*id=first的元素*/</span><br>    <span class="hljs-comment">/*a[id=first]&#123;</span><br><span class="hljs-comment">    background: violet;</span><br><span class="hljs-comment">&#125;*/</span><br>    <span class="hljs-comment">/*class 中有links的元素*/</span><br>    <span class="hljs-comment">/*a[class*=&quot;links&quot;]&#123;</span><br><span class="hljs-comment">    background: yellow;</span><br><span class="hljs-comment">&#125;*/</span><br>    <span class="hljs-comment">/*选中href中以http开头的元素*/</span><br>    <span class="hljs-comment">/*a[href^=http]&#123;</span><br><span class="hljs-comment">background: yellow;</span><br><span class="hljs-comment">&#125;*/</span><br>    <span class="hljs-comment">/*选中href中以doc结尾的元素*/</span><br>    <span class="hljs-selector-tag">a</span><span class="hljs-selector-attr">[href$=<span class="hljs-string">&#x27;doc&#x27;</span>]</span> &#123;<br>      <span class="hljs-attribute">background</span>: yellow;<br>    &#125;<br><br></code></pre></td></tr></table></figure>
 
+<h3 id="meta-viewport-移动端适配"><a href="#meta-viewport-移动端适配" class="headerlink" title="meta viewport 移动端适配"></a>meta viewport 移动端适配</h3><p>meta viewport 有六个属性：<br>设置 viewport 的宽度：width<br>设置 viewport 的高度：height<br>设置页面的初始缩放值：initial-scale<br>允许用户最小缩放值：maximum-scale<br>允许用户最大缩放值: minimum-scale<br>是否允许用户进行缩放：user-scalable</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">//</span>不允许用户手指放大缩小页面，页面比例始终为 <span class="hljs-number">1</span>:<span class="hljs-number">1</span><br>&lt;meta name=<span class="hljs-string">&quot;viewport&quot;</span> content=<span class="hljs-string">&quot;width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no&quot;</span>&gt;<br></code></pre></td></tr></table></figure>
+
+<p>3 个 viewport：<br>1）layout viewport：浏览器会默认将 viewport 设置成一个比可视区域更宽的值，这就是 layout viewport，其宽度通过 document.documentElement.clientWidth 来获取；<br>2）visual viewport：跟浏览器可视区域大小相同的值，其宽度通过 document.documentElement.innerWidth 来获取；<br>3）idea viewport：完美适配移动端的 viewport，无论在何种分辨率的屏幕下，针对 idea viewport 而设计的网站，不需要缩放和横向滚动条就可以完美呈现给用户。</p>
 <h3 id="画一条0-5px的线"><a href="#画一条0-5px的线" class="headerlink" title="画一条0.5px的线"></a>画一条0.5px的线</h3><p>1.采用meta viewport的方式</p>
 <figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nix">&lt;meta <span class="hljs-attr">name=&quot;viewport&quot;</span> <span class="hljs-attr">content=&quot;width=device-width,</span> <span class="hljs-attr">initial-scale=0.5,</span> <span class="hljs-attr">minimum-scale=0.5,</span> <span class="hljs-attr">maximum-scale=0.5&quot;/&gt;</span><br></code></pre></td></tr></table></figure>
 
