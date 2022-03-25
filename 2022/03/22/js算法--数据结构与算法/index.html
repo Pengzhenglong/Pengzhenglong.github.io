@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      3.1k 字
+      4.2k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      35
+      47
        分钟
     </span>
   
@@ -258,12 +258,35 @@
 </li>
 </ol>
 <p>复杂度概念：一个方法在执行的整个生命周期，所需要占用的资源，主要包括：时间资源、空间资源。</p>
-<h3 id="数据结构-1"><a href="#数据结构-1" class="headerlink" title="数据结构"></a>数据结构</h3><h4 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h4><p>数组是可以再内存中连续存储多个元素的结构，在内存中的分配也是连续的，数组中的元素通过数组下标进行访问，数组下标从0开始。例如下面这段代码就是将数组的第一个元素赋值为 1。</p>
-<h5 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h5><p>1、按照索引查询元素速度快<br>2、按照索引遍历数组方便</p>
-<h5 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h5><p>1、数组的大小固定后就无法扩容了<br>2、数组只能存储一种类型的数据<br>3、添加，删除的操作慢，因为要移动其他的元素。<br>适用场景：</p>
+<h3 id="数据结构-1"><a href="#数据结构-1" class="headerlink" title="数据结构"></a>数据结构</h3><h4 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h4><p>数组是可以再内存中连续存储多个元素的结构，在内存中的分配也是连续的，数组中的元素通过数组下标进行访问，数组下标从0开始。</p>
+<h5 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h5><p><strong>1、按照索引查询元素速度快<br>2、按照索引遍历数组方便</strong></p>
+<h5 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h5><p><strong>1、数组的大小固定后就无法扩容了<br>2、数组只能存储一种类型的数据<br>3、添加，删除的操作慢，因为要移动其他的元素。</strong><br>适用场景：</p>
 <blockquote>
 <p>频繁查询，对存储空间要求不大，很少增加和删除的情况。</p>
 </blockquote>
+<h4 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h4><p>要存储多个元素，数组（或列表）可能是最常用的数据结构。<br>链表是物理存储单元上非连续的、非顺序的存储结构，数据元素的逻辑顺序是通过链表的指针地址实现，每个元素包含两个结点，一个是存储元素的数据域 (内存空间)，另一个是指向下一个结点地址的指针域。根据指针的指向，链表能形成不同的结构，例如单链表，双向链表，循环链表等。</p>
+<h5 id="链表的优点-添加删除很快"><a href="#链表的优点-添加删除很快" class="headerlink" title="链表的优点(添加删除很快)"></a>链表的优点(添加删除很快)</h5><p>链表是很常用的一种数据结构，不需要初始化容量，可以任意加减元素；<br>添加或者删除元素时只需要改变前后两个元素结点的指针域指向地址即可，所以添加，删除很快；</p>
+<h5 id="缺点-1"><a href="#缺点-1" class="headerlink" title="缺点"></a>缺点</h5><p>因为含有大量的指针域，占用空间较大；<br>查找元素需要遍历链表来查找，非常耗时。</p>
+<blockquote>
+<p>适用场景：数据量较小，需要频繁增加，删除操作的场景<br><img src="/imageO/Link.png" srcset="/img/loading.gif" lazyload alt="链表"></p>
+</blockquote>
+<h4 id="树"><a href="#树" class="headerlink" title="树"></a>树</h4><p>树是一种数据结构，它是由n（n&gt;=1）个有限节点组成一个具有层次关系的集合。把它叫做 “树” 是因为它看起来像一棵倒挂的树，也就是说它是根朝上，而叶朝下的。它具有以下的特点：</p>
+<ol>
+<li>每个节点有零个或多个子节点；</li>
+<li>没有父节点的节点称为根节点；</li>
+<li>每一个非根节点有且只有一个父节点；</li>
+<li>除了根节点外，每个子节点可以分为多个不相交的子树；</li>
+</ol>
+<p>在日常的应用中，我们讨论和用的更多的是树的其中一种结构，就是<strong>二叉树。</strong></p>
+<p>二叉树是树的特殊一种，具有如下特点：</p>
+<p>1、每个结点最多有两颗子树，结点的度最大为2。<br>2、左子树和右子树是有顺序的，次序不能颠倒。<br>3、即使某结点只有一个子树，也要区分左右子树。</p>
+<p>二叉树是一种比较有用的折中方案，<strong>它添加，删除元素都很快，并且在查找方面也有很多的算法优化，所以，二叉树既有链表的好处，也有数组的好处，是两者的优化方案，在处理大批量的动态数据方面非常有用。</strong></p>
+<p>扩展：<br>二叉树有很多扩展的数据结构，包括平衡二叉树、红黑树、B+树等，这些数据结构二叉树的基础上衍生了很多的功能，在实际应用中广泛用到，例如mysql的数据库索引结构用的就是B+树，还有HashMap的底层源码中用到了红黑树。这些二叉树的功能强大，但算法上比较复杂，想学习的话还是需要花时间去深入的。</p>
+<h4 id="散列表"><a href="#散列表" class="headerlink" title="散列表"></a>散列表</h4><p>散列表，也叫哈希表，是根据关键码和值 <strong>(key和value) </strong>直接进行访问的数据结构，通过key和value来映射到集合中的一个位置，这样就可以很快找到集合中的对应元素。</p>
+<blockquote>
+<p>记录的存储位置=f(key)</p>
+</blockquote>
+<p>这里的对应关系 f 成为散列函数，又称为哈希 (hash函数)，而散列表就是把Key通过一个固定的算法函数既所谓的哈希函数转换成一个整型数字，然后就将该数字对数组长度进行取余，取余结果就当作数组的下标，将value存储在以该数字为下标的数组空间里，这种存储空间可以充分利用数组的查找优势来查找元素，所以查找的速度很快。<br>哈希表在应用中也是比较常见的，就如Java中有些集合类就是借鉴了哈希原理构造的，例如HashMap，HashTable等，利用hash表的优势，对于集合的查找元素时非常方便的，然而，因为哈希表是基于数组衍生的数据结构，在添加删除元素方面是比较慢的，所以很多时候需要用到一种数组链表来做，也就是拉链法。拉链法是数组结合链表的一种结构，较早前的hashMap底层的存储就是采用这种结构，直到jdk1.8之后才换成了数组加红黑树的结构，其示例图如下：<br><img src="/imageO/hash.jpg" srcset="/img/loading.gif" lazyload alt="哈希表"><br>从图中可以看出，左边很明显是个数组，数组的每个成员包括一个指针，指向一个链表的头，当然这个链表可能为空，也可能元素很多。我们根据元素的一些特征把元素分配到不同的链表中去，也是根据这些特征，找到正确的链表，再从链表中找出这个元素。<br>哈希表的应用场景很多，当然也有很多问题要考虑，比如哈希冲突的问题，如果处理的不好会浪费大量的时间，导致应用崩溃。</p>
 <h4 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h4><p>栈是一种遵从先进后出 (LIFO) 原则的有序集合；新添加的或待删除的元素都保存在栈的末尾，称作栈顶，另一端为栈底。在栈里，新元素都靠近栈顶，旧元素都接近栈底。</p>
 <p>栈的结构就像一个集装箱，越先放进去的东西越晚才能拿出来，所以，<strong>栈常应用于实现递归功能方面的场景，例如斐波那契数列。</strong></p>
 <p>通俗来讲，一摞叠起来的书或盘子都可以看做一个栈，我们想要拿出最底下的书或盘子，一定要现将上面的移走才可以。</p>
@@ -296,13 +319,14 @@
 <p>访问一个循环队列：</p>
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs stylus">const loopQueue = new LoopQueue(<span class="hljs-selector-attr">[<span class="hljs-string">&#x27;Surmon&#x27;</span>]</span>)<br>loopQueue<span class="hljs-selector-class">.enqueue</span>(<span class="hljs-string">&#x27;SkyRover&#x27;</span>)<br>loopQueue<span class="hljs-selector-class">.enqueue</span>(<span class="hljs-string">&#x27;Even&#x27;</span>)<br>loopQueue<span class="hljs-selector-class">.enqueue</span>(<span class="hljs-string">&#x27;Alice&#x27;</span>)<br>console<span class="hljs-selector-class">.log</span>(loopQueue<span class="hljs-selector-class">.size</span>, loopQueue.isEmpty) <span class="hljs-comment">// 4 false</span><br><br>console<span class="hljs-selector-class">.log</span>(loopQueue<span class="hljs-selector-class">.find</span>(<span class="hljs-number">26</span>)) <span class="hljs-comment">// &#x27;Evan&#x27;</span><br>console<span class="hljs-selector-class">.log</span>(loopQueue<span class="hljs-selector-class">.find</span>(<span class="hljs-number">87651</span>)) <span class="hljs-comment">// &#x27;Alice&#x27;</span><br></code></pre></td></tr></table></figure>
 
-<h4 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h4><p>要存储多个元素，数组（或列表）可能是最常用的数据结构。<br>链表是物理存储单元上非连续的、非顺序的存储结构，数据元素的逻辑顺序是通过链表的指针地址实现，每个元素包含两个结点，一个是存储元素的数据域 (内存空间)，另一个是指向下一个结点地址的指针域。根据指针的指向，链表能形成不同的结构，例如单链表，双向链表，循环链表等。</p>
-<h5 id="链表的优点-添加删除很快"><a href="#链表的优点-添加删除很快" class="headerlink" title="链表的优点(添加删除很快)"></a>链表的优点(添加删除很快)</h5><p>链表是很常用的一种数据结构，不需要初始化容量，可以任意加减元素；<br>添加或者删除元素时只需要改变前后两个元素结点的指针域指向地址即可，所以添加，删除很快；</p>
-<h5 id="缺点-1"><a href="#缺点-1" class="headerlink" title="缺点"></a>缺点</h5><p>因为含有大量的指针域，占用空间较大；<br>查找元素需要遍历链表来查找，非常耗时。</p>
-<blockquote>
-<p>适用场景：数据量较小，需要频繁增加，删除操作的场景<br><img src="/imageO/Link.png" srcset="/img/loading.gif" lazyload alt="链表"></p>
-</blockquote>
-<h5 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h5>
+<h4 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h4><p>堆是一种比较特殊的数据结构，可以被看做一棵树的数组对象，具有以下的性质：</p>
+<ol>
+<li>堆中某个节点的值总是不大于或不小于其父节点的值；</li>
+<li>堆总是一棵完全二叉树。</li>
+</ol>
+<h4 id="图"><a href="#图" class="headerlink" title="图"></a>图</h4><p>图是由结点的有穷集合V和边的集合E组成。其中，为了与树形结构加以区别，在图结构中常常将结点称为顶点，边是顶点的有序偶对，若两个顶点之间存在一条边，就表示这两个顶点具有相邻关系。</p>
+<h5 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h5><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903482432962573">在 JavaScript 中学习数据结构与算法</a><br><a target="_blank" rel="noopener" href="https://juejin.cn/post/7022226724121214989#heading-8">数据结构：八大数据结构分类</a></p>
+
             </div>
             <hr>
             <div>

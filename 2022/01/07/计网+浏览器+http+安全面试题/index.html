@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      13.1k 字
+      13.2k 字
     </span>
   
 
@@ -411,7 +411,7 @@
 <p>3xx: 重定向——表示要完成请求必须进行进一步操作</p>
 <p>4xx: 客户端错误——表示请求有语法错误或请求无法实现</p>
 <p>5xx: 服务端错误——表示服务器未能实现合法的请求</p>
-<h4 id="常见状态码"><a href="#常见状态码" class="headerlink" title="常见状态码"></a>常见状态码</h4><p>状态码 描述<br>200 请求成功<br>202-服务器端已经收到请求消息，但是尚未进行处理<br>206 已完成指定范围的请求(带Range头的GET请求),场景如video,audio播放文件较大,文件分片时<br>301 永久重定向<br>永久移动。请求的资源已被永久的移动到新URI，返回信息会包括新的URI，浏览器会自动定向到新URI。今后任何新的请求都应使用新的URI代替<br>302 临时重定向<br> 临时移动。与301类似。但资源只是临时被移动。客户端应继续使用原有URI<br>304 请求资源未修改，可以使用缓存的资源，不用在服务器取<br>400 请求有语法错误<br>401 没有权限访问<br>403 服务器拒绝执行请求，场景如不允许直接访问，只能通过服务器访问时<br>404 请求资源不存在<br>500 服务器内部错误，无法完成请求<br>503 请求未完成，因服务器过载、宕机或维护等</p>
+<h4 id="常见状态码"><a href="#常见状态码" class="headerlink" title="常见状态码"></a>常见状态码</h4><p>状态码 描述<br>200 请求成功<br>202-服务器端已经收到请求消息，但是尚未进行处理<br>204 （无内容） 服务器成功处理了请求，但没有返回任何内容。默认情况下 204 响应是可缓存的<br>206 已完成指定范围的请求(带Range头的GET请求),场景如video,audio播放文件较大,文件分片时<br>301 永久重定向<br>永久移动。请求的资源已被永久的移动到新URI，返回信息会包括新的URI，浏览器会自动定向到新URI。今后任何新的请求都应使用新的URI代替<br>302 临时重定向<br> 临时移动。与301类似。但资源只是临时被移动。客户端应继续使用原有URI<br>304 请求资源未修改，可以使用缓存的资源，不用在服务器取<br>400 请求有语法错误<br>401 没有权限访问<br>403 服务器拒绝执行请求，场景如不允许直接访问，只能通过服务器访问时<br>404 请求资源不存在<br>500 服务器内部错误，无法完成请求<br>503 请求未完成，因服务器过载、宕机或维护等</p>
 <h3 id="长轮询和短轮询"><a href="#长轮询和短轮询" class="headerlink" title="长轮询和短轮询"></a>长轮询和短轮询</h3><h4 id="长轮询"><a href="#长轮询" class="headerlink" title="长轮询"></a>长轮询</h4><p>客户端发送请求后服务器端不会立即返回数据，服务器端会阻塞请求<strong>连接不会立即断开，直到服务器端有数据更新或者是连接超时才返回，客户端才再次发出请求新建连接、如此反复从而获取最新数据</strong>。</p>
 <figure class="highlight arcade"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs arcade"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">LongAjax</span>(<span class="hljs-params"></span>) </span>&#123;<br>    fetch(url).then(<span class="hljs-function"><span class="hljs-params">data</span> =&gt;</span> &#123;<br>     <span class="hljs-comment">// 数据正确拿到后，</span><br>        LongPolling();<br>    &#125;).catch(<span class="hljs-function"><span class="hljs-params">err</span> =&gt;</span> &#123;<br>     <span class="hljs-comment">// 出错或者就是超时间</span><br>        LongPolling();<br><br>    &#125;);<br>&#125;<br>LongAjax()<br></code></pre></td></tr></table></figure>
 
