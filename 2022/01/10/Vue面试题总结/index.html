@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      7.5k 字
+      7.7k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      81
+      83
        分钟
     </span>
   
@@ -355,6 +355,9 @@
 <p>相对于当前页面向前或向后跳转多少个页面,类似 window.history.go(n)。n可为正数可为负数。正数返回上一个页面</p>
 <p><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2022/02/17/%E5%89%8D%E7%AB%AF%E8%B7%AF%E7%94%B1%E7%9A%84%E4%B8%A4%E7%A7%8D%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/">前端两种路由实现和使用场景–Hash模式&amp;&amp;History模</a></p>
 <h3 id="route-和-router-的区别？"><a href="#route-和-router-的区别？" class="headerlink" title="$route 和 $router 的区别？"></a>$route 和 $router 的区别？</h3><p>$route 是“路由信息对象”，包括 path，params，hash，query，fullPath，matched，name 等路由信息参数。而 $router 是“路由实例”对象包括了路由的跳转方法，钩子函数等。</p>
+<h4 id="router传参的两种方式"><a href="#router传参的两种方式" class="headerlink" title="router传参的两种方式"></a>router传参的两种方式</h4><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">params</span>、query是什么？ params：/router<span class="hljs-number">1</span>/:id ，/router<span class="hljs-number">1</span>/<span class="hljs-number">123</span>，/router<span class="hljs-number">1</span>/<span class="hljs-number">789</span> ,这里的id叫做params<br><span class="hljs-attribute">query</span>：/router<span class="hljs-number">1</span>?id=<span class="hljs-number">123</span> ,/router<span class="hljs-number">1</span>?id=<span class="hljs-number">456</span> ,这里的id叫做query。<br></code></pre></td></tr></table></figure>
+
+<p>1、params是路由的一部分,必须要有。query是拼接在url后面的参数，没有也没关系。<br>params一旦设置在路由，params就是路由的一部分，如果这个路由有params传参，但是在跳转的时候没有传这个参数，会导致跳转失败或者页面会没有内容。<br>2、params、query不设置也可以传参，但是params不设置的时候，刷新页面或者返回参数会丢失，query并不会出现这种情况，这一点的在上面说过了</p>
 <h3 id="vue-router-中的导航钩子函数"><a href="#vue-router-中的导航钩子函数" class="headerlink" title="vue-router 中的导航钩子函数"></a>vue-router 中的导航钩子函数</h3><p>（1）全局的钩子函数 beforeEach 和 afterEach</p>
 <p>beforeEach 有三个参数，to 代表要进入的路由对象，from 代表离开的路由对象。next 是一个必须要执行的函数，如果不传参数，那就执行下一个钩子函数，如果传入 false，则终止跳转，如果传入一个路径，则导航到对应的路由，如果传入 error ，则导航终止，error 传入错误的监听函数。</p>
 <p>（2）单个路由独享的钩子函数 beforeEnter，它是在路由配置上直接进行定义的。</p>

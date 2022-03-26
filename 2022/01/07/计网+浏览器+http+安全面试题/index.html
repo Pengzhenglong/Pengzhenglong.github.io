@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      13.2k 字
+      13.5k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      141
+      144
        分钟
     </span>
   
@@ -380,6 +380,19 @@
 <h5 id="Session的创建过程"><a href="#Session的创建过程" class="headerlink" title="Session的创建过程"></a>Session的创建过程</h5><p>当浏览器第一次访问服务器时，服务器会创建一个Session对象(该对象有唯一的ID，即SessionID)。服务器会将SessionID以cookie的方式返回浏览器。<br>当浏览器再次访问服务器时，会将SessionID发送过来，服务器依据sessionID就可以找到对应的session对象。</p>
 <h6 id="Session的缺点"><a href="#Session的缺点" class="headerlink" title="Session的缺点"></a>Session的缺点</h6><p>A 服务器存储了 Session，就是做了负载均衡后，假如一段时间内 A 的访问量激增，会转发到 B 进行访问，但是 B 服务器并没有存储 A 的 Session，会导致 Session 的失效。</p>
 <p><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2021/06/16/cookie%E3%80%81localStorage%E3%80%81sessionStorage&token/">博客</a><br><a target="_blank" rel="noopener" href="https://juejin.cn/post/7012506796489359368">JavaScript的存储–Cookie、Session、localStorage、sessionStorage</a></p>
+<h4 id="什么是-Token（令牌）"><a href="#什么是-Token（令牌）" class="headerlink" title="什么是 Token（令牌）"></a>什么是 Token（令牌）</h4><p>Acesss Token</p>
+<ol>
+<li>访问资源接口（API）时所需要的资源凭证</li>
+<li>简单 token 的组成：<strong> uid(用户唯一的身份标识)、time(当前时间的时间戳)、sign（签名，token 的前几位以哈希算法压缩成的一定长度的十六进制字符串）</strong></li>
+</ol>
+<p>特点：</p>
+<ol>
+<li>服务端无状态化、可扩展性好</li>
+<li>支持移动端设备</li>
+<li>安全</li>
+<li>支持跨程序调用<br>每一次请求都需要携带 token，需要把 token 放到 HTTP 的 Header 里<br>基于 token 的用户认证是一种服务端无状态的认证方式，服务端不用存放 token 数据。用解析 token 的计算时间换取 session 的存储空间，从而减轻服务器的压力，减少频繁的查询数据库<br>token 完全由应用管理，所以它可以避开同源策略</li>
+</ol>
+<h5 id="Refresh-Token"><a href="#Refresh-Token" class="headerlink" title="Refresh Token"></a>Refresh Token</h5><p>另外一种 token——refresh token<br>refresh token 是专用于刷新 access token 的 token。如果没有 refresh token，也可以刷新 access token，但每次刷新都要用户输入登录用户名与密码，会很麻烦。有了 refresh token，可以减少这个麻烦，客户端直接用 refresh token 去更新 access token，无需用户进行额外的操作。<br><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844904034181070861#heading-6">Acesss Token</a></p>
 <h3 id="什么是浏览器的同源政策？"><a href="#什么是浏览器的同源政策？" class="headerlink" title="什么是浏览器的同源政策？"></a>什么是浏览器的同源政策？</h3><p>我对浏览器的同源政策的理解是，一个域下的 js 脚本在未经允许的情况下，不能够访问另一个域的内容。这里的同源的指的是两个域的  <strong>协议、域名、端口号</strong>必须相同，否则不属于同一个域。<br>同源政策主要限制了三个方面</p>
 <ol>
 <li>第一个是当前域下的 js 脚本不能够访问其他域下的 cookie、localStorage 和 indexDB。</li>
