@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      7.3k 字
+      7.8k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      82
+      88
        分钟
     </span>
   
@@ -476,6 +476,27 @@
 <li>性能问题（按需引入） tree shaking  打包体积<br>开发中有没有遇见过数据修改了页面不刷新的情况 （$set()）</li>
 <li>从业务组件（对功能组件的具体实现）和功能组件（不涉及业务逻辑，比如下拉框，列表）两方面来说<br>定向了什么业务，然后  ，你的功能组件，入参怎么设计的，有什么抽象的属性，使用于什么…</li>
 </ol>
+<h3 id="3-26日后问题"><a href="#3-26日后问题" class="headerlink" title="3.26日后问题"></a>3.26日后问题</h3><h4 id="实现一个下拉刷新的组件"><a href="#实现一个下拉刷新的组件" class="headerlink" title="实现一个下拉刷新的组件"></a>实现一个下拉刷新的组件</h4><p>其实技术点也没什么难的，主要使用H5的touch事件：</p>
+<p>touchstart: 手指触屏触发的事件，主要工作是在触发时获取鼠标点击的Y坐标，event.touches[0].pageY。<br>touchmove: 手指滑动触发的事件, 主要工作是在触发时获取移动的Y坐标减去开始时的Y坐标，得出移动的距离，然后利用transform改变容器的位置。<br>touchend: 手指松开触发的事件，主要工作是释放鼠标让div恢复原来位置。</p>
+<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6883373475843538951#comment">手把手教学：Vue下拉刷新、上拉加载组件插件（超详细）</a></p>
+<h4 id="深浅拷贝（如何实现）"><a href="#深浅拷贝（如何实现）" class="headerlink" title="深浅拷贝（如何实现）"></a>深浅拷贝（如何实现）</h4><p><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2022/01/05/JS+ES6%E9%9D%A2%E8%AF%95%E9%A2%98/#%E6%B7%B1%E6%8B%B7%E8%B4%9D%E5%92%8C%E6%B5%85%E6%8B%B7%E8%B4%9D">博客</a></p>
+<h5 id="浅拷贝的实现"><a href="#浅拷贝的实现" class="headerlink" title="浅拷贝的实现"></a>浅拷贝的实现</h5><ol>
+<li>Object.assign()</li>
+<li>Array.prototype.concat()</li>
+<li>Array.prototype.slice()</li>
+<li>展开运算符…</li>
+<li>函数库lodash的_.clone方法</li>
+</ol>
+<h5 id="深拷贝的实现方式"><a href="#深拷贝的实现方式" class="headerlink" title="深拷贝的实现方式"></a>深拷贝的实现方式</h5><ol>
+<li>JSON.parse()</li>
+<li>JSON.stringify()</li>
+<li>函数库lodash的_.cloneDeep方法</li>
+<li>jQuery.extend()方法</li>
+<li>手写递归方法<br>参考<br><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844904197595332622#heading-3">掘金</a></li>
+</ol>
+<h4 id="页面性能优化"><a href="#页面性能优化" class="headerlink" title="页面性能优化"></a>页面性能优化</h4><h4 id="按需引入组件库"><a href="#按需引入组件库" class="headerlink" title="按需引入组件库"></a>按需引入组件库</h4><h4 id="路由页面跳转后状态保存"><a href="#路由页面跳转后状态保存" class="headerlink" title="路由页面跳转后状态保存"></a>路由页面跳转后状态保存</h4><p>需求场景<br>首页搜索内容，点击跳转至详情页，页面后退返回主页，保留搜索结果。</p>
+<h5 id="这里介绍两种比较容易实现的解决方案"><a href="#这里介绍两种比较容易实现的解决方案" class="headerlink" title="这里介绍两种比较容易实现的解决方案"></a>这里介绍两种比较容易实现的解决方案</h5><h6 id="方案一：将搜索参数存储在路由参数（route-query）中，加载页面时根据参数搜索"><a href="#方案一：将搜索参数存储在路由参数（route-query）中，加载页面时根据参数搜索" class="headerlink" title="方案一：将搜索参数存储在路由参数（route.query）中，加载页面时根据参数搜索"></a>方案一：将搜索参数存储在路由参数（route.query）中，加载页面时根据参数搜索</h6><p>优点：刷新不影响；实现简单<br>缺点：参数只能是基础类型、长度受限；路径看起来比较难看；只对浏览器返回有效，手动跳转回首页不行</p>
+<h6 id="方案二：使用路由守卫钩子，在离开页面前本地存储页面参数（vuex、Local-Storage-等等）"><a href="#方案二：使用路由守卫钩子，在离开页面前本地存储页面参数（vuex、Local-Storage-等等）" class="headerlink" title="方案二：使用路由守卫钩子，在离开页面前本地存储页面参数（vuex、Local Storage 等等）"></a>方案二：使用路由守卫钩子，在离开页面前本地存储页面参数（vuex、Local Storage 等等）</h6><p>优点：参数类型长度都比较自由；路径看起来清爽美观；对任意方式返回主页都有效<br>缺点：需要额外进行数据存储操作，如果使用store模式或vuex则刷新页面失效<br>参考<br><a target="_blank" rel="noopener" href="https://juejin.cn/post/6987953448419328036#heading-2">前端 Vue路由返回恢复页面状态的实现方案</a></p>
 
             </div>
             <hr>
