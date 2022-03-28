@@ -1,0 +1,531 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/2.jpg">
+  <link rel="icon" href="/img/2.jpg">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="DragonPeng">
+  <meta name="keywords" content="">
+  
+  <title>组件库按需加载原理分析&amp;&amp; Vue3中提到的Tree-shaking - DragonPeng的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>DragonPeng' blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/page1.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="组件库按需加载原理分析&& Vue3中提到的Tree-shaking">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-03-27 20:15" pubdate>
+        March 27, 2022 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.6k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      18
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">组件库按需加载原理分析&amp;&amp; Vue3中提到的Tree-shaking</h1>
+            
+            <div class="markdown-body">
+              <p>在使用 vant、element-ui、ant-design 等 UI 组件库时候会用到按需加载，通过 <a target="_blank" rel="noopener" href="https://github.com/ant-design/babel-plugin-import">babel-plugin-import</a> 插件可以快速配置好自动按需加载组件，还可以通过直接手动引入对应组件和样式文件的方式来实现。同时，在开发中使用 webpack 构建项目时也常使用懒加载技术，本文所述的组件库动态加载和 webpack 构建项目的懒加载是不同的。本文将以 babel-plugin-import 插件为主，讲解组件库按需加载方案的实现原理。</p>
+<hr>
+<h3 id="对比-webpack-懒加载"><a href="#对比-webpack-懒加载" class="headerlink" title="对比 webpack 懒加载"></a>对比 webpack 懒加载</h3><p><strong>组件库按需加载：</strong> 组件库以组件为基本单位产出 js、css、less 文件，借助插件或者部分引入的写法，使得项目代码或 babel 编译后的代码中只包含使用到的组件的 js、css、less 等。<br><img src="/imageO/Webpack1.jpg" srcset="/img/loading.gif" lazyload alt="组件库"><br><strong>webpack 懒加载：</strong> webpack 将源码中的 import、require 引入的文件编译之后再根据动态加载语法配置（通常以页面路由为基本单位）将较大的代码拆分并构建出较小的 chunk 包，应用在运行时执行到相应业务逻辑时才去加载执行对应 chunk 代码。 webpack 懒加载主要发生在下图的 JS 拆分出不同的 Chunk 这一过程中。<br><img src="/imageO/Webpack2.jpg" srcset="/img/loading.gif" lazyload alt="组件库"><br>可见，两者的差别主要在于：</p>
+<blockquote>
+<p>两者执行时机不同，组件库按需加载是在源码编写阶段或者 babel 编译 js 阶段，而 webpack 懒加载则是在构建生成打包产物时，组件库按需加载在前，webpack 懒加载在后；</p>
+</blockquote>
+<blockquote>
+<p>两者原理不同，组件库按需加载是在源码阶段就去掉了无关代码，而 webpack 懒加载则是将经过 tree-shaking 优化过后的大文件包进行拆分在适当的运行时进行按需加载。</p>
+</blockquote>
+<h3 id="为何需要组件库按需加载"><a href="#为何需要组件库按需加载" class="headerlink" title="为何需要组件库按需加载"></a>为何需要组件库按需加载</h3><p>组件库按需加载主要目的就是为了减少项目构建打包产物的大小，提高项目线上首屏渲染速度，减少白屏时间，减少流量消耗。<br>一般组件库会提供一种引入全部组件和 css 文件的写法，例如：</p>
+<figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs clean"><span class="hljs-keyword">import</span> Vue <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vue&#x27;</span>;<br><span class="hljs-keyword">import</span> Vant <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vant&#x27;</span>;<br><span class="hljs-keyword">import</span> <span class="hljs-string">&#x27;vant/lib/index.css&#x27;</span>;<br>Vue.use(Vant);<br></code></pre></td></tr></table></figure>
+
+<p>这种写法经过 webpack 构建之后会将组件库产出的 vant.min.js、index.css 引入并打包至构建产物中，而引入的 vant.min.js 文件是包含组件库全部组件的 js 部分，index.css 包含全部组件的 css 部分。因此，这会导致构建打包产物增大。</p>
+<h3 id="组件库动态加载用法"><a href="#组件库动态加载用法" class="headerlink" title="组件库动态加载用法"></a>组件库动态加载用法</h3><p>Vant 官方文档中推荐使用如下两种方式让 Vant 组件库支持按需加载。</p>
+<h5 id="方式一：手动加载"><a href="#方式一：手动加载" class="headerlink" title="方式一：手动加载"></a>方式一：手动加载</h5><p>手动引入需要使用到的组件以及其对应的样式文件即可，在 webpack 构件时组件库中其他未被引入的文件不会被打包。</p>
+<figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs clean"><span class="hljs-keyword">import</span> Button <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vant/lib/button&#x27;</span>;<br><span class="hljs-keyword">import</span> <span class="hljs-string">&#x27;vant/lib/button/style&#x27;</span>;<br></code></pre></td></tr></table></figure>
+
+<h5 id="方式二：自动加载"><a href="#方式二：自动加载" class="headerlink" title="方式二：自动加载"></a>方式二：自动加载</h5><p>安装 babel-plugin-import 插件</p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs coffeescript"><span class="hljs-built_in">npm</span> i babel-plugin-<span class="hljs-keyword">import</span> -D<br></code></pre></td></tr></table></figure>
+
+<p>修改 babel 插件配置</p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs coffeescript"><span class="hljs-built_in">module</span>.<span class="hljs-built_in">exports</span> = &#123;<br>  plugins: [<br>    [<span class="hljs-string">&#x27;import&#x27;</span>, &#123;<br>      libraryName: <span class="hljs-string">&#x27;vant&#x27;</span>,<br>      libraryDirectory: <span class="hljs-string">&#x27;es&#x27;</span>,<br>      style: <span class="hljs-literal">true</span><br>    &#125;, <span class="hljs-string">&#x27;vant&#x27;</span>]<br>  ]<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<p>在项目代码中按需引入要用到的组件</p>
+<figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs clean"><span class="hljs-keyword">import</span> &#123; Button &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vant&#x27;</span>;<br>Vue.use(Button);<br></code></pre></td></tr></table></figure>
+
+<h3 id="组件库按需加载的本质"><a href="#组件库按需加载的本质" class="headerlink" title="组件库按需加载的本质"></a>组件库按需加载的本质</h3><p>从上文中手动配置按需加载需要用到的组件中就可以看出，所谓的按需加载就如字面意思一样，指的就是<strong>按需引入需要的组件</strong>，用专业术语来讲就是：在代码中手动引入需要用到的组件。组件其实就是对一堆 js、css 以及 less 等文件的总称，所以上文中需要手动引入组件对应的样式文件 vant/lib/button/style 。<br>即，本质就是对源代码进行如下转换</p>
+<figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs clean"><span class="hljs-keyword">import</span> &#123; Button &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vant&#x27;</span>;<br></code></pre></td></tr></table></figure>
+
+<p>转换为</p>
+<figure class="highlight capnproto"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs capnproto"><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;vant/es/button/style&quot;</span>;<br><span class="hljs-keyword">import</span> _Button <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;vant/es/button&quot;</span>;<br></code></pre></td></tr></table></figure>
+
+<p>可以想到，如果每次需要用到新的组件都像这样时都同时手动引入 js、css 或 less 文件岂不是很麻烦，所以为了免去引入写法的繁杂，产生了两种方案：<strong>引入全部组件和使用插件自动引入。使用插件自动引入就是插件帮我们把引入组件的写法进行了转换，最后转换成了上文中手动加载方式的写法。</strong></p>
+<h4 id="babel-plugin-import-插件"><a href="#babel-plugin-import-插件" class="headerlink" title="babel-plugin-import 插件"></a>babel-plugin-import 插件</h4><p>上文已经介绍了使用插件自动按需加载的本质，下面开始进一步地分析该插件底层是如何实现的。</p>
+<h6 id="转载文章"><a href="#转载文章" class="headerlink" title="转载文章"></a>转载文章</h6><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6968505746757533710#heading-12">组件库按需加载原理分析</a></p>
+<h3 id="Vue3中提到的Tree-shaking"><a href="#Vue3中提到的Tree-shaking" class="headerlink" title="Vue3中提到的Tree-shaking"></a>Vue3中提到的Tree-shaking</h3><p>按照作者的原话解释，Tree-shaking其实就是：<strong>把无用的模块进行“剪枝”，很多没有用到的API就不会打包到最后的包里</strong><br>vue3一个比较大的显著的区别就是，当你用一个bundler的时候，比如webpack或者rollup，webpack和rollup都是有tree shaking功能，但是tree shaking的<strong>前提是所有的东西都必须用ES6 module的import来写</strong></p>
+<p>而vue3 在浏览器里的时候依然会由一个全局的Vue对象，但是当你用了一个bundler时（比如webpack），它就没有default export，你就不能import xxx from vue，然后把vue本身当一个对象去操作。那所有的这些API全部要用import的方式import进来，这样的结果就是使得一些可能不会用到的一些功能就可以被tree shaking掉。比如说 v-model、<code>&lt;transition&gt;</code>这些功能，如果你不用的话，就不会引用到最后的包里。</p>
+<p><strong>Tree-shaking某种程度上来讲，也是通过编译器去实现的（记住这句话）</strong></p>
+<p>之前让大家记住的一句话，为什么尤大说某种程度上来讲，Tree-shaking是通过编译器去实现的<br>其实说白了，Tree-shaking本质并不是Vue3的东西，而是那些打包工具的功能。只是Vue3代码结构调整，当用webpack等打包工具打包项目时，webpack会将那些没用用到的代码不打包到最后的项目中，这样使得项目体积更小<br>主要原理：依赖es6的模块化的语法，将无用的代码(dead-code)进行剔除!</p>
+<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6974778684418818078">看尤老师解释Vue3中提到的Tree-shaking</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/JS%E8%BF%9B%E9%98%B6/">JS进阶</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/">前端基础</a>
+                    
+                      <a class="hover-with-bg" href="/tags/JS/">JS</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/03/28/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">前端性能优化建议</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/03/26/%E4%BD%A0%E7%9C%9F%E7%9A%84%E4%BA%86%E8%A7%A3%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6%E5%90%97/">
+                        <span class="hidden-mobile">你真的了解垃圾回收机制吗</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

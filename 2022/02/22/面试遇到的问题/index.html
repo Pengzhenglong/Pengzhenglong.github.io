@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      7.8k 字
+      8.7k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      88
+      99
        分钟
     </span>
   
@@ -330,6 +330,12 @@
 <h3 id="金桔科技（2022-3-8-53min-业务场景题偏多）"><a href="#金桔科技（2022-3-8-53min-业务场景题偏多）" class="headerlink" title="金桔科技（2022.3.8 53min  业务场景题偏多）"></a>金桔科技（2022.3.8 53min  业务场景题偏多）</h3><h5 id="登录权限怎么处理-（动态路由）"><a href="#登录权限怎么处理-（动态路由）" class="headerlink" title="登录权限怎么处理 （动态路由）"></a>登录权限怎么处理 （动态路由）</h5><h5 id="说一下前端登录的流程"><a href="#说一下前端登录的流程" class="headerlink" title="说一下前端登录的流程?"></a>说一下前端登录的流程?</h5><p>初次登录的时候，前端调后调的登录接口，发送用户名和密码，后端收到请求，验证用户名和密码，验证成功，就给前端返回一个token，和一个用户信息的值，前端拿到token，将token储存到Vuex中，然后从Vuex中把token的值存入浏览器Cookies中。</p>
 <p>把用户信息存到Vuex然后再存储到LocalStrobe中,然后跳转到下一个页面，<strong>根据后端接口的要求，只要不登录就不能访问的页面需要在前端每次跳转页面师判断Cookies中是否有token，没有就跳转到登录页，有就跳转到相应的页面</strong>,</p>
 <p>我们应该再每次发送post/get请求的时候应该加入token，常用方法再项目utils/service.js中<strong>添加全局拦截器，将token的值放入请求头中 后端判断请求头中有无token，有token，就拿到token并验证token是否过期，在这里过期会返回无效的token然后有个跳回登录页面重新登录并且清除本地用户的信息</strong></p>
+<h6 id="什么是-Token（令牌）"><a href="#什么是-Token（令牌）" class="headerlink" title="什么是 Token（令牌）"></a>什么是 Token（令牌）</h6><p>Acesss Token</p>
+<p>访问资源接口（API）时所需要的资源凭证</p>
+<blockquote>
+<p>简单 token 的组成： uid(用户唯一的身份标识)、time(当前时间的时间戳)、sign（签名，token 的前几位以哈希算法压缩成的一定长度的十六进制字符串）</p>
+</blockquote>
+<h6 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h6><p>服务端无状态化、可扩展性好<br>支持移动端设备<br>安全<br>支持跨程序调用<br>每一次请求都需要携带 token，需要把 token 放到 HTTP 的 Header 里</p>
 <h5 id="说一下前端权限管理怎么实现"><a href="#说一下前端权限管理怎么实现" class="headerlink" title="说一下前端权限管理怎么实现"></a>说一下前端权限管理怎么实现</h5><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_40599109/article/details/113728974">参考文章</a></p>
 <p>全局引入，按需引入组件<br>1.项目中引入了第三方组件，该组件要升级了怎么处理，升级了要怎么检查（有什么好的替代方案)</p>
 <h3 id="杭州后起智能科技（2022-3-8-20min）"><a href="#杭州后起智能科技（2022-3-8-20min）" class="headerlink" title="杭州后起智能科技（2022.3.8 20min）"></a>杭州后起智能科技（2022.3.8 20min）</h3><ol>
@@ -476,7 +482,14 @@
 <li>性能问题（按需引入） tree shaking  打包体积<br>开发中有没有遇见过数据修改了页面不刷新的情况 （$set()）</li>
 <li>从业务组件（对功能组件的具体实现）和功能组件（不涉及业务逻辑，比如下拉框，列表）两方面来说<br>定向了什么业务，然后  ，你的功能组件，入参怎么设计的，有什么抽象的属性，使用于什么…</li>
 </ol>
-<h3 id="3-26日后问题"><a href="#3-26日后问题" class="headerlink" title="3.26日后问题"></a>3.26日后问题</h3><h4 id="实现一个下拉刷新的组件"><a href="#实现一个下拉刷新的组件" class="headerlink" title="实现一个下拉刷新的组件"></a>实现一个下拉刷新的组件</h4><p>其实技术点也没什么难的，主要使用H5的touch事件：</p>
+<h3 id="3-26日后问题"><a href="#3-26日后问题" class="headerlink" title="3.26日后问题"></a>3.26日后问题</h3><h4 id="行内元素-块级元素"><a href="#行内元素-块级元素" class="headerlink" title="行内元素 块级元素"></a>行内元素 块级元素</h4><p>块级元素：div、p、ol、ul、dl、li、table、td、th、tr、dd、dt、caption、h、<br>行内元素：i、img、input、select、label、textarea、button、b、span、a、u、em、</p>
+<p>块级元素的特点<br><strong>1、高度，行高以及外边距和内边距都可控制。</strong><br>2、总是在新行上开始，占据一整行。<br>3、它可以容纳内联元素和其他块元素。<br>4、宽度始终是与浏览器宽度一样，与内容无关。</p>
+<p>行内元素的特点<br>1、行内元素只能容纳文本或者其他行内元素。<br><strong>2、宽度只与内容有关。</strong><br>3、和其他元素都在一行上。<br>4、高，行高及外边距和内边距部分可改变。</p>
+<p>区别<br>1、行内元素会在一条直线上分列，都是统一行的，程度偏向分列。<br>块级元素各盘踞一行，垂直偏向分列；块级元素重新行开端停止接着一个断行。<br>2、行内元素不可以包括块级元素，只能包容文本或许其余行内元素。<br>块级元素能够包括行内元素和块级元素，还能够包容内联元素和其余元素；。</p>
+<blockquote>
+<p>3、行内元素与块级元素属性的分歧，主要在盒模子属性上。<br>行内元素设置width无效，height无效（能够设置line-height），margin、padding设置上下有效。</p>
+</blockquote>
+<h5 id="切换-display-inline-block、inline和block"><a href="#切换-display-inline-block、inline和block" class="headerlink" title="切换  display:inline-block、inline和block"></a>切换  display:inline-block、inline和block</h5><h5 id="link标签和import标签的区别"><a href="#link标签和import标签的区别" class="headerlink" title="link标签和import标签的区别"></a>link标签和import标签的区别</h5><h4 id="实现一个下拉刷新的组件"><a href="#实现一个下拉刷新的组件" class="headerlink" title="实现一个下拉刷新的组件"></a>实现一个下拉刷新的组件</h4><p>其实技术点也没什么难的，主要使用H5的touch事件：</p>
 <p>touchstart: 手指触屏触发的事件，主要工作是在触发时获取鼠标点击的Y坐标，event.touches[0].pageY。<br>touchmove: 手指滑动触发的事件, 主要工作是在触发时获取移动的Y坐标减去开始时的Y坐标，得出移动的距离，然后利用transform改变容器的位置。<br>touchend: 手指松开触发的事件，主要工作是释放鼠标让div恢复原来位置。</p>
 <p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6883373475843538951#comment">手把手教学：Vue下拉刷新、上拉加载组件插件（超详细）</a></p>
 <h4 id="深浅拷贝（如何实现）"><a href="#深浅拷贝（如何实现）" class="headerlink" title="深浅拷贝（如何实现）"></a>深浅拷贝（如何实现）</h4><p><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2022/01/05/JS+ES6%E9%9D%A2%E8%AF%95%E9%A2%98/#%E6%B7%B1%E6%8B%B7%E8%B4%9D%E5%92%8C%E6%B5%85%E6%8B%B7%E8%B4%9D">博客</a></p>
@@ -494,10 +507,25 @@
 <li>jQuery.extend()方法</li>
 <li>手写递归方法<br>参考<br><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844904197595332622#heading-3">掘金</a></li>
 </ol>
-<h4 id="页面性能优化"><a href="#页面性能优化" class="headerlink" title="页面性能优化"></a>页面性能优化</h4><h4 id="按需引入组件库"><a href="#按需引入组件库" class="headerlink" title="按需引入组件库"></a>按需引入组件库</h4><h4 id="路由页面跳转后状态保存"><a href="#路由页面跳转后状态保存" class="headerlink" title="路由页面跳转后状态保存"></a>路由页面跳转后状态保存</h4><p>需求场景<br>首页搜索内容，点击跳转至详情页，页面后退返回主页，保留搜索结果。</p>
+<h4 id="路由页面跳转后状态保存"><a href="#路由页面跳转后状态保存" class="headerlink" title="路由页面跳转后状态保存"></a>路由页面跳转后状态保存</h4><p>需求场景<br>首页搜索内容，点击跳转至详情页，页面后退返回主页，保留搜索结果。</p>
 <h5 id="这里介绍两种比较容易实现的解决方案"><a href="#这里介绍两种比较容易实现的解决方案" class="headerlink" title="这里介绍两种比较容易实现的解决方案"></a>这里介绍两种比较容易实现的解决方案</h5><h6 id="方案一：将搜索参数存储在路由参数（route-query）中，加载页面时根据参数搜索"><a href="#方案一：将搜索参数存储在路由参数（route-query）中，加载页面时根据参数搜索" class="headerlink" title="方案一：将搜索参数存储在路由参数（route.query）中，加载页面时根据参数搜索"></a>方案一：将搜索参数存储在路由参数（route.query）中，加载页面时根据参数搜索</h6><p>优点：刷新不影响；实现简单<br>缺点：参数只能是基础类型、长度受限；路径看起来比较难看；只对浏览器返回有效，手动跳转回首页不行</p>
 <h6 id="方案二：使用路由守卫钩子，在离开页面前本地存储页面参数（vuex、Local-Storage-等等）"><a href="#方案二：使用路由守卫钩子，在离开页面前本地存储页面参数（vuex、Local-Storage-等等）" class="headerlink" title="方案二：使用路由守卫钩子，在离开页面前本地存储页面参数（vuex、Local Storage 等等）"></a>方案二：使用路由守卫钩子，在离开页面前本地存储页面参数（vuex、Local Storage 等等）</h6><p>优点：参数类型长度都比较自由；路径看起来清爽美观；对任意方式返回主页都有效<br>缺点：需要额外进行数据存储操作，如果使用store模式或vuex则刷新页面失效<br>参考<br><a target="_blank" rel="noopener" href="https://juejin.cn/post/6987953448419328036#heading-2">前端 Vue路由返回恢复页面状态的实现方案</a></p>
+<h4 id="按需引入组件库"><a href="#按需引入组件库" class="headerlink" title="按需引入组件库"></a>按需引入组件库</h4><h4 id="浏览器兼容性问题"><a href="#浏览器兼容性问题" class="headerlink" title="浏览器兼容性问题"></a>浏览器兼容性问题</h4><blockquote>
+<p>虽然面试官的问题十分的笼统，浏览器的兼容性无非还是样式兼容性（css），交互兼容性（javascript），浏览器 hack 三个方面。<br>一、了解浏览器<br>主流浏览器 有五个：IE(Trident内核)、Firefox(火狐：Gecko内核)、Safari(苹果：webkit内核)、Google Chrome(谷歌：Blink内核)、Opera(欧朋：Blink内核)<br>四大内核：Trident(IE内核)、Gecko(Firefox内核)、webkit内核、Blink(Chrome内核)<br>1、什么是兼容问题？</p>
+</blockquote>
+<p>答：同样的代码，在不同的浏览器上显示的页面效果不一样</p>
+<p>2、不一样的原因是什么？</p>
+<p>答：浏览器各浏览器使用了不同的内核，并且它们处理同一件事情的时候思路不同。</p>
+<h5 id="样式兼容性（css）方面"><a href="#样式兼容性（css）方面" class="headerlink" title="样式兼容性（css）方面"></a>样式兼容性（css）方面</h5><ol>
+<li>因为历史原因，不同的浏览器样式存在差异，可以通过 Normalize.css 抹平差异，也可以定制自己的 reset.css，例如通过通配符选择器，全局重置样式<br>1、不要使用*{} 类似的通配符<br>这种方法虽然写起来简单，但是渲染起来，浏览器引擎要遍历所有的标签，很影响效率。为了对浏览器友好，可以把自己经常用的标签进行重置操作。</li>
+</ol>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css">* &#123; <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span>; <span class="hljs-attribute">padding</span>: <span class="hljs-number">0</span>; &#125;<br></code></pre></td></tr></table></figure>
 
+<p>2、addEventListener 与 attachEvent 区别<br>attachEvent ——兼容：IE7、IE8；不兼容firefox、chrome、IE9、IE10、IE11、safari、opera。addEventListener——兼容：firefox、chrome、IE、safari、opera；不兼容IE7、IE8解决方案：</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs reasonml"><span class="hljs-keyword">function</span> add<span class="hljs-constructor">Event(<span class="hljs-params">elm</span>, <span class="hljs-params">evType</span>, <span class="hljs-params">fn</span>, <span class="hljs-params">useCapture</span>)</span> &#123;<br>  <span class="hljs-keyword">if</span> (elm.addEventListener) &#123; <span class="hljs-comment">// W3C标准</span><br>    elm.add<span class="hljs-constructor">EventListener(<span class="hljs-params">evType</span>, <span class="hljs-params">fn</span>, <span class="hljs-params">useCapture</span>)</span>;<br>    return <span class="hljs-literal">true</span>;<br>  &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (elm.attachEvent) &#123; <span class="hljs-comment">// IE</span><br>    var r = elm.attach<span class="hljs-constructor">Event(&#x27;<span class="hljs-params">on</span>&#x27; + <span class="hljs-params">evType</span>, <span class="hljs-params">fn</span>)</span>; <span class="hljs-comment">// IE5+</span><br>    return r;<br>  &#125; <span class="hljs-keyword">else</span> &#123;<br>    elm<span class="hljs-literal">[&#x27;<span class="hljs-identifier">on</span>&#x27; + <span class="hljs-identifier">evType</span>]</span> = fn; <span class="hljs-comment">// DOM事件</span><br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6972937716660961317#heading-31">浏览器的兼容问题及解决方案整理（建议收藏）</a><br><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903633708908557">如何机智地回答浏览器兼容性问题</a></p>
+<h4 id="页面性能优化"><a href="#页面性能优化" class="headerlink" title="页面性能优化"></a>页面性能优化</h4>
             </div>
             <hr>
             <div>
