@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      982 字
+      1.3k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      14
+      19
        分钟
     </span>
   
@@ -246,6 +246,59 @@
 <figure class="highlight arcade"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs arcade"><span class="hljs-keyword">var</span> arr=[<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>];<br><span class="hljs-keyword">var</span> result = arr.findIndex(<span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span>&#123;<br>    <span class="hljs-keyword">return</span> item &gt; <span class="hljs-number">3</span><br>&#125;);<br>console.log(result);<br></code></pre></td></tr></table></figure>
 
 <h4 id="方法五：当然不能忘了养大我们的for循环和if"><a href="#方法五：当然不能忘了养大我们的for循环和if" class="headerlink" title="方法五：当然不能忘了养大我们的for循环和if"></a>方法五：当然不能忘了养大我们的for循环和if</h4><figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs maxima"><span class="hljs-built_in">var</span> arr=[<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>];<br><span class="hljs-built_in">var</span> k=<span class="hljs-number">0</span>;<br><span class="hljs-keyword">for</span>(<span class="hljs-built_in">var</span> i=<span class="hljs-number">0</span>;i&lt;arr.<span class="hljs-built_in">length</span>;i++)&#123;<br>    <span class="hljs-keyword">if</span>(arr[i]==<span class="hljs-number">3</span>)<br>        k=<span class="hljs-number">1</span>;<br>&#125;<br><span class="hljs-keyword">if</span>(k)<br>    console.<span class="hljs-built_in">log</span>(<span class="hljs-string">&quot;存在&quot;</span>);<br><span class="hljs-keyword">else</span><br>    console.<span class="hljs-built_in">log</span>(<span class="hljs-string">&quot;不存在&quot;</span>);<br></code></pre></td></tr></table></figure>
+
+<h3 id="JS求数组的交集、并集、差集"><a href="#JS求数组的交集、并集、差集" class="headerlink" title="JS求数组的交集、并集、差集"></a>JS求数组的交集、并集、差集</h3><p>现有两个数组</p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs nix"><span class="hljs-keyword">let</span> <span class="hljs-attr">a</span> = [<span class="hljs-number">101</span>,<span class="hljs-number">201</span>,<span class="hljs-number">601</span>]<br><span class="hljs-keyword">let</span> <span class="hljs-attr">b</span> = [<span class="hljs-number">201</span>,<span class="hljs-number">301</span>,<span class="hljs-number">801</span>]<br></code></pre></td></tr></table></figure>
+
+<h4 id="求交集（交集元素由既属于集合a又属于集合b的元素组成）"><a href="#求交集（交集元素由既属于集合a又属于集合b的元素组成）" class="headerlink" title="求交集（交集元素由既属于集合a又属于集合b的元素组成）"></a>求交集（交集元素由既属于集合a又属于集合b的元素组成）</h4><ol>
+<li>方法1  filter  includes()</li>
+</ol>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stylus">let intersection = <span class="hljs-selector-tag">a</span><span class="hljs-selector-class">.filter</span>(v =&gt; <span class="hljs-selector-tag">b</span><span class="hljs-selector-class">.includes</span>(v)) <span class="hljs-comment">// [201]</span><br></code></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>方法2  filter  indexOf()</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> intersection = a.filter(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">v</span>) </span>&#123; <span class="hljs-keyword">return</span> b.indexOf(v) &gt; -<span class="hljs-number">1</span> &#125;) <span class="hljs-comment">//[201]</span><br></code></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>方法3</li>
+</ol>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs reasonml"><span class="hljs-keyword">let</span> intersection = <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Array</span>.</span></span>from(<span class="hljs-keyword">new</span> <span class="hljs-constructor">Set(<span class="hljs-params">a</span>.<span class="hljs-params">filter</span>(<span class="hljs-params">v</span>=&gt; <span class="hljs-params">new</span> Set(<span class="hljs-params">b</span>)</span>.has(v))))  <span class="hljs-comment">//[201]</span><br><br></code></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>方法4</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> intersection = a.filter(<span class="hljs-function"><span class="hljs-params">v</span> =&gt;</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Set</span>(b).has(v))  <span class="hljs-comment">// [201]</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="2-求并集-并集元素由集合a和集合b中所有元素去重组成"><a href="#2-求并集-并集元素由集合a和集合b中所有元素去重组成" class="headerlink" title="2.求并集 (并集元素由集合a和集合b中所有元素去重组成)"></a>2.求并集 (并集元素由集合a和集合b中所有元素去重组成)</h4><ol>
+<li>方法1  filter  includes()</li>
+</ol>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs stylus">let union = <span class="hljs-selector-tag">a</span><span class="hljs-selector-class">.concat</span>(<span class="hljs-selector-tag">b</span><span class="hljs-selector-class">.filter</span>(v=&gt; &#123;<br>   return !<span class="hljs-selector-tag">a</span><span class="hljs-selector-class">.includes</span>(v)<br> &#125;<br>)) <span class="hljs-comment">// [101, 201, 601, 301, 801]</span><br></code></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>方法2  Array.from()  Set()  concat() (最简单)</li>
+</ol>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs reasonml"><span class="hljs-keyword">let</span> union = <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Array</span>.</span></span>from(<span class="hljs-keyword">new</span> <span class="hljs-constructor">Set(<span class="hljs-params">a</span>.<span class="hljs-params">concat</span>(<span class="hljs-params">b</span>)</span>)) <span class="hljs-comment">// [101, 201, 601, 301, 801]</span><br></code></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>方法3    concat()  filter()  indexOf()</li>
+</ol>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs livecodeserver">let <span class="hljs-built_in">union</span> = <span class="hljs-keyword">a</span>.concat(b.<span class="hljs-built_in">filter</span>(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-title">v</span>) &#123;</span><br>    <span class="hljs-literal">return</span> <span class="hljs-keyword">a</span>.indexOf(v) === <span class="hljs-number">-1</span><br>&#125;))<span class="hljs-comment"> // [101, 201, 601, 301, 801]</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="3-求差集-差集元素由集合a和集合b的并集减去集合a和集合b的交集"><a href="#3-求差集-差集元素由集合a和集合b的并集减去集合a和集合b的交集" class="headerlink" title="3.求差集 (差集元素由集合a和集合b的并集减去集合a和集合b的交集)"></a>3.求差集 (差集元素由集合a和集合b的并集减去集合a和集合b的交集)</h4><ol>
+<li>方法1  (写法最优。indexOf有个对NaN返回-1的问题)</li>
+</ol>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs livecodeserver">let <span class="hljs-built_in">difference</span> = <span class="hljs-keyword">a</span>.concat(b).<span class="hljs-built_in">filter</span>(v =&gt; !<span class="hljs-keyword">a</span>.includes(v) || !b.includes(v))) <span class="hljs-comment"> // [101, 601, 301, 801]</span><br></code></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>方法2</li>
+</ol>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs reasonml"><span class="hljs-keyword">let</span> difference = <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Array</span>.</span></span>from(<span class="hljs-keyword">new</span> <span class="hljs-constructor">Set(<span class="hljs-params">a</span>.<span class="hljs-params">concat</span>(<span class="hljs-params">b</span>)</span>.filter(<br> <span class="hljs-function"> <span class="hljs-params">v</span> =&gt;</span> !<span class="hljs-keyword">new</span> <span class="hljs-constructor">Set(<span class="hljs-params">a</span>)</span>.has(v)<span class="hljs-operator"> || </span>!<span class="hljs-keyword">new</span> <span class="hljs-constructor">Set(<span class="hljs-params">b</span>)</span>.has(v)<br>))) <span class="hljs-comment">// [101, 601, 301, 801]</span><br></code></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>方法3</li>
+</ol>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs livecodeserver">let <span class="hljs-built_in">difference</span> = <span class="hljs-keyword">a</span>.<span class="hljs-built_in">filter</span>(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-title">v</span>) &#123;</span><br>    <span class="hljs-literal">return</span> b.indexOf(v) === <span class="hljs-number">-1</span><br>&#125;).concat(b.<span class="hljs-built_in">filter</span>(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-title">v</span>) &#123;</span><br>    <span class="hljs-literal">return</span> <span class="hljs-keyword">a</span>.indexOf(v) === <span class="hljs-number">-1</span><br>&#125;))<span class="hljs-comment"> // [101, 601, 301, 801]</span><br></code></pre></td></tr></table></figure>
 
 <h3 id="JS如何实现数组扁平化？"><a href="#JS如何实现数组扁平化？" class="headerlink" title="JS如何实现数组扁平化？"></a>JS如何实现数组扁平化？</h3><h4 id="ES6的flat"><a href="#ES6的flat" class="headerlink" title="ES6的flat"></a>ES6的flat</h4><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs stylus">ary = arr<span class="hljs-selector-class">.flat</span>(Infinity)<br>console<span class="hljs-selector-class">.log</span>(<span class="hljs-selector-attr">[1, [2, 3, [4, 5]</span>]]<span class="hljs-selector-class">.flat</span>(Infinity))<br></code></pre></td></tr></table></figure>
 

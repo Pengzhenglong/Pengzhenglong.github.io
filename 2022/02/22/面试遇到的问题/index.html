@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      8.7k 字
+      8.8k 字
     </span>
   
 
@@ -354,8 +354,10 @@
 <p>objectURL = URL.createObjectURL(object);</p>
 <p>其中，object 参数指 用于创建 URL 的 File 对象、Blob 对象或者 MediaSource 对象。</p>
 <h5 id="2-使用-FileReader-预览"><a href="#2-使用-FileReader-预览" class="headerlink" title="2. 使用 FileReader 预览"></a>2. 使用 FileReader 预览</h5><p>FileReader 对象允许Web应用程序异步读取存储在用户计算机上的文件（或原始数据缓冲区）的内容，使用 File 或 Blob 对象指定要读取的文件或数据。同理的，我们也可以通过 input.files[0] 获取到当前选中的图片的 File 对象。</p>
+<blockquote>
 <p>特别注意，FileReader 和 是异步读取文件或数据的！</p>
-<h5 id="两种方法的对比"><a href="#两种方法的对比" class="headerlink" title="两种方法的对比"></a>两种方法的对比</h5><p>我个人更加倾向于使用 URL.createObjectURL() 。主要原先它的 API 简洁，同步读取，并且他返回的是一个 URL ，比 FileReaer 返回的base64 更加精简。兼容性上，两者都差不多，都是在 WD 的阶段。性能上的对比, 在 chrome 上, 选择了一张 2M 的图片, URL.createObjectURL() 用时是 0 , 而 FileReader 用时 20ms 左右。 0 感觉不太合理，虽然这个方法立刻就会返回一个 URL ，但是我猜测实际上这个 URL 指定的内容还没有生成好，应该是异步生成的，然后才渲染出来的。所以并没有很好的办法来对比他们的性能。</p>
+</blockquote>
+<h5 id="两种方法的对比"><a href="#两种方法的对比" class="headerlink" title="两种方法的对比"></a>两种方法的对比</h5><p>我个人更加倾向于使用 URL.createObjectURL() 。<strong>主要原先它的 API 简洁，同步读取，并且他返回的是一个 URL ，比 FileReaer 返回的base64 更加精简。</strong>兼容性上，两者都差不多，都是在 WD 的阶段。性能上的对比, 在 chrome 上, 选择了一张 2M 的图片, URL.createObjectURL() 用时是 0 , 而 FileReader 用时 20ms 左右。 0 感觉不太合理，虽然这个方法立刻就会返回一个 URL ，但是我猜测实际上这个 URL 指定的内容还没有生成好，应该是异步生成的，然后才渲染出来的。所以并没有很好的办法来对比他们的性能。</p>
 <p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903982574338061#heading-3">掘金</a><br>canvas了解吗  (drawImg  api 绘画图片)<br>js大文件上传（切片上传 - 并发控制-断点续传）<br><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2022/03/08/%E4%B8%AD%E6%96%AD%E8%AF%B7%E6%B1%82%E4%B8%8E%E5%B9%B6%E5%8F%91/">博客</a><br>Ts访问修饰符<br>class<br>interface  和type<br>promise  /generotor /await  (await后面接受的是什么 )<br>第一行是await   第二行是promise.then,执行顺序是</p>
 <blockquote>
 <p>正常情况下，async中的await命令是一个Promise对象，返回该对象的结果。<br>但如果不是Promise对象的话，就会直接返回对应的值，相当于Promise.resolve()<br>如果在async函数中抛出了错误，则终止错误结果，不会继续向下执行。</p>
@@ -525,7 +527,9 @@
 <figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs reasonml"><span class="hljs-keyword">function</span> add<span class="hljs-constructor">Event(<span class="hljs-params">elm</span>, <span class="hljs-params">evType</span>, <span class="hljs-params">fn</span>, <span class="hljs-params">useCapture</span>)</span> &#123;<br>  <span class="hljs-keyword">if</span> (elm.addEventListener) &#123; <span class="hljs-comment">// W3C标准</span><br>    elm.add<span class="hljs-constructor">EventListener(<span class="hljs-params">evType</span>, <span class="hljs-params">fn</span>, <span class="hljs-params">useCapture</span>)</span>;<br>    return <span class="hljs-literal">true</span>;<br>  &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (elm.attachEvent) &#123; <span class="hljs-comment">// IE</span><br>    var r = elm.attach<span class="hljs-constructor">Event(&#x27;<span class="hljs-params">on</span>&#x27; + <span class="hljs-params">evType</span>, <span class="hljs-params">fn</span>)</span>; <span class="hljs-comment">// IE5+</span><br>    return r;<br>  &#125; <span class="hljs-keyword">else</span> &#123;<br>    elm<span class="hljs-literal">[&#x27;<span class="hljs-identifier">on</span>&#x27; + <span class="hljs-identifier">evType</span>]</span> = fn; <span class="hljs-comment">// DOM事件</span><br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6972937716660961317#heading-31">浏览器的兼容问题及解决方案整理（建议收藏）</a><br><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903633708908557">如何机智地回答浏览器兼容性问题</a></p>
-<h4 id="页面性能优化"><a href="#页面性能优化" class="headerlink" title="页面性能优化"></a>页面性能优化</h4>
+<h4 id="垃圾回收机制-1"><a href="#垃圾回收机制-1" class="headerlink" title="垃圾回收机制"></a>垃圾回收机制</h4><p><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2022/03/26/%E4%BD%A0%E7%9C%9F%E7%9A%84%E4%BA%86%E8%A7%A3%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6%E5%90%97/">博客</a></p>
+<h4 id="前端性能优化建议"><a href="#前端性能优化建议" class="headerlink" title="前端性能优化建议"></a>前端性能优化建议</h4><p><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2022/03/28/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">前端性能优化建议:博客</a></p>
+
             </div>
             <hr>
             <div>
