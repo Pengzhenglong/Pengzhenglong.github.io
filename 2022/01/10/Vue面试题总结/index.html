@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      8.9k 字
+      9.8k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      97
+      107
        分钟
     </span>
   
@@ -438,6 +438,24 @@
 <h4 id="方法2-forceUpdate"><a href="#方法2-forceUpdate" class="headerlink" title="方法2.$forceUpdate"></a>方法2.$forceUpdate</h4><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs kotlin">handleAvatarSuccess(res, file) &#123;<br>    <span class="hljs-keyword">this</span>.form.imgUrl = res.<span class="hljs-keyword">data</span>;<br>    <span class="hljs-keyword">this</span>.$forceUpdate();<br>&#125;,<br></code></pre></td></tr></table></figure>
 
 <p><a target="_blank" rel="noopener" href="https://v3.cn.vuejs.org/guide/change-detection.html#%E5%A3%B0%E6%98%8E%E5%93%8D%E5%BA%94%E5%BC%8F-property">官方文档</a></p>
+<h2 id="Vue3"><a href="#Vue3" class="headerlink" title="Vue3"></a>Vue3</h2><h3 id="Composition-API-和-script-setup"><a href="#Composition-API-和-script-setup" class="headerlink" title="Composition API 和 script setup"></a>Composition API 和 script setup</h3><h4 id="Option的弊端-Option的缺陷–反复横跳-mixin和this"><a href="#Option的弊端-Option的缺陷–反复横跳-mixin和this" class="headerlink" title="Option的弊端(Option的缺陷–反复横跳,mixin和this)"></a>Option的弊端(Option的缺陷–反复横跳,mixin和this)</h4><p>说一下 Composition API和 Options API 的区别？</p>
+<p>Composition API 也叫组合式 API，它主要就是为了解决 Vue2 中 Options API 的问题。</p>
+<ol>
+<li><p>一是在 Vue2 中<strong>只能固定用 data、computed、methods 等选项组织代码，在组件越来越复杂的时候，一个功能相关的属性和方法就会在文件上中下到处都有，很分散，变越来越难维护</strong></p>
+</li>
+<li><p>二是<strong> Vue2 中虽然可以用 minxin 来做逻辑的提取复用，但是 minxin 里的属性和方法名会和组件内部的命名冲突，还有当引入多个 minxin 的时候，我们使用的属性或方法是来于哪个 minxin 也不清楚</strong></p>
+</li>
+</ol>
+<p>而 Composition API 刚才就解决了这两个问题，可以让我们自由的组织代码，同一功能相关的全部放在一起，代码有更好的可读性更便于维护，单独提取出来也不会造成命名冲突，所以也有更好的可扩展性<br><strong>我们需要使用 Composition API 的逻辑来拆分代码，把一个功能相关的数据和方法都维护在一起。</strong></p>
+<h4 id="使用-lt-script-setup-gt-可以让代码变得更加精简"><a href="#使用-lt-script-setup-gt-可以让代码变得更加精简" class="headerlink" title="使用 &lt;script setup&gt;可以让代码变得更加精简"></a>使用 <code>&lt;script setup&gt;</code>可以让代码变得更加精简</h4><p>这也是现在开发 Vue 3 项目必备的写法。除了我们上面介绍的功能，<code>&lt;script setup&gt;</code> 还有其它一些很好用的功能，比如能够使用顶层的 await 去请求后端的数据等等</p>
+<p><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2022/01/29/Vue3Study(2)/">博客</a></p>
+<h3 id="reactive-ref-toRef-toRefs用法和区别"><a href="#reactive-ref-toRef-toRefs用法和区别" class="headerlink" title="reactive, ref,toRef,toRefs用法和区别"></a>reactive, ref,toRef,toRefs用法和区别</h3><h4 id="ref-reactive"><a href="#ref-reactive" class="headerlink" title="ref,reactive"></a>ref,reactive</h4><p>如果想给值类型(String，Number，Boolean，Symbol)添加响应式，就要用到ref<br>reactive 方法 根据传入的对象 ，创建返回一个深度响应式对象</p>
+<h4 id="toRef-toRefs"><a href="#toRef-toRefs" class="headerlink" title="toRef  toRefs"></a>toRef  toRefs</h4><p>toRef  (针对一个响应式对象（reactive 封装）的 prop（属性）创建一个ref，且保持响应式，两者保持引用关系)</p>
+<p>toRefs 是一种用于破坏响应式对象并将其所有属性转换为 ref 的实用方法<br>将响应式对象（reactive封装）转成普通对象<br>对象的每个属性(Prop)都是对应的ref<br>两者保持引用关系</p>
+<h4 id="使用toRefs-state-方式返回"><a href="#使用toRefs-state-方式返回" class="headerlink" title="使用toRefs(state)方式返回"></a>使用toRefs(state)方式返回</h4><p>注意reactive封装的响应式对象，不要通过解构的方式return，这是不具有响应式的。可以通过 toRefs 处理，然后再解构返回，这样才具有响应式<br><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2022/01/30/Vue3Study(3)--ref+reactive+toRef+toRefs/#toRefs">博客</a></p>
+<h3 id="Teleport，字面意思就是远距离传送，我们可以把它理解为传送门的意思"><a href="#Teleport，字面意思就是远距离传送，我们可以把它理解为传送门的意思" class="headerlink" title="Teleport，字面意思就是远距离传送，我们可以把它理解为传送门的意思"></a>Teleport，字面意思就是远距离传送，我们可以把它理解为传送门的意思</h3><p>其实，有一个非常常见的需求就是，我们经常要通过点击一个按钮，来实现模态框的效果。而在 vue3 之前，我们基本上控制它都是点击后上下会形成一个父子组件的关系，这样子感觉独立性就没有那么强了。</p>
+<p>通过 teleport 的方式，<strong>现在的模态框成功显示在 id 为 app 的 div 同一层下，达到了相互独立，而不再是父子层级的结果。</strong></p>
+<h3 id="用Suspense发起一个异步请求-处理多个异步请求方便"><a href="#用Suspense发起一个异步请求-处理多个异步请求方便" class="headerlink" title="用Suspense发起一个异步请求(处理多个异步请求方便)"></a>用Suspense发起一个异步请求(处理多个异步请求方便)</h3><p>那现在呢， vue3 推出了一个新的内置组件 Suspense ， Suspense 是一个特殊的组件，它会有两个 template slot ，刚开始会渲染 fallback 内容，直到达到某个条件以后，才会渲染正式的内容，也就是 default 的内容。这样呢，进行异步内容的渲染就会变得特别简单。<br><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2022/01/30/Vue3Study(3)--ref+reactive+toRef+toRefs/#toRefs">博客</a></p>
 
             </div>
             <hr>
