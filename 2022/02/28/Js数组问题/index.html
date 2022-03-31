@@ -261,12 +261,10 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> intersection = a.filter(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">v</span>) </span>&#123; <span class="hljs-keyword">return</span> b.indexOf(v) &gt; -<span class="hljs-number">1</span> &#125;) <span class="hljs-comment">//[201]</span><br></code></pre></td></tr></table></figure>
 
 <ol start="3">
-<li>方法3</li>
-</ol>
-<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs reasonml"><span class="hljs-keyword">let</span> intersection = <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Array</span>.</span></span>from(<span class="hljs-keyword">new</span> <span class="hljs-constructor">Set(<span class="hljs-params">a</span>.<span class="hljs-params">filter</span>(<span class="hljs-params">v</span>=&gt; <span class="hljs-params">new</span> Set(<span class="hljs-params">b</span>)</span>.has(v))))  <span class="hljs-comment">//[201]</span><br><br></code></pre></td></tr></table></figure>
-
-<ol start="4">
-<li>方法4</li>
+<li><p>方法3  filter Set() set.has</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs reasonml"><span class="hljs-keyword">let</span> intersection = <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Array</span>.</span></span>from(<span class="hljs-keyword">new</span> <span class="hljs-constructor">Set(<span class="hljs-params">a</span>.<span class="hljs-params">filter</span>(<span class="hljs-params">v</span>=&gt; <span class="hljs-params">new</span> Set(<span class="hljs-params">b</span>)</span>.has(v))))  <span class="hljs-comment">//[201]</span><br><br></code></pre></td></tr></table></figure></li>
+<li><p>方法4  </p>
+</li>
 </ol>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> intersection = a.filter(<span class="hljs-function"><span class="hljs-params">v</span> =&gt;</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Set</span>(b).has(v))  <span class="hljs-comment">// [201]</span><br></code></pre></td></tr></table></figure>
 
@@ -330,7 +328,7 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/%E9%9D%A2%E8%AF%95%E9%A2%98/">面试题</a>
+                      <a class="hover-with-bg" href="/categories/JS/">JS</a>
                     
                   </div>
                 
