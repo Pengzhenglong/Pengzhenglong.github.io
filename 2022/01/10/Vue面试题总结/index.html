@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      9.8k 字
+      10.5k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      107
+      114
        分钟
     </span>
   
@@ -348,6 +348,25 @@
 <h2 id="还未被问到（加强）"><a href="#还未被问到（加强）" class="headerlink" title="还未被问到（加强）"></a>还未被问到（加强）</h2><h3 id="vue-中-mixin-和-mixins-区别？"><a href="#vue-中-mixin-和-mixins-区别？" class="headerlink" title="vue 中 mixin 和 mixins 区别？"></a>vue 中 mixin 和 mixins 区别？</h3><h4 id="mixin"><a href="#mixin" class="headerlink" title="mixin"></a>mixin</h4><p>mixin 项目变得复杂的时候，多个组件间有重复的逻辑就会用到mixin,<strong>多个组件有相同的逻辑，抽离出来</strong><br>mixin并不是完美的解决方案，会有一些问题,<strong>vue3提出的Composition API旨在解决这些问题【追求完美是要消耗一定的成本的，如开发成本】</strong><br>场景：PC端新闻列表和详情页一样的右侧栏目，可以使用mixin进行混合<br>劣势：<br>1.变量来源不明确，不利于阅读<br>2.多mixin可能会造成命名冲突<br>3.mixin和组件可能出现多对多的关系，使得项目复杂度变高</p>
 <p>mixin 用于全局混入，会影响到每个组件实例。<br>mixins 应该是我们最常使用的扩展组件的方式了。如果多个组件中有相同的业务逻辑，就可以将这些逻辑剥离出来，通过mixins 混入代码，比如上拉下拉加载数据这种逻辑等等。另外需要注意的是 mixins 混入的钩子函数会先于组件内的钩子函数执行，并且在<strong>遇到同名选项的时候也会有选择性的进行合并</strong><br>详细资料可以参考：<br><a target="_blank" rel="noopener" href="https://juejin.im/book/5bdc715fe51d454e755f75ef/section/5bdc731b51882516c56ced6f">《前端面试之道》</a><br><a target="_blank" rel="noopener" href="https://cn.vuejs.org/v2/guide/mixins.html">《混入》</a></p>
 <h3 id="vue和jquery的区别（-解除jquery频繁操作dom，转为直接操作数据的思想。vue支持双向绑定，vue支持组件化）"><a href="#vue和jquery的区别（-解除jquery频繁操作dom，转为直接操作数据的思想。vue支持双向绑定，vue支持组件化）" class="headerlink" title="vue和jquery的区别（ 解除jquery频繁操作dom，转为直接操作数据的思想。vue支持双向绑定，vue支持组件化）"></a>vue和jquery的区别（ 解除jquery频繁操作dom，转为直接操作数据的思想。vue支持双向绑定，vue支持组件化）</h3><p>vue相对于jquery有什么优点：<br>一. 解除jquery频繁操作dom，转为直接操作数据的思想。<br>二. vue支持双向绑定<br>view的变化，viewmodel感知到变化view变化，通知model发生改变。反之model发生改变，view也改变。<br>三. vue支持组件化<br>提高开发效率。重复功能可单独写到组件中，供其他地方调用。</p>
+<h3 id="单页面应用和多页面应用区别"><a href="#单页面应用和多页面应用区别" class="headerlink" title="单页面应用和多页面应用区别"></a>单页面应用和多页面应用区别</h3><h4 id="单页面应用"><a href="#单页面应用" class="headerlink" title="单页面应用"></a>单页面应用</h4><p><strong>只有一张Web页面的应用，是一种从Web服务器加载的富客户端，单页面跳转仅刷新局部资源 ，公共资源(js、css等)仅需加载一次</strong>，常用于<strong>PC端官网、购物等网站</strong><br>SPA的优点</p>
+<p><strong>1.页面切换快</strong> 通过vue-router来局部切换组件,而非刷新整个页面,来实现无刷新切换页面的技术  (路由  <strong>history  hash</strong>)</p>
+<p>页面每次切换跳转时，<strong>并不需要做html文件的请求，这样就节约了很多http发送时延</strong>，我们在切换页面的时候速度很快。</p>
+<p><strong>2.用户体验好</strong></p>
+<p>页面片段间的切换快，包括移动设备, 尤其是在网络环境差的时候, 因为组件已经预先加载好了, 并不需要发送网络请求, 所以用户体验好</p>
+<p>SPA的缺点</p>
+<p><strong>1.首屏加载速度慢</strong></p>
+<p>首屏时需要请求一次html，同时还要发送一次js请求，两次请求回来了，首屏才会展示出来。相对于多页应用，首屏时间慢。</p>
+<p><strong>2.不易于SEO</strong></p>
+<p>SEO效果差，因为搜索引擎只认识html里的内容，不认识js的内容，而单页应用的内容都是靠js渲染生成出来的，搜索引擎不识别这部分内容，也就不会给一个好的排名，会导致SPA应用做出来的网页在百度和谷歌上的排名差。</p>
+<h4 id="多页面应用"><a href="#多页面应用" class="headerlink" title="多页面应用"></a>多页面应用</h4><p><strong>多页面跳转刷新所有资源，每个公共资源(js、css等)需选择性重新加载，常用于 app 或 客户端等</strong><br>MPA的优点</p>
+<p>1.首屏加载速度快</p>
+<p>当我们访问页面的时候，<strong>服务器返回一个html，页面就会展示出来，这个过程只经历了一个HTTP请求</strong>，所以页面展示的速度非常快。</p>
+<p>2.SEO效果好</p>
+<p>搜索引擎在做网页排名的时候，要根据网页的内容才能给网页权重，来进行网页的排名。搜索引擎是可以识别html内容的，而我们每个页面所有的内容都放在html中，所以这种多页应用SEO排名效果好。<br>MPA的缺点</p>
+<p>1.页面切换慢</p>
+<p>因为每次跳转都需要发送一个 HTTP 请求，如果网络状态不好，在页面之间来回跳转时，就会发生明显的卡顿，影响用户体验。</p>
+<p>2.用户体验不佳</p>
+<p>如果网络慢,页面很容易半天加载不出来,用户体验非常不好<br><a target="_blank" rel="noopener" href="https://juejin.cn/post/7018876571658223623">参考</a></p>
 <h3 id="单向数据流"><a href="#单向数据流" class="headerlink" title="单向数据流"></a>单向数据流</h3><h4 id="单向数据流的意思是指数据的改变只能从一个方向修改"><a href="#单向数据流的意思是指数据的改变只能从一个方向修改" class="headerlink" title="单向数据流的意思是指数据的改变只能从一个方向修改"></a>单向数据流的意思是指数据的改变只能从一个方向修改</h4><p>数据总是从父组件传到子组件，子组件没有权利修改父组件传过来的数据，只能请求父组件对原始数据进行修改。这样会防止从子组件意外改变父级组件的状态，从而导致你的应用的数据流向难以理解。</p>
 <blockquote>
 <p>注意：在子组件直接用 v-model 绑定父组件传过来的 prop 这样是不规范的写法 开发环境会报警告</p>

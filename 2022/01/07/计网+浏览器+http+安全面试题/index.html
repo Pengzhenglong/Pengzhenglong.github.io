@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      13.7k 字
+      13.5k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      146
+      145
        分钟
     </span>
   
@@ -265,7 +265,7 @@
 <p>2.allowedMethods方法<br>响应options方法，告诉它所支持的请求方法<br>相应的返回405（不允许）和501（没实现）（比如我使用delete，会返回405，因为我没有写这个接口。但我使用link接口请求，会返回501，因为koa里不支持link请求）<br>options 请求就是预检请求，可用于检测服务器允许的 http 方法。当发起跨域请求时，由于安全原因，触发一定条件时浏览器会在正式请求之前自动先发起 OPTIONS 请求，即 CORS 预检请求，服务器若接受该跨域请求，浏览器才继续发起正式请求。<br><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Methods/OPTIONS">MDN</a></p>
 <h3 id="浏览器会拦截跨域请求，但是只是拦截返回结果，请求还是会被发送到服务器，这样有意义么"><a href="#浏览器会拦截跨域请求，但是只是拦截返回结果，请求还是会被发送到服务器，这样有意义么" class="headerlink" title="浏览器会拦截跨域请求，但是只是拦截返回结果，请求还是会被发送到服务器，这样有意义么"></a>浏览器会拦截跨域请求，但是只是拦截返回结果，请求还是会被发送到服务器，这样有意义么</h3><p>有意义。<br>首先，请求因为跨域被拦截后，会改成OPTIONS请求送达服务器，这样服务器就可以知道有人在请求。<br>至于你说跨域POST也能修改，那因为服务器没对method进行校验，来者不拒，这是你服务器的问题。<br>正常的API数据操作method不包括OPTIONS，OPTIONS只用来确认允许的操作。</p>
 <h3 id="常见的状态码"><a href="#常见的状态码" class="headerlink" title="常见的状态码"></a>常见的状态码</h3><p>仅记录在 RFC2616 上的 HTTP 状态码就达 40 种，若再加上 WebDAV（RFC4918、5842）和附加 HTTP 状态码 （RFC6585）等扩展，数量就达 60 余种。接下来，我们就介绍一下这些具有代表性的一些状态码。<br>1xx: 指示信息——表示请求已接收，继续处理<br>2xx: 成功——表示请求已被成功接收<br>3xx: 重定向——表示要完成请求必须进行进一步操作<br>4xx: 客户端错误——表示请求有语法错误或请求无法实现<br>5xx: 服务端错误——表示服务器未能实现合法的请求</p>
-<h4 id="常见状态码"><a href="#常见状态码" class="headerlink" title="常见状态码"></a>常见状态码</h4><p>状态码 描述<br><strong>200 请求成功 </strong> （强缓存也是返回这个）<br>201 Created  资源创建成功，多用于 POST 请求<br>202-服务器端已经收到请求消息，但是尚未进行处理<br><strong>204 （无内容） 服务器成功处理了请求，但没有返回任何内容。默认情况下 204 响应是可缓存的</strong><br>206 已完成指定范围的请求(带Range头的GET请求),场景如video,audio播放文件较大,文件分片时<br>301 <strong>永久重定向  永久移动。请求的资源已被永久的移动到新URI，</strong>返回信息会包括新的URI，浏览器会自动定向到新URI。今后任何新的请求都应使用新的URI代替<br>302 <strong>临时重定向 </strong>与301类似。但资源只是临时被移动。客户端应继续使用原有URI<br>304 请求资源未修改，可以使用缓存的资源，不用在服务器取  <strong>（协商缓存）</strong><br><strong>400 请求有语法错误</strong><br><strong>401 没有权限访问</strong><br><strong>403 服务器拒绝执行请求，场景如不允许直接访问，只能通过服务器访问时</strong><br><strong>404 请求资源不存在</strong><br><strong>500 服务器内部错误，无法完成请求</strong><br>503 请求未完成，因服务器过载、宕机或维护等</p>
+<h4 id="常见状态码"><a href="#常见状态码" class="headerlink" title="常见状态码"></a>常见状态码</h4><p>状态码 描述<br><strong>200 请求成功 </strong> （强缓存也是返回这个）<br>201 Created  资源创建成功，多用于 POST 请求<br>202-服务器端已经收到请求消息，但是尚未进行处理<br><strong>204   只有响应头，没有body数据（无内容） 预检请求</strong><br>206 已完成指定范围的请求(带Range头的GET请求),场景如video,audio播放文件较大,文件分片时<br>301 <strong>永久重定向  永久移动。请求的资源已被永久的移动到新URI，</strong>返回信息会包括新的URI，浏览器会自动定向到新URI。今后任何新的请求都应使用新的URI代替<br>302 <strong>临时重定向 </strong>与301类似。但资源只是临时被移动。客户端应继续使用原有URI<br>304 请求资源未修改，可以使用缓存的资源，不用在服务器取  <strong>（协商缓存）</strong><br><strong>400 请求有语法错误</strong><br><strong>401 没有权限访问</strong><br><strong>403 服务器拒绝执行请求，场景如不允许直接访问，只能通过服务器访问时</strong><br><strong>404 请求资源不存在</strong><br><strong>500 服务器内部错误，无法完成请求</strong><br>503 请求未完成，因服务器过载、宕机或维护等<br><a target="_blank" rel="noopener" href="https://www.runoob.com/http/http-status-codes.html">《HTTP 状态码》</a></p>
 <h3 id="HTTP-和-HTTPS-的主要区别是什么呢？"><a href="#HTTP-和-HTTPS-的主要区别是什么呢？" class="headerlink" title="HTTP 和 HTTPS 的主要区别是什么呢？"></a>HTTP 和 HTTPS 的主要区别是什么呢？</h3><ol>
 <li>最简单的，HTTP 在地址栏上的协议是以 http:// 开头，而 HTTPS 在地址栏上的协议是以 https:// 开头</li>
 </ol>
@@ -420,11 +420,7 @@
 <h3 id="HTTP-响应报文"><a href="#HTTP-响应报文" class="headerlink" title="HTTP 响应报文"></a>HTTP 响应报文</h3><p>HTTP 响应报文的格式如下：</p>
 <figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">HTTP</span>/<span class="hljs-number">1</span>.<span class="hljs-number">0</span> <span class="hljs-number">200</span> OKContent-Type: text/plainContent-Length: <span class="hljs-number">137582</span>Expires: Thu, <span class="hljs-number">05</span> Dec <span class="hljs-number">1997</span> <span class="hljs-number">16</span>:<span class="hljs-number">00</span>:<span class="hljs-number">00</span> GMTLast-Modified: Wed, <span class="hljs-number">5</span> August <span class="hljs-number">1996</span> <span class="hljs-number">15</span>:<span class="hljs-number">55</span>:<span class="hljs-number">28</span> GMTServer: Apache <span class="hljs-number">0</span>.<span class="hljs-number">84</span>&lt;html&gt; &lt;body&gt;Hello World&lt;/body&gt;&lt;/html&gt;<br></code></pre></td></tr></table></figure>
 
-<p>HTTP 响应报文的第一行叫做状态行，后面的行是首部行，最后是实体主体。<br>状态行包含了三个字段：协议版本字段、状态码和相应的状态信息。<br>实体部分是报文的主要部分，它包含了所请求的对象。<br>常见的状态有</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs plain">200-请求成功、202-服务器端已经收到请求消息，但是尚未进行处理<br>301-永久移动、302-临时移动、304-所请求的资源未修改、<br>400-客户端请求的语法错误、404-请求的资源不存在<br>500-服务器内部错误。<br>一般 1XX 代表服务器接收到请求、2XX 代表成功、3XX 代表重定向、4XX 代表客户端错误、5XX 代表服务器端错误。<br></code></pre></td></tr></table></figure>
-
-<p>更多关于状态码的可以查看：</p>
-<p><a target="_blank" rel="noopener" href="https://www.runoob.com/http/http-status-codes.html">《HTTP 状态码》</a></p>
+<p>HTTP 响应报文的第一行叫做状态行，后面的行是首部行，最后是实体主体。<br>状态行包含了三个字段：协议版本字段、状态码和相应的状态信息。<br>实体部分是报文的主要部分，它包含了所请求的对象。</p>
 <h4 id="首部行"><a href="#首部行" class="headerlink" title="首部行"></a>首部行</h4><p>首部可以分为四种首部，请求首部、响应首部、通用首部和实体首部。通用首部和实体首部在请求报文和响应报文中都可以设置，区别在于请求首部和响应首部。<br>常见的请求首部有 Accept 可接收媒体资源的类型、Accept-Charset 可接收的字符集、Host 请求的主机名。<br>常见的响应首部有 ETag 资源的匹配信息，Location 客户端重定向的 URI。<br>常见的通用首部有 Cache-Control 控制缓存策略、Connection 管理持久连接。<br>常见的实体首部有 Content-Length 实体主体的大小、Expires 实体主体的过期时间、Last-Modified 资源的最后修改时间。<br>更多关于首部的资料可以查看：<br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/jycboy/p/http_head.html">《HTTP 首部字段详细介绍》</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_34289537/article/details/52971516">《图解 HTTP》</a></p>
 <h3 id="3-https-协议的工作原理"><a href="#3-https-协议的工作原理" class="headerlink" title="3.https 协议的工作原理"></a>3.https 协议的工作原理</h3><p>客户端在使用 HTTPS 方式与 Web 服务器通信时有以下几个步骤：</p>
 <ol>
