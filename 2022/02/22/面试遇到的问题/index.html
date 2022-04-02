@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      11k 字
+      11.3k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      123
+      126
        分钟
     </span>
   
@@ -313,14 +313,11 @@
 </ol>
 <h4 id="V8对GC的优化-（待）"><a href="#V8对GC的优化-（待）" class="headerlink" title="V8对GC的优化  （待）"></a>V8对GC的优化  （待）</h4><ol>
 <li>分代式垃圾回收</li>
-<li>新老生代</li>
-<li>新生代垃圾回收</li>
-<li>老生代垃圾回收</li>
-<li>为什么需要分代式？</li>
-<li>并行回收(Parallel)</li>
-<li>增量标记与懒性清理</li>
-<li>并发回收(Concurrent)<br><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2022/03/26/%E4%BD%A0%E7%9C%9F%E7%9A%84%E4%BA%86%E8%A7%A3%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6%E5%90%97/">博客</a></li>
 </ol>
+<p>V8 的垃圾回收策略主要基于分代式垃圾回收机制，<strong>V8 中将堆内存分为新生代和老生代两区域，采用不同的垃圾回收器也就是不同的策略管理垃圾回收</strong></p>
+<p>新生代的对象为存活时间较短的对象，简单来说就是新产生的对象，通常只支持 1～8M 的容量，而老生代的对象为存活事件较长或常驻内存的对象，简单来说就是经历过新生代垃圾回收后还存活下来的对象，容量通常比较大<br>2. 新老生代<br>3. 新生代垃圾回收<br>4. 老生代垃圾回收<br>5. 为什么需要分代式？<br>6. 并行回收(Parallel)</p>
+<p><strong>所谓并行，也就是同时的意思，它指的是垃圾回收器在主线程上执行的过程中，开启多个辅助线程，同时执行同样的回收工作</strong><br>7. 增量标记与懒性清理<br>8. 并发回收(Concurrent)</p>
+<p><strong>它指的是主线程在执行 JavaScript 的过程中，辅助线程能够在后台完成执行垃圾回收的操作，辅助线程在执行垃圾回收的时候，主线程也可以自由执行而不会被挂起</strong><br><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2022/03/26/%E4%BD%A0%E7%9C%9F%E7%9A%84%E4%BA%86%E8%A7%A3%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6%E5%90%97/">博客</a></p>
 <h3 id="前端性能优化建议"><a href="#前端性能优化建议" class="headerlink" title="前端性能优化建议"></a>前端性能优化建议</h3><ol>
 <li>减少 HTTP 请求</li>
 <li>使用 HTTP2</li>
