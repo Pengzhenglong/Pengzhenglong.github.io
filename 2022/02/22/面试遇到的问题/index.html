@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      12.4k 字
+      13.2k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      139
+      147
        分钟
     </span>
   
@@ -402,9 +402,22 @@
 <blockquote>
 <p>interface 能够声明合并)<br><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903749501059085">参考</a><br>一般来说，如果不清楚什么时候用interface/type，能用 interface 实现，就用 interface , 如果不能就用 type</p>
 </blockquote>
-<h3 id="登录权限怎么处理-（动态路由）"><a href="#登录权限怎么处理-（动态路由）" class="headerlink" title="登录权限怎么处理 （动态路由）"></a>登录权限怎么处理 （动态路由）</h3><h4 id="说一下前端登录的流程"><a href="#说一下前端登录的流程" class="headerlink" title="说一下前端登录的流程?"></a>说一下前端登录的流程?</h4><p>初次登录的时候，前端调后调的登录接口，发送用户名和密码，后端收到请求，验证用户名和密码，验证成功，就给前端返回一个token，和一个用户信息的值，前端拿到token，将token储存到Vuex中，然后从Vuex中把token的值存入浏览器Cookies中。</p>
+<h3 id="说一下前端登录的流程-JWT鉴权"><a href="#说一下前端登录的流程-JWT鉴权" class="headerlink" title="说一下前端登录的流程?  JWT鉴权"></a>说一下前端登录的流程?  JWT鉴权</h3><p>初次登录的时候，前端调后调的登录接口，发送用户名和密码，后端收到请求，验证用户名和密码，验证成功，就给前端返回一个token，和一个用户信息的值，前端拿到token，将token储存到Vuex中，然后从Vuex中把token的值存入浏览器Cookies中。</p>
 <p>把用户信息存到Vuex然后再存储到LocalStrobe中,然后跳转到下一个页面，<strong>根据后端接口的要求，只要不登录就不能访问的页面需要在前端每次跳转页面师判断Cookies中是否有token，没有就跳转到登录页，有就跳转到相应的页面</strong>,</p>
 <p>我们应该再每次发送post/get请求的时候应该加入token，常用方法再项目utils/service.js中<strong>添加全局拦截器，将token的值放入请求头中 后端判断请求头中有无token，有token，就拿到token并验证token是否过期，在这里过期会返回无效的token然后有个跳回登录页面重新登录并且清除本地用户的信息</strong></p>
+<h3 id="登录权限怎么处理-（动态路由）"><a href="#登录权限怎么处理-（动态路由）" class="headerlink" title="登录权限怎么处理 （动态路由）"></a>登录权限怎么处理 （动态路由）</h3><h3 id="Vue实现动态路由（和面试官吹项目亮点）"><a href="#Vue实现动态路由（和面试官吹项目亮点）" class="headerlink" title="Vue实现动态路由（和面试官吹项目亮点）"></a>Vue实现动态路由（和面试官吹项目亮点）</h3><h4 id="登录逻辑"><a href="#登录逻辑" class="headerlink" title="登录逻辑"></a>登录逻辑</h4><p>每个系统都有自己的登录登出逻辑，而我们前端所要做的其实是请求后台，拿到登录权限，带上登录权限，获取用户信息和菜单信息。 在vue项目开发当中，我们一般都是在全局路由钩子做这一系列判断。</p>
+<h4 id="菜单权限"><a href="#菜单权限" class="headerlink" title="菜单权限"></a>菜单权限</h4><p>以前的菜单路由是直接写死在前端，但是当我们直接访问这个路由时，用户还是可以进入到这个功能页面；后来直接改成动态添加路由的方式router.addRoutes。</p>
+<ol>
+<li>前端先获取菜单列表</li>
+<li>根据获取的菜单列表循环添加用户菜单路由集合</li>
+<li>动态添加路由</li>
+</ol>
+<p><strong>一个是操作权限，一个是路由访问权限（这里指前端路由）</strong></p>
+<p>前端有一份动态路由表，等到用户登录拿到用户的角色之后根据当前登录用户的角色去筛选出可以访问的路由，形成一份定制路由表，然后动态挂载路由。花裤衩大佬说，这样做的好处就是，前端每开发一个页面不需要让后端再去配一下路由和权限了，从而避免被后端支配，哈哈哈。</p>
+<p>首先，我这是个人项目（可以理解为搞来玩玩的），前端和后端都是自己做，只可能自己折磨自己，当然，这不是最主要的原因。最主要的是，我这个项目中管理员是可以添加角色的，包括给角色分配权限，然后给用户分配角色。</p>
+<p>然而，路由表又是跟角色挂钩。考虑一种情况，项目上线之后，管理员添加了一个新角色，并且要给这个角色分配菜单。<br><strong>如果采用将路由表放在前端的话那么每个路由的可访问角色都是写死的，要给新添加的角色分配菜单，只能改前端代码，显然不是很合适</strong>。<br>所以我才用了后者，就是<strong>把路由信息放在后端，后端将路由信息和角色关联起来，用户登录之后请求对应的接口拿到属于这个用户的路由信息</strong>（也就是菜单），</p>
+<p><strong>然后前端对返回的数据格式化，转换成符合vue-router的路由格式，然后动态挂载。</strong>将路由信息放在后端，这样就可以对路由进行配置了，比如说超级管理员今天很不高兴，不想让某个角色下的用户访问某个路由，直接在该路由下剔除这个角色就可以了（之后会有图动态地演示这一过程），想想是不是很爽。</p>
+<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6981031288803164173#comment">Vue后台管理系统怎么做权限验证和动态路由，谁来做？</a></p>
 <h6 id="什么是-Token（令牌）"><a href="#什么是-Token（令牌）" class="headerlink" title="什么是 Token（令牌）"></a>什么是 Token（令牌）</h6><p>Acesss Token</p>
 <p>访问资源接口（API）时所需要的资源凭证</p>
 <blockquote>
@@ -478,7 +491,7 @@
 <h4 id="反问"><a href="#反问" class="headerlink" title="反问"></a>反问</h4><blockquote>
 <p>不要停留在使用层，多看看源码，要理解，http,tcp知识不熟练，沟通能力，表达</p>
 </blockquote>
-<h3 id="金桔科技（2022-3-8-53min-业务场景题偏多）"><a href="#金桔科技（2022-3-8-53min-业务场景题偏多）" class="headerlink" title="金桔科技（2022.3.8 53min  业务场景题偏多）"></a>金桔科技（2022.3.8 53min  业务场景题偏多）</h3><h5 id="登录权限怎么处理-（动态路由）-1"><a href="#登录权限怎么处理-（动态路由）-1" class="headerlink" title="登录权限怎么处理 （动态路由）"></a>登录权限怎么处理 （动态路由）</h5><h5 id="说一下前端登录的流程-1"><a href="#说一下前端登录的流程-1" class="headerlink" title="说一下前端登录的流程?"></a>说一下前端登录的流程?</h5><h6 id="什么是-Token（令牌）-1"><a href="#什么是-Token（令牌）-1" class="headerlink" title="什么是 Token（令牌）"></a>什么是 Token（令牌）</h6><h5 id="说一下前端权限管理怎么实现-1"><a href="#说一下前端权限管理怎么实现-1" class="headerlink" title="说一下前端权限管理怎么实现"></a>说一下前端权限管理怎么实现</h5><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_40599109/article/details/113728974">参考文章</a></p>
+<h3 id="金桔科技（2022-3-8-53min-业务场景题偏多）"><a href="#金桔科技（2022-3-8-53min-业务场景题偏多）" class="headerlink" title="金桔科技（2022.3.8 53min  业务场景题偏多）"></a>金桔科技（2022.3.8 53min  业务场景题偏多）</h3><h5 id="登录权限怎么处理-（动态路由）-1"><a href="#登录权限怎么处理-（动态路由）-1" class="headerlink" title="登录权限怎么处理 （动态路由）"></a>登录权限怎么处理 （动态路由）</h5><h5 id="说一下前端登录的流程"><a href="#说一下前端登录的流程" class="headerlink" title="说一下前端登录的流程?"></a>说一下前端登录的流程?</h5><h6 id="什么是-Token（令牌）-1"><a href="#什么是-Token（令牌）-1" class="headerlink" title="什么是 Token（令牌）"></a>什么是 Token（令牌）</h6><h5 id="说一下前端权限管理怎么实现-1"><a href="#说一下前端权限管理怎么实现-1" class="headerlink" title="说一下前端权限管理怎么实现"></a>说一下前端权限管理怎么实现</h5><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_40599109/article/details/113728974">参考文章</a></p>
 <p>全局引入，按需引入组件<br>1.项目中引入了第三方组件，该组件要升级了怎么处理，升级了要怎么检查（有什么好的替代方案)</p>
 <h3 id="杭州后起智能科技（2022-3-8-20min）"><a href="#杭州后起智能科技（2022-3-8-20min）" class="headerlink" title="杭州后起智能科技（2022.3.8 20min）"></a>杭州后起智能科技（2022.3.8 20min）</h3><ol>
 <li>有100个请求，一次发10个，允许最大容错3个超过3个就抛出异常   怎么处理</li>
