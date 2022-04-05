@@ -18,7 +18,7 @@
   <meta name="author" content="DragonPeng">
   <meta name="keywords" content="">
   
-  <title>整理一些最近面试遇到的问题（春招） - DragonPeng的博客</title>
+  <title>整理一些最近遇到的问题 - DragonPeng的博客</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -163,7 +163,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="整理一些最近面试遇到的问题（春招）">
+            <span class="h2" id="subtitle" title="整理一些最近遇到的问题">
               
             </span>
 
@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      11.3k 字
+      12.4k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      126
+      139
        分钟
     </span>
   
@@ -225,7 +225,7 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">整理一些最近面试遇到的问题（春招）</h1>
+            <h1 style="display: none">整理一些最近遇到的问题</h1>
             
             <div class="markdown-body">
               <p>总结了最近的一些面试题和之前的知识点</p>
@@ -345,7 +345,45 @@
 <h6 id="es6-class继承"><a href="#es6-class继承" class="headerlink" title="es6  class继承"></a>es6  class继承</h6><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Point</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">x, y</span>)</span> &#123;<br>        <span class="hljs-built_in">this</span>.x = x<br>        <span class="hljs-built_in">this</span>.y = y<br>    &#125;<br>    <br>    <span class="hljs-function"><span class="hljs-title">toString</span>(<span class="hljs-params"></span>)</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.x + <span class="hljs-string">&#x27;&#x27;</span> + <span class="hljs-built_in">this</span>.y<br>    &#125;<br>&#125;<br><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ColorPoint</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Point</span> </span>&#123;<br>    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">x, y, color</span>)</span> &#123;<br>        <span class="hljs-built_in">super</span>(x, y) <span class="hljs-comment">//调用父类的constructor(x, y)</span><br>        <span class="hljs-built_in">this</span>.color = color<br>    &#125;<br>    <br>    <span class="hljs-function"><span class="hljs-title">toString</span>(<span class="hljs-params"></span>)</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.color + <span class="hljs-string">&#x27; &#x27;</span> + <span class="hljs-built_in">super</span>.toString() <span class="hljs-comment">// 调用父类的toString()</span><br>    &#125;<br>&#125;<br><span class="hljs-keyword">var</span> colorPoint = <span class="hljs-keyword">new</span> ColorPoint(<span class="hljs-string">&#x27;1&#x27;</span>, <span class="hljs-string">&#x27;2&#x27;</span>, <span class="hljs-string">&#x27;red&#x27;</span>)<br><span class="hljs-built_in">console</span>.log(colorPoint.toString())  <span class="hljs-comment">// red 12</span><br><br></code></pre></td></tr></table></figure>
 
 <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/ctt08225/article/details/88255411">参考连接</a></p>
-<h2 id="个人简历项目（要熟悉）"><a href="#个人简历项目（要熟悉）" class="headerlink" title="个人简历项目（要熟悉）"></a>个人简历项目（要熟悉）</h2><h3 id="面试问你用组件库有什么体会，面试官主要想听到的是啥-用组件库有遇到什么问题难点-好几次面试"><a href="#面试问你用组件库有什么体会，面试官主要想听到的是啥-用组件库有遇到什么问题难点-好几次面试" class="headerlink" title="面试问你用组件库有什么体会，面试官主要想听到的是啥(用组件库有遇到什么问题难点 -好几次面试)"></a>面试问你用组件库有什么体会，面试官主要想听到的是啥(用组件库有遇到什么问题难点 -好几次面试)</h3><h3 id="使用组件库遇到的问题（难点）项目中用的两个库的有遇到什么难点"><a href="#使用组件库遇到的问题（难点）项目中用的两个库的有遇到什么难点" class="headerlink" title="使用组件库遇到的问题（难点）项目中用的两个库的有遇到什么难点"></a>使用组件库遇到的问题（难点）项目中用的两个库的有遇到什么难点</h3><p>能复用通用 –ElementUi 的tab是三个都渲染了(为了高度和宽度一样)</p>
+<h2 id="个人简历项目（要熟悉）"><a href="#个人简历项目（要熟悉）" class="headerlink" title="个人简历项目（要熟悉）"></a>个人简历项目（要熟悉）</h2><h3 id="项目上的难点，（说一下）（图片上传那-大文件怎么上传-js怎么压缩一张图片）（图片么转换为base64-图片怎么转化为base64的过程-裁剪这一块怎么弄的，FileReader-怎么裁剪的-怎么压缩一张图片）"><a href="#项目上的难点，（说一下）（图片上传那-大文件怎么上传-js怎么压缩一张图片）（图片么转换为base64-图片怎么转化为base64的过程-裁剪这一块怎么弄的，FileReader-怎么裁剪的-怎么压缩一张图片）" class="headerlink" title="项目上的难点，（说一下）（图片上传那+大文件怎么上传+js怎么压缩一张图片）（图片么转换为base64+图片怎么转化为base64的过程+裁剪这一块怎么弄的，FileReader+怎么裁剪的+怎么压缩一张图片）"></a>项目上的难点，（说一下）（图片上传那+大文件怎么上传+js怎么压缩一张图片）（图片么转换为base64+图片怎么转化为base64的过程+裁剪这一块怎么弄的，FileReader+怎么裁剪的+怎么压缩一张图片）</h3><h4 id="预览图片"><a href="#预览图片" class="headerlink" title="预览图片"></a>预览图片</h4><h5 id="1-使用-URL-createObjectURL-预览"><a href="#1-使用-URL-createObjectURL-预览" class="headerlink" title="1. 使用 URL.createObjectURL 预览"></a>1. 使用 URL.createObjectURL 预览</h5><p> URL.createObjectURL() 静态方法会创建一个 DOMString，其中包含一个表示参数中给出的对象的 URL。这个 URL 的生命周期和创建它的窗口中的 document 绑定。这个新的URL 对象表示指定的 File 对象或 Blob 对象。用法用下：</p>
+<p><strong>objectURL = URL.createObjectURL(object);</strong></p>
+<p>其中，<strong>object 参数指 用于创建 URL 的 File 对象、Blob 对象或者 MediaSource 对象。</strong></p>
+<h5 id="2-使用-FileReader-预览"><a href="#2-使用-FileReader-预览" class="headerlink" title="2. 使用 FileReader 预览"></a>2. 使用 FileReader 预览</h5><p>FileReader 对象允许Web应用程序异步读取存储在用户计算机上的文件（或原始数据缓冲区）的内容，使用 File 或 Blob 对象指定要读取的文件或数据。同理的，我们也可以通过<strong>input.files[0] 获取到当前选中的图片的 File 对象</strong>。</p>
+<blockquote>
+<p>特别注意，FileReader 和 是异步读取文件或数据的！</p>
+</blockquote>
+<h5 id="两种方法的对比"><a href="#两种方法的对比" class="headerlink" title="两种方法的对比"></a>两种方法的对比</h5><p>我个人更加倾向于使用 URL.createObjectURL() 。<strong>主要原先它的 API 简洁，同步读取，并且他返回的是一个 URL ，比 FileReaer 返回的base64 更加精简。</strong>兼容性上，两者都差不多，都是在 WD 的阶段。性能上的对比, 在 chrome 上, 选择了一张 2M 的图片, URL.createObjectURL() 用时是 0 , 而 FileReader 用时 20ms 左右。 0 感觉不太合理，虽然这个方法立刻就会返回一个 URL ，但是我猜测实际上这个 URL 指定的内容还没有生成好，应该是异步生成的，然后才渲染出来的。所以并没有很好的办法来对比他们的性能。</p>
+<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903982574338061#heading-3">掘金</a></p>
+<h3 id="图片上传压缩canvas"><a href="#图片上传压缩canvas" class="headerlink" title="图片上传压缩canvas"></a>图片上传压缩canvas</h3><h4 id="1-用户通过input框选择图片"><a href="#1-用户通过input框选择图片" class="headerlink" title="1. 用户通过input框选择图片"></a>1. 用户通过input框选择图片</h4><p> let file = e.target.files[0]</p>
+<h4 id="2-将-file文件流通过FileReader转化成base64-（能够预览）"><a href="#2-将-file文件流通过FileReader转化成base64-（能够预览）" class="headerlink" title="2. 将_file文件流通过FileReader转化成base64  （能够预览）"></a>2. 将_file文件流通过FileReader转化成base64  （能够预览）</h4><p><strong>FileReade就是这个对象是用来读取File对象或Blob对象的</strong></p>
+<h5 id="FileReader的钩子与方法：-（onload-readAsDataURL）"><a href="#FileReader的钩子与方法：-（onload-readAsDataURL）" class="headerlink" title="FileReader的钩子与方法： （onload/readAsDataURL）"></a>FileReader的钩子与方法： <strong>（onload/readAsDataURL）</strong></h5><p>FileReader.onload:处理load事件。即该钩子在读取操作完成时触发，通过该钩子函数可以完成例如<strong>读取完图片后进行预览的操作，或读取完图片后对图片内容进行二次处理等操作。</strong></p>
+<p>FileReader.readAsDataURL：读取方法，<strong>并且读取完成后，result属性将返回 Data URL 格式（Base64 编码）的字符串</strong>，代表图片内容。</p>
+<h4 id="3-将图片绘制到canvas画布上"><a href="#3-将图片绘制到canvas画布上" class="headerlink" title="3. 将图片绘制到canvas画布上"></a>3. 将图片绘制到canvas画布上</h4><p>可以理解为一个标签，可以通过这个标签上的属性来绘制图片并且可以实现压缩效果。</p>
+<p>canvas.getContext(‘2d’): 获得渲染上下文和它的2d绘画功能,返回ctx对象</p>
+<p><strong>ctx.drawImage(img,x,y,width,height):<strong>绘制图像 | x，y对应的是坐标轴，width、height绘制的图片大小  (这个方法是</strong>CanvasRenderingContext2D</strong>上的绘制图片的方法)</p>
+<h4 id="4-使用canvas画布的能力进行图片压缩-Canvas-toDataURL-mimeType-quailty-核心"><a href="#4-使用canvas画布的能力进行图片压缩-Canvas-toDataURL-mimeType-quailty-核心" class="headerlink" title="4. 使用canvas画布的能力进行图片压缩    Canvas.toDataURL(mimeType,quailty) (核心)"></a>4. 使用canvas画布的能力进行图片压缩    Canvas.toDataURL(mimeType,quailty) (核心)</h4><p>Canvas.toDataURL()方法可以将<strong>canvas画布上的信息转换为base64(DataURL)格式</strong>的图像信息，纯字符的图片表示形式。该方法接收2个参数：</p>
+<p>mimeType(可选)：String；表示需要转换的图像的mimeType类型。默认值是<strong>image/png</strong>，还可以是image/jpeg，甚至image/webp（前提浏览器支持）等。</p>
+<p>quailty(可选)：Number；quality表示转换的图片质量。范围是0到1。此参数要想有效，图片的mimeType需要是image/jpeg或者image/webp，其他mimeType值无效。<strong>默认压缩质量是0.92</strong>。</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">const canvas = document.create<span class="hljs-constructor">Element(&#x27;<span class="hljs-params">canvas</span>&#x27;)</span>; <br>const quality = <span class="hljs-number">0.2</span>; <span class="hljs-comment">//设置压缩比例</span><br>canvas.<span class="hljs-keyword">to</span><span class="hljs-constructor">DataURL(<span class="hljs-params">file</span>.<span class="hljs-params">type</span>, <span class="hljs-params">quality</span>)</span><br></code></pre></td></tr></table></figure>
+
+<p>本文中设置了压缩质量为0.2，需要注意的是不是说压缩质量<strong>设置为0.2实际压缩效果就为5倍压缩</strong>（在本文中，压缩质量设置成了0.2但<strong>实际压缩效果确实7-9倍</strong>），简单的说，当到达了这一步以后，其实图片已经完成了压缩，我们已经可以<strong>直接拿着返回的base64(DataURL)格式的数据</strong>去渲染图片，但是，如果你的目的是将图片先进行压缩，压缩后再上传给服务器，并且服务器只接受二进制的图片信息的话，那就得好好考虑怎么将base64转换成二进制Blob对象了</p>
+<p>当quality在0.2~0.5之间，图片质量变化并不大，quality的值越小，压缩效率越可观（也就是在0.2左右时，压缩图片可以最大化，同时并不对图片质量造成太大影响）<br><a target="_blank" rel="noopener" href="https://juejin.cn/post/6940430496128040967#comment">参考</a><br>DataURL带来的便利原因就是一个：<strong>它不需要发起http请求</strong>；而它的缺点归纳起来就是两个：<strong>体积比原有还要大、不会被缓存。</strong></p>
+<h5 id="解决小体积图片压缩问题"><a href="#解决小体积图片压缩问题" class="headerlink" title="解决小体积图片压缩问题"></a><strong>解决小体积图片压缩问题</strong></h5><p>经过多组测试发现，使用canvas压缩体积的时候，<strong>文件体积过小反而会出现越压缩体积越大</strong>的情况</p>
+<p><strong>设置一个体积阀门，小于这个体积的图片我们不做限制</strong>。毕竟我们的初心就是为了压缩大体积文件<br>在上述代码的基础上添加 minSize，当小于300kb的时候不进行canvas压缩</p>
+<p>每 <strong><code>3*8bit</code> 的字节转换为 4*6bit 的字节，剩下的两位用 00 补齐</strong>，所以Base64 编码后的数据比编码之前<strong>大 1/3</strong></p>
+<h4 id="5-将压缩后的Base64-DataURL-格式的数据转换成Blob对象进行上传"><a href="#5-将压缩后的Base64-DataURL-格式的数据转换成Blob对象进行上传" class="headerlink" title="5. 将压缩后的Base64(DataURL)格式的数据转换成Blob对象进行上传"></a>5. 将压缩后的Base64(DataURL)格式的数据转换成Blob对象进行上传</h4><p>3.<strong>atob</strong>  <strong>数据解码</strong></p>
+<p>对经过 base-64 编码的字符串进行解码。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> encodedData = <span class="hljs-built_in">window</span>.btoa(<span class="hljs-string">&quot;Hello, world&quot;</span>); <span class="hljs-comment">// 编码  SGVsbG8sIHdvcmxk</span><br><span class="hljs-keyword">let</span> decodedData = <span class="hljs-built_in">window</span>.atob(encodedData);    <span class="hljs-comment">// 解码  Hello, world</span><br></code></pre></td></tr></table></figure>
+
+<p>4.<strong>ArrayBuffer</strong> 类数组对象  <strong>Array</strong></p>
+<p>ArrayBuffer对象代表储存二进制数据的一段内存</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> buf = <span class="hljs-keyword">new</span> <span class="hljs-built_in">ArrayBuffer</span>(<span class="hljs-number">8</span>);<br></code></pre></td></tr></table></figure>
+
+<p>上面代码生成了一段 8 字节的内存区域，每个字节的值默认都是 0。(看不太懂，不着急👇接着往下看)<br>5.File 构造函数 MDN-File<br><a target="_blank" rel="noopener" href="https://juejin.cn/post/7069269252867358733#heading-9">canvas还能这么用？🤨 图片压缩70% | base64转换原理</a></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs php">export <span class="hljs-keyword">const</span> dataURItoBlob = (dataURI: <span class="hljs-keyword">string</span>) =&gt; &#123;<br>  <span class="hljs-keyword">const</span> <span class="hljs-keyword">binary</span> = atob(dataURI.split(<span class="hljs-string">&quot;,&quot;</span>)[<span class="hljs-number">1</span>]);<br>  <span class="hljs-keyword">const</span> <span class="hljs-keyword">array</span>: number[] = [];<br>  <span class="hljs-keyword">for</span> (let i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-keyword">binary</span>.length; i++) &#123;<br>    <span class="hljs-keyword">array</span>.push(<span class="hljs-keyword">binary</span>.charCodeAt(i));<br>  &#125;<br>  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Blob([<span class="hljs-keyword">new</span> Uint8Array(<span class="hljs-keyword">array</span>)], &#123; type: <span class="hljs-string">&quot;image/jpeg&quot;</span> &#125;);<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h4 id="为何使用DataURL–想做图片预览，而图片预览是通过FileReader对象实现的-（FileReader-readAsDataURL-）"><a href="#为何使用DataURL–想做图片预览，而图片预览是通过FileReader对象实现的-（FileReader-readAsDataURL-）" class="headerlink" title="为何使用DataURL–想做图片预览，而图片预览是通过FileReader对象实现的  （FileReader.readAsDataURL()）"></a>为何使用DataURL–想做图片预览，而图片预览是通过FileReader对象实现的  （FileReader.readAsDataURL()）</h4><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903495703904263#heading-11">前端图片压缩上传（压缩篇）：可能是最适合小白的前端图片压缩文章了！</a></p>
+<h3 id="面试问你用组件库有什么体会，面试官主要想听到的是啥-用组件库有遇到什么问题难点-好几次面试"><a href="#面试问你用组件库有什么体会，面试官主要想听到的是啥-用组件库有遇到什么问题难点-好几次面试" class="headerlink" title="面试问你用组件库有什么体会，面试官主要想听到的是啥(用组件库有遇到什么问题难点 -好几次面试)"></a>面试问你用组件库有什么体会，面试官主要想听到的是啥(用组件库有遇到什么问题难点 -好几次面试)</h3><h3 id="使用组件库遇到的问题（难点）项目中用的两个库的有遇到什么难点"><a href="#使用组件库遇到的问题（难点）项目中用的两个库的有遇到什么难点" class="headerlink" title="使用组件库遇到的问题（难点）项目中用的两个库的有遇到什么难点"></a>使用组件库遇到的问题（难点）项目中用的两个库的有遇到什么难点</h3><p>能复用通用 –ElementUi 的tab是三个都渲染了(为了高度和宽度一样)</p>
 <ol>
 <li><strong>性能问题（按需引入） tree shaking  打包体积</strong><br>开发中有没有遇见过数据修改了页面不刷新的情况 （$set()）</li>
 <li><strong>从业务组件（对功能组件的具体实现）和功能组件（不涉及业务逻辑，比如下拉框，列表）两方面来说</strong><br>定向了什么业务，然后  ，你的功能组件，入参怎么设计的，有什么抽象的属性，使用于什么…</li>
@@ -384,15 +422,6 @@
 <p>面向集合存储，易存储对象类型的数据</p>
 </blockquote>
 <p>为什所谓“面向集合”（Collenction-Oriented），意思是数据被分组存储在数据集中，被称为一个集合（Collenction)。每个集合在数据库中都有一个唯一的标识名，并且可以包含无限数目的文档。集合的概念类似关系型数据库（RDBMS）里的表（table），不同的是它不需要定义任何模式（schema)。</p>
-<h3 id="项目上的难点，（说一下）（图片上传那-大文件怎么上传-js怎么压缩一张图片）（图片么转换为base64-图片怎么转化为base64的过程-裁剪这一块怎么弄的，FileReader-怎么裁剪的-怎么压缩一张图片）"><a href="#项目上的难点，（说一下）（图片上传那-大文件怎么上传-js怎么压缩一张图片）（图片么转换为base64-图片怎么转化为base64的过程-裁剪这一块怎么弄的，FileReader-怎么裁剪的-怎么压缩一张图片）" class="headerlink" title="项目上的难点，（说一下）（图片上传那+大文件怎么上传+js怎么压缩一张图片）（图片么转换为base64+图片怎么转化为base64的过程+裁剪这一块怎么弄的，FileReader+怎么裁剪的+怎么压缩一张图片）"></a>项目上的难点，（说一下）（图片上传那+大文件怎么上传+js怎么压缩一张图片）（图片么转换为base64+图片怎么转化为base64的过程+裁剪这一块怎么弄的，FileReader+怎么裁剪的+怎么压缩一张图片）</h3><h4 id="预览图片"><a href="#预览图片" class="headerlink" title="预览图片"></a>预览图片</h4><h5 id="1-使用-URL-createObjectURL-预览"><a href="#1-使用-URL-createObjectURL-预览" class="headerlink" title="1. 使用 URL.createObjectURL 预览"></a>1. 使用 URL.createObjectURL 预览</h5><p> URL.createObjectURL() 静态方法会创建一个 DOMString，其中包含一个表示参数中给出的对象的 URL。这个 URL 的生命周期和创建它的窗口中的 document 绑定。这个新的URL 对象表示指定的 File 对象或 Blob 对象。用法用下：</p>
-<p><strong>objectURL = URL.createObjectURL(object);</strong></p>
-<p>其中，<strong>object 参数指 用于创建 URL 的 File 对象、Blob 对象或者 MediaSource 对象。</strong></p>
-<h5 id="2-使用-FileReader-预览"><a href="#2-使用-FileReader-预览" class="headerlink" title="2. 使用 FileReader 预览"></a>2. 使用 FileReader 预览</h5><p>FileReader 对象允许Web应用程序异步读取存储在用户计算机上的文件（或原始数据缓冲区）的内容，使用 File 或 Blob 对象指定要读取的文件或数据。同理的，我们也可以通过<strong>input.files[0] 获取到当前选中的图片的 File 对象</strong>。</p>
-<blockquote>
-<p>特别注意，FileReader 和 是异步读取文件或数据的！</p>
-</blockquote>
-<h5 id="两种方法的对比"><a href="#两种方法的对比" class="headerlink" title="两种方法的对比"></a>两种方法的对比</h5><p>我个人更加倾向于使用 URL.createObjectURL() 。<strong>主要原先它的 API 简洁，同步读取，并且他返回的是一个 URL ，比 FileReaer 返回的base64 更加精简。</strong>兼容性上，两者都差不多，都是在 WD 的阶段。性能上的对比, 在 chrome 上, 选择了一张 2M 的图片, URL.createObjectURL() 用时是 0 , 而 FileReader 用时 20ms 左右。 0 感觉不太合理，虽然这个方法立刻就会返回一个 URL ，但是我猜测实际上这个 URL 指定的内容还没有生成好，应该是异步生成的，然后才渲染出来的。所以并没有很好的办法来对比他们的性能。</p>
-<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903982574338061#heading-3">掘金</a></p>
 <h2 id="面试（记录）"><a href="#面试（记录）" class="headerlink" title="面试（记录）"></a>面试（记录）</h2><h3 id="同花顺一面（凉经）-2022-3-7-10-00-1h5min"><a href="#同花顺一面（凉经）-2022-3-7-10-00-1h5min" class="headerlink" title="同花顺一面（凉经） 2022.3.7 10:00  1h5min"></a>同花顺一面（凉经） 2022.3.7 10:00  1h5min</h3><h4 id="HTML-语义化"><a href="#HTML-语义化" class="headerlink" title="HTML 语义化"></a>HTML 语义化</h4><p>概念：HTML5的语义化指的是合理正确的使用语义化的标签来创建页面结构。【正确的标签做正确的事】<br>语义化标签：header nav main article section aside footer<br>语义化的优点:<br>在没CSS样式的情况下，页面整体也会呈现很好的结构效果<br>代码结构清晰，易于阅读，<br>利于开发和维护 方便其他设备解析（如屏幕阅读器）根据语义渲染网页。<br>有利于搜索引擎优化（SEO），搜索引擎爬虫会根据不同的标签来赋予不同的权重</p>
 <h4 id="说一下跨域，如何解决跨域"><a href="#说一下跨域，如何解决跨域" class="headerlink" title="说一下跨域，如何解决跨域"></a>说一下跨域，如何解决跨域</h4><p><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2022/01/07/%E8%AE%A1%E7%BD%91+%E6%B5%8F%E8%A7%88%E5%99%A8+http+%E5%AE%89%E5%85%A8%E9%9D%A2%E8%AF%95%E9%A2%98/#%E4%BB%80%E4%B9%88%E6%98%AF%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E5%90%8C%E6%BA%90%E6%94%BF%E7%AD%96%EF%BC%9F">博客</a></p>
 <h4 id="讲讲Dom渲染性能消耗-没理解–讲了diff算法去了"><a href="#讲讲Dom渲染性能消耗-没理解–讲了diff算法去了" class="headerlink" title="讲讲Dom渲染性能消耗 (没理解–讲了diff算法去了)"></a>讲讲Dom渲染性能消耗 (没理解–讲了diff算法去了)</h4><h4 id="v-if-v-show"><a href="#v-if-v-show" class="headerlink" title="v-if  v-show"></a>v-if  v-show</h4><h4 id="数组的key的作用"><a href="#数组的key的作用" class="headerlink" title="数组的key的作用"></a>数组的key的作用</h4><p><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2022/01/10/Vue%E9%9D%A2%E8%AF%95%E9%A2%98%E6%80%BB%E7%BB%93/#Vue%E4%B8%AD%E7%9A%84key%E5%88%B0%E5%BA%95%E6%9C%89%E4%BB%80%E4%B9%88%E2%BD%A4%EF%BC%9F">博客</a></p>
