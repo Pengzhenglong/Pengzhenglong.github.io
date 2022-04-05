@@ -180,66 +180,6 @@
     
     
       <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2022/03/10/Vue%E8%AE%A1%E7%AE%97%E5%B1%9E%E6%80%A7%E5%92%8Ccomputed%E7%9A%84%E5%8E%9F%E7%90%86/" target="_self">
-          <img src="/image/11.PNG" srcset="/img/loading.gif" lazyload alt="计算属性和watch的原理">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/03/10/Vue%E8%AE%A1%E7%AE%97%E5%B1%9E%E6%80%A7%E5%92%8Ccomputed%E7%9A%84%E5%8E%9F%E7%90%86/">计算属性和watch的原理</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2022/03/10/Vue%E8%AE%A1%E7%AE%97%E5%B1%9E%E6%80%A7%E5%92%8Ccomputed%E7%9A%84%E5%8E%9F%E7%90%86/">
-          
-          
-            
-          
-          
-Watcher是什么？Watcher的种类有哪些？大家要注意，这里说的是Watcher，要跟vue里使用的watch属性区分一下哦
-1.什么是Watcher呢？举个例子，请看下面代码：
-// 例子代码，与本章代码无关
-1234567891011121314151617&lt;div&gt;&#123;&#123;name&#125;&#125;&lt;/div&gt;aaadata() &#12
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-03-10 12:15" pubdate>
-              2022-03-10
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Vue/">Vue</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/">前端基础</a>
-            
-              <a href="/tags/Vue/">Vue</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
         <a href="/2022/03/08/%E4%B8%AD%E6%96%AD%E8%AF%B7%E6%B1%82%E4%B8%8E%E5%B9%B6%E5%8F%91/" target="_self">
           <img src="/imageO/MS.jpg" srcset="/img/loading.gif" lazyload alt="如何中断已经发出去的请求&amp;&amp;大文件上传处理（项目）">
         </a>
@@ -768,6 +708,64 @@ CSS 选择器优先级博客
               <a href="/tags/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/">前端基础</a>
             
               <a href="/tags/JS/">JS</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2022/02/25/Vue--Observer%E3%80%81Dep%E3%80%81Watcher/" target="_self">
+          <img src="/image/11.PNG" srcset="/img/loading.gif" lazyload alt="Vue--Observer、Dep、Watcher">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/02/25/Vue--Observer%E3%80%81Dep%E3%80%81Watcher/">Vue--Observer、Dep、Watcher</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/02/25/Vue--Observer%E3%80%81Dep%E3%80%81Watcher/">
+          
+          
+            
+          
+          
+Vue 初始化我觉得搞清楚这些，首先要知道 vue 初始化的过程。我们从 new Vue() 开始，构造函数会执行 this._init，在_init 中会进行合并配置、初始化生命周期、事件、渲染等，最后执行 vm.$mount 进行挂载。
+1234567891011121314151617181920// src/core/instance/index.jsfunction Vue (opti
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-02-25 12:15" pubdate>
+              2022-02-25
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Vue/">Vue</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/">前端基础</a>
+            
+              <a href="/tags/Vue/">Vue</a>
             
           </div>
         
