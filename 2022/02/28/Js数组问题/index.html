@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.3k 字
+      1.5k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      19
+      21
        分钟
     </span>
   
@@ -247,6 +247,37 @@
 
 <h4 id="方法五：当然不能忘了养大我们的for循环和if"><a href="#方法五：当然不能忘了养大我们的for循环和if" class="headerlink" title="方法五：当然不能忘了养大我们的for循环和if"></a>方法五：当然不能忘了养大我们的for循环和if</h4><figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs maxima"><span class="hljs-built_in">var</span> arr=[<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>];<br><span class="hljs-built_in">var</span> k=<span class="hljs-number">0</span>;<br><span class="hljs-keyword">for</span>(<span class="hljs-built_in">var</span> i=<span class="hljs-number">0</span>;i&lt;arr.<span class="hljs-built_in">length</span>;i++)&#123;<br>    <span class="hljs-keyword">if</span>(arr[i]==<span class="hljs-number">3</span>)<br>        k=<span class="hljs-number">1</span>;<br>&#125;<br><span class="hljs-keyword">if</span>(k)<br>    console.<span class="hljs-built_in">log</span>(<span class="hljs-string">&quot;存在&quot;</span>);<br><span class="hljs-keyword">else</span><br>    console.<span class="hljs-built_in">log</span>(<span class="hljs-string">&quot;不存在&quot;</span>);<br></code></pre></td></tr></table></figure>
 
+<h3 id="js获取数组中的最大值"><a href="#js获取数组中的最大值" class="headerlink" title="js获取数组中的最大值"></a>js获取数组中的最大值</h3><ol>
+<li>es6拓展运算符</li>
+</ol>
+<figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs lasso">Math.<span class="hljs-keyword">max</span>(<span class="hljs-params">...</span>arr)<br></code></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>es5 apply(与方法1原理相同)</li>
+</ol>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs coffeescript"><span class="hljs-built_in">Math</span>.max.apply(<span class="hljs-literal">null</span>,arr)<br></code></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>for循环</li>
+</ol>
+<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs maxima"><span class="hljs-built_in">let</span> <span class="hljs-built_in">max</span> = arr[<span class="hljs-number">0</span>];<br><span class="hljs-keyword">for</span> (<span class="hljs-built_in">let</span> i = <span class="hljs-number">0</span>; i &lt; arr.<span class="hljs-built_in">length</span> - <span class="hljs-number">1</span>; i++) &#123;<br>    <span class="hljs-built_in">max</span> = <span class="hljs-built_in">max</span> &lt; arr[i+<span class="hljs-number">1</span>] ? arr[i+<span class="hljs-number">1</span>] : <span class="hljs-built_in">max</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>数组sort()</li>
+</ol>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs coffeescript">arr.sort(<span class="hljs-function"><span class="hljs-params">(num1, num2)</span> =&gt;</span> &#123;<br>    <span class="hljs-keyword">return</span> num1 - num2 &lt; <span class="hljs-number">0</span><br>&#125;)<br>arr[<span class="hljs-number">0</span>]<br></code></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>数组reduce</li>
+</ol>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">arr</span>.reduce((num<span class="hljs-number">1</span>, num<span class="hljs-number">2</span>) =&gt; &#123;<br>    <span class="hljs-attribute">return</span> num<span class="hljs-number">1</span> &gt; num<span class="hljs-number">2</span> ? num<span class="hljs-number">1</span> : num<span class="hljs-number">2</span>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="js获取最大值和最小值"><a href="#js获取最大值和最小值" class="headerlink" title="js获取最大值和最小值"></a>js获取最大值和最小值</h3><ol>
+<li>排序法</li>
+<li>假设法  （for 循环前后逐一对比）</li>
+<li>Math max() min()</li>
+<li>ES</li>
+</ol>
 <h3 id="JS求数组的交集、并集、差集"><a href="#JS求数组的交集、并集、差集" class="headerlink" title="JS求数组的交集、并集、差集"></a>JS求数组的交集、并集、差集</h3><p>现有两个数组</p>
 <figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs nix"><span class="hljs-keyword">let</span> <span class="hljs-attr">a</span> = [<span class="hljs-number">101</span>,<span class="hljs-number">201</span>,<span class="hljs-number">601</span>]<br><span class="hljs-keyword">let</span> <span class="hljs-attr">b</span> = [<span class="hljs-number">201</span>,<span class="hljs-number">301</span>,<span class="hljs-number">801</span>]<br></code></pre></td></tr></table></figure>
 
@@ -261,10 +292,12 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> intersection = a.filter(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">v</span>) </span>&#123; <span class="hljs-keyword">return</span> b.indexOf(v) &gt; -<span class="hljs-number">1</span> &#125;) <span class="hljs-comment">//[201]</span><br></code></pre></td></tr></table></figure>
 
 <ol start="3">
-<li><p>方法3  filter Set() set.has</p>
-<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs reasonml"><span class="hljs-keyword">let</span> intersection = <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Array</span>.</span></span>from(<span class="hljs-keyword">new</span> <span class="hljs-constructor">Set(<span class="hljs-params">a</span>.<span class="hljs-params">filter</span>(<span class="hljs-params">v</span>=&gt; <span class="hljs-params">new</span> Set(<span class="hljs-params">b</span>)</span>.has(v))))  <span class="hljs-comment">//[201]</span><br><br></code></pre></td></tr></table></figure></li>
-<li><p>方法4  </p>
-</li>
+<li>方法3  filter Set() set.has</li>
+</ol>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs reasonml"><span class="hljs-keyword">let</span> intersection = <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Array</span>.</span></span>from(<span class="hljs-keyword">new</span> <span class="hljs-constructor">Set(<span class="hljs-params">a</span>.<span class="hljs-params">filter</span>(<span class="hljs-params">v</span>=&gt; <span class="hljs-params">new</span> Set(<span class="hljs-params">b</span>)</span>.has(v))))  <span class="hljs-comment">//[201]</span><br><br></code></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>方法4  </li>
 </ol>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> intersection = a.filter(<span class="hljs-function"><span class="hljs-params">v</span> =&gt;</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Set</span>(b).has(v))  <span class="hljs-comment">// [201]</span><br></code></pre></td></tr></table></figure>
 

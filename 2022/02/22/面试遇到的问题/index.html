@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      13.2k 字
+      13.4k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      147
+      149
        分钟
     </span>
   
@@ -412,7 +412,9 @@
 <li>根据获取的菜单列表循环添加用户菜单路由集合</li>
 <li>动态添加路由</li>
 </ol>
-<p><strong>一个是操作权限，一个是路由访问权限（这里指前端路由）</strong></p>
+<p><strong>一个是操作权限，一个是路由访问权限（这里指前端路由）</strong><br>1.后端返回一个json格式的路由表<br>2.因为后端传回来的是都是字符串格式的，但前端这里需要的是一个组件对象，写个方法遍历一下，将字符串转换为组件对象<br>3.利用vue-router的<strong>beforeEach、addRoutes、vuex</strong>来配合上边两步实现效果<br>4.左侧菜单拦截根据拿到转换好的路由列表进行展示<strong>拦截路由 -&gt; 后端取到路由 -&gt; 保存路由到vuex</strong>（用户登录进来只会从后端取一次，其余都从本地取，所以用户，只有退出在登录路由才会更新）</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">router.add<span class="hljs-constructor">Routes(PermissionModule.<span class="hljs-params">dynamicRoutes</span>)</span> <span class="hljs-comment">// 动态添加路由</span><br></code></pre></td></tr></table></figure>
+
 <p>前端有一份动态路由表，等到用户登录拿到用户的角色之后根据当前登录用户的角色去筛选出可以访问的路由，形成一份定制路由表，然后动态挂载路由。花裤衩大佬说，这样做的好处就是，前端每开发一个页面不需要让后端再去配一下路由和权限了，从而避免被后端支配，哈哈哈。</p>
 <p>首先，我这是个人项目（可以理解为搞来玩玩的），前端和后端都是自己做，只可能自己折磨自己，当然，这不是最主要的原因。最主要的是，我这个项目中管理员是可以添加角色的，包括给角色分配权限，然后给用户分配角色。</p>
 <p>然而，路由表又是跟角色挂钩。考虑一种情况，项目上线之后，管理员添加了一个新角色，并且要给这个角色分配菜单。<br><strong>如果采用将路由表放在前端的话那么每个路由的可访问角色都是写死的，要给新添加的角色分配菜单，只能改前端代码，显然不是很合适</strong>。<br>所以我才用了后者，就是<strong>把路由信息放在后端，后端将路由信息和角色关联起来，用户登录之后请求对应的接口拿到属于这个用户的路由信息</strong>（也就是菜单），</p>
