@@ -243,18 +243,6 @@
 <p>3、除了最顶层的Object对象没有__proto_，其他所有的对象都有__proto__,这是隐式原型</p>
 <p>4、<strong>隐式原型__proto__的作用是让对象通过它来一直往上查找属性或方法，直到找到最顶层的Object的__proto__属性，它的值是null,这个查找的过程就是原型链</strong><br>特点：<br>JavaScript 对象是通过引用来传递的，我们创建的每个新对象实体中并没有一份属于自己的原型副本。当我们修改原型时，与之相关的对象也会继承这一改变。<br><img src="/imageO/YX.jpg" srcset="/img/loading.gif" lazyload alt="原型链"></p>
 <h3 id="js-获取原型的方法？"><a href="#js-获取原型的方法？" class="headerlink" title="js 获取原型的方法？"></a>js 获取原型的方法？</h3><p>p.<code>__proto__</code><br>p.constructor.prototype<br>Object.getPrototypeOf(p)</p>
-<h3 id="如何解决异步回调地狱-异步编程的实现方式？"><a href="#如何解决异步回调地狱-异步编程的实现方式？" class="headerlink" title="如何解决异步回调地狱||  异步编程的实现方式？"></a>如何解决异步回调地狱||  异步编程的实现方式？</h3><p>promise、generator、async/await</p>
-<p>回答：<br>js 中的异步机制可以分为以下几种：</p>
-<ol>
-<li><p>第一种最常见的是使用回调函数的方式，使用回调函数的方式有一个缺点是，多个回调函数嵌套的时候会造成回调函数地狱，上下两层的回调函数间的代码耦合度太高，不利于代码的可维护。</p>
-</li>
-<li><p>第二种是 Promise 的方式，使用 Promise 的方式可以将嵌套的回调函数作为链式调用。但是使用这种方法，有时会造成多个 then 的链式调用，可能会造成代码的语义不够明确。</p>
-</li>
-<li><p>第三种是使用 generator 的方式，它可以在函数的执行过程中，将函数的执行权转移出去，在函数外部我们还可以将执行权转移回来。当我们遇到异步函数执行的时候，将函数执行权转移出去，当异步函数执行完毕的时候我们再将执行权给转移回来。因此我们在 generator 内部对于异步操作的方式，可以以同步的顺序来书写。使用这种方式我们需要考虑的问题是何时将函数的控制权转移回来，因此我们需要有一个自动执行 generator 的机制，比如说 co 模块等方式来实现 generator 的自动执行。</p>
-</li>
-<li><p>第四种是使用 async 函数的形式，async 函数是 generator 和 promise 实现的一个自动执行的语法糖，它内部自带执行器，当函数内部执行到一个 await 语句的时候， <strong>如果语句返回一个 promise 对象，那么函数将会等待 promise 对象的状态变为 resolve 后再继续向下执行</strong>。因此我们可以将异步逻辑，转化为同步的顺序来书写，并且这个函数可以自动执行。<br><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2021/05/11/Es6async&await/">博客：</a></p>
-</li>
-</ol>
 <h3 id="promise-generotor-await-await后面接收的是什么"><a href="#promise-generotor-await-await后面接收的是什么" class="headerlink" title="promise  /generotor /await  (await后面接收的是什么)"></a>promise  /generotor /await  (await后面接收的是什么)</h3><p>正常情况下，async中的<strong>await命令是一个Promise对象，返回该对象的结果。<br>但如果不是Promise对象的话，就会直接返回对应的值，相当于Promise.resolve()<br>如果在async函数中抛出了错误，则终止错误结果，不会继续向下执行。</strong></p>
 <h4 id="then-方法"><a href="#then-方法" class="headerlink" title="then 方法"></a>then 方法</h4><p>then 方法接收两个函数作为参数，第一个参数是 Promise 执行成功时的回调，第二个参数是 Promise 执行失败时的回调，两个函数只会有一个被调用。</p>
 <h5 id="then-方法的特点"><a href="#then-方法的特点" class="headerlink" title="then 方法的特点"></a>then 方法的特点</h5><p>在 JavaScript 事件队列的当前运行完成之前，回调函数永远不会被调用。</p>
@@ -289,6 +277,18 @@
 <h4 id="Promise-allSettled"><a href="#Promise-allSettled" class="headerlink" title="Promise.allSettled"></a>Promise.allSettled</h4><p>Promise.allSettled(promises) 允许您并行执行互相独立的promise, 并每一个promise执行之后的状态（已完成或拒绝）存放在数组中。</p>
 <p>当您需要执行并行和独立的异步操作并获取到异步操作的所有结果时，Promise.allSettled(…) 非常有用，即使某些异步操作可能会失败。</p>
 <p><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2021/04/17/ES6(promise)/#Promise-all">博客</a><br><a target="_blank" rel="noopener" href="https://juejin.cn/post/6998891444312211492#heading-4">博客</a></p>
+<h3 id="如何解决异步回调地狱-异步编程的实现方式？"><a href="#如何解决异步回调地狱-异步编程的实现方式？" class="headerlink" title="如何解决异步回调地狱||  异步编程的实现方式？"></a>如何解决异步回调地狱||  异步编程的实现方式？</h3><p>promise、generator、async/await</p>
+<p>回答：<br>js 中的异步机制可以分为以下几种：</p>
+<ol>
+<li><p>第一种最常见的是使用回调函数的方式，使用回调函数的方式有一个缺点是，多个回调函数嵌套的时候会造成回调函数地狱，上下两层的回调函数间的代码耦合度太高，不利于代码的可维护。</p>
+</li>
+<li><p>第二种是 Promise 的方式，使用 Promise 的方式可以将嵌套的回调函数作为链式调用。但是使用这种方法，有时会造成多个 then 的链式调用，可能会造成代码的语义不够明确。</p>
+</li>
+<li><p>第三种是使用 generator 的方式，它可以在函数的执行过程中，将函数的执行权转移出去，在函数外部我们还可以将执行权转移回来。当我们遇到异步函数执行的时候，将函数执行权转移出去，当异步函数执行完毕的时候我们再将执行权给转移回来。因此我们在 generator 内部对于异步操作的方式，可以以同步的顺序来书写。使用这种方式我们需要考虑的问题是何时将函数的控制权转移回来，因此我们需要有一个自动执行 generator 的机制，比如说 co 模块等方式来实现 generator 的自动执行。</p>
+</li>
+<li><p>第四种是使用 async 函数的形式，async 函数是 generator 和 promise 实现的一个自动执行的语法糖，它内部自带执行器，当函数内部执行到一个 await 语句的时候， <strong>如果语句返回一个 promise 对象，那么函数将会等待 promise 对象的状态变为 resolve 后再继续向下执行</strong>。因此我们可以将异步逻辑，转化为同步的顺序来书写，并且这个函数可以自动执行。<br><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2021/05/11/Es6async&await/">博客：</a></p>
+</li>
+</ol>
 <h3 id="EventLoop-事件循环"><a href="#EventLoop-事件循环" class="headerlink" title="EventLoop 事件循环"></a>EventLoop 事件循环</h3><p>JS是单线程的，为了防止一个函数执行时间过长阻塞后面的代码，所以会先将同步代码压入执行栈中，依次执行，将异步代码推入异步队列，异步队列又分为宏任务队列和微任务队列，因为宏任务队列的执行时间较长，所以微任务队列要优先于宏任务队列。微任务队列的代表就是，<strong>Promise.then，MutationObserver</strong>，宏任务的话就是 <strong>setImmediate setTimeout setInterval</strong></p>
 <p>JS运行的环境。一般为浏览器或者Node。 在浏览器环境中，有JS 引擎线程和渲染线程，且两个线程互斥。 Node环境中，只有JS 线程。 不同环境执行机制有差异，不同任务进入不同Event Queue队列。 当主程结束，先执行准备好微任务，然后再执行准备好的宏任务，一个轮询结束。</p>
 <h3 id="浏览器中的事件环（Event-Loop"><a href="#浏览器中的事件环（Event-Loop" class="headerlink" title="浏览器中的事件环（Event Loop)"></a>浏览器中的事件环（Event Loop)</h3><p>事件环的运行机制是，先会执行栈中的内容，栈中的内容执行后执行微任务，微任务清空后再执行宏任务，先取出一个宏任务，再去执行微任务，然后在取宏任务清微任务这样不停的循环。</p>
