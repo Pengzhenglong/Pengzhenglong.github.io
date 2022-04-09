@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      14.1k 字
+      15.4k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      151
+      165
        分钟
     </span>
   
@@ -409,7 +409,21 @@
 <h4 id="为什么不是三次？"><a href="#为什么不是三次？" class="headerlink" title="为什么不是三次？"></a>为什么不是三次？</h4><p>3次情况服务端接收到断开消息，向客户端发送确认接受消息，客户端未给最后确认断开的回复。</p>
 <h4 id="为什么要四次挥手"><a href="#为什么要四次挥手" class="headerlink" title="为什么要四次挥手"></a>为什么要四次挥手</h4><p>任何一方都可以在数据传送结束后发出连接释放的通知，待对方确认后进入关闭状态。当另一方也没有数据再发送的时候，则发出连接释放通知，对方确认后就完全关闭了TCP连接。</p>
 <h4 id="TCP作为一种可靠的传输控制协议，其核心思想就是：既要保证数据的可靠传输，又要提高传输的效率，而用三次恰恰可以满足以上俩方面的需求"><a href="#TCP作为一种可靠的传输控制协议，其核心思想就是：既要保证数据的可靠传输，又要提高传输的效率，而用三次恰恰可以满足以上俩方面的需求" class="headerlink" title="TCP作为一种可靠的传输控制协议，其核心思想就是：既要保证数据的可靠传输，又要提高传输的效率，而用三次恰恰可以满足以上俩方面的需求"></a>TCP作为一种可靠的传输控制协议，其核心思想就是：既要保证数据的可靠传输，又要提高传输的效率，而用三次恰恰可以满足以上俩方面的需求</h4><p><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2021/05/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E8%B7%AF%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B/">博客</a></p>
-<h3 id="进程作为拥有资源的基本单位-线程作为调度和分配的基本单位"><a href="#进程作为拥有资源的基本单位-线程作为调度和分配的基本单位" class="headerlink" title="进程作为拥有资源的基本单位,线程作为调度和分配的基本单位"></a>进程作为拥有资源的基本单位,线程作为调度和分配的基本单位</h3><h2 id="其他不常问（多看）"><a href="#其他不常问（多看）" class="headerlink" title="其他不常问（多看）"></a>其他不常问（多看）</h2><h3 id="1-http-和-https-的基本概念"><a href="#1-http-和-https-的基本概念" class="headerlink" title="1.http 和 https 的基本概念"></a>1.http 和 https 的基本概念</h3><p>HTTP 是一种 超文本传输协议(Hypertext Transfer Protocol)，HTTP 是一个在计算机世界里专门在两点之间传输文字、图片、音频、视频等超文本数据的约定和规范<br><img src="/imageO/Http.jpg" srcset="/img/loading.gif" lazyload alt="Http"><br>HTTP 主要内容分为三部分，<strong>超文本（Hypertext）、传输（Transfer）、协议（Protocol）</strong>。</p>
+<h3 id="进程作为拥有资源的基本单位-线程作为调度和分配的基本单位"><a href="#进程作为拥有资源的基本单位-线程作为调度和分配的基本单位" class="headerlink" title="进程作为拥有资源的基本单位,线程作为调度和分配的基本单位"></a>进程作为拥有资源的基本单位,线程作为调度和分配的基本单位</h3><h3 id="HTTP队头阻塞-HTTP1-0"><a href="#HTTP队头阻塞-HTTP1-0" class="headerlink" title="HTTP队头阻塞(HTTP1.0)"></a>HTTP队头阻塞(HTTP1.0)</h3><p>众所周知，服务器和客户端是经过三次握手创建TCP通道进行交流的，最后通过四次回收告别的。<br>所以一次TCP通道的创建是需要消耗一定资源和时间的。<br>那么在HTTP0.9之前，每发送一次请求就必须创建一次TCP通道，<strong>但是一个网站往往都需要发送几十个请求，那么就需要创建几十个TCP通道，那样岂不是很消耗资源？有没有什么方法可以解决呢？</strong><br>有的！ 在HTPP1.0开始增加了<strong>Connection: Keep-Alive字段，可以让TCP链接持续打开。这样就可以节省了一个请求创建一次TCP通道的性能消耗。</strong><br>在HTTP1.1引入了<strong>持久连接 和 管道机制</strong></p>
+<h4 id="持久连接"><a href="#持久连接" class="headerlink" title="持久连接"></a>持久连接</h4><p>持久连接：即不用声明Connection: keep-alive字段，TCP连接默认不关闭，并且可以被多个请求复用。长连接的连接时长可以通过请求头中的 keep-alive 来设置。<br><strong>当客户端请求中含有Connection: Keep-Alive首部，服务器响应中也有Connection: Keep-Alive首部时，双方才会成功建立持久连接。</strong><br>在服务器返回【Connection: Keep-Alive】字段时，还可以追加【Keep-Alive: max=5, timeout=120】字段<br>Connection: Keep-Alive<br>Keep-Alive: max=5, timeout=120</p>
+<p>上面个例子说明，服务器最多还会为另外5个事务保持TCP连接的打开状态，或者将打开状态保持到连接空闲了2分钟之后。</p>
+<h4 id="管道机制"><a href="#管道机制" class="headerlink" title="管道机制"></a>管道机制</h4><p>HTTP1.1 允许在持久连接上可选的使用请求管道。这是相对于keep-alive连接的又一性能优化。在相应到达之前，可以将多条请求放入队列，当第一条请求发往服务器的时候，第二第三条请求也可以开始发送了，在高延时网络条件下，这样做可以降低网络的环回时间，提高性能。</p>
+<h3 id="持久连接-管道机制-引发-HTTP队头阻塞"><a href="#持久连接-管道机制-引发-HTTP队头阻塞" class="headerlink" title="持久连接 + 管道机制 引发 HTTP队头阻塞"></a>持久连接 + 管道机制 引发 HTTP队头阻塞</h3><p>当我们在发送 1号 请求的时候得到了正常响应, 之后我们向服务器发送 2号请求时, 由于网络带宽或者种种原因, 导致发送请求到服务器缓慢或者服务器对其响应缓慢就会形成等待状态, 由于客户端请求是以队列形式发送到服务器, 所以二号请求发送后, 迟迟未收到响应, 所以导致 3号 请求需要等待二号请求完成后才能发送.</p>
+<p>这就是著名的队头阻塞.<br>我们来看下维基百科是怎么解释的:</p>
+<blockquote>
+<p>队头阻塞（英語：Head-of-line blocking，缩写：HOL blocking）在计算机网络的范畴中是一种性能受限的现象。 它的原因是一列的第一个数据包（队头）受阻而导致整列数据包受阻。 例如它有可能在缓存式输入的交换机中出现，有可能因为传输顺序错乱而出现，亦有可能在HTTP流水线中有多个请求的情况下出现。</p>
+</blockquote>
+<p>前面提到HTTP管道化要求服务端必须按照请求发送的顺序返回响应，<strong>那如果一个响应返回延迟了，那么其后续的响应都会被延迟，直到队头的响应送达。</strong></p>
+<h3 id="HTTP队头阻塞-的解决方法"><a href="#HTTP队头阻塞-的解决方法" class="headerlink" title="HTTP队头阻塞 的解决方法"></a>HTTP队头阻塞 的解决方法</h3><h4 id="利用HTTP2的多路复用解决"><a href="#利用HTTP2的多路复用解决" class="headerlink" title="利用HTTP2的多路复用解决"></a>利用HTTP2的多路复用解决</h4><p>对于HTTP1.1中管道化导致的请求/响应级别的队头阻塞，可以使用HTTP2的多路复用解决。<br>HTTP2不使用管道化的方式，<strong>而是引入了帧、消息和数据流等概念，每个请求/响应被称为消息，每个消息都被拆分成若干个帧进行传输，每个帧都分配一个序号。</strong>每个帧在传输是属于一个数据流，而一个连接上可以存在多个流，各个帧在流和连接上独立传输，到达之后在组装成消息，这样就避免了请求/响应阻塞。<br>当然，即使使用HTTP2，如果<strong>HTTP2底层使用的是TCP协议，仍可能出现TCP队头阻塞。</strong><br>多路复用对同一域名下所有请求都是基于流，所以不存在同域并行的阻塞</p>
+<h4 id="并发连接"><a href="#并发连接" class="headerlink" title="并发连接"></a>并发连接</h4><p>我们知道对于一个域名而言，是允许分配多个长连接的，那么可以理解成增加了任务队列，也就是说不会导致一个任务阻塞了该任务队列的其他任务，在RFC规范中规定客户端最多并发2个连接，不过实际情况就是要比这个还要多，举个例子，Chrome中是6个。</p>
+<h4 id="域名分片"><a href="#域名分片" class="headerlink" title="域名分片"></a>域名分片</h4><p>顾名思义，我们可以在一个域名下分出多个二级域名出来，而它们最终指向的还是同一个服务器，这样子的话就可以并发处理的任务队列更多，也更好的解决了队头阻塞的问题。<br>举个例子，比如TianTian.com，可以分出很多二级域名，比如Day1.TianTian.com，Day2.TianTian.com, Day3.TianTian.com, 这样子就可以有效解决队头阻塞问题。</p>
+<h5 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h5><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6857382886573047822#heading-11">带你回顾一下：HTTP缓存策略、HTTP队头阻塞、HTTP2.0</a><br><a target="_blank" rel="noopener" href="https://juejin.cn/post/7049296242924322830">HTTP队头阻塞</a></p>
+<h2 id="其他不常问（多看）"><a href="#其他不常问（多看）" class="headerlink" title="其他不常问（多看）"></a>其他不常问（多看）</h2><h3 id="1-http-和-https-的基本概念"><a href="#1-http-和-https-的基本概念" class="headerlink" title="1.http 和 https 的基本概念"></a>1.http 和 https 的基本概念</h3><p>HTTP 是一种 超文本传输协议(Hypertext Transfer Protocol)，HTTP 是一个在计算机世界里专门在两点之间传输文字、图片、音频、视频等超文本数据的约定和规范<br><img src="/imageO/Http.jpg" srcset="/img/loading.gif" lazyload alt="Http"><br>HTTP 主要内容分为三部分，<strong>超文本（Hypertext）、传输（Transfer）、协议（Protocol）</strong>。</p>
 <ol>
 <li>超文本就是不单单只是本文，它还可以传输图片、音频、视频，甚至点击文字或图片能够进行超链接的跳转。</li>
 <li>上面这些概念可以统称为数据，传输就是数据需要经过一系列的物理介质从一个端系统传送到另外一个端系统的过程。通常我们2把传输数据包的一方称为请求方，把接到二进制数据包的一方称为应答方。</li>
