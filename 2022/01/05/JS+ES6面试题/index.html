@@ -285,7 +285,7 @@
 </li>
 <li><p><strong>异步任务</strong>会再分为<strong>宏任务和微任务</strong></p>
 </li>
-<li><p>宏任务进入到<strong>Event Table中，并在里面注册回调函数</strong>，<strong>每当指定的事件完成时</strong>，Event Table会将这个函数移到<strong>Event Queue</strong>中</p>
+<li><p>宏任务进入到<strong>Event Table中，并在里面注册回调函数</strong>，<strong>每当指定的事件完成时（例如延时器，或者异步请求，dom监听）</strong>，Event Table会将这个函数移到<strong>Event Queue</strong>中</p>
 </li>
 <li><p><strong>微任务</strong>也会进入到另一个Event Table中，并在里面注册回调函数，每当指定的事件完成时，Event Table会将这个函数移到Event Queue中</p>
 </li>
@@ -295,7 +295,7 @@
 <p>JS运行的环境。一般为浏览器或者Node。 在浏览器环境中，有<strong>JS 引擎线程和渲染线程，且两个线程互斥</strong>。 Node环境中，只有JS 线程。 不同环境执行机制有差异，不同任务进入不同Event Queue队列。 当主程结束，先执行准备好微任务，然后再执行准备好的宏任务，一个轮询结束。</p>
 <h4 id="当一个宏任务执行完，会在渲染前，将执行期间所产生的所有微任务都执行完（宏任务-gt-微任务-gt-GUI渲染-gt-宏任务-gt-…）-（也就是当前）"><a href="#当一个宏任务执行完，会在渲染前，将执行期间所产生的所有微任务都执行完（宏任务-gt-微任务-gt-GUI渲染-gt-宏任务-gt-…）-（也就是当前）" class="headerlink" title="当一个宏任务执行完，会在渲染前，将执行期间所产生的所有微任务都执行完（宏任务 -&gt; 微任务 -&gt; GUI渲染 -&gt; 宏任务 -&gt; …） （也就是当前）"></a>当一个宏任务执行完，会在渲染前，将执行期间所产生的所有微任务都执行完（宏任务 -&gt; 微任务 -&gt; GUI渲染 -&gt; 宏任务 -&gt; …） （也就是当前）</h4><h4 id="你怎么理解执行栈的？"><a href="#你怎么理解执行栈的？" class="headerlink" title="你怎么理解执行栈的？"></a>你怎么理解执行栈的？</h4><h5 id="执行上下文的类型"><a href="#执行上下文的类型" class="headerlink" title="执行上下文的类型"></a>执行上下文的类型</h5><p>JavaScript 中有三种执行上下文类型。</p>
 <p><strong>全局执行上下文</strong> — 这是默认或者说基础的上下文，任何不在函数内部的代码都在全局上下文中。它会执行两件事：创建一个全局的 window 对象（浏览器的情况下），并且设置 this 的值等于这个全局对象。一个程序中只会有一个全局执行上下文。<br><strong>函数执行上下文</strong> — 每当一个函数被调用时, 都会为该函数创建一个新的上下文。每个函数都有它自己的执行上下文，不过是在函数被调用时创建的。函数上下文可以有任意多个。每当一个新的执行上下文被创建，它会按定义的顺序（将在后文讨论）执行一系列步骤。<br><strong>Eval 函数执行上下文</strong> — 执行在 eval 函数内部的代码也会有它属于自己的执行上下文，但由于 JavaScript 开发者并不经常使用 eval，所以在这里我不会讨论它。</p>
-<h5 id="执行栈"><a href="#执行栈" class="headerlink" title="执行栈"></a>执行栈</h5><p>执行栈，也就是在其它编程语言中所说的“调用栈”，是一种拥有 LIFO<strong>先进候出</strong>数据结构的栈，被用来存储代码运行时创建的所有执行上下文。<br>当 JavaScript 引擎第一次遇到你的脚本时，它会<strong>创建一个全局的执行上下文并且压入当前执行栈</strong>。每当引擎<strong>遇到一个函数调用，它会为该函数创建一个新的执行上下文并压入栈的顶部。</strong><br>引擎会执行那些执行<strong>上下文位于栈顶的函数。当该函数执行结束时，执行上下文从栈中弹出</strong>，控制流程到达当前栈中的下一个上下文。<br><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903682283143181">掘金</a></p>
+<h5 id="执行栈"><a href="#执行栈" class="headerlink" title="执行栈"></a>执行栈</h5><p>执行栈，也就是在其它编程语言中所说的“调用栈”，是一种拥有 LIFO<strong>先进后出</strong>数据结构的栈，被用来存储代码运行时创建的所有执行上下文。<br>当 JavaScript 引擎第一次遇到你的脚本时，它会<strong>创建一个全局的执行上下文并且压入当前执行栈</strong>。每当引擎<strong>遇到一个函数调用，它会为该函数创建一个新的执行上下文并压入栈的顶部。</strong><br>引擎会执行那些执行<strong>上下文位于栈顶的函数。当该函数执行结束时，执行上下文从栈中弹出</strong>，控制流程到达当前栈中的下一个上下文。<br><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903682283143181">掘金</a></p>
 <h5 id="怎么创建执行上下文？"><a href="#怎么创建执行上下文？" class="headerlink" title="怎么创建执行上下文？"></a>怎么创建执行上下文？</h5><ol>
 <li>this 值的决定，即我们所熟知的 This 绑定。</li>
 <li>创建词法环境组件。</li>
@@ -345,7 +345,7 @@
 <blockquote>
 <p>上例中，init为箭头函数，其内部的this为全局window，onclick的this也就是init函数的this，也是window，得到的this.name就为undefined。</p>
 </blockquote>
-<h4 id="没有-arguments"><a href="#没有-arguments" class="headerlink" title="没有 arguments"></a>没有 arguments</h4><p>箭头函数没有自己的 arguments 对象，这不一定是件坏事，因为箭头函数可以访问外围函数的 arguments 对象：<br>那如果我们就是要访问箭头函数的参数呢？<br>你可以通过命名参数或者 rest 参数的形式访问参数:<br>let nums = (…nums) =&gt; nums;</p>
+<h4 id="没有-arguments-arguments是一个类数组对象，用来存储实际传递给函数的参数"><a href="#没有-arguments-arguments是一个类数组对象，用来存储实际传递给函数的参数" class="headerlink" title="没有 arguments  arguments是一个类数组对象，用来存储实际传递给函数的参数"></a>没有 arguments  arguments是一个类数组对象，用来存储实际传递给函数的参数</h4><p>箭头函数没有自己的 arguments 对象，这不一定是件坏事，因为箭头函数可以访问外围函数的 arguments 对象：<br>那如果我们就是要访问箭头函数的参数呢？<br>你可以通过命名参数或者 rest 参数的形式访问参数:<br>let nums = (…nums) =&gt; nums;</p>
 <h4 id="不能通过-new-关键字调用"><a href="#不能通过-new-关键字调用" class="headerlink" title="不能通过 new 关键字调用"></a>不能通过 new 关键字调用</h4><p>JavaScript 函数有两个内部方法：[[Call]] 和 [[Construct]]。</p>
 <p>当通过 new 调用函数时，执行 [[Construct]] 方法，创建一个实例对象，然后再执行函数体，将 this 绑定到实例上。</p>
 <p>当直接调用的时候，执行 [[Call]] 方法，直接执行函数体。</p>
