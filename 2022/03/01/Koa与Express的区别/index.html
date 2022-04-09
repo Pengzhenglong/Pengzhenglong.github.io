@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1k 字
+      1.3k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      11
+      15
        分钟
     </span>
   
@@ -236,7 +236,14 @@
 <p>换句话说express = http模块 + 中间件 + 路由</p>
 </blockquote>
 <h3 id="Express和Koa框架中间件有什么不同？"><a href="#Express和Koa框架中间件有什么不同？" class="headerlink" title="Express和Koa框架中间件有什么不同？"></a>Express和Koa框架中间件有什么不同？</h3><p>答案：中间件： app.use方法就是往中间件队列中塞入新的中间件，express中间件处理方式是线性的，next过后继续寻找下一个中间件，当然如果没有调用next()的话，就不会调用下一个函数了，调用就会被终止</p>
-<h5 id="express-中间件：是通过-next-的机制，即上一个中间件会通过-next-触发下一个中间件"><a href="#express-中间件：是通过-next-的机制，即上一个中间件会通过-next-触发下一个中间件" class="headerlink" title="express 中间件：是通过 next 的机制，即上一个中间件会通过 next 触发下一个中间件"></a>express 中间件：是通过 next 的机制，即上一个中间件会通过 next 触发下一个中间件</h5><h5 id="koa2-中间件：是通过-async-await-实现的，中间件执行顺序是“洋葱圈”模型（推荐）"><a href="#koa2-中间件：是通过-async-await-实现的，中间件执行顺序是“洋葱圈”模型（推荐）" class="headerlink" title="koa2 中间件：是通过 async await 实现的，中间件执行顺序是“洋葱圈”模型（推荐）"></a>koa2 中间件：是通过 async await 实现的，中间件执行顺序是“洋葱圈”模型（推荐）</h5><p><img src="/imageO/YC.jpg" srcset="/img/loading.gif" lazyload alt="洋葱模型"></p>
+<h5 id="express-中间件：是通过-next-的机制，即上一个中间件会通过-next-触发下一个中间件"><a href="#express-中间件：是通过-next-的机制，即上一个中间件会通过-next-触发下一个中间件" class="headerlink" title="express 中间件：是通过 next 的机制，即上一个中间件会通过 next 触发下一个中间件"></a>express 中间件：是通过 next 的机制，即上一个中间件会通过 next 触发下一个中间件</h5><h5 id="koa2-中间件：是通过-async-await-实现的，中间件执行顺序是“洋葱圈”模型（推荐）"><a href="#koa2-中间件：是通过-async-await-实现的，中间件执行顺序是“洋葱圈”模型（推荐）" class="headerlink" title="koa2 中间件：是通过 async await 实现的，中间件执行顺序是“洋葱圈”模型（推荐）"></a>koa2 中间件：是通过 async await 实现的，中间件执行顺序是“洋葱圈”模型（推荐）</h5><p>洋葱模型其实就是中间件处理的流程，中间件生命周期大致有：</p>
+<p><strong>前期处理,交给并等待其它中间件处理,后期处理</strong></p>
+<p><img src="/imageO/YC.jpg" srcset="/img/loading.gif" lazyload alt="洋葱模型"><br>先回顾一下，Koa2.js 中下面代码打印输出顺序为：</p>
+<figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs livescript"><span class="hljs-keyword">const</span> Koa = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;koa&#x27;</span>)<br><span class="hljs-keyword">const</span> app = <span class="hljs-keyword">new</span> Koa()<br><br>app.use(<span class="hljs-keyword">async</span> (cxt, next) =&gt; &#123;<br>  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;middleware_01 start&#x27;</span>)<br>  <span class="hljs-keyword">await</span> next()<br>  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;middleware_01 end&#x27;</span>)<br>&#125;)<br><br>app.use(<span class="hljs-keyword">async</span> (cxt, next) =&gt; &#123;<br>  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;middleware_02 start&#x27;</span>)<br>  <span class="hljs-keyword">await</span> next()<br>  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;middleware_02 end&#x27;</span>)<br>&#125;)<br><br>app.use(<span class="hljs-keyword">async</span> (cxt, next) =&gt; &#123;<br>  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;middleware_03 start&#x27;</span>)<br>  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;middleware_03 end&#x27;</span>)<br>&#125;)<br><br>app.listen(<span class="hljs-number">3000</span>)<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs livecodeserver">// 浏览器访问：<span class="hljs-keyword">http</span>://localhost:<span class="hljs-number">3000</span><br>// 输出顺序为：<br>middleware_01 <span class="hljs-built_in">start</span><br>middleware_02 <span class="hljs-built_in">start</span><br>middleware_03 <span class="hljs-built_in">start</span><br>middleware_03 <span class="hljs-keyword">end</span><br>middleware_02 <span class="hljs-keyword">end</span><br>middleware_01 <span class="hljs-keyword">end</span><br></code></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844904031152783374">掘金</a></p>
 <h3 id="Koa与Express的区别"><a href="#Koa与Express的区别" class="headerlink" title="Koa与Express的区别"></a>Koa与Express的区别</h3><h4 id="Koa"><a href="#Koa" class="headerlink" title="Koa"></a>Koa</h4><ul>
 <li>基于node的一个web开发框架，利用co作为底层运行框架，利用Generator的特性，实现“无回调”的异步处理；</li>
 <li>ES7;</li>
@@ -246,6 +253,7 @@
 <li>类似堆栈的方式组织和执行；</li>
 <li>低级中间件层中提供高级“语法糖”，提高了互操性、稳健性；</li>
 </ul>
+<p>可以看到要从洋葱中心点穿过去，就必须先一层层向内穿入洋葱表皮进入中心点，然后再从中心点一层层向外穿出表皮，这里有个特点：进入时穿入了多少层表皮，出去时就必须穿出多少层表皮。先穿入表皮，后穿出表皮，符合我们所说的<strong>栈列表，先进后出的原则</strong>。</p>
 <h4 id="Express"><a href="#Express" class="headerlink" title="Express"></a>Express</h4><ul>
 <li>Node的基础框架，基础Connect中间件，自身封装了路由、视图处理等功能；</li>
 <li>线性逻辑，路由和中间件完美融合，清晰明了；</li>

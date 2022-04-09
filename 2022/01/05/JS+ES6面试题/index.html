@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      16.3k 字
+      17k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      189
+      196
        分钟
     </span>
   
@@ -243,30 +243,30 @@
 <p>3、除了最顶层的Object对象没有__proto_，其他所有的对象都有__proto__,这是隐式原型</p>
 <p>4、<strong>隐式原型__proto__的作用是让对象通过它来一直往上查找属性或方法，直到找到最顶层的Object的__proto__属性，它的值是null,这个查找的过程就是原型链</strong><br>特点：<br>JavaScript 对象是通过引用来传递的，我们创建的每个新对象实体中并没有一份属于自己的原型副本。当我们修改原型时，与之相关的对象也会继承这一改变。<br><img src="/imageO/YX.jpg" srcset="/img/loading.gif" lazyload alt="原型链"></p>
 <h3 id="js-获取原型的方法？"><a href="#js-获取原型的方法？" class="headerlink" title="js 获取原型的方法？"></a>js 获取原型的方法？</h3><p>p.<code>__proto__</code><br>p.constructor.prototype<br>Object.getPrototypeOf(p)</p>
-<h3 id="promise-generotor-await-await后面接收的是什么"><a href="#promise-generotor-await-await后面接收的是什么" class="headerlink" title="promise  /generotor /await  (await后面接收的是什么)"></a>promise  /generotor /await  (await后面接收的是什么)</h3><p>正常情况下，async中的<strong>await命令是一个Promise对象，返回该对象的结果。<br>但如果不是Promise对象的话，就会直接返回对应的值，相当于Promise.resolve()<br>如果在async函数中抛出了错误，则终止错误结果，不会继续向下执行。</strong></p>
-<h4 id="then-方法"><a href="#then-方法" class="headerlink" title="then 方法"></a>then 方法</h4><p>then 方法接收两个函数作为参数，第一个参数是 Promise 执行成功时的回调，第二个参数是 Promise 执行失败时的回调，两个函数只会有一个被调用。</p>
-<h5 id="then-方法的特点"><a href="#then-方法的特点" class="headerlink" title="then 方法的特点"></a>then 方法的特点</h5><p>在 JavaScript 事件队列的当前运行完成之前，回调函数永远不会被调用。</p>
-<p><strong>then 方法将返回一个 resolved 或 rejected 状态的 Promise 对象用于链式调用，且 Promise 对象的值就是这个返回值。</strong></p>
+<h3 id="如何解决异步回调地狱-异步编程的实现方式？"><a href="#如何解决异步回调地狱-异步编程的实现方式？" class="headerlink" title="如何解决异步回调地狱||  异步编程的实现方式？"></a>如何解决异步回调地狱||  异步编程的实现方式？</h3><p>promise、generator、async/await<br>js 中的异步机制可以分为以下几种：</p>
+<ol>
+<li>第一种最常见的是使用回调函数的方式，使用回调函数的方式有一个缺点是，<strong>多个回调函数嵌套的时候会造成回调函数地狱，上下两层的回调函数间的代码耦合度太高</strong>，不利于代码的可维护。</li>
+</ol>
+<h4 id="2-第二种是-Promise-的方式，使用-Promise-的方式可以将嵌套的回调函数作为链式调用。但是使用这种方法，有时会造成多个-then-的链式调用，可能会造成代码的语义不够明确"><a href="#2-第二种是-Promise-的方式，使用-Promise-的方式可以将嵌套的回调函数作为链式调用。但是使用这种方法，有时会造成多个-then-的链式调用，可能会造成代码的语义不够明确" class="headerlink" title="2. 第二种是 Promise 的方式，使用 Promise 的方式可以将嵌套的回调函数作为链式调用。但是使用这种方法，有时会造成多个 then 的链式调用，可能会造成代码的语义不够明确"></a>2. 第二种是 Promise 的方式，使用 Promise 的方式可以将嵌套的回调函数作为链式调用。但是使用这种方法，有时会造成多个 then 的链式调用，可能会造成代码的语义不够明确</h4><p>从语法上说，<strong>Promise 是一个对象，从它可以获取异步操作的消息。</strong><br>Promise 异步操作有三种状态：<strong>pending（进行中）、fulfilled（已成功）和 rejected（已失败）。除了异步操作的结果，任何其他操作都无法改变这个状态。</strong><br>Promise 对象只有：从 pending 变为 fulfilled 和从 pending 变为 rejected 的状态改变。只要处于 fulfilled 和 rejected ，状态就不会再变了即 resolved（已定型）。<br>语法：</p>
+<figure class="highlight nim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nim">new <span class="hljs-type">Promise</span>( function(resolve, reject) <span class="hljs-meta">&#123;...&#125;</span>);<br></code></pre></td></tr></table></figure>
+
+<p>状态的缺点：<br><strong>无法取消 Promise ，一旦新建它就会立即执行，无法中途取消。</strong><br><strong>如果不设置回调函数，Promise 内部抛出的错误，不会反应到外部</strong><br>当<strong>处于 pending 状态时，无法得知目前进展到哪一个阶段</strong>（刚刚开始还是即将完成）。</p>
+<ol>
+<li><p>generator</p>
+</li>
+<li><p>第四种是使用 async 函数的形式，async 函数是 generator 和 promise 实现的一个自动执行的语法糖，它内部自带执行器，当函数内部执行到一个 await 语句的时候， <strong>如果语句返回一个 promise 对象，那么函数将会等待 promise 对象的状态变为 resolve 后再继续向下执行</strong>。因此我们可以将异步逻辑，转化为同步的顺序来书写，并且这个函数可以自动执行。<br><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2021/05/11/Es6async&await/">博客：</a></p>
+</li>
+</ol>
+<h3 id="promise-generotor-await-await后面接收的是什么"><a href="#promise-generotor-await-await后面接收的是什么" class="headerlink" title="promise  /generotor /await  (await后面接收的是什么)"></a>promise  /generotor /await  (await后面接收的是什么)</h3><h4 id="then-方法"><a href="#then-方法" class="headerlink" title="then 方法"></a>then 方法</h4><p>then是<strong>实例状态发生改变</strong>时的回调函数，第一个参数是resolved状态的回调函数，第二个参数是rejected状态的回调函数<br>then方法返回的是一个新的Promise实例，也就是promise能链式书写的原因<br>在 <strong>JavaScript 事件队列的当前运行完成之前，回调函数永远不会被调用。</strong></p>
 <h5 id="promise-then-返回的新的promise状态与值是怎样决定的？"><a href="#promise-then-返回的新的promise状态与值是怎样决定的？" class="headerlink" title="promise.then 返回的新的promise状态与值是怎样决定的？"></a>promise.then 返回的新的promise状态与值是怎样决定的？</h5><figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs coffeescript">let promise2 = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function"><span class="hljs-params">(resolve, reject)</span> =&gt;</span> &#123;<br>    resolve(<span class="hljs-number">1</span>)<br>&#125;).<span class="hljs-keyword">then</span>(<br>    value =&gt; &#123;<br>        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;success1&#x27;</span>,value)<br>        <span class="hljs-regexp">//</span> <span class="hljs-keyword">return</span> <span class="hljs-literal">undefined</span> <span class="hljs-regexp">//</span>默认为<span class="hljs-literal">undefined</span><br>        <span class="hljs-regexp">//</span> <span class="hljs-keyword">return</span> <span class="hljs-number">1</span><br>        <span class="hljs-regexp">//</span> <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.resolve(<span class="hljs-number">2</span>)<br>        <span class="hljs-regexp">//</span> <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.reject(<span class="hljs-number">3</span>)<br>        <span class="hljs-regexp">//</span> <span class="hljs-keyword">throw</span> <span class="hljs-number">4</span><br>    &#125;)<br></code></pre></td></tr></table></figure>
 
-<p>结论：</p>
-<p>1、通过return 返回一个非promise的值，则新promise的状态fulfilled，值为return 的值</p>
-<p>2、不做任何处理（不return == return undefined），所以根据结论1新promise的状态为fulfilled，值为undefined</p>
-<p>3、通过throw主动抛出错误或者代码出现错误，则promise的状态为rejected，值为throw的值</p>
-<p>4、通过return 返回一个promise对象，则新promise就是return的promsie</p>
+<p>结论：<br>1、通过return 返回一个非promise的值，则新promise的状态fulfilled，值为return 的值<br>2、不做任何处理（不return == return undefined），所以根据结论1新promise的状态为fulfilled，值为undefined<br>3、<strong>通过throw主动抛出错误或者代码出现错误，则promise的状态为rejected，值为throw的值</strong><br>4、通过<strong>return 返回一个promise对象，则新promise就是return的promsie</strong></p>
 <ul>
 <li>可根据以上代码，挨个取消注释并在控制台打印promise2查看</li>
 </ul>
-<h5 id="then-方法注意点"><a href="#then-方法注意点" class="headerlink" title="then 方法注意点"></a>then 方法注意点</h5><p>简便的 Promise 链式编程最好保持扁平化，不要嵌套 Promise。</p>
-<p>注意总是返回或终止 Promise 链。</p>
-<h4 id="then方法为什么可以链式调用"><a href="#then方法为什么可以链式调用" class="headerlink" title="then方法为什么可以链式调用"></a>then方法为什么可以链式调用</h4><p>Promise可以链式调用，不过promise 每次调用 .then 或者 .catch 都会返回一个新的 promise，从而实现了链式调用, 它并不像一般我们任务的链式调用一样return this。</p>
-<h3 id="Promise、Promise-all、Promise-race-分别怎么用？"><a href="#Promise、Promise-all、Promise-race-分别怎么用？" class="headerlink" title="Promise、Promise.all、Promise.race 分别怎么用？"></a>Promise、Promise.all、Promise.race 分别怎么用？</h3><p>Promise 异步操作有三种状态：pending（进行中）、fulfilled（已成功）和 rejected（已失败）。除了异步操作的结果，任何其他操作都无法改变这个状态。<br>Promise 对象只有：从 pending 变为 fulfilled 和从 pending 变为 rejected 的状态改变。只要处于 fulfilled 和 rejected ，状态就不会再变了即 resolved（已定型）。<br>语法：</p>
-<figure class="highlight nim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nim">new <span class="hljs-type">Promise</span>( function(resolve, reject) <span class="hljs-meta">&#123;...&#125;</span>);<br></code></pre></td></tr></table></figure>
-
-<p>状态的缺点<br>无法取消 Promise ，一旦新建它就会立即执行，无法中途取消。</p>
-<p>如果不设置回调函数，Promise 内部抛出的错误，不会反应到外部。</p>
-<p>当处于 pending 状态时，无法得知目前进展到哪一个阶段（刚刚开始还是即将完成）。</p>
-<h4 id="Promise-all方法"><a href="#Promise-all方法" class="headerlink" title="Promise.all方法"></a>Promise.all方法</h4><p>简而言之：Promise.all( ).then( )适用于处理多个异步任务，且所有的异步任务都得到结果时的情况。</p>
+<h4 id="catch"><a href="#catch" class="headerlink" title="catch"></a>catch</h4><p>catch()方法是.then(null, rejection)或.then(undefined, rejection)的别名，用于指定发生错误时的回调函数</p>
+<h4 id="finally"><a href="#finally" class="headerlink" title="finally()"></a>finally()</h4><p>finally()方法用于指定不管 Promise 对象最后状态如何，都会执行的操作<br><a target="_blank" rel="noopener" href="https://vue3js.cn/interview/es6/promise.html#%E4%B8%80%E3%80%81%E4%BB%8B%E7%BB%8D">参考</a><br>正常情况下，async中的<strong>await命令是一个Promise对象，返回该对象的结果。<br>但如果不是Promise对象的话，就会直接返回对应的值，相当于Promise.resolve()<br>如果在async函数中抛出了错误，则终止错误结果，不会继续向下执行。</strong></p>
+<h3 id="Promise-all、Promise-race、Promise-allSettled-分别怎么用？"><a href="#Promise-all、Promise-race、Promise-allSettled-分别怎么用？" class="headerlink" title="Promise.all、Promise.race、Promise.allSettled 分别怎么用？"></a>Promise.all、Promise.race、Promise.allSettled 分别怎么用？</h3><h4 id="Promise-all方法"><a href="#Promise-all方法" class="headerlink" title="Promise.all方法"></a>Promise.all方法</h4><p>简而言之：Promise.all( ).then( )适用于处理多个异步任务，且所有的异步任务都得到结果时的情况。</p>
 <blockquote>
 <p>promise1和promise2都成功才会调用success1<br>比如：用户点击按钮，会弹出一个弹出对话框，对话框中有两部分数据呈现，这两部分数据分别是不同的后端接口获取的数据。<br>弹框弹出后的初始情况下，就让这个弹出框处于数据加载中的状态，当这两部分数据都从接口获取到的时候，才让这个数据加载中状态消失。让用户看到这两部分的数据。</p>
 </blockquote>
@@ -277,40 +277,39 @@
 <h4 id="Promise-allSettled"><a href="#Promise-allSettled" class="headerlink" title="Promise.allSettled"></a>Promise.allSettled</h4><p>Promise.allSettled(promises) 允许您并行执行互相独立的promise, 并每一个promise执行之后的状态（已完成或拒绝）存放在数组中。</p>
 <p>当您需要执行并行和独立的异步操作并获取到异步操作的所有结果时，Promise.allSettled(…) 非常有用，即使某些异步操作可能会失败。</p>
 <p><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2021/04/17/ES6(promise)/#Promise-all">博客</a><br><a target="_blank" rel="noopener" href="https://juejin.cn/post/6998891444312211492#heading-4">博客</a></p>
-<h3 id="如何解决异步回调地狱-异步编程的实现方式？"><a href="#如何解决异步回调地狱-异步编程的实现方式？" class="headerlink" title="如何解决异步回调地狱||  异步编程的实现方式？"></a>如何解决异步回调地狱||  异步编程的实现方式？</h3><p>promise、generator、async/await</p>
-<p>回答：<br>js 中的异步机制可以分为以下几种：</p>
+<h3 id="EventLoop-事件循环"><a href="#EventLoop-事件循环" class="headerlink" title="EventLoop 事件循环"></a>EventLoop 事件循环</h3><p>JS是单线程的，为了<strong>防止一个函数执行时间过长阻塞后面的代码，所以会先将同步代码压入执行栈中，依次执行，将异步代码推入异步队列，异步队列又分为宏任务队列和微任务队列，因为宏任务队列的执行时间较长，所以微任务队列要优先于宏任务队列</strong>。微任务队列的代表就是，<strong>Promise.then，MutationObserver</strong>，宏任务的话就是 <strong>setImmediate setTimeout setInterval</strong></p>
 <ol>
-<li><p>第一种最常见的是使用回调函数的方式，使用回调函数的方式有一个缺点是，多个回调函数嵌套的时候会造成回调函数地狱，上下两层的回调函数间的代码耦合度太高，不利于代码的可维护。</p>
+<li><p>首先，整体的<strong>script(作为第一个宏任务)开始执行的时候</strong>，会把<strong>所有代码分为同步任务、异步任务</strong>两部分</p>
 </li>
-<li><p>第二种是 Promise 的方式，使用 Promise 的方式可以将嵌套的回调函数作为链式调用。但是使用这种方法，有时会造成多个 then 的链式调用，可能会造成代码的语义不够明确。</p>
+<li><p><strong>同步任务</strong>会直接进入<strong>主线程依次执行</strong>(执行栈)</p>
 </li>
-<li><p>第三种是使用 generator 的方式，它可以在函数的执行过程中，将函数的执行权转移出去，在函数外部我们还可以将执行权转移回来。当我们遇到异步函数执行的时候，将函数执行权转移出去，当异步函数执行完毕的时候我们再将执行权给转移回来。因此我们在 generator 内部对于异步操作的方式，可以以同步的顺序来书写。使用这种方式我们需要考虑的问题是何时将函数的控制权转移回来，因此我们需要有一个自动执行 generator 的机制，比如说 co 模块等方式来实现 generator 的自动执行。</p>
+<li><p><strong>异步任务</strong>会再分为<strong>宏任务和微任务</strong></p>
 </li>
-<li><p>第四种是使用 async 函数的形式，async 函数是 generator 和 promise 实现的一个自动执行的语法糖，它内部自带执行器，当函数内部执行到一个 await 语句的时候， <strong>如果语句返回一个 promise 对象，那么函数将会等待 promise 对象的状态变为 resolve 后再继续向下执行</strong>。因此我们可以将异步逻辑，转化为同步的顺序来书写，并且这个函数可以自动执行。<br><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2021/05/11/Es6async&await/">博客：</a></p>
+<li><p>宏任务进入到<strong>Event Table中，并在里面注册回调函数</strong>，<strong>每当指定的事件完成时</strong>，Event Table会将这个函数移到<strong>Event Queue</strong>中</p>
+</li>
+<li><p><strong>微任务</strong>也会进入到另一个Event Table中，并在里面注册回调函数，每当指定的事件完成时，Event Table会将这个函数移到Event Queue中</p>
+</li>
+<li><p>当<strong>主线程内的任务执行完毕，主线程为空时，会检查微任务的Event Queue，如果有任务，就全部执行，如果没有就执行下一个宏任务</strong>（微任务队列清空后，进入宏任务队列，<strong>取队列的第一项任务放入Stack(栈）中执行</strong>，执行完成后，查看微任务队列是否有任务，有的话，清空微任务队列）<br>上述过程会<strong>不断重复</strong>（循环），这就是Event Loop，比较完整的事件循环</p>
 </li>
 </ol>
-<h3 id="EventLoop-事件循环"><a href="#EventLoop-事件循环" class="headerlink" title="EventLoop 事件循环"></a>EventLoop 事件循环</h3><p>JS是单线程的，为了防止一个函数执行时间过长阻塞后面的代码，所以会先将同步代码压入执行栈中，依次执行，将异步代码推入异步队列，异步队列又分为宏任务队列和微任务队列，因为宏任务队列的执行时间较长，所以微任务队列要优先于宏任务队列。微任务队列的代表就是，<strong>Promise.then，MutationObserver</strong>，宏任务的话就是 <strong>setImmediate setTimeout setInterval</strong></p>
-<p>JS运行的环境。一般为浏览器或者Node。 在浏览器环境中，有JS 引擎线程和渲染线程，且两个线程互斥。 Node环境中，只有JS 线程。 不同环境执行机制有差异，不同任务进入不同Event Queue队列。 当主程结束，先执行准备好微任务，然后再执行准备好的宏任务，一个轮询结束。</p>
-<h3 id="浏览器中的事件环（Event-Loop"><a href="#浏览器中的事件环（Event-Loop" class="headerlink" title="浏览器中的事件环（Event Loop)"></a>浏览器中的事件环（Event Loop)</h3><p>事件环的运行机制是，先会执行栈中的内容，栈中的内容执行后执行微任务，微任务清空后再执行宏任务，先取出一个宏任务，再去执行微任务，然后在取宏任务清微任务这样不停的循环。</p>
-<ul>
-<li>eventLoop 是由JS的宿主环境（浏览器）来实现的；</li>
-<li>事件循环可以简单的描述为以下四个步骤:</li>
-</ul>
-<ol>
-<li>函数入栈，当Stack中执行到异步任务的时候，就将他丢给WebAPIs,接着执行同步任务,直到Stack为空；</li>
-<li>此期间WebAPIs完成这个事件，把回调函数放入队列中等待执行（微任务放到微任务队列，宏任务放到宏任务队列）</li>
-<li>执行栈为空时，Event Loop把微任务队列执行清空；</li>
-<li>微任务队列清空后，进入宏任务队列，取队列的第一项任务放入Stack(栈）中执行，执行完成后，查看微任务队列是否有任务，有的话，清空微任务队列。重复4，继续从宏任务中取任务执行，执行完成之后，继续清空微任务，如此反复循环，直至清空所有的任务。</li>
+<p>JS运行的环境。一般为浏览器或者Node。 在浏览器环境中，有<strong>JS 引擎线程和渲染线程，且两个线程互斥</strong>。 Node环境中，只有JS 线程。 不同环境执行机制有差异，不同任务进入不同Event Queue队列。 当主程结束，先执行准备好微任务，然后再执行准备好的宏任务，一个轮询结束。</p>
+<h4 id="当一个宏任务执行完，会在渲染前，将执行期间所产生的所有微任务都执行完（宏任务-gt-微任务-gt-GUI渲染-gt-宏任务-gt-…）-（也就是当前）"><a href="#当一个宏任务执行完，会在渲染前，将执行期间所产生的所有微任务都执行完（宏任务-gt-微任务-gt-GUI渲染-gt-宏任务-gt-…）-（也就是当前）" class="headerlink" title="当一个宏任务执行完，会在渲染前，将执行期间所产生的所有微任务都执行完（宏任务 -&gt; 微任务 -&gt; GUI渲染 -&gt; 宏任务 -&gt; …） （也就是当前）"></a>当一个宏任务执行完，会在渲染前，将执行期间所产生的所有微任务都执行完（宏任务 -&gt; 微任务 -&gt; GUI渲染 -&gt; 宏任务 -&gt; …） （也就是当前）</h4><h4 id="你怎么理解执行栈的？"><a href="#你怎么理解执行栈的？" class="headerlink" title="你怎么理解执行栈的？"></a>你怎么理解执行栈的？</h4><h5 id="执行上下文的类型"><a href="#执行上下文的类型" class="headerlink" title="执行上下文的类型"></a>执行上下文的类型</h5><p>JavaScript 中有三种执行上下文类型。</p>
+<p><strong>全局执行上下文</strong> — 这是默认或者说基础的上下文，任何不在函数内部的代码都在全局上下文中。它会执行两件事：创建一个全局的 window 对象（浏览器的情况下），并且设置 this 的值等于这个全局对象。一个程序中只会有一个全局执行上下文。<br><strong>函数执行上下文</strong> — 每当一个函数被调用时, 都会为该函数创建一个新的上下文。每个函数都有它自己的执行上下文，不过是在函数被调用时创建的。函数上下文可以有任意多个。每当一个新的执行上下文被创建，它会按定义的顺序（将在后文讨论）执行一系列步骤。<br><strong>Eval 函数执行上下文</strong> — 执行在 eval 函数内部的代码也会有它属于自己的执行上下文，但由于 JavaScript 开发者并不经常使用 eval，所以在这里我不会讨论它。</p>
+<h5 id="执行栈"><a href="#执行栈" class="headerlink" title="执行栈"></a>执行栈</h5><p>执行栈，也就是在其它编程语言中所说的“调用栈”，是一种拥有 LIFO<strong>先进候出</strong>数据结构的栈，被用来存储代码运行时创建的所有执行上下文。<br>当 JavaScript 引擎第一次遇到你的脚本时，它会<strong>创建一个全局的执行上下文并且压入当前执行栈</strong>。每当引擎<strong>遇到一个函数调用，它会为该函数创建一个新的执行上下文并压入栈的顶部。</strong><br>引擎会执行那些执行<strong>上下文位于栈顶的函数。当该函数执行结束时，执行上下文从栈中弹出</strong>，控制流程到达当前栈中的下一个上下文。<br><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903682283143181">掘金</a></p>
+<h5 id="怎么创建执行上下文？"><a href="#怎么创建执行上下文？" class="headerlink" title="怎么创建执行上下文？"></a>怎么创建执行上下文？</h5><ol>
+<li>this 值的决定，即我们所熟知的 This 绑定。</li>
+<li>创建词法环境组件。</li>
+<li>创建变量环境组件。</li>
 </ol>
 <ul>
+<li>eventLoop 是由<strong>JS的宿主环境（浏览器）</strong>来实现的；</li>
 <li>浏览器中的任务源(task):<ol>
-<li>宏任务(macrotask)：宿主环境提供的，比如浏览器ajax、setTimeout、setInterval、setTmmediate(只兼容ie)、script、2. 2.requestAnimationFrame、messageChannel、UI渲染、一些浏览器api</li>
+<li>宏任务(macrotask)：<strong>宿主环境提供的</strong>，比如浏览器<strong>ajax、setTimeout、setInterval、setTmmediate(只兼容ie)、script、</strong>2. 2.requestAnimationFrame、messageChannel、<strong>UI渲染</strong>、一些浏览器api</li>
+<li>微任务(microtask)：<strong>语言本身提供</strong>的，比如**promise.thenthen、queueMicrotask(基于then)、mutationObserver(浏览器提供)**、messageChannel 、mutationObersve<br><img src="/imageO/20.png" srcset="/img/loading.gif" lazyload alt="如图"></li>
 </ol>
 </li>
 </ul>
-<ol start="2">
-<li>微任务(microtask)：语言本身提供的，比如promise.thenthen、queueMicrotask(基于then)、mutationObserver(浏览器提供)、messageChannel 、mutationObersve<br><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2021/07/03/Js%E8%BF%90%E8%A1%8C%E6%9C%BA%E5%88%B6/">博客：这一次，彻底弄懂 JavaScript 执行机制</a><br><a target="_blank" rel="noopener" href="https://juejin.cn/post/7001881781125251086">传送门 ☞ # 宏任务和微任务</a></li>
-</ol>
+<p><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2021/07/03/Js%E8%BF%90%E8%A1%8C%E6%9C%BA%E5%88%B6/">博客：这一次，彻底弄懂 JavaScript 执行机制</a><br><a target="_blank" rel="noopener" href="https://juejin.cn/post/7001881781125251086">传送门 ☞ # 宏任务和微任务</a></p>
 <h3 id="闭包是什么？有什么优点和缺点？"><a href="#闭包是什么？有什么优点和缺点？" class="headerlink" title="闭包是什么？有什么优点和缺点？"></a>闭包是什么？有什么优点和缺点？</h3><p> 解答：闭包是指有权访问另一个函数作用域中的变量的函数。<br>  优点：① 能够读取函数内部的变量；②让这些变量一直存在于内存中，不会在调用结束后被垃圾回收机制回收；<br>  缺点：由于闭包会使用函数中的变量存在在内存中，内存消耗很大，所以不能滥用闭包；解决的办法是退出函数之前，将不使用的局部变量删除；<br><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2021/04/26/JS%E9%97%AD%E5%8C%85%E7%90%86%E8%A7%A3/">博客：</a></p>
 <h4 id="匿名函数的作用"><a href="#匿名函数的作用" class="headerlink" title="匿名函数的作用"></a>匿名函数的作用</h4><p>1、通过匿名函数可以实现闭包（必须掌握的知识点）</p>
 <p>2、模拟块级作用域，减少全局变量。执行完匿名函数，存储在内存中相对应的变量会被销毁，使用块级作用域，会大大降低命名冲突的问题，不必担心搞乱全局作用域了。</p>
@@ -318,7 +317,7 @@
 <li>项目中，<strong>如果存在大量不被释放的内存（堆/栈/上下文），页面性能会变得很慢。当某些代码操作不能被合理释放，就会造成内存泄漏。我们尽可能减少使用闭包，因为它会消耗内存。</strong></li>
 <li>浏览器垃圾回收机制/内存回收机制:浏览器的<strong>Javascript</strong>具有自动垃圾回收机制(GC:Garbage Collecation)，垃圾收集器会定期（周期性）找出那些不在继续使用的变量，然后释放其内存。</li>
 </ol>
-<p><strong>标记清除</strong>:在js中，最常用的垃圾回收机制是标记清除：<strong>当变量进入执行环境时，被标记为“进入环境”，当变量离开执行环境时，会被标记为“离开环境”。</strong>垃圾回收器会销毁那些带标记的值并回收它们所占用的内存空间。谷歌浏览器：“查找引用”，浏览器不定时去查找当前内存的引用，如果没有被占用了，浏览器会回收它；如果被占用，就不能回收。<br>过程</p>
+<p><strong>标记清除</strong>:在js中，最常用的垃圾回收机制是标记清除：<strong>当变量进入上下文，比如在函数内声明了一个变量时，这个变量就会被加上存在于上下文中的标记，而在上下文中的变量，逻辑上讲永远不应该释放他们的内存，因为只要在上下文中的代码运行了，就可能用到它们，当变量离开上下文中的时候，也会被加上离开上下文的标记。（上下文中的变量都访问不到他们了）</strong>垃圾回收器会<strong>销毁那些带离开上下文标记的值并回收它们所占用的内存空间</strong>。谷歌浏览器：“查找引用”，浏览器不定时去查找当前内存的引用，如果没有被占用了，浏览器会回收它；如果被占用，就不能回收。<br>过程</p>
 <ol>
 <li>垃圾收集器在运行时会给内存中的所有变量都加上一个标记，假设内存中所有对象都是垃圾，全标记为0</li>
 <li>然后从各个根对象开始遍历，把不是垃圾的节点改成1</li>
@@ -335,14 +334,11 @@
 </ol>
 <h4 id="V8对GC的优化-（待）"><a href="#V8对GC的优化-（待）" class="headerlink" title="V8对GC的优化  （待）"></a>V8对GC的优化  （待）</h4><ol>
 <li>分代式垃圾回收</li>
-<li>新老生代</li>
-<li>新生代垃圾回收</li>
-<li>老生代垃圾回收</li>
-<li>为什么需要分代式？</li>
-<li>并行回收(Parallel)</li>
-<li>增量标记与懒性清理</li>
-<li>并发回收(Concurrent)<br><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2022/03/26/%E4%BD%A0%E7%9C%9F%E7%9A%84%E4%BA%86%E8%A7%A3%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6%E5%90%97/">博客</a></li>
 </ol>
+<p>V8 的垃圾回收策略主要基于分代式垃圾回收机制，<strong>V8 中将堆内存分为新生代和老生代两区域，采用不同的垃圾回收器也就是不同的策略管理垃圾回收</strong></p>
+<p>新生代的对象为存活时间较短的对象，简单来说就是新产生的对象，通常只支持 1～8M 的容量，而老生代的对象为存活事件较长或常驻内存的对象，简单来说就是经历过新生代垃圾回收后还存活下来的对象，容量通常比较大<br>2. 新老生代<br>3. 新生代垃圾回收<br>4. 老生代垃圾回收<br>5. 为什么需要分代式？<br>6. 并行回收(Parallel)</p>
+<p><strong>所谓并行，也就是同时的意思，它指的是垃圾回收器在主线程上执行的过程中，开启多个辅助线程，同时执行同样的回收工作</strong><br>7. 增量标记与懒性清理<br>8. 并发回收(Concurrent)</p>
+<p><strong>它指的是主线程在执行 JavaScript 的过程中，辅助线程能够在后台完成执行垃圾回收的操作，辅助线程在执行垃圾回收的时候，主线程也可以自由执行而不会被挂起</strong><br><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2022/03/26/%E4%BD%A0%E7%9C%9F%E7%9A%84%E4%BA%86%E8%A7%A3%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6%E5%90%97/">博客</a></p>
 <h3 id="箭头函数和普通函数的区别"><a href="#箭头函数和普通函数的区别" class="headerlink" title="箭头函数和普通函数的区别"></a>箭头函数和普通函数的区别</h3><h4 id="没有-this"><a href="#没有-this" class="headerlink" title="没有 this"></a>没有 this</h4><p>箭头函数没有 this，所以需要通过查找作用域链来确定 this 的值。<br>这就意味着如果箭头函数被非箭头函数包含，this 绑定的就是最近一层非箭头函数的 this。</p>
 <h4 id="1-箭头函数this为父作用域的this，不是调用时的this"><a href="#1-箭头函数this为父作用域的this，不是调用时的this" class="headerlink" title="1.箭头函数this为父作用域的this，不是调用时的this"></a>1.箭头函数this为父作用域的this，不是调用时的this</h4><p><img src="/imageO/JTHS.jpg" srcset="/img/loading.gif" lazyload alt="this"><br>箭头函数的this永远指向其父作用域，任何方法都改变不了，包括call，apply，bind。</p>
 <p>普通函数的this指向调用它的那个对象。</p>
@@ -457,7 +453,7 @@
 <li>Map 的键实际上是跟内存地址绑定的，只要内存地址不一样，就视为两个键； WeakMap 的键是<strong>弱引用，键所指向的对象可以被垃圾回收，此时键是无效的</strong></li>
 <li><strong>Map 可以被遍历， WeakMap 不能被遍历</strong></li>
 </ol>
-<h4 id="WeakMap的使用场景（Map-和-Weakmap-之间的主要区别是，Weakmap-允许对键对象进行垃圾收集，从而防止内存泄漏。）"><a href="#WeakMap的使用场景（Map-和-Weakmap-之间的主要区别是，Weakmap-允许对键对象进行垃圾收集，从而防止内存泄漏。）" class="headerlink" title="WeakMap的使用场景（Map 和 Weakmap 之间的主要区别是，Weakmap 允许对键对象进行垃圾收集，从而防止内存泄漏。）"></a>WeakMap的使用场景（Map 和 Weakmap 之间的主要区别是，Weakmap 允许对键对象进行垃圾收集，从而防止内存泄漏。）</h4><p>1.因为 weakMap <strong>不会影响垃圾回收，所以可以用来关联元数据</strong><br><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2021/04/14/Map&&Set&&Weakmap&&Weakset/#%E4%BA%94%E3%80%81%E4%BB%80%E4%B9%88%E6%98%AF-WeakMap-%EF%BC%9F">博客</a><br><a target="_blank" rel="noopener" href="https://juejin.cn/post/6993101968545677319#heading-18">浅析 Map 和 WeakMap 区别以及使用场景</a></p>
+<h4 id="WeakMap的使用场景（Map-和-Weakmap-之间的主要区别是，Weakmap-允许对键对象进行垃圾收集，从而防止内存泄漏。）"><a href="#WeakMap的使用场景（Map-和-Weakmap-之间的主要区别是，Weakmap-允许对键对象进行垃圾收集，从而防止内存泄漏。）" class="headerlink" title="WeakMap的使用场景（Map 和 Weakmap 之间的主要区别是，Weakmap 允许对键对象进行垃圾收集，从而防止内存泄漏。）"></a>WeakMap的使用场景（Map 和 Weakmap 之间的主要区别是，Weakmap 允许对键对象进行垃圾收集，从而防止内存泄漏。）</h4><p>1.因为 weakMap 不会影响垃圾回收，所以可以用来<strong>关联元数据</strong><br><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2021/04/14/Map&&Set&&Weakmap&&Weakset/#%E4%BA%94%E3%80%81%E4%BB%80%E4%B9%88%E6%98%AF-WeakMap-%EF%BC%9F">博客</a><br><a target="_blank" rel="noopener" href="https://juejin.cn/post/6993101968545677319#heading-18">浅析 Map 和 WeakMap 区别以及使用场景</a></p>
 <h3 id="模块化"><a href="#模块化" class="headerlink" title="模块化"></a>模块化</h3><p>模块化就是把代码进行拆分，方便重复利用，类似java中的导包，需要使用一个包，必须先导包，而js中没有包的概念，换来的是模块<br>ES6 的模块化分为导出（export） @与导入（import）两个模块。</p>
 <h4 id="模块化优点"><a href="#模块化优点" class="headerlink" title="模块化优点"></a>模块化优点</h4><p>避免命名冲突（减少命名空间污染）更好的分类，按需加载,更高的复用性,高可维护性</p>
 <h3 id="CommomJS-node应用由模块组成"><a href="#CommomJS-node应用由模块组成" class="headerlink" title="CommomJS(node应用由模块组成)"></a>CommomJS(node应用由模块组成)</h3><p>CommonJS定义了两个主要概念：<br>require函数，用于导入模块<br>module.exports变量，用于导出模块<br>require导入，代码很简单，let {count,addCount}=require(“./utils”)就可以了。<br>require的第一步是解析路径获取到模块内容：</p>
