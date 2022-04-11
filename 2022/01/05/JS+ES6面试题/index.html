@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      17.1k 字
+      17.4k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      197
+      200
        分钟
     </span>
   
@@ -311,6 +311,16 @@
 </ul>
 <p><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2021/07/03/Js%E8%BF%90%E8%A1%8C%E6%9C%BA%E5%88%B6/">博客：这一次，彻底弄懂 JavaScript 执行机制</a><br><a target="_blank" rel="noopener" href="https://juejin.cn/post/7001881781125251086">传送门 ☞ # 宏任务和微任务</a></p>
 <h3 id="闭包是什么？有什么优点和缺点？"><a href="#闭包是什么？有什么优点和缺点？" class="headerlink" title="闭包是什么？有什么优点和缺点？"></a>闭包是什么？有什么优点和缺点？</h3><p> 解答：闭包是指有权访问另一个函数作用域中的变量的函数。<br>  优点：① 能够读取函数内部的变量；②让这些变量一直存在于内存中，不会在调用结束后被垃圾回收机制回收；<br>  缺点：由于闭包会使用函数中的变量存在在内存中，内存消耗很大，所以不能滥用闭包；解决的办法是退出函数之前，将不使用的局部变量删除；<br><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2021/04/26/JS%E9%97%AD%E5%8C%85%E7%90%86%E8%A7%A3/">博客：</a></p>
+<h4 id="什么是作用域"><a href="#什么是作用域" class="headerlink" title="什么是作用域"></a>什么是作用域</h4><blockquote>
+<p>简单来说，作用域 指程序中定义变量的区域，它决定了当前执行代码对变量的访问权限。</p>
+</blockquote>
+<p>javascript 中大部分情况下，只有两种作用域类型：</p>
+<ol>
+<li>全局作用域：全局作用域为程序的最外层作用域，一直存在。</li>
+<li>函数作用域：函数作用域只有函数被定义时才会创建，包含在父级函数作用域 / 全局作用域内。</li>
+</ol>
+<p>由于作用域的限制，每段独立的执行代码块<strong>只能访问自己作用域和外层作用域中的变量，无法访问到内层作用域的变量</strong>。</p>
+<h4 id="作用域链"><a href="#作用域链" class="headerlink" title="作用域链"></a>作用域链</h4><p>当<strong>可执行代码内部访问变量时，会先查找本地作用域，如果找到目标变量即返回，否则会去父级作用域继续查找…一直找到全局作用域</strong>。我们把这种作用域的嵌套机制，称为 作用域链。<br><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844904165672484871#heading-14">面试官：说说作用域和闭包吧</a></p>
 <h4 id="匿名函数的作用"><a href="#匿名函数的作用" class="headerlink" title="匿名函数的作用"></a>匿名函数的作用</h4><p>1、通过匿名函数可以实现闭包（必须掌握的知识点）</p>
 <p>2、模拟块级作用域，减少全局变量。执行完匿名函数，存储在内存中相对应的变量会被销毁，使用块级作用域，会大大降低命名冲突的问题，不必担心搞乱全局作用域了。</p>
 <h3 id="JS垃圾回收机制-（GC）"><a href="#JS垃圾回收机制-（GC）" class="headerlink" title="JS垃圾回收机制 （GC）"></a>JS垃圾回收机制 （GC）</h3><ol>
