@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      13.7k 字
+      12.6k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      152
+      141
        分钟
     </span>
   
@@ -292,32 +292,7 @@
 <figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs reasonml"><span class="hljs-keyword">function</span> add<span class="hljs-constructor">Event(<span class="hljs-params">elm</span>, <span class="hljs-params">evType</span>, <span class="hljs-params">fn</span>, <span class="hljs-params">useCapture</span>)</span> &#123;<br>  <span class="hljs-keyword">if</span> (elm.addEventListener) &#123; <span class="hljs-comment">// W3C标准</span><br>    elm.add<span class="hljs-constructor">EventListener(<span class="hljs-params">evType</span>, <span class="hljs-params">fn</span>, <span class="hljs-params">useCapture</span>)</span>;<br>    return <span class="hljs-literal">true</span>;<br>  &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (elm.attachEvent) &#123; <span class="hljs-comment">// IE</span><br>    var r = elm.attach<span class="hljs-constructor">Event(&#x27;<span class="hljs-params">on</span>&#x27; + <span class="hljs-params">evType</span>, <span class="hljs-params">fn</span>)</span>; <span class="hljs-comment">// IE5+</span><br>    return r;<br>  &#125; <span class="hljs-keyword">else</span> &#123;<br>    elm<span class="hljs-literal">[&#x27;<span class="hljs-identifier">on</span>&#x27; + <span class="hljs-identifier">evType</span>]</span> = fn; <span class="hljs-comment">// DOM事件</span><br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6972937716660961317#heading-31">浏览器的兼容问题及解决方案整理（建议收藏）</a><br><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903633708908557">如何机智地回答浏览器兼容性问题</a></p>
-<h3 id="JS垃圾回收机制-（GC）"><a href="#JS垃圾回收机制-（GC）" class="headerlink" title="JS垃圾回收机制 （GC）"></a>JS垃圾回收机制 （GC）</h3><ol>
-<li>项目中，<strong>如果存在大量不被释放的内存（堆/栈/上下文），页面性能会变得很慢。当某些代码操作不能被合理释放，就会造成内存泄漏。我们尽可能减少使用闭包，因为它会消耗内存。</strong></li>
-<li>浏览器垃圾回收机制/内存回收机制:浏览器的<strong>Javascript</strong>具有自动垃圾回收机制(GC:Garbage Collecation)，垃圾收集器会定期（周期性）找出那些不在继续使用的变量，然后释放其内存。</li>
-</ol>
-<p><strong>标记清除</strong>:在js中，最常用的垃圾回收机制是标记清除：<strong>当变量进入执行环境时，被标记为“进入环境”，当变量离开执行环境时，会被标记为“离开环境”。</strong>垃圾回收器会销毁那些带标记的值并回收它们所占用的内存空间。谷歌浏览器：“查找引用”，浏览器不定时去查找当前内存的引用，如果没有被占用了，浏览器会回收它；如果被占用，就不能回收。<br>过程</p>
-<ol>
-<li>垃圾收集器在运行时会给内存中的所有变量都加上一个标记，假设内存中所有对象都是垃圾，全标记为0</li>
-<li>然后从各个根对象开始遍历，把不是垃圾的节点改成1</li>
-<li>清理所有标记为0的垃圾，销毁并回收它们所占用的内存空间</li>
-<li>最后，把所有内存中对象标记修改为0，等待下一轮垃圾回收<br>优点 ：</li>
-</ol>
-<p>标记清除算法的优点只有一个，那就是<strong>实现比较简单，打标记也无非打与不打两种情况，这使得一位二进制位（0和1）就可以为其标记，非常简单</strong></p>
-<p>缺点</p>
-<p>标记清除算法有一个很大的缺点，就是在<strong>清除之后，剩余的对象内存位置是不变的，也会导致空闲内存空间是不连续的，出现了 内存碎片</strong>，并且由于剩余空闲内存不是一整块，它是由不同大小内存组成的内存列表，这就牵扯出了内存分配的</p>
-<p>IE浏览器：<strong>“引用计数法”</strong>，当前内存被占用一次，计数累加1次，移除占用就减1，减到0时，浏览器就回收它。<br>缺点<br>引用计数的缺点想必大家也都很明朗了，首先它需要一个计数器，而此计数器需要占很大的位置，因为我们也不知道被引用数量的上限，还有就是<strong>无法解决循环引用无法回收的问题，这也是最严重的</strong></p>
-<ol>
-<li>优化手段：内存优化 ; 手动释放：取消内存的占用即可。（1）堆内存：fn = null 【null：空指针对象】（2）栈内存：把上下文中，被外部占用的堆的占用取消即可。</li>
-<li>内存泄漏在 JS 中，常见的内存泄露主要有 4 种,全局变量、闭包、DOM 元素的引用、定时器</li>
-</ol>
-<h4 id="V8对GC的优化-（待）"><a href="#V8对GC的优化-（待）" class="headerlink" title="V8对GC的优化  （待）"></a>V8对GC的优化  （待）</h4><ol>
-<li>分代式垃圾回收</li>
-</ol>
-<p>V8 的垃圾回收策略主要基于分代式垃圾回收机制，<strong>V8 中将堆内存分为新生代和老生代两区域，采用不同的垃圾回收器也就是不同的策略管理垃圾回收</strong></p>
-<p>新生代的对象为存活时间较短的对象，简单来说就是新产生的对象，通常只支持 1～8M 的容量，而老生代的对象为存活事件较长或常驻内存的对象，简单来说就是经历过新生代垃圾回收后还存活下来的对象，容量通常比较大<br>2. 新老生代<br>3. 新生代垃圾回收<br>4. 老生代垃圾回收<br>5. 为什么需要分代式？<br>6. 并行回收(Parallel)</p>
-<p><strong>所谓并行，也就是同时的意思，它指的是垃圾回收器在主线程上执行的过程中，开启多个辅助线程，同时执行同样的回收工作</strong><br>7. 增量标记与懒性清理<br>8. 并发回收(Concurrent)</p>
-<p><strong>它指的是主线程在执行 JavaScript 的过程中，辅助线程能够在后台完成执行垃圾回收的操作，辅助线程在执行垃圾回收的时候，主线程也可以自由执行而不会被挂起</strong><br><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2022/03/26/%E4%BD%A0%E7%9C%9F%E7%9A%84%E4%BA%86%E8%A7%A3%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6%E5%90%97/">博客</a></p>
+<h3 id="JS垃圾回收机制-（GC）"><a href="#JS垃圾回收机制-（GC）" class="headerlink" title="JS垃圾回收机制 （GC）"></a>JS垃圾回收机制 （GC）</h3><p><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2022/03/26/%E4%BD%A0%E7%9C%9F%E7%9A%84%E4%BA%86%E8%A7%A3%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E6%9C%BA%E5%88%B6%E5%90%97/">博客</a></p>
 <h3 id="前端性能优化建议"><a href="#前端性能优化建议" class="headerlink" title="前端性能优化建议"></a>前端性能优化建议</h3><ol>
 <li>减少 HTTP 请求</li>
 <li>使用 HTTP2</li>
