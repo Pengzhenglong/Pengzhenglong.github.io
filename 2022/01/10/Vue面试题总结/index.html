@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      10.7k 字
+      10.8k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      116
+      118
        分钟
     </span>
   
@@ -401,8 +401,13 @@
 </ol>
 <h3 id="React-Vue-项目中-key-的作用"><a href="#React-Vue-项目中-key-的作用" class="headerlink" title="React/Vue 项目中 key 的作用"></a>React/Vue 项目中 key 的作用</h3><ol>
 <li>key的作用是为了在diff算法执行时更快的找到对应的节点，<strong>提高diff速度，更高效的更新虚拟DOM</strong>;vue和react都是采用diff算法来对比新旧虚拟节点，从而更新节点。在vue的diff函数中，会根据新节点的key去对比旧节点数组中的key，从而找到相应旧节点。如果没找到就认为是一个新增节点。而如果没有key，那么就会采用遍历查找的方式去找到对应的旧节点。一种一个map映射，另一种是遍历查找。相比而言。map映射的速度更快。</li>
-<li>为了在数据变化时强制更新组件，以避免<strong>  “就地复用” </strong>带来的副作用。当 Vue.js 用<strong>v-for </strong> 更新已渲染过的元素列表时，它默认用“就地复用”策略。如果数据项的顺序被改变，Vue 将不会移动 DOM 元素来匹配数据项的顺序，而是简单复用此处每个元素，并且确保它在特定索引下显示已被渲染过的每个元素。重复的key会造成渲染错误。</li>
+<li>为了在数据变化时强制更新组件，以避免<strong>  “就地复用” </strong>带来的副作用。当 Vue.js 用<strong>v-for </strong> 更新已渲染过的元素列表时，它默认用“就地复用”策略。如果数据项的顺序被改变，Vue 将不会移动 DOM 元素来匹配数据项的顺序，而是简单复用此处每个元素，并且确保它在特定索引下显示已被渲染过的每个元素。重复的key会造成渲染错误。<br>原理</li>
 </ol>
+<h3 id="Vue-scoped原理"><a href="#Vue-scoped原理" class="headerlink" title="Vue scoped原理"></a>Vue scoped原理</h3><ol>
+<li>给HTML的DOM节点加一个不重复data属性(形如：data-v-2311c06a)来表示他的唯一性。</li>
+<li>在每句css选择器的末尾（编译后的生成的css语句）加一个当前组件的data属性选择器的哈希特征值（如[data-v-2311c06a]）来私有化样式。</li>
+</ol>
+<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6898633179587215367">掘金</a></p>
 <h2 id="被问到了掌握了以及-较简单"><a href="#被问到了掌握了以及-较简单" class="headerlink" title="被问到了掌握了以及(较简单)"></a>被问到了掌握了以及(较简单)</h2><h3 id="Vue-的生命周期是什么？"><a href="#Vue-的生命周期是什么？" class="headerlink" title="Vue 的生命周期是什么？"></a>Vue 的生命周期是什么？</h3><p>Vue 的生命周期指的是<strong>组件从创建到销毁的一系列的过程，被称为 Vue 的生命周期</strong>。通过提供的 Vue 在生命周期各个阶段的钩子函数，我们可以很好的在 Vue 的各个生命阶段实现一些操作。</p>
 <h3 id="Vue-的各个生命阶段是什么？"><a href="#Vue-的各个生命阶段是什么？" class="headerlink" title="Vue 的各个生命阶段是什么？"></a>Vue 的各个生命阶段是什么？</h3><p>Vue 一共有8个生命阶段，分别是创建前、创建后、加载前、加载后、更新前、更新后、销毁前和销毁后，每个阶段对应了一个生命周期的钩子函数。</p>
 <figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm"><br>（<span class="hljs-number">1</span>）<span class="hljs-keyword">beforeCreate </span>钩子函数，在实例初始化之后，在数据监听和事件配置之前触发。因此在这个事件中我们是获取不到 data 数据的。<br><br>（<span class="hljs-number">2</span>）created 钩子函数，在实例创建完成后触发，此时可以访问 data、methods 等属性。但这个时候组件还没有被挂载到页面中去，所以这个时候访问不到 $el 属性。一般我们可以在这个函数中进行一些页面初始化的工作，比如通过 ajax 请求数据来对页面进行初始化。<br><br>（<span class="hljs-number">3</span>）<span class="hljs-keyword">beforeMount </span>钩子函数，在组件被挂载到页面之前触发。在 <span class="hljs-keyword">beforeMount </span>之前，会找到对应的 template，并编译成 render 函数。<br><br>（<span class="hljs-number">4</span>）mounted 钩子函数，在组件挂载到页面之后触发。此时可以通过 DOM API 获取到页面中的 DOM 元素。<br><br>（<span class="hljs-number">5</span>）<span class="hljs-keyword">beforeUpdate </span>钩子函数，在响应式数据更新时触发，发生在虚拟 DOM 重新渲染和打补丁之前，这个时候我们可以对可能会被移除的元素做一些操作，比如移除事件监听器。<br><br>（<span class="hljs-number">6</span>）updated 钩子函数，虚拟 DOM 重新渲染和打补丁之后调用。<br><br>（<span class="hljs-number">7</span>）<span class="hljs-keyword">beforeDestroy </span>钩子函数，在实例销毁之前调用。一般在这一步我们可以销毁定时器、解绑全局事件等。<br><br>（<span class="hljs-number">8</span>）destroyed 钩子函数，在实例销毁之后调用，调用后，Vue 实例中的所有东西都会解除绑定，所有的事件监听器会被移除，所有的子实例也会被销毁。<br><br>当我们使用 keep-alive 的时候，还有两个钩子函数，分别是 activated 和 deactivated 。用 keep-alive 包裹的组件在切换时不会进行销毁，而是缓存到内存中并执行 deactivated 钩子函数，命中缓存渲染后会执行 actived 钩子函数。<br><br></code></pre></td></tr></table></figure>
@@ -416,6 +421,9 @@
 <li>v-if</li>
 <li>在子组件中 watch 监听，父组件获取到值，这个值就会变化，自然是可以监听到的<br><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2022/02/28/Vue%E4%B8%AD%E7%88%B6%E5%AD%90%E7%BB%84%E4%BB%B6%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E6%89%A7%E8%A1%8C%E9%A1%BA/">博客：</a></li>
 </ol>
+<h3 id="父子组件及mixin的生命周期执行顺序"><a href="#父子组件及mixin的生命周期执行顺序" class="headerlink" title="父子组件及mixin的生命周期执行顺序"></a>父子组件及mixin的生命周期执行顺序</h3><p>mixin的生命周期钩子在组件的生命周期钩子之前执行</p>
+<p>在父组件中引入了mixin，生命周期顺序如下：</p>
+<p>mixin的beforeCreate &gt; 父beforeCreate &gt; mixin的created &gt; 父created &gt; mixin的beforeMount &gt; 父beforeMount &gt; 子beforeCreate &gt; 子created &gt; 子beforeMount &gt; <strong>子mounted &gt; mixin的mounted &gt;父mounted</strong></p>
 <h3 id="vue组件的通信方式"><a href="#vue组件的通信方式" class="headerlink" title="vue组件的通信方式"></a>vue组件的通信方式</h3><p>props/$emit<br>父子组件通信父-&gt;子props，<br>子-&gt;父 $on、$emit 获取父子组件实例</p>
 <p>获取实例的方式调用组件的属性或者方法parent、children Ref</p>
 <p>父-&gt;子孙 Provide、inject 官方不推荐使用，但是写组件库时很常用</p>
