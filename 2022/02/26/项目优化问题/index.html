@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      5k 字
+      5.6k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      56
+      63
        分钟
     </span>
   
@@ -311,6 +311,10 @@
 <li>调用 XMLHttpRequest 对象上的 abort 方法来取消请求</li>
 <li>CancelToken<br><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2022/03/08/%E4%B8%AD%E6%96%AD%E8%AF%B7%E6%B1%82%E4%B8%8E%E5%B9%B6%E5%8F%91/#%E5%89%8D%E7%AB%AF%E4%B8%8A%E4%BC%A0%E5%A4%A7%E6%96%87%E4%BB%B6%E6%80%8E%E4%B9%88%E5%A4%84%E7%90%86">博客</a></li>
 </ol>
+<h3 id="多个Promise顺序执行的解决思路"><a href="#多个Promise顺序执行的解决思路" class="headerlink" title="多个Promise顺序执行的解决思路"></a>多个Promise顺序执行的解决思路</h3><h4 id="1-使用回调函数解决"><a href="#1-使用回调函数解决" class="headerlink" title="1. 使用回调函数解决"></a>1. 使用回调函数解决</h4><h4 id="2-使用promise-then链式调用"><a href="#2-使用promise-then链式调用" class="headerlink" title="2. 使用promise/then链式调用"></a>2. 使用promise/then链式调用</h4><figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs coffeescript"><span class="hljs-built_in">Promise</span>.resolve().<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> a())<br>.<span class="hljs-keyword">then</span>(res =&gt; <span class="hljs-built_in">console</span>.log(res))<br>.<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> b())<br>.<span class="hljs-keyword">then</span>(res =&gt; <span class="hljs-built_in">console</span>.log(res))<br>.<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> c())<br>.<span class="hljs-keyword">then</span>(res =&gt; <span class="hljs-built_in">console</span>.log(res))<br>.<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-number">4</span>))<br></code></pre></td></tr></table></figure>
+
+<h4 id="3-使用async-await解决-for-of"><a href="#3-使用async-await解决-for-of" class="headerlink" title="3. 使用async/await解决  (for  of)"></a>3. 使用async/await解决  (for  of)</h4><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs vim">async <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">log</span><span class="hljs-params">(a, b, c)</span> &#123;</span><br> const <span class="hljs-keyword">args</span> = [].slice.<span class="hljs-keyword">call</span>(arguments, <span class="hljs-number">0</span>)<br> <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> item of <span class="hljs-keyword">args</span>) &#123;<br>  <span class="hljs-keyword">let</span> <span class="hljs-keyword">res</span> = await item()<br>  console.<span class="hljs-built_in">log</span>(<span class="hljs-keyword">res</span>)<br> &#125;<br> console.<span class="hljs-built_in">log</span>(<span class="hljs-number">4</span>)<br>&#125;<br><span class="hljs-built_in">log</span>(<span class="hljs-keyword">a</span>, <span class="hljs-keyword">b</span>, <span class="hljs-keyword">c</span>)<br></code></pre></td></tr></table></figure>
+
 <h3 id="大文件上传处理"><a href="#大文件上传处理" class="headerlink" title="大文件上传处理"></a>大文件上传处理</h3><ol>
 <li>对文件做切片,即将一个请求拆分成多个请求，每个请求的时间就会缩短，且如果某个请求失败，只需要重新发送这一次请求即可，无需从头开始</li>
 </ol>
@@ -330,6 +334,19 @@
 <blockquote>
 <p>interface 能够声明合并)<br><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903749501059085">参考</a><br>一般来说，如果不清楚什么时候用interface/type，能用 interface 实现，就用 interface , 如果不能就用 type</p>
 </blockquote>
+<h4 id="如何让localStorage支持过期时间设置"><a href="#如何让localStorage支持过期时间设置" class="headerlink" title="如何让localStorage支持过期时间设置?"></a>如何让localStorage支持过期时间设置?</h4><p>聊到 localStorage 想必熟悉前端的朋友都不会陌生, 我们可以使用它提供的<strong>getItem, setItem, removeItem, clear</strong> 这几个 API 轻松的对存储在浏览器本地的数据进行<strong>「读,写, 删」操作, 但是相比于 cookie, localStorage 唯一美中不足的就是「不能设置每一个键的过期时间」</strong>。</p>
+<h5 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h5><p>在实际的应用场景中, 我们往往需要让 localStorage 设置的某个 「key」 能在指定时间内自动失效, 所以基于这种场景, 我们如何去解决呢?</p>
+<ol>
+<li>初级写法 （维护成本极高, 且不利于工程化复用）</li>
+</ol>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs coffeescript"><span class="hljs-built_in">localStorage</span>.setItem(<span class="hljs-string">&#x27;dooring&#x27;</span>, <span class="hljs-string">&#x27;1.0.0&#x27;</span>)<br><span class="hljs-regexp">//</span> 设置一小时的有效期<br>const expire = <span class="hljs-number">1000</span> * <span class="hljs-number">60</span> * <span class="hljs-number">60</span>;<br><span class="hljs-built_in">setTimeout</span>(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> &#123;<br>  <span class="hljs-built_in">localStorage</span>.setItem(<span class="hljs-string">&#x27;dooring&#x27;</span>, <span class="hljs-string">&#x27;&#x27;</span>)<br>&#125;, expire)<br></code></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>中级解法<br>前端工程师在有一定的工作经验之后, 往往会去考虑工程化和复用性的问题, 并对数据结构有了一定的了解, 所以可能会有接下来的解法:</li>
+</ol>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs actionscript">基本思路： <br>（<span class="hljs-number">1</span>）封装函数在保存数据时，指定有效时间，把数据和这个有效时间一起保存起来。<br>（<span class="hljs-number">2</span>）封装函数在获取数据时，不着急直接给出结果，而是检查之前保存的有效时间是否过期，如果在就返回数据，否则就删除数据，并返回<span class="hljs-literal">false</span>。<br></code></pre></td></tr></table></figure>
+
+<p>重写 set(存入) 方法：<br>首先有三个参数 key、value、expired ，分别对应 键、值、过期时间，<br>过期时间的单位可以自由发挥，小时、分钟、天都可以，<br>注意点：存储的值可能是数组/对象，不能直接存储，需要转换 JSON.stringify，<br>这个时间如何设置呢？在这个值存入的时候在键(key)的基础上扩展一个字段，如：key+’expires’，而它的值为当前 时间戳 + expired过期时间<br><a target="_blank" rel="noopener" href="https://juejin.cn/post/7083869252586831880">掘金</a></p>
 
             </div>
             <hr>

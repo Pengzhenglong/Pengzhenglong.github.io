@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      10.8k 字
+      12k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      118
+      130
        分钟
     </span>
   
@@ -250,9 +250,13 @@
 <p>缺点:</p>
 <p>无法进行极致优化: <strong>在一些性能要求极高的应用中虚拟DOM无法进行针对性的极致优化,比如VScode采用直接手动操作DOM的方式进行极端的性能优化</strong></p>
 <p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903903968903175#heading-14">虚拟DOM的优劣如何?</a></p>
+<h4 id="虚拟-DOM-真的渲染更快，性能更好吗？"><a href="#虚拟-DOM-真的渲染更快，性能更好吗？" class="headerlink" title="虚拟 DOM 真的渲染更快，性能更好吗？"></a>虚拟 DOM 真的渲染更快，性能更好吗？</h4><h5 id="Virtual-DOM有什么好处？"><a href="#Virtual-DOM有什么好处？" class="headerlink" title="Virtual DOM有什么好处？"></a>Virtual DOM有什么好处？</h5><p>Virtual DOM 是以对象的方式来描述真实dom对象的，那么在<strong>做一些update的时候，可以在内存中进行数据比对，减少对真实dom的操作减少浏览器重排重绘的次数，减少浏览器的压力，提高程序的性能，并且因为diff算法的差异比较，记录了差异部分，那么在开发中就会提高了开发效率</strong><br><strong>跨端</strong><br>首先我们先区分一下跨平台和跨端的区别，跨平台指的是跨操作系统，而跨端是指客户端。跨平台简单的来说就是一套代码在mac和windows上都能跑，<strong>跨端就是跨客户端在web、ios、安卓等跑</strong></p>
+<p>这时候虚拟dom就发挥了作用，就像vue、react等<strong>使用虚拟dom来缓存修改然后整体替换来优化性能，当然也可以用虚拟dom来缓存我们js画的页面，然后通过原生方法渲染出对应的原生组件，实现渲染跨端，正好我们对应dom绑定的方法也可以通过映射原生api实现逻辑跨端。</strong><br>其实Virtual DOM 的实现不仅仅是提高了开发效率和性能，并且也解决了跨终端开发的问题，例如rn， vux，uni-app 等实现跨终端开发的功能都是基于Virtual DOM的。<br><a target="_blank" rel="noopener" href="https://juejin.cn/post/7034900283645755405">掘金</a></p>
+<h5 id="Virtual-DOM-有什么坏处？"><a href="#Virtual-DOM-有什么坏处？" class="headerlink" title="Virtual DOM 有什么坏处？"></a>Virtual DOM 有什么坏处？</h5><p>在初始化时增加了对tpl的解析，<strong>最终需要生成Virtual DOM，那么就会产生一定的内存消耗，比初始化时直接挂载到真实dom 对象上的展示要慢一些</strong>。（纯web渲染的首页渲染慢，之前就一直被产品bb）<br>虚拟 DOM 真的渲染更快，性能更好吗？答案是否！<strong>虚拟dom增加了一层内存运算，那么渲染上肯定会慢上一些</strong></p>
+<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903991399153672">掘金</a></p>
 <h3 id="vue-双向数据绑定原理？"><a href="#vue-双向数据绑定原理？" class="headerlink" title="vue 双向数据绑定原理？"></a>vue 双向数据绑定原理？</h3><p>vue.js是采用<strong>数据劫持结合发布者-订阅者模式的方式，使用 Object.defineProperty 将属性进行劫持（只会劫持已经存在的属性）</strong>，数组则是通过重写数组方法来实现。<strong>当页面使用对应属性时，每个属性都拥有自己的 dep 属性，存放他所依赖的 watcher（依赖收集），当属性变化后会通知自己对应的 watcher 去更新(派发更新)。</strong></p>
 <h4 id="相比于vue2-x，使用proxy的优势如下"><a href="#相比于vue2-x，使用proxy的优势如下" class="headerlink" title="相比于vue2.x，使用proxy的优势如下"></a>相比于vue2.x，使用proxy的优势如下</h4><ol>
-<li><p>Object.defineProperty 只能劫持对象的属性，而 Proxy 是直接代理对象。<br>由于 Object.defineProperty <strong> 只能对属性进行劫持，需要遍历对象的每个属性，如果属性值也是对象，则需要深度遍历。而 Proxy 直接代理对象，不需要遍历操作。</strong><br>可以省去for in、闭包等内容来提升效率（直接绑定整个对象即可）<br>可以监听数组，不用再去单独的对数组做特异性操作 vue3.x可以检测到数组内部数据的变化</p>
+<li><p>Object.defineProperty 只能劫持对象的属性，而 Proxy 是直接代理对象。<br>由于 Object.defineProperty <strong>只能对属性进行劫持，需要遍历对象的每个属性，如果属性值也是对象，则需要深度遍历。而 Proxy 直接代理对象，不需要遍历操作。</strong><br>可以省去for in、闭包等内容来提升效率（直接绑定整个对象即可）<br>可以监听数组，不用再去单独的对数组做特异性操作 vue3.x可以检测到数组内部数据的变化</p>
 </li>
 <li><p>Object.defineProperty <strong>对新增属性需要手动进行 Observe。(监听并通知Watcher更新)</strong><br>由于 Object.defineProperty 劫持的是对象的属性，所以新增属性时，需要重新遍历对象，对其新增属性再使用 Object.defineProperty 进行劫持。</p>
 </li>
@@ -287,17 +291,17 @@
 </blockquote>
 <p>watch总结：为什么计算属性有缓存功能？<strong>因为当计算属性经过计算后，内部的标志位会表明已经计算过了，再次访问时会直接读取计算后的值；</strong>为什么计算属性内的响应式数据发生变更后，计算属性会重新计算？<strong>因为内部的响应式数据会收集computed-watcher，变更后通知计算属性要进行计算，也会通知页面重新渲染，渲染时会读取到重新计算后的值</strong><br><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2022/03/10/Vue%E8%AE%A1%E7%AE%97%E5%B1%9E%E6%80%A7%E5%92%8Ccomputed%E7%9A%84%E5%8E%9F%E7%90%86/">博客：</a></p>
 <h3 id="keep-alive-组件有什么作用？"><a href="#keep-alive-组件有什么作用？" class="headerlink" title="keep-alive 组件有什么作用？"></a>keep-alive 组件有什么作用？</h3><p>作用：<strong>实现组件缓存，保持这些组件的状态，以避免反复渲染导致的性能问题。 需要缓存组件 频繁切换，不需要重复渲染</strong><br>场景：tabs标签页 后台导航，vue性能优化</p>
-<h4 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h4><p>Vue.js内部将DOM节点抽象成了一个个的<strong>  VNode节点 </strong>，keep-alive组件的缓存也是基于VNode节点的而不是直接存储DOM结构。<strong>它将满足条件（pruneCache与pruneCache）的组件在cache对象中缓存起来，在需要重新渲染的时候再将vnode节点从cache对象中取出并渲染。</strong></p>
+<h4 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h4><p>Vue.js内部将DOM节点抽象成了一个个的<strong>VNode节点</strong>，keep-alive组件的缓存也是基于VNode节点的而不是直接存储DOM结构。<strong>它将满足条件（pruneCache与pruneCache）的组件在cache对象中缓存起来，在需要重新渲染的时候再将vnode节点从cache对象中取出并渲染。</strong></p>
 <ol>
 <li>使用 <strong>LRU 缓存机制进行缓存</strong>，max 限制缓存表的最大容量</li>
-<li>根据设定的<strong> include/exclude（如果有）进行条件匹配,决定是否缓存。不匹配,直接返回组件实例</strong></li>
-<li>根据组件<strong> ID 和 tag 生成缓存 Key ,并在缓存对象中查找是否已缓存过该组件实例。如果存在,直接取出缓存值并更新该 key 在 this.keys 中的位置(更新 key 的位置是实现 LRU 置换策略的关键)</strong></li>
+<li>根据设定的<strong>include/exclude（如果有）进行条件匹配,决定是否缓存。不匹配,直接返回组件实例</strong></li>
+<li>根据组件<strong>ID 和 tag 生成缓存 Key ,并在缓存对象中查找是否已缓存过该组件实例。如果存在,直接取出缓存值并更新该 key 在 this.keys 中的位置(更新 key 的位置是实现 LRU 置换策略的关键)</strong></li>
 <li>获取节点名称，或者根据节点 cid 等信息拼出当前 组件名称</li>
 <li>获取 keep-alive 包裹着的第一个子组件对象及其组件名<br><a target="_blank" rel="noopener" href="https://www.zoo.team/article/lru-keep-alive">参考文章</a></li>
 </ol>
 <h3 id="Vue中的key到底有什么⽤？"><a href="#Vue中的key到底有什么⽤？" class="headerlink" title="Vue中的key到底有什么⽤？"></a>Vue中的key到底有什么⽤？</h3><p>vue 中 key 值的作用可以分为两种情况来考虑。</p>
-<h4 id="第一种情况是-v-if-中使用-key"><a href="#第一种情况是-v-if-中使用-key" class="headerlink" title="第一种情况是 v-if 中使用 key"></a>第一种情况是 v-if 中使用 key</h4><p>由于<strong> Vue 会尽可能高效地渲染元素，通常会复用已有元素而不是从头开始渲染。因此当我们使用 v-if 来实现元素切换的时候，如果切换前后含有相同类型的元素，那么这个元素就会被复用。</strong>如果是相同的 input 元素，那么切换前后用户的输入不会被清除掉，这样是不符合需求的。因此我们可以通过使用 key 来<strong>唯一的标识一个元素，这个情况下，使用 key 的元素不会被复用</strong>。这个时候 key 的作用是用来标识一个独立的元素。</p>
-<h4 id="第二种情况是-v-for-中使用-key"><a href="#第二种情况是-v-for-中使用-key" class="headerlink" title="第二种情况是 v-for 中使用 key"></a>第二种情况是 v-for 中使用 key</h4><p>用<strong> v-for 更新已渲染过的元素列表时，它默认使用“就地复用”的策略</strong>。如果数据项的顺序发生了改变，Vue <strong>不会移动 DOM 元素来匹配数据项的顺序，而是简单复用此处的每个元素</strong>。因此通过为每个列表项提供一个 key 值，来以便 Vue 跟踪元素的身份，从而高效的实现复用。这个时候 key 的作用是为了高效的更新渲染虚拟 DOM。</p>
+<h4 id="第一种情况是-v-if-中使用-key"><a href="#第一种情况是-v-if-中使用-key" class="headerlink" title="第一种情况是 v-if 中使用 key"></a>第一种情况是 v-if 中使用 key</h4><p>由于<strong>Vue 会尽可能高效地渲染元素，通常会复用已有元素而不是从头开始渲染。因此当我们使用 v-if 来实现元素切换的时候，如果切换前后含有相同类型的元素，那么这个元素就会被复用。</strong>如果是相同的 input 元素，那么切换前后用户的输入不会被清除掉，这样是不符合需求的。因此我们可以通过使用 key 来<strong>唯一的标识一个元素，这个情况下，使用 key 的元素不会被复用</strong>。这个时候 key 的作用是用来标识一个独立的元素。</p>
+<h4 id="第二种情况是-v-for-中使用-key"><a href="#第二种情况是-v-for-中使用-key" class="headerlink" title="第二种情况是 v-for 中使用 key"></a>第二种情况是 v-for 中使用 key</h4><p>用<strong>v-for 更新已渲染过的元素列表时，它默认使用“就地复用”的策略</strong>。如果数据项的顺序发生了改变，Vue <strong>不会移动 DOM 元素来匹配数据项的顺序，而是简单复用此处的每个元素</strong>。因此通过为每个列表项提供一个 key 值，来以便 Vue 跟踪元素的身份，从而高效的实现复用。这个时候 key 的作用是为了高效的更新渲染虚拟 DOM。</p>
 <p>详细资料可以参考：<br><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000016344599">《Vue 面试中，经常会被问到的面试题 Vue 知识点整理》</a><br><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/61064119">《Vue2.0 v-for 中 :key 到底有什么用？》</a><br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/RainyBear/p/8563101.html">《vue 中 key 的作用》</a></p>
 <h5 id="Vue-为什么不建议用数组的下标index作为key"><a href="#Vue-为什么不建议用数组的下标index作为key" class="headerlink" title="Vue-为什么不建议用数组的下标index作为key"></a>Vue-为什么不建议用数组的下标index作为key</h5><blockquote>
 <p>key 是给每一个 vnode 的唯一id,可以依靠 key,更准确,更快的拿到 oldVnode 中对应的 vnode 节点，高效的更新虚拟DOM</p>
@@ -311,10 +315,14 @@
 </li>
 </ol>
 <h3 id="路由实现原理是什么"><a href="#路由实现原理是什么" class="headerlink" title="路由实现原理是什么"></a>路由实现原理是什么</h3><p><strong>a.控制地址栏改变；b.根据地址栏的改变来控制组件的切换</strong></p>
-<p>hash通过<strong>window.onhashchange</strong>监听地址栏的改变；history通过<strong>window.onpopState</strong>监听地址栏的改变</p>
-<p>URL的hash:URL的hash也就是锚点(#), <strong>本质上是改变window.location的href属性；</strong><br> 我们可以通过直接赋值location.hash来改变href, 但是页面不发生刷新;</p>
-<p>history接口是HTML5新增的, 它有六种模式改变URL而不刷新页面：<br> <strong>replaceState：替换原来的路径； pushState：使用新的路径；</strong><br> popState：路径的回退； go：向前或向后改变路径；<br>forward：向前改变路径； back：向后改变路径；</p>
-<h3 id="nextTick的实现原理是什么？"><a href="#nextTick的实现原理是什么？" class="headerlink" title="nextTick的实现原理是什么？"></a>nextTick的实现原理是什么？</h3><p><strong>在下次 DOM 更新循环结束之后执行延迟回调，在修改数据之后立即使用 nextTick 来获取更新后的 DOM。 </strong>nextTick主要使用了<strong>宏任务和微任务</strong>。 根据执行环境分别尝试采用<strong>Promise、MutationObserver、setImmediate，如果以上都不行则采用setTimeout定义了一个异步方法</strong>，多次调用nextTick会将方法存入队列中，通过这个异步方法清空当前队列。</p>
+<h4 id="hash通过-window-onhashchange-监听地址栏的改变"><a href="#hash通过-window-onhashchange-监听地址栏的改变" class="headerlink" title="hash通过 window.onhashchange 监听地址栏的改变"></a>hash通过 window.onhashchange 监听地址栏的改变</h4><p>URL的hash:URL的hash也就是锚点(#), <strong>本质上是改变window.location的href属性；</strong><br>我们可以通过直接赋值location.hash来改变href, 但是页面不发生刷新;</p>
+<h5 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h5><p>兼容低版本浏览器，Angular1.x和Vue默认使用的就是hash路由<br><strong>只有#符号之前的内容才会包含在请求中被发送到后端，也就是说就算后端没有对路由全覆盖，但是不会返回404错误</strong><br>hash值的改变，都会在浏览器的访问历史中增加一个记录，所以可以通过浏览器的回退、前进按钮控制hash的切换 会覆盖锚点定位元素的功能</p>
+<h5 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h5><p>不太美观，#后面传输的数据复杂的话会出现问题</p>
+<h4 id="history通过-window-onpopState-监听地址栏的改变"><a href="#history通过-window-onpopState-监听地址栏的改变" class="headerlink" title="history通过 window.onpopState 监听地址栏的改变"></a>history通过 window.onpopState 监听地址栏的改变</h4><p>history接口是HTML5新增的, 它有六种模式改变URL而不刷新页面：<br> <strong>replaceState：替换原来的路径； pushState：使用新的路径；</strong><br> popState：路径的回退； go：向前或向后改变路径；<br>forward：向前改变路径； back：向后改变路径；</p>
+<h5 id="优点-1"><a href="#优点-1" class="headerlink" title="优点"></a>优点</h5><p>使用简单，比较美观<br>pushState()设置新的URL可以是任意与当前URL同源的URL，而hash只能改变#后面的内容，因此只能设置与当前URL同文档的URL<br><strong>pushState()设置的URL与当前URL一模一样时也会被添加到历史记录栈中，而hash#后面的内容必须被修改才会被添加到新的记录栈中</strong><br>pushState()可以通过stateObject参数添加任意类型的数据到记录中，而hash只能添加短字符串<br>pushState()可额外设置title属性供后续使用</p>
+<h5 id="缺点-1"><a href="#缺点-1" class="headerlink" title="缺点"></a>缺点</h5><p><strong>前端的URL必须和向发送请求后端URL保持一致，否则会报404错误</strong><br>由于History API的缘故，<strong>低版本浏览器有兼容性问题</strong></p>
+<p><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2022/02/17/%E5%89%8D%E7%AB%AF%E8%B7%AF%E7%94%B1%E7%9A%84%E4%B8%A4%E7%A7%8D%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/">博客</a></p>
+<h3 id="nextTick的实现原理是什么？"><a href="#nextTick的实现原理是什么？" class="headerlink" title="nextTick的实现原理是什么？"></a>nextTick的实现原理是什么？</h3><p><strong>在下次 DOM 更新循环结束之后执行延迟回调，在修改数据之后立即使用 nextTick 来获取更新后的 DOM。</strong>nextTick主要使用了<strong>宏任务和微任务</strong>。 根据执行环境分别尝试采用<strong>Promise、MutationObserver、setImmediate，如果以上都不行则采用setTimeout定义了一个异步方法</strong>，多次调用nextTick会将方法存入队列中，通过这个异步方法清空当前队列。</p>
 <h3 id="nextTick的实现"><a href="#nextTick的实现" class="headerlink" title="nextTick的实现"></a>nextTick的实现</h3><ol>
 <li>nextTick是Vue提供的一个全局API,是在下次DOM更新循环结束之后执行延迟回调，在修改数据之后使用$nextTick，则可以在回调中获取更新后的DOM；</li>
 <li>Vue在更新DOM时是异步执行的。<strong>只要侦听到数据变化，Vue将开启1个队列，并缓冲在同一事件循环中发生的所有数据变更。如果同一个watcher被多次触发，只会被推入到队列中1次。这种在缓冲时去除重复数据对于避免不必要的计算和DOM操作是非常重要的。nextTick方法会在队列中加入一个回调函数，确保该函数在前面的dom操作完成后才调用；</strong></li>
@@ -332,7 +340,7 @@
 <ol>
 <li><p>一是在 Vue2 中<strong>只能固定用 data、computed、methods 等选项组织代码，在组件越来越复杂的时候，一个功能相关的属性和方法就会在文件上中下到处都有，很分散，变越来越难维护</strong></p>
 </li>
-<li><p>二是<strong> Vue2 中虽然可以用 minxin 来做逻辑的提取复用，但是 minxin 里的属性和方法名会和组件内部的命名冲突，还有当引入多个 minxin 的时候，我们使用的属性或方法是来于哪个 minxin 也不清楚</strong></p>
+<li><p>二是<strong>Vue2 中虽然可以用 minxin 来做逻辑的提取复用，但是 minxin 里的属性和方法名会和组件内部的命名冲突，还有当引入多个 minxin 的时候，我们使用的属性或方法是来于哪个 minxin 也不清楚</strong></p>
 </li>
 </ol>
 <p>而 Composition API 刚才就解决了这两个问题，可以让我们自由的组织代码，同一功能相关的全部放在一起，代码有更好的可读性更便于维护，单独提取出来也不会造成命名冲突，所以也有更好的可扩展性<br><strong>我们需要使用 Composition API 的逻辑来拆分代码，把一个功能相关的数据和方法都维护在一起。</strong></p>
@@ -401,7 +409,7 @@
 </ol>
 <h3 id="React-Vue-项目中-key-的作用"><a href="#React-Vue-项目中-key-的作用" class="headerlink" title="React/Vue 项目中 key 的作用"></a>React/Vue 项目中 key 的作用</h3><ol>
 <li>key的作用是为了在diff算法执行时更快的找到对应的节点，<strong>提高diff速度，更高效的更新虚拟DOM</strong>;vue和react都是采用diff算法来对比新旧虚拟节点，从而更新节点。在vue的diff函数中，会根据新节点的key去对比旧节点数组中的key，从而找到相应旧节点。如果没找到就认为是一个新增节点。而如果没有key，那么就会采用遍历查找的方式去找到对应的旧节点。一种一个map映射，另一种是遍历查找。相比而言。map映射的速度更快。</li>
-<li>为了在数据变化时强制更新组件，以避免<strong>  “就地复用” </strong>带来的副作用。当 Vue.js 用<strong>v-for </strong> 更新已渲染过的元素列表时，它默认用“就地复用”策略。如果数据项的顺序被改变，Vue 将不会移动 DOM 元素来匹配数据项的顺序，而是简单复用此处每个元素，并且确保它在特定索引下显示已被渲染过的每个元素。重复的key会造成渲染错误。<br>原理</li>
+<li>为了在数据变化时强制更新组件，以避免<strong>“就地复用”</strong>带来的副作用。当 Vue.js 用<strong>v-for</strong> 更新已渲染过的元素列表时，它默认用“就地复用”策略。如果数据项的顺序被改变，Vue 将不会移动 DOM 元素来匹配数据项的顺序，而是简单复用此处每个元素，并且确保它在特定索引下显示已被渲染过的每个元素。重复的key会造成渲染错误。<br>原理</li>
 </ol>
 <h3 id="Vue-scoped原理"><a href="#Vue-scoped原理" class="headerlink" title="Vue scoped原理"></a>Vue scoped原理</h3><ol>
 <li>给HTML的DOM节点加一个不重复data属性(形如：data-v-2311c06a)来表示他的唯一性。</li>
@@ -427,8 +435,7 @@
 <h3 id="vue组件的通信方式"><a href="#vue组件的通信方式" class="headerlink" title="vue组件的通信方式"></a>vue组件的通信方式</h3><p>props/$emit<br>父子组件通信父-&gt;子props，<br>子-&gt;父 $on、$emit 获取父子组件实例</p>
 <p>获取实例的方式调用组件的属性或者方法parent、children Ref</p>
 <p>父-&gt;子孙 Provide、inject 官方不推荐使用，但是写组件库时很常用</p>
-<p>$emit/$on 自定义事件 兄弟组件通信Event Bus 实现跨组件通信 Vue.prototype.$bus = new Vue() 自定义事件</p>
-<p>vuex 跨级组件通信<strong>Vuex、$attrs、$listeners Provide、inject</strong></p>
+<p>$emit/$on 自定义事件 兄弟组件通信Event Bus 实现跨组件通信 Vue.prototype.$bus = new Vue() 自定义事件<br>（event-bus原理:就是一个发布订阅着模式） (注册后挂载到Vue实例，实现监听和触发)<br><a target="_blank" rel="noopener" href="https://juejin.cn/post/6888171141244911629">掘金</a><br>vuex 跨级组件通信<strong>Vuex、$attrs、$listeners Provide、inject</strong></p>
 <h3 id="route-和-router-的区别？"><a href="#route-和-router-的区别？" class="headerlink" title="$route 和 $router 的区别？"></a>$route 和 $router 的区别？</h3><p>$route 是“路由信息对象”，包括 <strong>path，params，hash，query，fullPath，matched，name 等</strong>路由信息参数。而 $router 是“路由实例”对象包括了路由的跳转方法，钩子函数等。</p>
 <h4 id="router传参的两种方式-params-query"><a href="#router传参的两种方式-params-query" class="headerlink" title="router传参的两种方式(params /query)"></a>router传参的两种方式(params /query)</h4><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs apache"><br><span class="hljs-attribute">params</span>、query是什么？ params：/router<span class="hljs-number">1</span>/:id ，/router<span class="hljs-number">1</span>/<span class="hljs-number">123</span>，/router<span class="hljs-number">1</span>/<span class="hljs-number">789</span> ,这里的id叫做params<br><span class="hljs-attribute">query</span>：/router<span class="hljs-number">1</span>?id=<span class="hljs-number">123</span> ,/router<span class="hljs-number">1</span>?id=<span class="hljs-number">456</span> ,这里的id叫做query。<br><br></code></pre></td></tr></table></figure>
 
@@ -451,17 +458,17 @@
 <p>v-if</p>
 <figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs dart">该指令的作用是根据表达式的真假来切换元素的显示状态<br>本质是通过操作dom元素来切换显示状态<br>表达式的值为<span class="hljs-keyword">true</span>,元素存在于dom中；为<span class="hljs-keyword">false</span>，从dom树中移除<br>频繁的切换使用v-<span class="hljs-keyword">show</span>,反之使用v-<span class="hljs-keyword">if</span>,前者的切换消耗小<br></code></pre></td></tr></table></figure>
 
-<h4 id="v-if在条件切换时，会对标签进行适当的创建和销毁，而v-show则仅在初始化时加载一次，因此v-if的开销相对来说会比v-show大"><a href="#v-if在条件切换时，会对标签进行适当的创建和销毁，而v-show则仅在初始化时加载一次，因此v-if的开销相对来说会比v-show大" class="headerlink" title="v-if在条件切换时，会对标签进行适当的创建和销毁，而v-show则仅在初始化时加载一次，因此v-if的开销相对来说会比v-show大"></a>v-if在条件切换时，会对标签进行适当的创建和销毁，而v-show则仅在初始化时加载一次，因此v-if的开销相对来说会比v-show大</h4><blockquote>
+<h4 id="v-show不生效的情况（可能设置了display-block-important-层级更高的生效了）"><a href="#v-show不生效的情况（可能设置了display-block-important-层级更高的生效了）" class="headerlink" title="v-show不生效的情况（可能设置了display:block  !important 层级更高的生效了）"></a>v-show不生效的情况（可能设置了display:block  !important 层级更高的生效了）</h4><h4 id="v-if在条件切换时，会对标签进行适当的创建和销毁，而v-show则仅在初始化时加载一次，因此v-if的开销相对来说会比v-show大"><a href="#v-if在条件切换时，会对标签进行适当的创建和销毁，而v-show则仅在初始化时加载一次，因此v-if的开销相对来说会比v-show大" class="headerlink" title="v-if在条件切换时，会对标签进行适当的创建和销毁，而v-show则仅在初始化时加载一次，因此v-if的开销相对来说会比v-show大"></a>v-if在条件切换时，会对标签进行适当的创建和销毁，而v-show则仅在初始化时加载一次，因此v-if的开销相对来说会比v-show大</h4><blockquote>
 <p>display:none; 会让元素脱离文档流，不占据页面空间。会引起回流和重绘</p>
 </blockquote>
 <p>visibility:hidden; 只是隐藏内容，并没有脱离文档流，会占据页面空间。会引起重绘。</p>
 <h3 id="为什么vue组件中的data是一个函数而不是一个对象？"><a href="#为什么vue组件中的data是一个函数而不是一个对象？" class="headerlink" title="为什么vue组件中的data是一个函数而不是一个对象？"></a>为什么vue组件中的data是一个函数而不是一个对象？</h3><p>如果 <strong>data 是一个对象，当复用组件时，因为 data 都会指向同一个引用类型地址</strong>，其中一个组件的 data 一旦发生修改，则其他重用的组件中的 data 也会被一并修改。</p>
-<p>如果 <strong> data 是一个返回对象的函数，因为每次重用组件时返回的都是一个新对象，引用地址不同，便不会出现如上问题。</strong></p>
+<p>如果 <strong>data 是一个返回对象的函数，因为每次重用组件时返回的都是一个新对象，引用地址不同，便不会出现如上问题。</strong></p>
 <h3 id="v-model-原理其实就是绑定属性和事件。"><a href="#v-model-原理其实就是绑定属性和事件。" class="headerlink" title="v-model  (原理其实就是绑定属性和事件。)"></a>v-model  (原理其实就是绑定属性和事件。)</h3><p>当 v-model 使用在表单元素上时，会根据元素的不同而采用不同的处理：</p>
 <ol>
-<li>当<code>&lt;input type=&quot;text&quot;&gt;</code>文本 和 <code>&lt;textarea&gt;</code>上使用时，会默认给元素绑定名为 value 的<strong> prop </strong> 和名为 <strong> input </strong>的事件；</li>
-<li>当<code>&lt;input type=&quot;checkbox&quot;&gt;</code>复选框 和 <code>&lt;input type=&quot;radio&quot;&gt;</code>单选框 上使用时，会默认绑定名为<strong> checked 的 prop 和名为 change  </strong> 的事件；</li>
-<li>当 <code>&lt;select&gt;</code>选择框 上使用时，则绑定名为 value 的 prop 和名为   <strong> change</strong> 的事件。<br><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2022/02/18/Vue--v-model/">博客</a></li>
+<li>当<code>&lt;input type=&quot;text&quot;&gt;</code>文本 和 <code>&lt;textarea&gt;</code>上使用时，会默认给元素绑定名为 value 的<strong>prop</strong> 和名为 <strong>input</strong>的事件；</li>
+<li>当<code>&lt;input type=&quot;checkbox&quot;&gt;</code>复选框 和 <code>&lt;input type=&quot;radio&quot;&gt;</code>单选框 上使用时，会默认绑定名为<strong>checked 的 prop 和名为 change</strong> 的事件；</li>
+<li>当 <code>&lt;select&gt;</code>选择框 上使用时，则绑定名为 value 的 prop 和名为   <strong>change</strong> 的事件。<br><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2022/02/18/Vue--v-model/">博客</a></li>
 </ol>
 <h5 id="Vue3-中的-v-model"><a href="#Vue3-中的-v-model" class="headerlink" title="Vue3 中的 v-model"></a>Vue3 中的 v-model</h5><p>修改默认 prop 名和事件名<br>废除 model 选项和 .sync 修饰符<br>使用多个 v-model</p>
 <h3 id="Vuex的理解及使用场景"><a href="#Vuex的理解及使用场景" class="headerlink" title="Vuex的理解及使用场景"></a>Vuex的理解及使用场景</h3><ul>
@@ -483,6 +490,13 @@
 <p>官方定义：<br>Vue 不允许在已经创建的实例上动态添加新的根级响应式属性 (root-level reactive property)。</p>
 <h4 id="方法1-set"><a href="#方法1-set" class="headerlink" title="方法1.$set"></a>方法1.$set</h4><figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs reasonml"><span class="hljs-comment">// 上传成功回调函数</span><br>handle<span class="hljs-constructor">AvatarSuccess(<span class="hljs-params">res</span>, <span class="hljs-params">file</span>)</span> &#123;<br>    this.<span class="hljs-constructor">$set(<span class="hljs-params">this</span>.<span class="hljs-params">form</span>,&#x27;<span class="hljs-params">imgUrl</span>&#x27;,<span class="hljs-params">res</span>.<span class="hljs-params">data</span>)</span>;<br>&#125;,<br></code></pre></td></tr></table></figure>
 
+<h5 id="原理-1"><a href="#原理-1" class="headerlink" title="原理"></a>原理</h5><p>可以发现 Vue.set() 和 this.$set() 这两个 api 的实现原理基本一模一样，都是使用了<strong>set函数</strong>。<br>vm.$set(target, key, value)中接收三个参数（targer 目标值，key 将要设置的属性，value 要设置的值）</p>
+<p>$set的原理是在vue的原型上添加$set的方法，同时针对以下三种情况情况分别进行处理</p>
+<ol>
+<li>当key已经存在于target上的时候，直接修改target中对应key的值</li>
+<li>当<strong>target是数组的时候，借助vue内部拦截处理后数组的splice方法进行赋值</strong>，vue对数组的’push’,’pop’,’shift’,’unshift’,’splice’,’sort’,’reverse’方法进行拦截处理成响应式，调用这些方法，可以触发界面的更新（后续添加这部分解说），如果只是通过arr[2]=2的方式进行赋值不会触发视图更新。</li>
+<li>对于<strong>新增的属性，通过defineReactive把数据转化成getter和setter的方式，并触发数据变化通知</strong><br><a target="_blank" rel="noopener" href="https://juejin.cn/post/7015214879330172964">掘金</a></li>
+</ol>
 <h4 id="方法2-forceUpdate"><a href="#方法2-forceUpdate" class="headerlink" title="方法2.$forceUpdate"></a>方法2.$forceUpdate</h4><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs kotlin">handleAvatarSuccess(res, file) &#123;<br>    <span class="hljs-keyword">this</span>.form.imgUrl = res.<span class="hljs-keyword">data</span>;<br>    <span class="hljs-keyword">this</span>.$forceUpdate();<br>&#125;,<br></code></pre></td></tr></table></figure>
 
 <p><a target="_blank" rel="noopener" href="https://v3.cn.vuejs.org/guide/change-detection.html#%E5%A3%B0%E6%98%8E%E5%93%8D%E5%BA%94%E5%BC%8F-property">官方文档</a></p>

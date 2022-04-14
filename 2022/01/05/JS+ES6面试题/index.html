@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      17.9k 字
+      18.5k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      205
+      212
        分钟
     </span>
   
@@ -238,12 +238,12 @@
 <h3 id="JavaScript-原型，原型链？-有什么特点？"><a href="#JavaScript-原型，原型链？-有什么特点？" class="headerlink" title="JavaScript 原型，原型链？ 有什么特点？"></a>JavaScript 原型，原型链？ 有什么特点？</h3><p>在 js 中我们是<strong>使用构造函数来新建一个对象的，每一个构造函数的内部都有一个 prototype 属性值，这个属性值是一个对象，这个对象包含了可以由该构造函数的所有实例共享的属性和方法。</strong></p>
 <p>当我们使用构造函数新建一个对象后，<strong>在这个对象的内部将包含一个指针，这个指针指向构造函数的 prototype 属性对应的值</strong>，在 ES5 中这个指针被称为对象的原型。</p>
 <p>一般来说我们是不应该能够获取到这个值的，但是现在浏览器中都实现了<code>__proto__</code>属性来让我们访问这个属性，但是我们最好不要使用这个属性，因为它不是规范中规定的。ES5 中新增了一个Object.<strong>getPrototypeOf() 方法</strong>，我们可以通过这个方法来获取对象的原型。</p>
-<p>当我们<strong>访问一个对象的属性时，如果这个对象内部不存在这个属性，那么它就会去它的原型对象里找这个属性，这个原型对象又会有自己的原型，于是就这样一直找下去，也就是原型链的概念。原型链的尽头一般来说都是 Object.prototype </strong>所以这就是我们新建的对象为什么能够使用 toString() 等方法的原因。</p>
+<p>当我们<strong>访问一个对象的属性时，如果这个对象内部不存在这个属性，那么它就会去它的原型对象里找这个属性，这个原型对象又会有自己的原型，于是就这样一直找下去，也就是原型链的概念。原型链的尽头一般来说都是 Object.prototype</strong>所以这就是我们新建的对象为什么能够使用 toString() 等方法的原因。</p>
 <p>2、隐式原型也是一个对象,是指向我们构造函数的原型</p>
 <p>3、除了最顶层的Object对象没有__proto_，其他所有的对象都有__proto__,这是隐式原型</p>
 <p>4、<strong>隐式原型__proto__的作用是让对象通过它来一直往上查找属性或方法，直到找到最顶层的Object的__proto__属性，它的值是null,这个查找的过程就是原型链</strong><br>特点：<br>JavaScript 对象是通过引用来传递的，我们创建的每个新对象实体中并没有一份属于自己的原型副本。当我们修改原型时，与之相关的对象也会继承这一改变。<br><img src="/imageO/YX.jpg" srcset="/img/loading.gif" lazyload alt="原型链"></p>
 <h3 id="js-获取原型的方法？"><a href="#js-获取原型的方法？" class="headerlink" title="js 获取原型的方法？"></a>js 获取原型的方法？</h3><p>p.<code>__proto__</code><br>p.constructor.prototype<br>Object.getPrototypeOf(p)</p>
-<h4 id="hasOwnProperty表示是否有自己的属性。这个方法会查找一个对象是否有某个属性，但是不会去查找它的原型链。"><a href="#hasOwnProperty表示是否有自己的属性。这个方法会查找一个对象是否有某个属性，但是不会去查找它的原型链。" class="headerlink" title="hasOwnProperty表示是否有自己的属性。这个方法会查找一个对象是否有某个属性，但是不会去查找它的原型链。"></a>hasOwnProperty表示是否有自己的属性。这个方法会查找一个对象是否有某个属性，但是不会去查找它的原型链。</h4><h3 id="promise-原理-（回调函数-状态处理队列）"><a href="#promise-原理-（回调函数-状态处理队列）" class="headerlink" title="promise 原理 （回调函数+状态处理队列）"></a>promise 原理 （回调函数+状态处理队列）</h3><p>promise 的本质是回调函数，then 方法的本质是依赖收集，它把 fulfilled 状态要执行的回调函数放在一个队列， rejected 状态要执行的回调函数放在另一个队列。待 promise 从 pending 变为 fulfilled/rejected 状态后，把相应队列的所有函数，执行一遍。</p>
+<h4 id="hasOwnProperty表示是否有自己的属性。这个方法会查找一个对象是否有某个属性，但是不会去查找它的原型链"><a href="#hasOwnProperty表示是否有自己的属性。这个方法会查找一个对象是否有某个属性，但是不会去查找它的原型链" class="headerlink" title="hasOwnProperty表示是否有自己的属性。这个方法会查找一个对象是否有某个属性，但是不会去查找它的原型链"></a>hasOwnProperty表示是否有自己的属性。这个方法会查找一个对象是否有某个属性，但是不会去查找它的原型链</h4><h3 id="promise-原理-（回调函数-状态处理队列）"><a href="#promise-原理-（回调函数-状态处理队列）" class="headerlink" title="promise 原理 （回调函数+状态处理队列）"></a>promise 原理 （回调函数+状态处理队列）</h3><p>promise 的本质是回调函数，then 方法的本质是依赖收集，它把 fulfilled 状态要执行的回调函数放在一个队列， rejected 状态要执行的回调函数放在另一个队列。待 promise 从 pending 变为 fulfilled/rejected 状态后，把相应队列的所有函数，执行一遍。</p>
 <h3 id="如何解决异步回调地狱-异步编程的实现方式？"><a href="#如何解决异步回调地狱-异步编程的实现方式？" class="headerlink" title="如何解决异步回调地狱||  异步编程的实现方式？"></a>如何解决异步回调地狱||  异步编程的实现方式？</h3><p>promise、generator、async/await<br>js 中的异步机制可以分为以下几种：</p>
 <ol>
 <li>第一种最常见的是使用回调函数的方式，使用回调函数的方式有一个缺点是，<strong>多个回调函数嵌套的时候会造成回调函数地狱，上下两层的回调函数间的代码耦合度太高</strong>，不利于代码的可维护。</li>
@@ -419,15 +419,19 @@
 
 <h4 id="小括号的作用"><a href="#小括号的作用" class="headerlink" title="小括号的作用"></a>小括号的作用</h4><p>小括号能把我们的表达式组合分块，并且每一块，也就是每一对小括号，都有一个返回值。这个返回值实际上也就是小括号中表达式的返回值。所以，当我们用一对小括号把匿名函数括起来的时候，实际上小括号返回的就是一个匿名函数的Function对象。因此，小括号对加上匿名函数就如同有名字的函数般被我们取得它的引用位置了。所以如果在这个引用变量后面再加上参数列表，就会实现普通函数的调用形式。 通俗点讲就是，加入小括号后就实现了和具名函数一样的形式</p>
 <p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903962257129485">详解JavaScript的匿名函数（面试重点）</a></p>
-<h3 id="深拷贝和浅拷贝"><a href="#深拷贝和浅拷贝" class="headerlink" title="深拷贝和浅拷贝"></a>深拷贝和浅拷贝</h3><p>相关资料：</p>
+<h3 id="深拷贝和浅拷贝-赋值"><a href="#深拷贝和浅拷贝-赋值" class="headerlink" title="深拷贝和浅拷贝||赋值"></a>深拷贝和浅拷贝||赋值</h3><p>相关资料：</p>
 <figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs reasonml"><span class="hljs-comment">// 浅拷贝的实现;</span><br><br><span class="hljs-keyword">function</span> shallow<span class="hljs-constructor">Copy(<span class="hljs-params">object</span>)</span> &#123;<br> <span class="hljs-comment">// 只拷贝对象</span><br> <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">object</span><span class="hljs-operator"> || </span>typeof <span class="hljs-keyword">object</span> !== <span class="hljs-string">&quot;object&quot;</span>) return;<br><br> <span class="hljs-comment">// 根据 object 的类型判断是新建一个数组还是对象</span><br> <span class="hljs-keyword">let</span> newObject = <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Array</span>.</span></span>is<span class="hljs-constructor">Array(<span class="hljs-params">object</span>)</span> ? <span class="hljs-literal">[]</span> : &#123;&#125;;<br><br> <span class="hljs-comment">// 遍历 object，并且判断是 object 的属性才拷贝</span><br> <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> key <span class="hljs-keyword">in</span> <span class="hljs-keyword">object</span>) &#123;<br> <span class="hljs-keyword">if</span> (<span class="hljs-keyword">object</span>.has<span class="hljs-constructor">OwnProperty(<span class="hljs-params">key</span>)</span>) &#123;<br>      newObject<span class="hljs-literal">[<span class="hljs-identifier">key</span>]</span> = <span class="hljs-keyword">object</span><span class="hljs-literal">[<span class="hljs-identifier">key</span>]</span>;<br>    &#125;<br>  &#125;<br><br> return newObject;<br>&#125;<br><br><span class="hljs-comment">// 深拷贝的实现;</span><br><br><span class="hljs-keyword">function</span> deep<span class="hljs-constructor">Copy(<span class="hljs-params">object</span>)</span> &#123;<br> <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">object</span><span class="hljs-operator"> || </span>typeof <span class="hljs-keyword">object</span> !== <span class="hljs-string">&quot;object&quot;</span>) return <span class="hljs-keyword">object</span>;<br><br> <span class="hljs-keyword">let</span> newObject = <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Array</span>.</span></span>is<span class="hljs-constructor">Array(<span class="hljs-params">object</span>)</span> ? <span class="hljs-literal">[]</span> : &#123;&#125;;<br><br> <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> key <span class="hljs-keyword">in</span> <span class="hljs-keyword">object</span>) &#123;<br> <span class="hljs-keyword">if</span> (<span class="hljs-keyword">object</span>.has<span class="hljs-constructor">OwnProperty(<span class="hljs-params">key</span>)</span>) &#123;<br>      newObject<span class="hljs-literal">[<span class="hljs-identifier">key</span>]</span> = deep<span class="hljs-constructor">Copy(<span class="hljs-params">object</span>[<span class="hljs-params">key</span>])</span>;<br>    &#125;<br>  &#125;<br><br> return newObject;<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <ol>
 <li>JS的基本类型不存在浅拷贝还是深拷贝的问题,深拷贝与浅拷贝的概念<strong>只存在于引用类型。</strong></li>
 <li>对于仅仅是复制了引用（地址），换句话说，复制了之后，<strong>原来的变量和新的变量指向同一个东西，彼此之间的操作会互相影响，为 浅拷贝。而如果是在堆中重新分配内存，拥有不同的地址，但是值是一样的，复制后的对象与原来的对象是完全隔离，互不影响，为 深拷贝。</strong></li>
+</ol>
+<p>利用{…}实现拷贝。注意这里是拷贝，先不区分是深还是浅</p>
+<p><strong>如果是引用类型，且只有一层对象</strong>，则<strong>这一层就是深拷贝。拷贝前后，对象的基本类型互不影响</strong>，<br>如果是引用类型，<strong>且有两层以上嵌套对象，则这嵌套的，就是浅拷贝</strong>。嵌套的对象，拷贝的嵌套对象的引用。<strong>拷贝前后，嵌套对象数据相互影响，一层对象，互不影响</strong></p>
+<ol>
 <li>深浅拷贝 的主要区别就是：复制的是引用(地址)还是复制的是实例。</li>
 </ol>
-<p>浅拷贝指的是将一个对象的属性值复制到另一个对象，如果有的属性的值为引用类型的话，那么会将这个引用的地址复制给对象，因此两个对象会有同一个引用类型的引用。浅拷贝可以使用<strong> Object.assign 和展开运算符</strong>来实现。</p>
+<p>浅拷贝指的是将一个对象的属性值复制到另一个对象，如果有的属性的值为引用类型的话，那么会将这个引用的地址复制给对象，因此两个对象会有同一个引用类型的引用。浅拷贝可以使用<strong>Object.assign 和展开运算符</strong>来实现。</p>
 <p>深拷贝相对浅拷贝而言，如果遇到属性值为引用类型的时候，它新建一个引用类型并将对应的值复制给它，因此对象获得的一个新的引用类型而不是一个原有类型的引用。深拷贝对于一些对象可以使用 JSON 的两个函数来实现，但是由于 JSON 的对象格式比 js 的对象格式更加严格，所以如果属性值里边出现函数或者 Symbol 类型的值时，会转换失败。<br><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2021/04/17/javascript%20%E5%85%B3%E4%BA%8E%E8%B5%8B%E5%80%BC%E3%80%81%E6%B5%85%E6%8B%B7%E8%B4%9D%E3%80%81%E6%B7%B1%E6%8B%B7%E8%B4%9D%E7%9A%84%E4%B8%AA%E4%BA%BA%E7%90%86%E8%A7%A3/#%E4%BE%8B">博客：</a></p>
 <h5 id="浅拷贝的实现"><a href="#浅拷贝的实现" class="headerlink" title="浅拷贝的实现"></a>浅拷贝的实现</h5><ol>
 <li>Object.assign()</li>
@@ -443,10 +447,21 @@
 <li>jQuery.extend()方法</li>
 <li>手写递归方法<br>参考<br><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844904197595332622#heading-3">掘金</a></li>
 </ol>
+<h5 id="赋值"><a href="#赋值" class="headerlink" title="赋值"></a>赋值</h5><ol>
+<li>当我们把一个变量赋值给另一个变量时，是在<strong>栈内存中新增一个变量</strong>，并且赋值。<strong>二者互不影响</strong></li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> c = <span class="hljs-number">1</span><br><span class="hljs-keyword">let</span> d = c<br>d = <span class="hljs-number">2</span><br><span class="hljs-built_in">console</span>.log(c) <span class="hljs-comment">//c1</span><br><span class="hljs-built_in">console</span>.log(d) <span class="hljs-comment">//2</span><br></code></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>当我们把一个对象赋值给一个新的对象时,<strong>赋的是该对象在栈中的地址，而不是堆中的数据<br>也就是赋值之后，两个对象指向同一个存储空间。无论哪个对象发生改变，其实都是改变的堆中的数据(会互相影响，指向的引用地址都相同)</strong></li>
+</ol>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">let a = &#123;<br><span class="hljs-type">name</span>: <span class="hljs-string">&#x27;a&#x27;</span>,<br><span class="hljs-keyword">like</span>: [<span class="hljs-string">&#x27;吃饭&#x27;</span>]<br>&#125;<br>let b = a<br><br>b.name = <span class="hljs-string">&#x27;b&#x27;</span><br>b.<span class="hljs-keyword">like</span>[<span class="hljs-number">0</span>] = <span class="hljs-string">&#x27;睡觉&#x27;</span><br>console.log(<span class="hljs-string">&#x27;a&#x27;</span>, a) //a &#123;<span class="hljs-type">name</span>: <span class="hljs-string">&#x27;b&#x27;</span>, <span class="hljs-keyword">like</span>: <span class="hljs-keyword">Array</span>(<span class="hljs-number">1</span>)&#125;<span class="hljs-keyword">like</span>: [<span class="hljs-string">&#x27;睡觉&#x27;</span>]<span class="hljs-type">name</span>: &quot;b&quot;<br>console.log(<span class="hljs-string">&#x27;b&#x27;</span>, b)//b  &#123;<span class="hljs-type">name</span>: <span class="hljs-string">&#x27;b&#x27;</span>, <span class="hljs-keyword">like</span>: <span class="hljs-keyword">Array</span>(<span class="hljs-number">1</span>)&#125;<span class="hljs-keyword">like</span>: [<span class="hljs-string">&#x27;睡觉&#x27;</span>]<span class="hljs-type">name</span>: &quot;b&quot;<br>打印的一样<br></code></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6963515965791272967">掘金</a></p>
 <h4 id="slice（不会改变原始数组）-和-concat（不会更改现有数组，而是返回一个新数组）"><a href="#slice（不会改变原始数组）-和-concat（不会更改现有数组，而是返回一个新数组）" class="headerlink" title="slice（不会改变原始数组） 和 concat（不会更改现有数组，而是返回一个新数组）"></a>slice（不会改变原始数组） 和 concat（不会更改现有数组，而是返回一个新数组）</h4><p>Array 的 slice 和 concat 方法 和 jQuery 中的 extend 复制方法，他们都会复制第一层的值，对于 第一层 的值都是 深拷贝，而到 第二层 的时候 Array 的 slice 和 concat 方法就是 复制引用 ，jQuery 中的 extend 复制方法 则 取决于 你的 第一个参数， 也就是是否进行递归复制。所谓第一层 就是 key 所对应的 value 值是基本数据类型，也就像上面栗子中的name、age，而对于 value 值是引用类型 则为第二层，也就像上面栗子中的 company。</p>
 <h2 id="ES6"><a href="#ES6" class="headerlink" title="ES6"></a>ES6</h2><h3 id="ES6-语法知道哪些，分别怎么用？"><a href="#ES6-语法知道哪些，分别怎么用？" class="headerlink" title="ES6 语法知道哪些，分别怎么用？"></a>ES6 语法知道哪些，分别怎么用？</h3><p>let const 块级作用域 箭头函数 词法this Class 解构，剩余运算符，Promise等，往这些方面展开。 不定参数…rest</p>
 <h4 id="let与var对比-做项目中习惯用let声明变量"><a href="#let与var对比-做项目中习惯用let声明变量" class="headerlink" title="let与var对比(做项目中习惯用let声明变量)"></a>let与var对比(做项目中习惯用let声明变量)</h4><p>var声明的变量往往会越狱 (let 是在代码块内有效，var 是在全局范围内有效:)<br>let声明的变量有严格局部作用域<br>var可以声明多次，let只能声明一次<br>let 不存在变量提升var 会变量提升 （undefined）</p>
-<h4 id="const声明变量-只读变量"><a href="#const声明变量-只读变量" class="headerlink" title="const声明变量 (只读变量)"></a>const声明变量 (只读变量)</h4><p>声明之后不允许改变<br>一旦声明必须初始化，否者会报错<br>const 如何做到变量在声明初始化之后不允许改变的？其实 const 其实保证的不是变量的值不变，而是保证变量指向的内存地址所保存的数据不允许改动</p>
+<h4 id="const声明变量-只读变量"><a href="#const声明变量-只读变量" class="headerlink" title="const声明变量 (只读变量)"></a>const声明变量 (只读变量)</h4><p>声明之后不允许改变<br><strong>一旦声明必须初始化，否者会报错</strong><br>const 如何做到变量在声明初始化之后不允许改变的？其实 const 其实保证的不是变量的值不变，<strong>而是保证变量指向的内存地址所保存的数据不允许改动</strong><br>解释：<br>对于简单类型的数据（数值、字符串、布尔值），<strong>值就保存在变量指向的那个内存地址，因此等同于常量</strong>。但对于<strong>复合类型的数据（主要是对象和数组），变量指向的内存地址，保存的只是一个指向实际数据的指针</strong>，const<strong>只能保证这个指针是固定的（即总是指向另一个固定的地址）</strong>，至于它指向的数据结构是不是可变的，就完全不能控制了。因此，将一个对象声明为常量必须非常小心。</p>
 <h3 id="Set-Map-Reduce"><a href="#Set-Map-Reduce" class="headerlink" title="Set  Map  Reduce"></a>Set  Map  Reduce</h3><blockquote>
 <p>Set类似于数组，但是它里面每一项的值是唯一的，没有重复的值，Set是一个构造函数，用来生成set的数据结构<br>Set中两个对象永远是不相等的，即使键和值都是一样的</p>
 </blockquote>
@@ -467,7 +482,11 @@
 <li>Map 的键实际上是跟内存地址绑定的，只要内存地址不一样，就视为两个键； WeakMap 的键是<strong>弱引用，键所指向的对象可以被垃圾回收，此时键是无效的</strong></li>
 <li><strong>Map 可以被遍历， WeakMap 不能被遍历</strong></li>
 </ol>
-<h4 id="WeakMap的使用场景（Map-和-Weakmap-之间的主要区别是，Weakmap-允许对键对象进行垃圾收集，从而防止内存泄漏。）"><a href="#WeakMap的使用场景（Map-和-Weakmap-之间的主要区别是，Weakmap-允许对键对象进行垃圾收集，从而防止内存泄漏。）" class="headerlink" title="WeakMap的使用场景（Map 和 Weakmap 之间的主要区别是，Weakmap 允许对键对象进行垃圾收集，从而防止内存泄漏。）"></a>WeakMap的使用场景（Map 和 Weakmap 之间的主要区别是，Weakmap 允许对键对象进行垃圾收集，从而防止内存泄漏。）</h4><p>1.因为 weakMap 不会影响垃圾回收，所以可以用来<strong>关联元数据</strong><br><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2021/04/14/Map&&Set&&Weakmap&&Weakset/#%E4%BA%94%E3%80%81%E4%BB%80%E4%B9%88%E6%98%AF-WeakMap-%EF%BC%9F">博客</a><br><a target="_blank" rel="noopener" href="https://juejin.cn/post/6993101968545677319#heading-18">浅析 Map 和 WeakMap 区别以及使用场景</a></p>
+<h4 id="WeakMap的使用场景（Map-和-Weakmap-之间的主要区别是，Weakmap-允许对键对象进行垃圾收集，从而防止内存泄漏。）"><a href="#WeakMap的使用场景（Map-和-Weakmap-之间的主要区别是，Weakmap-允许对键对象进行垃圾收集，从而防止内存泄漏。）" class="headerlink" title="WeakMap的使用场景（Map 和 Weakmap 之间的主要区别是，Weakmap 允许对键对象进行垃圾收集，从而防止内存泄漏。）"></a>WeakMap的使用场景（Map 和 Weakmap 之间的主要区别是，Weakmap 允许对键对象进行垃圾收集，从而防止内存泄漏。）</h4><ol>
+<li>DOM 节点元数据<br>因为 weakMap 不会影响垃圾回收，所以可以用来<strong>关联元数据</strong></li>
+<li>部署私有属性<br>利用弱映射，<strong>将内部属性设置为实例的弱引用对象，当实例删除时，私有属性也会随之消失</strong>，因此不会内存泄漏</li>
+<li>数据缓存<br>当我们<strong>需要在不修改原有对象的情况下储存某些属性等，而又不想管理这些数据时</strong>，可以使用WeakMap<br><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2021/04/14/Map&&Set&&Weakmap&&Weakset/#%E4%BA%94%E3%80%81%E4%BB%80%E4%B9%88%E6%98%AF-WeakMap-%EF%BC%9F">博客</a><br><a target="_blank" rel="noopener" href="https://juejin.cn/post/6993101968545677319#heading-18">浅析 Map 和 WeakMap 区别以及使用场景</a></li>
+</ol>
 <h3 id="模块化"><a href="#模块化" class="headerlink" title="模块化"></a>模块化</h3><p>模块化就是把代码进行拆分，方便重复利用，类似java中的导包，需要使用一个包，必须先导包，而js中没有包的概念，换来的是模块<br>ES6 的模块化分为导出（export） @与导入（import）两个模块。</p>
 <h4 id="模块化优点"><a href="#模块化优点" class="headerlink" title="模块化优点"></a>模块化优点</h4><p>避免命名冲突（减少命名空间污染）更好的分类，按需加载,更高的复用性,高可维护性</p>
 <h3 id="CommomJS-node应用由模块组成"><a href="#CommomJS-node应用由模块组成" class="headerlink" title="CommomJS(node应用由模块组成)"></a>CommomJS(node应用由模块组成)</h3><p>CommonJS定义了两个主要概念：<br>require函数，用于导入模块<br>module.exports变量，用于导出模块<br>require导入，代码很简单，let {count,addCount}=require(“./utils”)就可以了。<br>require的第一步是解析路径获取到模块内容：</p>
@@ -575,8 +594,9 @@
 </ol>
 <h4 id="如何使用for-of-循环遍历对象-给对象添加迭代器"><a href="#如何使用for-of-循环遍历对象-给对象添加迭代器" class="headerlink" title="如何使用for of 循环遍历对象(给对象添加迭代器)"></a>如何使用for of 循环遍历对象(给对象添加迭代器)</h4><ol>
 <li>类数组对象<br>如果对象是一个类数组对象，那好办，用Array.from转成数组即可。</li>
-<li>非类数组对象<br>如果不是类数组对象，也有办法，添加一个[Symbol.iterator]属性，并指向一个迭代器即可。<br><strong>Object.keys/Object.values/Object.entries</strong></li>
+<li>非类数组对象<br>如果不是类数组对象，也有办法，添加一个[Symbol.iterator]属性，并指向一个迭代器即可。</li>
 </ol>
+<p><strong>Object.keys/Object.values/Object.entries</strong></p>
 <h4 id="任何数据结构只要部署-Iterator-接口，就可以完成遍历操作，即依次处理该数据结构的所有成员"><a href="#任何数据结构只要部署-Iterator-接口，就可以完成遍历操作，即依次处理该数据结构的所有成员" class="headerlink" title="任何数据结构只要部署 Iterator 接口，就可以完成遍历操作，即依次处理该数据结构的所有成员"></a>任何数据结构只要部署 Iterator 接口，就可以完成遍历操作，即依次处理该数据结构的所有成员</h4><p>迭代器对象本质上，就是一个指针对象。通过指针对象的next()，用来移动指针。</p>
 <p>【迭代器协议】对象必须提供一个next()，执行该方法要么返回迭代中的下一项，要么就引起一个Stopiteration异常，以终止迭代。</p>
 <p>next()返回一个对象，表示当前数据成员的信息。这个对象具有value和done两个属性，value属性返回当前位置的成员，done属性是一个布尔值，表示遍历是否结束，即是否还有必要再一次调用next()。对于遍历器对象来说，done: false和value: undefined属性都是可以省略的。</p>
@@ -594,7 +614,7 @@
 <li>for可以用continue跳过循环中的一个迭代，forEach用continue会报错。</li>
 <li>forEach() 需要用 return 跳过循环中的一个迭代，跳过之后会执行下一个迭代。</li>
 </ol>
-<h3 id="forEach-map-ES5"><a href="#forEach-map-ES5" class="headerlink" title="forEach map(ES5)"></a>forEach map(ES5)</h3><p>能用forEach()做到的，map()同样可以。反过来也是如此<br>map()会<strong>分配内存空间存储新数组并返回，forEach()不会返回数据。</strong><br>forEach()允许callback更改原始数组的元素。map()返回新的数组。<br>map()   forEach()   <strong>  (数据为基本类型,改变其值（不会改变）)(数据为引用类型,改变其属性方法的值（会改变）)</strong><br><a target="_blank" rel="noopener" href="https://juejin.cn/post/7034350835668615199#heading-2">js学习-forEach和map是否改变原数组？</a></p>
+<h3 id="forEach-map-ES5"><a href="#forEach-map-ES5" class="headerlink" title="forEach map(ES5)"></a>forEach map(ES5)</h3><p>能用forEach()做到的，map()同样可以。反过来也是如此<br>map()会<strong>分配内存空间存储新数组并返回，forEach()不会返回数据。</strong><br>forEach()允许callback更改原始数组的元素。map()返回新的数组。<br>map()   forEach()   <strong>(数据为基本类型,改变其值（不会改变）)(数据为引用类型,改变其属性方法的值（会改变）)</strong><br><a target="_blank" rel="noopener" href="https://juejin.cn/post/7034350835668615199#heading-2">js学习-forEach和map是否改变原数组？</a></p>
 <h2 id="基础-（已掌握）"><a href="#基础-（已掌握）" class="headerlink" title="基础 （已掌握）"></a>基础 （已掌握）</h2><h3 id="js种8种数据类型"><a href="#js种8种数据类型" class="headerlink" title="js种8种数据类型"></a>js种8种数据类型</h3><h4 id="六种基本数据类型：undefined-null-number-bollean-string"><a href="#六种基本数据类型：undefined-null-number-bollean-string" class="headerlink" title="六种基本数据类型：undefined,null,number,bollean, string"></a>六种基本数据类型：undefined,null,number,bollean, string</h4><p>还有在 ES6 中新增的 Symbol 和 ES10 中新增的 BigInt 类型。</p>
 <blockquote>
 <p>Symbol 代表创建后独一无二且不可变的数据类型，它的出现我认为主要是为了解决可能出现的全局变量冲突的问题。<br>BigInt 是一种数字类型的数据，它可以表示任意精度格式的整数，使用 BigInt 可以安全地存储和操作大整数，即使这个数已经超出了 Number 能够表示的安全整数范围。</p>
@@ -658,7 +678,7 @@
 </li>
 </ol>
 <h3 id="0-1-0-2为什么不等于0-3？"><a href="#0-1-0-2为什么不等于0-3？" class="headerlink" title="0.1+0.2为什么不等于0.3？"></a>0.1+0.2为什么不等于0.3？</h3><p>当计算机计算 0.1+0.2 的时候，实际上计算的是这两个数字在<strong>计算机里所存储的二进制</strong>，0.1 和 0.2 在转换为二进制表示的时候会出现位数无限循环的情况。js 中是以 <strong>64 位双精度格式</strong>来存储数字的，只有 53 位的有效数字，超过这个长度的位数会被截取掉这样就造成了精度丢失的问题。这是第一个会造成精度丢失的地方。在对两个以 64 位双精度格式的数据进行计算的时候，首先会进行对阶的处理，对阶指的是将阶码对齐，也就是将小数点的位置对齐后，再进行计算，一般是小阶向大阶对齐，因此小阶的数在对齐的过程中，有效数字会向右移动，移动后超过有效位数的位会被截取掉，这是第二个可能会出现精度丢失的地方。当两个数据阶码对齐后，进行相加运算后，得到的结果可能会超过 53 位有效数字，因此超过的位数也会被截取掉，这是可能发生精度丢失的第三个地方。</p>
-<p>对于这样的情况，<strong>我们可以将其转换为整数后再进行运算，运算后再转换为对应的小数</strong>，以这种方式来解决这个问题。<br>(<strong>toPrecision vs toFixed </strong> –toPrecision 是处理精度，精度是从左至右第一个不为0的数开始数起。<br>–toFixed 是小数点后指定位数取整，从小数点开始数起。)</p>
+<p>对于这样的情况，<strong>我们可以将其转换为整数后再进行运算，运算后再转换为对应的小数</strong>，以这种方式来解决这个问题。<br>(<strong>toPrecision vs toFixed</strong> –toPrecision 是处理精度，精度是从左至右第一个不为0的数开始数起。<br>–toFixed 是小数点后指定位数取整，从小数点开始数起。)</p>
 <p>我们还可以将两个数相加的结果和右边相减，如果相减的结果小于一个极小数，那么我们就可以认定结果是相等的，这个极小数可以<br>使用 es6 的 Number.EPSILON</p>
 <h3 id="Node-环境中的事件环（Event-Loop"><a href="#Node-环境中的事件环（Event-Loop" class="headerlink" title="Node 环境中的事件环（Event Loop)"></a>Node 环境中的事件环（Event Loop)</h3><p>Node是基于V8引擎的运行在服务端的JavaScript运行环境，在处理高并发、I/O密集(文件操作、网络操作、数据库操作等)场景有明显的优势。虽然用到也是V8引擎，但由于服务目的和环境不同，导致了它的API与原生JS有些区别，其Event Loop还要处理一些I/O，比如新的网络连接等，所以Node的Event Loop(事件环机制)与浏览器的是不太一样。<br> 执行顺序如下：</p>
 <p><img src="/imageO/Node.jpg" srcset="/img/loading.gif" lazyload alt="Node"></p>

@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      12.5k 字
+      12.3k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      140
+      138
        分钟
     </span>
   
@@ -235,13 +235,7 @@
 <p>所谓重排，实际上是根据渲染树中每个渲染对象的信息，计算出各自渲染对象的几何信息（DOM对象的位置和尺寸大小），并将其安置在界面中的正确位置。</p>
 <h5 id="如何避免"><a href="#如何避免" class="headerlink" title="如何避免"></a>如何避免</h5><h6 id="CSS"><a href="#CSS" class="headerlink" title="CSS"></a>CSS</h6><p>避免使用table布局。<br>避免设置多层内联样式。<br>将动画效果应用到position属性为absolute或fixed的元素上。</p>
 <h6 id="JavaScript"><a href="#JavaScript" class="headerlink" title="JavaScript"></a>JavaScript</h6><p><strong>避免频繁操作样式，最好一次性重写style属性</strong>，或者将样式列表定义为class并一次性更改class属性。<br>避免频繁操作DOM，创建一个documentFragment，在它上面应用所有DOM操作，最后再把它添加到文档中。<br><strong>也可以先为元素设置display: none，操作结束后再把它显示出来。因为在display属性为none的元素上进行的DOM操作不会引发回流和重绘。</strong><br>避免频繁读取会引发回流/重绘的属性，如果确实需要多次使用，就用一个变量缓存起来。<br>对具有复杂动画的元素使用绝对定位，使它脱离文档流，否则会引起父元素及后续元素频繁回流。<br><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2022/02/15/CSS%E9%9D%A2%E8%AF%95%E9%A2%98%E6%80%BB%E7%BB%93/#%E4%BB%80%E4%B9%88%E6%98%AF%E9%87%8D%E7%BB%98%E5%92%8C%E5%9B%9E%E6%B5%81%EF%BC%9F%EF%BC%88%E6%B5%8F%E8%A7%88%E5%99%A8%E7%BB%98%E5%88%B6%E8%BF%87%E7%A8%8B%EF%BC%89">博客</a><br>js 操作 Dom 很耗性能，其实是在说很耗浏览器性能，具体和 js计算 性能没多大的关系，优化方案<br>DOM操作的背后，隐藏这不止止是文中所描述的这些代价。为了给用户更好的浏览体验，可以有以下优化的方案：<br><strong>减少DOM操作如果在一个局部方法中需要多次访问同一个dom，则先暂存它的引用</strong><br>采用更高效的API或者更高效的写法<br>1）用querySelectorAll()替代getElementByXX()。<br>2）开启动画的GPU加速，把渲染计算交给GPU<br>3）用事件委托来减少事件处理器的数量。<br>4）<strong>使用react、vue等页面框架来编写View页面。react采用虚拟dom，尽可能的讲多次重排浓缩成一次。</strong><br>CSS及动画处理<br>1）<strong>用更高效的css3效果，通过类名控制动画，尽量避免直接操作DOM属性；</strong><br>2）<strong>在动画的元素多嵌套一层div，尽量用绝对定位或者固定定位使其脱离文档流，再进行动画处理；</strong><br>3）尽量在滚动的时候，停止动画；<br>4）动画实现的速度选择。以1px移动最为平滑，但是reflow就会果与频繁，建议以3px移动则会好很多。<br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/86153264">知乎</a></p>
-<h4 id="计算属性的原理"><a href="#计算属性的原理" class="headerlink" title="计算属性的原理"></a>计算属性的原理</h4><p>这里还是按照惯例，将定义的computed属性的每一项使用Watcher类进行实例化，不过这里是按照computed-watcher的形式，来看下如何实例化的：</p>
-<p>这里的变量watcher就是之前computed对应的computed-watcher实例，接下来会执行Watcher类专门为计算属性定义的两个方法，<strong>在执行evaluate方法进行求值的过程中又会触发computed内可以访问到的响应式数据的get，它们会将当前的computed-watcher作为依赖收集到自己的dep里，计算完毕之后将dirty置为false，表示已经计算过了。</strong></p>
-<p>然后执行depend让计算属性内的响应式数据订阅当前的render-watcher，所以computed内的响应式数据会收集computed-watcher和render-watcher两个watcher，<strong>当computed内的状态发生变更触发set后，首先通知computed需要进行重新计算，然后通知到视图执行渲染，再渲染中会访问到computed计算后的值，最后渲染到页面。</strong></p>
-<blockquote>
-<p>Ps: 计算属性内的值须是响应式数据才能触发重新计算。</p>
-</blockquote>
-<p>watch总结：为什么计算属性有缓存功能？<strong>因为当计算属性经过计算后，内部的标志位会表明已经计算过了，再次访问时会直接读取计算后的值；</strong>为什么计算属性内的响应式数据发生变更后，计算属性会重新计算？<strong>因为内部的响应式数据会收集computed-watcher，变更后通知计算属性要进行计算，也会通知页面重新渲染，渲染时会读取到重新计算后的值</strong><br><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2022/03/10/Vue%E8%AE%A1%E7%AE%97%E5%B1%9E%E6%80%A7%E5%92%8Ccomputed%E7%9A%84%E5%8E%9F%E7%90%86/">博客：</a></p>
+<h4 id="计算属性的原理"><a href="#计算属性的原理" class="headerlink" title="计算属性的原理"></a>计算属性的原理</h4><p><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2022/03/10/Vue%E8%AE%A1%E7%AE%97%E5%B1%9E%E6%80%A7%E5%92%8Ccomputed%E7%9A%84%E5%8E%9F%E7%90%86/">博客：</a></p>
 <h3 id="Js-动画与-CSS-动画区别及相应实现（JS动画重绘回流，性能影响）"><a href="#Js-动画与-CSS-动画区别及相应实现（JS动画重绘回流，性能影响）" class="headerlink" title="Js 动画与 CSS 动画区别及相应实现（JS动画重绘回流，性能影响）"></a>Js 动画与 CSS 动画区别及相应实现（JS动画重绘回流，性能影响）</h3><p>区别：<br>（1）transform仅描述元素的静态样式，常常配合transition和animation使用<br>（2）<strong>transition通常和hover等事件配合使用，animation是自发的，立即播放</strong><br>（3）animation可设置循环次数<br>（4）<strong>transition只能设置头尾,animation可设置每一帧的样式和时间</strong><br>（5）<strong>transition可与js配合使用，js设定要变化的样式，transition负责动画效果</strong></p>
 <p>CSS3 的动画的优点<br>在性能上会稍微好一些，浏览器会对 CSS3 的动画做一些优化,代码相对简单</p>
 <p>缺点(在动画控制上不够灵活,兼容性不好)</p>
@@ -251,18 +245,7 @@
 <li>作用域：<br>css 预编译器把变量赋予作用域，也就是存在生命周期。就像 js 一样，它会先从局部作用域查找变量，依次向上级作用域查找。<br>Sass：<strong>三者最差，不存在全局变量的概念。也就是说在 Sass 中定义了相同名字的变量时你就要小心蛋疼了。</strong><br><strong>Less：我认为跟 JS 一样，逐级查找，向上冒泡。<br>Stylus：完全等同 Less。Stylus 和 Sass 则更倾向于指令式。</strong></li>
 </ol>
 <h5 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h5><p>个人认为：<br>Sass和Less语法严谨、Stylus相对自由。因为<strong>Less长得更像 css，所以它可能学习起来更容易。</strong><br>Sass 和 Compass、Stylus 和 Nib 都是好基友。<br><strong>Sass 和 Stylus 都具有类语言的逻辑方式处理：条件、循环等，而 Less 需要通过When等关键词模拟这些功能</strong>，这方面 Less 比不上 Sass 和 Stylus。<br>Less 在丰富性以及特色上都不及 Sass 和 Stylus，若不是因为 Bootstrap 引入了 Less，可能它不会像现在这样被广泛应用（个人愚见）。<br>身边有几个朋友在 css 预编译器的选择上犹豫不决，其实我认为选择什么无所谓，关键在于你的熟练程度以及团队合作方面的有利性。<br>当然，在大致学习、使用和研究了这三种 css 预编译器之后，我想我会选择 Stylus，它的语法自由度很高，而且写出来的代码非常简洁，这点十分吸引我。</p>
-<h3 id="TCP和UDP的区别"><a href="#TCP和UDP的区别" class="headerlink" title="TCP和UDP的区别"></a>TCP和UDP的区别</h3><ol>
-<li>TCP是<strong>面向链接的，而UDP是面向无连接的。</strong></li>
-<li>TCP仅支持<strong>单播传输，UDP 提供了单播，多播，广播的功能。</strong></li>
-<li>TCP的<strong>三次握手保证了连接的可靠性; UDP是无连接的、不可靠的一种数据传输协议</strong>，首先不可靠性体现在无连接上，<strong>通信都不需要建立连接，对接收到的数据也不发送确认信号，发送端不知道数据是否会正确接收。</strong></li>
-<li><strong>UDP的头部开销比TCP的更小，数据传输速率更高，</strong>实时性更好。(UDP 的头部开销小，只有八字节，相比 TCP 的至少二十字节要少得多，在传输数据报文时是很高效的)</li>
-</ol>
-<h4 id="TCP-和-UDP-应用场景"><a href="#TCP-和-UDP-应用场景" class="headerlink" title="TCP 和 UDP 应用场景"></a>TCP 和 UDP 应用场景</h4><ol>
-<li><p>UDP的应用场景：即时通信。面向数据报方式；网络数据大多为短消息；拥有大量客户端；对数据安全性无特殊要求；网络负担重但对响应速度要求高的场景。eg: <strong>IP电话、实时视频会议等。</strong></p>
-</li>
-<li><p>TCP的应用场景：对数据准确性要求高，速度可以相对较慢的。eg: <strong>文件传输、邮件的发送与接收等。</strong><br>传送门 ☞<a target="_blank" rel="noopener" href="https://juejin.cn/post/6992743999756845087"># 深度剖析TCP与UDP的区别</a><br><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2021/07/09/TCP%E5%8D%8F%E8%AE%AE/">博客</a></p>
-</li>
-</ol>
+<h3 id="TCP和UDP的区别"><a href="#TCP和UDP的区别" class="headerlink" title="TCP和UDP的区别"></a>TCP和UDP的区别</h3><h4 id="TCP-和-UDP-应用场景"><a href="#TCP-和-UDP-应用场景" class="headerlink" title="TCP 和 UDP 应用场景"></a>TCP 和 UDP 应用场景</h4><p>传送门 ☞<a target="_blank" rel="noopener" href="https://juejin.cn/post/6992743999756845087"># 深度剖析TCP与UDP的区别</a><br><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2021/07/09/TCP%E5%8D%8F%E8%AE%AE/">博客</a></p>
 <h3 id="请求头信息"><a href="#请求头信息" class="headerlink" title="请求头信息"></a>请求头信息</h3><h3 id="路由页面跳转后状态保存"><a href="#路由页面跳转后状态保存" class="headerlink" title="路由页面跳转后状态保存"></a>路由页面跳转后状态保存</h3><p>需求场景<br>首页搜索内容，点击跳转至详情页，页面后退返回主页，保留搜索结果。</p>
 <p> 这里介绍两种比较容易实现的解决方案</p>
 <h4 id="方案一：将搜索参数存储在路由参数（route-query）中，加载页面时根据参数搜索"><a href="#方案一：将搜索参数存储在路由参数（route-query）中，加载页面时根据参数搜索" class="headerlink" title="方案一：将搜索参数存储在路由参数（route.query）中，加载页面时根据参数搜索"></a>方案一：将搜索参数存储在路由参数（route.query）中，加载页面时根据参数搜索</h4><p>优点：刷新不影响；实现简单<br>缺点：参数只能是基础类型、长度受限；路径看起来比较难看；只对浏览器返回有效，手动跳转回首页不行</p>
@@ -358,12 +341,7 @@
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs php">export <span class="hljs-keyword">const</span> dataURItoBlob = (dataURI: <span class="hljs-keyword">string</span>) =&gt; &#123;<br>  <span class="hljs-keyword">const</span> <span class="hljs-keyword">binary</span> = atob(dataURI.split(<span class="hljs-string">&quot;,&quot;</span>)[<span class="hljs-number">1</span>]);<br>  <span class="hljs-keyword">const</span> <span class="hljs-keyword">array</span>: number[] = [];<br>  <span class="hljs-keyword">for</span> (let i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-keyword">binary</span>.length; i++) &#123;<br>    <span class="hljs-keyword">array</span>.push(<span class="hljs-keyword">binary</span>.charCodeAt(i));<br>  &#125;<br>  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Blob([<span class="hljs-keyword">new</span> Uint8Array(<span class="hljs-keyword">array</span>)], &#123; type: <span class="hljs-string">&quot;image/jpeg&quot;</span> &#125;);<br>&#125;;<br></code></pre></td></tr></table></figure>
 
 <h4 id="为何使用DataURL–想做图片预览，而图片预览是通过FileReader对象实现的-（FileReader-readAsDataURL-）"><a href="#为何使用DataURL–想做图片预览，而图片预览是通过FileReader对象实现的-（FileReader-readAsDataURL-）" class="headerlink" title="为何使用DataURL–想做图片预览，而图片预览是通过FileReader对象实现的  （FileReader.readAsDataURL()）"></a>为何使用DataURL–想做图片预览，而图片预览是通过FileReader对象实现的  （FileReader.readAsDataURL()）</h4><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903495703904263#heading-11">前端图片压缩上传（压缩篇）：可能是最适合小白的前端图片压缩文章了！</a></p>
-<h3 id="面试问你用组件库有什么体会，面试官主要想听到的是啥-用组件库有遇到什么问题难点-好几次面试"><a href="#面试问你用组件库有什么体会，面试官主要想听到的是啥-用组件库有遇到什么问题难点-好几次面试" class="headerlink" title="面试问你用组件库有什么体会，面试官主要想听到的是啥(用组件库有遇到什么问题难点 -好几次面试)"></a>面试问你用组件库有什么体会，面试官主要想听到的是啥(用组件库有遇到什么问题难点 -好几次面试)</h3><h3 id="使用组件库遇到的问题（难点）项目中用的两个库的有遇到什么难点"><a href="#使用组件库遇到的问题（难点）项目中用的两个库的有遇到什么难点" class="headerlink" title="使用组件库遇到的问题（难点）项目中用的两个库的有遇到什么难点"></a>使用组件库遇到的问题（难点）项目中用的两个库的有遇到什么难点</h3><p>能复用通用 –ElementUi 的tab是三个都渲染了(为了高度和宽度一样)</p>
-<ol>
-<li><strong>性能问题（按需引入） tree shaking  打包体积</strong><br>开发中有没有遇见过数据修改了页面不刷新的情况 （$set()）</li>
-<li><strong>从业务组件（对功能组件的具体实现）和功能组件（不涉及业务逻辑，比如下拉框，列表）两方面来说</strong><br>定向了什么业务，然后  ，你的功能组件，入参怎么设计的，有什么抽象的属性，使用于什么…</li>
-</ol>
-<h3 id="开发中项目有什么优化的点（项目中引用轻量级的库）"><a href="#开发中项目有什么优化的点（项目中引用轻量级的库）" class="headerlink" title="开发中项目有什么优化的点（项目中引用轻量级的库）"></a>开发中项目有什么优化的点（项目中引用轻量级的库）</h3><h3 id="了解Ts，Ts的好处是？"><a href="#了解Ts，Ts的好处是？" class="headerlink" title="了解Ts，Ts的好处是？"></a>了解Ts，Ts的好处是？</h3><h5 id="静态类型"><a href="#静态类型" class="headerlink" title="静态类型"></a>静态类型</h5><p>静态类型化是一种功能，可以在开发人员编写脚本是检测错误，有了这项功能，就会允许开发人员编写更健壮的代码并对其进行维护，以便使得代码质量更好、更清晰。<br>(从代码可知变量num是number类型，如果我们给num赋予其他类型的值就会报错。)</p>
+<h3 id="了解Ts，Ts的好处是？"><a href="#了解Ts，Ts的好处是？" class="headerlink" title="了解Ts，Ts的好处是？"></a>了解Ts，Ts的好处是？</h3><h5 id="静态类型"><a href="#静态类型" class="headerlink" title="静态类型"></a>静态类型</h5><p>静态类型化是一种功能，可以在开发人员编写脚本是检测错误，有了这项功能，就会允许开发人员编写更健壮的代码并对其进行维护，以便使得代码质量更好、更清晰。<br>(从代码可知变量num是number类型，如果我们给num赋予其他类型的值就会报错。)</p>
 <h5 id="大型项目的优势"><a href="#大型项目的优势" class="headerlink" title="大型项目的优势"></a>大型项目的优势</h5><p>对于大型项目的开发，有时为了优化改进项目，对代码进行小小更改。这些小小的变化可能会产生严重的、意想不到的后果，因此有必要撤销这些变化。使用TypeScript工具来进行重构更变的容易、快捷。</p>
 <h5 id="更好的协作"><a href="#更好的协作" class="headerlink" title="更好的协作"></a>更好的协作</h5><p>对于大型项目的开发一般会有很多开发人员一起开发，此时乱码和错误的机也会增加。类型安全是一种在编码期间检测错误的功能，而不是在编译项目时检测错误。这为开发团队创建了一个更高效的编码和调试过程。</p>
 <h4 id="typescript-中-interface-和-type-的区别"><a href="#typescript-中-interface-和-type-的区别" class="headerlink" title="typescript 中 interface 和 type 的区别"></a>typescript 中 interface 和 type 的区别</h4><blockquote>
@@ -379,7 +357,23 @@
 </blockquote>
 <h3 id="说一下前端登录的流程-JWT鉴权"><a href="#说一下前端登录的流程-JWT鉴权" class="headerlink" title="说一下前端登录的流程?  JWT鉴权"></a>说一下前端登录的流程?  JWT鉴权</h3><p>初次登录的时候，前端调后调的登录接口，发送用户名和密码，后端收到请求，验证用户名和密码，验证成功，就给前端返回一个token，和一个用户信息的值，前端拿到token，将token储存到Vuex中，然后从Vuex中把token的值存入浏览器Cookies中。</p>
 <p>把用户信息存到Vuex然后再存储到LocalStrobe中,然后跳转到下一个页面，<strong>根据后端接口的要求，只要不登录就不能访问的页面需要在前端每次跳转页面师判断Cookies中是否有token，没有就跳转到登录页，有就跳转到相应的页面</strong>,</p>
-<p>我们应该再每次发送post/get请求的时候应该加入token，常用方法再项目utils/service.js中<strong>添加全局拦截器，将token的值放入请求头中 后端判断请求头中有无token，有token，就拿到token并验证token是否过期，在这里过期会返回无效的token然后有个跳回登录页面重新登录并且清除本地用户的信息</strong></p>
+<p>我们应该再每次发送post/get请求的时候应该加入token，常用方法再项目utils/service.js中<strong>添加全局拦截器，将token的值放入请求头中 后端判断请求头中有无token，有token，就拿到token并验证token是否过期，在这里过期会返回无效的token，然后有个跳回登录页面重新登录并且清除本地用户的信息</strong></p>
+<h4 id="token过期了怎么处理"><a href="#token过期了怎么处理" class="headerlink" title="token过期了怎么处理"></a>token过期了怎么处理</h4><p><strong>没有绝对的安全, 所谓的安全处理, 就是提高攻击者攻击的难度, 对他造成了一定的麻烦</strong>, 我们这个网站就是安全的! 网站安全性就是高的! 所以: token 必须要有过期时间! 每隔一段时间, 必须有一个新的token, 旧的token失效。<br>token的过期问题</p>
+<p>你登陆成功之后，接口会返回一个token值，这个值在后续请求时带上（就像是开门钥匙）。<br>但是，这个值<strong>一般会有有效期（具体是多长，是由后端决定）</strong>，token失效，再去发请求时，就会报401错误。</p>
+<h5 id="token"><a href="#token" class="headerlink" title="token"></a>token</h5><p>作用：在访问一些接口时，需要传入token，就是它。<br>有效期：2小时。</p>
+<h5 id="refresh-token"><a href="#refresh-token" class="headerlink" title="refresh_token"></a>refresh_token</h5><p>作用: <strong>当token的有效期过了之后，可以使用它去请求一个特殊接口（这个接口也是后端指定的，明确需要传入refresh_token），并返回一个新的token回来（有效期还是2小时），以替换过期的那个token</strong>。<br>有效期：14天。（最理想的情况下，一次登陆可以持续14天。）</p>
+<h5 id="处理"><a href="#处理" class="headerlink" title="处理"></a>处理</h5><p>对于 某次请求A 的响应，如果是401错误</p>
+<ol>
+<li><p>有refresh_token，用refresh_token去请求回新的token</p>
+<ol>
+<li>新token请求成功  （更新本地token，再发一次请求A）</li>
+<li>新token请求失败（清空vuex中的token，携带请求地址，跳转到登陆页）</li>
+</ol>
+</li>
+<li><p>没有refresh_token<br>（清空vuex中的token，携带请求地址，跳转到登陆页）</p>
+</li>
+</ol>
+<p>对于一个请求的响应 401, 要这么处理, 对于十个请求的响应 401, 也要这么处理,<br><strong>我们可以统一将这个token过期处理放在响应拦截器中</strong><br>请求拦截器: 所有的请求, 在真正被发送出去之前, 都会先经过请求拦截器 (可以携带token)<br>响应拦截器: 所有的响应, 在真正被(.then.catch await)处理之前, 都会先经过响应拦截器, 可以在这个响应拦截器中统一对响应做判断<br><a target="_blank" rel="noopener" href="https://juejin.cn/post/7076022961316036638#heading-7">掘金</a></p>
 <h3 id="登录权限怎么处理-（动态路由）"><a href="#登录权限怎么处理-（动态路由）" class="headerlink" title="登录权限怎么处理 （动态路由）"></a>登录权限怎么处理 （动态路由）</h3><h3 id="Vue实现动态路由（和面试官吹项目亮点）"><a href="#Vue实现动态路由（和面试官吹项目亮点）" class="headerlink" title="Vue实现动态路由（和面试官吹项目亮点）"></a>Vue实现动态路由（和面试官吹项目亮点）</h3><h4 id="登录逻辑"><a href="#登录逻辑" class="headerlink" title="登录逻辑"></a>登录逻辑</h4><p>每个系统都有自己的登录登出逻辑，而我们前端所要做的其实是请求后台，<strong>拿到登录权限，带上登录权限，获取用户信息和菜单信息</strong>。 在vue项目开发当中，我们一般都是在全局路由钩子做这一系列判断。</p>
 <h4 id="菜单权限"><a href="#菜单权限" class="headerlink" title="菜单权限"></a>菜单权限</h4><p>以前的菜单路由是直接写死在前端，但是当我们直接访问这个路由时，用户还是可以进入到这个功能页面；后来直接改成<strong>动态添加路由的方式router.addRoutes。</strong></p>
 <ol>
@@ -399,7 +393,7 @@
 <blockquote>
 <p>简单 token 的组成： uid(用户唯一的身份标识)、time(当前时间的时间戳)、sign（签名，token 的前几位以哈希算法压缩成的一定长度的十六进制字符串）</p>
 </blockquote>
-<h6 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h6><p>服务端无状态化、可扩展性好<br>支持移动端设备<br>安全<br>支持跨程序调用<br>每一次请求都需要携带 token，需要把 token 放到 HTTP 的 Header 里</p>
+<h6 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h6><p>服务端无状态化、可扩展性好，支持移动端设备，安全，支持跨程序调用，每一次请求都需要携带 token，需要把 token 放到 HTTP 的 Header 里</p>
 <h5 id="说一下前端权限管理怎么实现"><a href="#说一下前端权限管理怎么实现" class="headerlink" title="说一下前端权限管理怎么实现"></a>说一下前端权限管理怎么实现</h5><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_40599109/article/details/113728974">参考文章</a></p>
 <h3 id="使用mongodb的优势"><a href="#使用mongodb的优势" class="headerlink" title="使用mongodb的优势"></a>使用mongodb的优势</h3><p>为什么使用mongodb   好处(连接mongose)</p>
 <blockquote>
@@ -411,6 +405,14 @@
 <p>面向集合存储，易存储对象类型的数据</p>
 </blockquote>
 <p>为什所谓“面向集合”（Collenction-Oriented），意思是数据被分组存储在数据集中，被称为一个集合（Collenction)。每个集合在数据库中都有一个唯一的标识名，并且可以包含无限数目的文档。集合的概念类似关系型数据库（RDBMS）里的表（table），不同的是它不需要定义任何模式（schema)。</p>
+<h3 id="使用组件库遇到的问题（难点）项目中用的两个库的有遇到什么难点"><a href="#使用组件库遇到的问题（难点）项目中用的两个库的有遇到什么难点" class="headerlink" title="使用组件库遇到的问题（难点）项目中用的两个库的有遇到什么难点"></a>使用组件库遇到的问题（难点）项目中用的两个库的有遇到什么难点</h3><h4 id="面试问你用组件库有什么体会，面试官主要想听到的是啥-用组件库有遇到什么问题难点-好几次面试"><a href="#面试问你用组件库有什么体会，面试官主要想听到的是啥-用组件库有遇到什么问题难点-好几次面试" class="headerlink" title="面试问你用组件库有什么体会，面试官主要想听到的是啥(用组件库有遇到什么问题难点 -好几次面试)"></a>面试问你用组件库有什么体会，面试官主要想听到的是啥(用组件库有遇到什么问题难点 -好几次面试)</h4><p>能复用通用 –ElementUi 的tab是三个都渲染了(为了高度和宽度一样)</p>
+<ol>
+<li><strong>性能问题（按需引入） tree shaking  打包体积</strong><br>开发中有没有遇见过数据修改了页面不刷新的情况 （$set()）</li>
+<li><strong>从业务组件（对功能组件的具体实现）和功能组件（不涉及业务逻辑，比如下拉框，列表）两方面来说</strong><br>定向了什么业务，然后  ，你的功能组件，入参怎么设计的，有什么抽象的属性，使用于什么…</li>
+</ol>
+<blockquote>
+<p>开发中项目有什么优化的点（项目中引用轻量级的库）</p>
+</blockquote>
 <h2 id="面试（记录）"><a href="#面试（记录）" class="headerlink" title="面试（记录）"></a>面试（记录）</h2><h3 id="同花顺一面（凉经）-2022-3-7-10-00-1h5min"><a href="#同花顺一面（凉经）-2022-3-7-10-00-1h5min" class="headerlink" title="同花顺一面（凉经） 2022.3.7 10:00  1h5min"></a>同花顺一面（凉经） 2022.3.7 10:00  1h5min</h3><h4 id="HTML-语义化"><a href="#HTML-语义化" class="headerlink" title="HTML 语义化"></a>HTML 语义化</h4><p>概念：HTML5的语义化指的是合理正确的使用语义化的标签来创建页面结构。【正确的标签做正确的事】<br>语义化标签：header nav main article section aside footer<br>语义化的优点:<br>在没CSS样式的情况下，页面整体也会呈现很好的结构效果<br>代码结构清晰，易于阅读，<br>利于开发和维护 方便其他设备解析（如屏幕阅读器）根据语义渲染网页。<br>有利于搜索引擎优化（SEO），搜索引擎爬虫会根据不同的标签来赋予不同的权重</p>
 <h4 id="说一下跨域，如何解决跨域"><a href="#说一下跨域，如何解决跨域" class="headerlink" title="说一下跨域，如何解决跨域"></a>说一下跨域，如何解决跨域</h4><p><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2022/01/07/%E8%AE%A1%E7%BD%91+%E6%B5%8F%E8%A7%88%E5%99%A8+http+%E5%AE%89%E5%85%A8%E9%9D%A2%E8%AF%95%E9%A2%98/#%E4%BB%80%E4%B9%88%E6%98%AF%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E5%90%8C%E6%BA%90%E6%94%BF%E7%AD%96%EF%BC%9F">博客</a></p>
 <h4 id="讲讲Dom渲染性能消耗-没理解–讲了diff算法去了"><a href="#讲讲Dom渲染性能消耗-没理解–讲了diff算法去了" class="headerlink" title="讲讲Dom渲染性能消耗 (没理解–讲了diff算法去了)"></a>讲讲Dom渲染性能消耗 (没理解–讲了diff算法去了)</h4><h4 id="v-if-v-show"><a href="#v-if-v-show" class="headerlink" title="v-if  v-show"></a>v-if  v-show</h4><h4 id="数组的key的作用"><a href="#数组的key的作用" class="headerlink" title="数组的key的作用"></a>数组的key的作用</h4><p><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2022/01/10/Vue%E9%9D%A2%E8%AF%95%E9%A2%98%E6%80%BB%E7%BB%93/#Vue%E4%B8%AD%E7%9A%84key%E5%88%B0%E5%BA%95%E6%9C%89%E4%BB%80%E4%B9%88%E2%BD%A4%EF%BC%9F">博客</a></p>

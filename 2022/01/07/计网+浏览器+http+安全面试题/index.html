@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      15.4k 字
+      15.5k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      165
+      166
        分钟
     </span>
   
@@ -249,14 +249,14 @@
 <p>同源政策的目的主要是为了保证用户的信息安全，它只是对 js 脚本的一种限制，并不是对浏览器的限制，对于一般的 img、或者script 脚本请求都不会有跨域的限制，这是因为这些操作都不会通过响应结果来进行可能出现安全问题的操作。<br>举例来说，<code>http://www.example.com/dir/page.html</code>这个网址，协议是<code>http://</code>，域名是<code>www.example.com</code>，端口是80（默认端口可以省略）。</p>
 <h3 id="跨域怎么实现？jsonp的原理是什么？"><a href="#跨域怎么实现？jsonp的原理是什么？" class="headerlink" title="跨域怎么实现？jsonp的原理是什么？"></a>跨域怎么实现？jsonp的原理是什么？</h3><h4 id="跨域，指的是浏览器不能执行其他网站的脚本。浏览器执行javascript脚本时，会检查这个脚本属于哪个页面，如果不是同源页面，就不会被执行"><a href="#跨域，指的是浏览器不能执行其他网站的脚本。浏览器执行javascript脚本时，会检查这个脚本属于哪个页面，如果不是同源页面，就不会被执行" class="headerlink" title="跨域，指的是浏览器不能执行其他网站的脚本。浏览器执行javascript脚本时，会检查这个脚本属于哪个页面，如果不是同源页面，就不会被执行"></a>跨域，指的是浏览器不能执行其他网站的脚本。浏览器执行javascript脚本时，会检查这个脚本属于哪个页面，如果不是同源页面，就不会被执行</h4><p>解决办法：</p>
 <ol>
-<li>JSONP：注意JSONP只支持GET请求，不支持POST请求。<br>原理：ajax请求受同源策略影响，不允许进行跨域请求，而script标签src属性中的链接却可以访问跨域的js脚本，利用这个特性，服务端不再返回JSON格式的数据，而是返回一段调用某个函数的js代码，在src中进行了调用，这样实现了跨域。 —   callback</li>
+<li>JSONP：注意JSONP只支持GET请求，不支持POST请求。<br>原理：ajax请求受同源策略影响，不允许进行跨域请求，而<strong>script标签src属性中的链接却可以访问跨域的js脚本，利用这个特性，服务端不再返回JSON格式的数据，而是返回一段调用某个函数的js代码</strong>，在src中进行了调用，这样实现了跨域。 —   callback</li>
 <li>代理：写后端接口，在后端调用页面拿到返回值返回给html文件。相当于绕过了浏览器，就不会存在跨域问题。例；(nigx反向代理)</li>
 <li>CORS CORS(Cross-origin resource sharing)跨域资源共享 服务器设置对CORS的支持原理：<strong>服务器设置Access-Control-Allow-Origin HTTP响应头</strong>之后，浏览器将会允许跨域请求</li>
 </ol>
 <figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs less"><span class="hljs-selector-tag">header</span>(<span class="hljs-string">&#x27;Access-Control-Allow-Origin:*&#x27;</span>);<span class="hljs-comment">//允许所有来源访问</span><br><span class="hljs-selector-tag">header</span>(<span class="hljs-string">&#x27;Access-Control-Allow-Method:POST,GET&#x27;</span>);<span class="hljs-comment">//允许访问的方式</span><br></code></pre></td></tr></table></figure>
 
 <ol start="4">
-<li>proxy代理 目前常用方式,通过服务器设置代理</li>
+<li>proxy代理 目前常用方式,<strong>通过服务器设置代理</strong>  在 vue.config.js 项目中配置 proxy 解决跨域问题</li>
 <li>window.postMessage() 利用h5新特性window.postMessage()</li>
 </ol>
 <h5 id="Options-CORS跨域，非简单请求"><a href="#Options-CORS跨域，非简单请求" class="headerlink" title="Options(CORS跨域，非简单请求)"></a>Options(CORS跨域，非简单请求)</h5><p>1.HTTP的options方法作用</p>
@@ -266,27 +266,27 @@
 <p>2.allowedMethods方法<br>响应options方法，告诉它所支持的请求方法<br>相应的返回405（不允许）和501（没实现）（比如我使用delete，会返回405，因为我没有写这个接口。但我使用link接口请求，会返回501，因为koa里不支持link请求）<br>options 请求就是预检请求，可用于检测服务器允许的 http 方法。当发起跨域请求时，由于安全原因，触发一定条件时浏览器会在正式请求之前自动先发起 OPTIONS 请求，即 CORS 预检请求，服务器若接受该跨域请求，浏览器才继续发起正式请求。<br><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Methods/OPTIONS">MDN</a></p>
 <h3 id="浏览器会拦截跨域请求，但是只是拦截返回结果，请求还是会被发送到服务器，这样有意义么"><a href="#浏览器会拦截跨域请求，但是只是拦截返回结果，请求还是会被发送到服务器，这样有意义么" class="headerlink" title="浏览器会拦截跨域请求，但是只是拦截返回结果，请求还是会被发送到服务器，这样有意义么"></a>浏览器会拦截跨域请求，但是只是拦截返回结果，请求还是会被发送到服务器，这样有意义么</h3><p>有意义。<br>首先，请求因为跨域被拦截后，会改成OPTIONS请求送达服务器，这样服务器就可以知道有人在请求。<br>至于你说跨域POST也能修改，那因为服务器没对method进行校验，来者不拒，这是你服务器的问题。<br>正常的API数据操作method不包括OPTIONS，OPTIONS只用来确认允许的操作。</p>
 <h3 id="常见的状态码"><a href="#常见的状态码" class="headerlink" title="常见的状态码"></a>常见的状态码</h3><p>仅记录在 RFC2616 上的 HTTP 状态码就达 40 种，若再加上 WebDAV（RFC4918、5842）和附加 HTTP 状态码 （RFC6585）等扩展，数量就达 60 余种。接下来，我们就介绍一下这些具有代表性的一些状态码。<br>1xx: 指示信息——表示请求已接收，继续处理<br>2xx: 成功——表示请求已被成功接收<br>3xx: 重定向——表示要完成请求必须进行进一步操作<br>4xx: 客户端错误——表示请求有语法错误或请求无法实现<br>5xx: 服务端错误——表示服务器未能实现合法的请求</p>
-<h4 id="常见状态码"><a href="#常见状态码" class="headerlink" title="常见状态码"></a>常见状态码</h4><p>状态码 描述<br><strong>200 请求成功 </strong> （强缓存也是返回这个）<br>201 Created  资源创建成功，多用于 POST 请求<br>202-服务器端已经收到请求消息，但是尚未进行处理<br><strong>204   只有响应头，没有body数据（无内容） 预检请求</strong><br>206 已完成指定范围的请求(带Range头的GET请求),场景如video,audio播放文件较大,文件分片时<br>301 <strong>永久重定向  永久移动。请求的资源已被永久的移动到新URI，</strong>返回信息会包括新的URI，浏览器会自动定向到新URI。今后任何新的请求都应使用新的URI代替<br>302 <strong>临时重定向 </strong>与301类似。但资源只是临时被移动。客户端应继续使用原有URI<br>304 请求资源未修改，可以使用缓存的资源，不用在服务器取  <strong>（协商缓存）</strong><br><strong>400 请求有语法错误</strong><br><strong>401 没有权限访问</strong><br><strong>403 服务器拒绝执行请求，场景如不允许直接访问，只能通过服务器访问时</strong><br><strong>404 请求资源不存在</strong><br><strong>500 服务器内部错误，无法完成请求</strong><br>503 请求未完成，因服务器过载、宕机或维护等<br><a target="_blank" rel="noopener" href="https://www.runoob.com/http/http-status-codes.html">《HTTP 状态码》</a></p>
+<h4 id="常见状态码"><a href="#常见状态码" class="headerlink" title="常见状态码"></a>常见状态码</h4><p>状态码 描述<br><strong>200 请求成功</strong> （强缓存也是返回这个）<br>201 Created  资源创建成功，多用于 POST 请求<br>202-服务器端已经收到请求消息，但是尚未进行处理<br><strong>204   只有响应头，没有body数据（无内容） 预检请求</strong><br>206 已完成指定范围的请求(带Range头的GET请求),场景如video,audio播放文件较大,文件分片时<br>301 <strong>永久重定向  永久移动。请求的资源已被永久的移动到新URI，</strong>返回信息会包括新的URI，浏览器会自动定向到新URI。今后任何新的请求都应使用新的URI代替<br>302 <strong>临时重定向</strong>与301类似。但资源只是临时被移动。客户端应继续使用原有URI<br>304 请求资源未修改，可以使用缓存的资源，不用在服务器取  <strong>（协商缓存）</strong><br><strong>400 请求有语法错误</strong><br><strong>401 没有权限访问</strong><br><strong>403 服务器拒绝执行请求，场景如不允许直接访问，只能通过服务器访问时</strong><br><strong>404 请求资源不存在</strong><br><strong>500 服务器内部错误，无法完成请求</strong><br>503 请求未完成，因服务器过载、宕机或维护等<br><a target="_blank" rel="noopener" href="https://www.runoob.com/http/http-status-codes.html">《HTTP 状态码》</a></p>
 <h3 id="HTTP-和-HTTPS-的主要区别是什么呢？"><a href="#HTTP-和-HTTPS-的主要区别是什么呢？" class="headerlink" title="HTTP 和 HTTPS 的主要区别是什么呢？"></a>HTTP 和 HTTPS 的主要区别是什么呢？</h3><ol>
 <li>最简单的，HTTP 在地址栏上的协议是以 http:// 开头，而 HTTPS 在地址栏上的协议是以 https:// 开头</li>
 </ol>
 <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs awk">http:<span class="hljs-regexp">//</span>pengzhenglong.github.io/<br>https:<span class="hljs-regexp">//</span>pengzhenglong.github.io/<br></code></pre></td></tr></table></figure>
 
 <ol start="2">
-<li>HTTP 是未经安全加密的协议，它的传输过程容易被攻击者监听、数据容易被窃取、发送方和接收方容易被伪造；而 HTTPS 是安全的协议，它通过<strong> 密钥交换算法 - 签名算法 - 对称加密算法 - 摘要算法 </strong>能够解决上面这些问题。</li>
+<li>HTTP 是未经安全加密的协议，它的传输过程容易被攻击者监听、数据容易被窃取、发送方和接收方容易被伪造；而 HTTPS 是安全的协议，它通过<strong>密钥交换算法 - 签名算法 - 对称加密算法 - 摘要算法</strong>能够解决上面这些问题。</li>
 <li>HTTP <strong>的默认端口是 80，而 HTTPS 的默认端口是 443。</strong></li>
 <li>http <strong>是超文本传输协议，信息是明文传输，HTTPS 协议要比 http 协议安全，https 是具有安全性的 ssl 加密传输协议，可防止数据在传输过程中被窃取、改变</strong>，确保数据的完整性(当然这种安全性并非绝对的，对于更深入的 Web 安全问题，此处暂且不表)。</li>
 <li>http 的连接很简单，是无状态的。https 握手阶段比较费时，会使页面加载时间延长 50%，增加 10%~20%的耗电。</li>
 <li>https 缓存不如 http 高效，会增加数据开销。</li>
-<li>Https 协议需要<strong> ca 证书，费用较高，</strong>功能越强大的证书费用越高。</li>
+<li>Https 协议需要<strong>ca 证书，费用较高，</strong>功能越强大的证书费用越高。</li>
 <li>SSL 证书需要绑定 IP，不能再同一个 IP 上绑定多个域名，IPV4 资源支持不了这种消耗。</li>
 </ol>
 <h3 id="HTTPS是如何保证安全的？"><a href="#HTTPS是如何保证安全的？" class="headerlink" title="HTTPS是如何保证安全的？"></a>HTTPS是如何保证安全的？</h3><p>过程比较复杂，我们得先理解两个概念</p>
 <h4 id="1-对称加密：即通信的双方都使用同一个秘钥进行加解密，比如特务接头的暗号，就属于对称加密"><a href="#1-对称加密：即通信的双方都使用同一个秘钥进行加解密，比如特务接头的暗号，就属于对称加密" class="headerlink" title="1. 对称加密：即通信的双方都使用同一个秘钥进行加解密，比如特务接头的暗号，就属于对称加密"></a>1. 对称加密：<strong>即通信的双方都使用同一个秘钥进行加解密</strong>，比如特务接头的暗号，就属于对称加密</h4><p>对称加密虽然很简单性能也好，但是<strong>无法解决首次把秘钥发给对方的问题，很容易被hacker拦截秘钥。</strong></p>
 <h4 id="2-非对称加密"><a href="#2-非对称加密" class="headerlink" title="2. 非对称加密"></a>2. 非对称加密</h4><ol>
 <li><strong>私钥 + 公钥= 密钥对</strong></li>
-<li><strong>即用私钥加密的数据,只有对应的公钥才能解密,用公钥加密的数据,只有对应的私钥才能解密 </strong></li>
-<li><strong>因为通信双方的手里都有一套自己的密钥对,通信之前双方会先把自己的公钥都先发给对方 </strong></li>
+<li><strong>即用私钥加密的数据,只有对应的公钥才能解密,用公钥加密的数据,只有对应的私钥才能解密</strong></li>
+<li><strong>因为通信双方的手里都有一套自己的密钥对,通信之前双方会先把自己的公钥都先发给对方</strong></li>
 <li>然后对方再拿着这个公钥来加密数据响应给对方,等到到了对方那里,对方再用自己的私钥进行解密</li>
 </ol>
 <p>非对称加密<strong>虽然安全性更高，但是带来的问题就是速度很慢，影响性能。</strong><br>解决方案：</p>
@@ -294,7 +294,7 @@
 <p>此时又带来一个问题，中间人问题：</p>
 <p>如果此时在客户端和服务器之间<strong>存在一个中间人,这个中间人只需要把原本双方通信互发的公钥,换成自己的公钥,这样中间人就可以轻松解密通信双方所发送的所有数据。</strong></p>
 <p>所以这个时候需要一个安全的<strong>第三方颁发证书（CA），证明身份的身份，防止被中间人攻击。</strong></p>
-<p>证书中包括：<strong>签发者、证书用途、使用者公钥、使用者私钥、使用者的HASH算法、证书到期时间等 </strong></p>
+<p>证书中包括：<strong>签发者、证书用途、使用者公钥、使用者私钥、使用者的HASH算法、证书到期时间等</strong></p>
 <p>但是问题来了，如果中间人篡改了证书，那么身份证明是不是就无效了？这个证明就白买了，这个时候需要一个新的技术，数字签名。</p>
 <p><strong>数字签名就是用CA自带的HASH算法对证书的内容进行HASH得到一个摘要，再用CA的私钥加密，最终组成数字签名。</strong><br>当<strong>别人把他的证书发过来的时候,我再用同样的Hash算法,再次生成消息摘要，然后用CA的公钥对数字签名解密,得到CA创建的消息摘要,两者一比,就知道中间有没有被人篡改了。</strong><br>这个时候就能最大程度保证通信的安全了。</p>
 <h3 id="TCP和UDP的区别"><a href="#TCP和UDP的区别" class="headerlink" title="TCP和UDP的区别"></a>TCP和UDP的区别</h3><ol>
@@ -312,13 +312,16 @@
 <h3 id="Cookie、sessionStorage、localStorage-的区别"><a href="#Cookie、sessionStorage、localStorage-的区别" class="headerlink" title="Cookie、sessionStorage、localStorage 的区别"></a>Cookie、sessionStorage、localStorage 的区别</h3><h4 id="相同点-存储在客户端"><a href="#相同点-存储在客户端" class="headerlink" title="相同点(存储在客户端)"></a>相同点(存储在客户端)</h4><h4 id="不同点"><a href="#不同点" class="headerlink" title="不同点"></a>不同点</h4><ul>
 <li>cookie数据大小不能超过4k；sessionStorage和localStorage的存储比cookie大得多，可以达到5M+</li>
 <li>cookie设置的过期时间之前一直有效；localStorage永久存储，浏览器关闭后数据不丢失除非主动删除数据；sessionStorage数据在当前浏览器窗口关闭后自动删除</li>
-<li>cookie的数据会自动的传递到服务器；sessionStorage和localStorage数据保存在本地</li>
+<li>cookie的数据会<strong>自动的传递到服务器</strong>；sessionStorage和localStorage数据保存在本地</li>
 </ul>
 <p>localStorage和SessionStorage</p>
 <ul>
 <li>只能存储字符串对象</li>
 <li>不同浏览器无法共享localStorage与SessionStroage中的信息。相同浏览器的不同页面间（同源页面）可以共享相同的localStorage，但不能共享sessionStorage。</li>
 </ul>
+<h4 id="cookie-的缺点"><a href="#cookie-的缺点" class="headerlink" title="cookie 的缺点"></a>cookie 的缺点</h4><p>cookie 的大小一般被浏览器限制为 4kb<br>请求自动携带 cookie 其实会造成无效的带宽浪费<br>安全问题（csrf 与 xss）</p>
+<p>CORS解决带cookie跨域问题  （如果您想在使用 CORS（可以识别发送者）时发送 cookie，您需要向请求和响应添加额外的标头。）</p>
+<h4 id=""><a href="#" class="headerlink" title=""></a></h4><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/414034535">知乎</a></p>
 <h4 id="2-Session"><a href="#2-Session" class="headerlink" title="2. Session"></a>2. Session</h4><p>Session是一种服务端解决方案，通过服务器来保持状态。<br>Session是服务器为了保存用户状态而创建的一个特殊对象。客户端请求服务端，服务端会为这次请示开辟一块内存空间。<br>Session弥补了HTTP的无状态特性。</p>
 <h5 id="Session的创建过程"><a href="#Session的创建过程" class="headerlink" title="Session的创建过程"></a>Session的创建过程</h5><p>当浏览器第一次访问服务器时，服务器会创建一个Session对象(该对象有唯一的ID，即SessionID)。服务器会将SessionID以cookie的方式返回浏览器。<br>当浏览器再次访问服务器时，会将SessionID发送过来，服务器依据sessionID就可以找到对应的session对象。</p>
 <h6 id="Session的缺点"><a href="#Session的缺点" class="headerlink" title="Session的缺点"></a>Session的缺点</h6><p>A 服务器存储了 Session，就是做了负载均衡后，假如一段时间内 A 的访问量激增，会转发到 B 进行访问，但是 B 服务器并没有存储 A 的 Session，会导致 Session 的失效。</p>
@@ -326,7 +329,7 @@
 <h4 id="什么是-Token（令牌）"><a href="#什么是-Token（令牌）" class="headerlink" title="什么是 Token（令牌）"></a>什么是 Token（令牌）</h4><p>Acesss Token</p>
 <ol>
 <li>访问资源接口（API）时所需要的资源凭证</li>
-<li>简单 token 的组成：<strong> uid(用户唯一的身份标识)、time(当前时间的时间戳)、sign（签名，token 的前几位以哈希算法压缩成的一定长度的十六进制字符串）</strong></li>
+<li>简单 token 的组成：<strong>uid(用户唯一的身份标识)、time(当前时间的时间戳)、sign（签名，token 的前几位以哈希算法压缩成的一定长度的十六进制字符串）</strong></li>
 </ol>
 <p>特点：(1. 服务端无状态化、可扩展性好2. 支持移动端设备3. 安全4. 支持跨程序调用)</p>
 <p>每一次请求都需要携带 token，需要把 token 放到 HTTP 的 Header 里<br>基于 token 的用户认证是一种服务端无状态的认证方式，服务端不用存放 token 数据。用解析 token 的计算时间换取 session 的存储空间，从而减轻服务器的压力，减少频繁的查询数据库<br>token 完全由应用管理，所以它可以避开同源策略</p>

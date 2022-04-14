@@ -420,11 +420,11 @@
 <h3 id="怎么让文本不自动换行？怎么让超过文本部分变成省略号？"><a href="#怎么让文本不自动换行？怎么让超过文本部分变成省略号？" class="headerlink" title="怎么让文本不自动换行？怎么让超过文本部分变成省略号？"></a>怎么让文本不自动换行？怎么让超过文本部分变成省略号？</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-attribute">white-space</span>:nowrap;<br><span class="hljs-attribute">overflow</span>:hidden;<br><span class="hljs-attribute">text-overflow</span>:ellipsis;<br></code></pre></td></tr></table></figure>
 
 <h3 id="before-和-after-中双冒号和单冒号有什么区别？解释一下这-2-个元素的作用"><a href="#before-和-after-中双冒号和单冒号有什么区别？解释一下这-2-个元素的作用" class="headerlink" title="::before 和:after 中双冒号和单冒号有什么区别？解释一下这 2 个元素的作用"></a>::before 和:after 中双冒号和单冒号有什么区别？解释一下这 2 个元素的作用</h3><p>单冒号（:）用于CSS3伪类，双冒号（::）用于CSS3伪元素。（伪元素由双冒号和伪元素名称组成）<br>伪类一般匹配的是元素的一些特殊状态，如hover、link等，而伪元素一般匹配的特殊的位置，比如after、before等。<br>css引入伪类和伪元素概念是为了格式化文档树以外的信息。也就是说，伪类和伪元素是用来修饰不在文档树中的部分，比如，一句话中的第一个字母，或者是列表中的第一个元素。</p>
-<h3 id="绝对定位–position-的值-relative-和-absolute-定位原点是？"><a href="#绝对定位–position-的值-relative-和-absolute-定位原点是？" class="headerlink" title="绝对定位–position 的值 relative 和 absolute 定位原点是？"></a>绝对定位–position 的值 relative 和 absolute 定位原点是？</h3><p> 绝对定位是相对于元素<strong>最近的已定位的父亲元素</strong>来定位的（设置了绝对定位或者相对定位的父亲元素）。如果元素没有已定位的父亲元素，那么它的位置则是相对于最初的包含块（body），这点在做轮播时非常重要。</p>
+<h3 id="绝对定位–position-的值-relative-和-absolute-定位原点是？"><a href="#绝对定位–position-的值-relative-和-absolute-定位原点是？" class="headerlink" title="绝对定位–position 的值 relative 和 absolute 定位原点是？"></a>绝对定位–position 的值 relative 和 absolute 定位原点是？</h3><p> 绝对定位是相对于元素 <strong>最近的已定位的父亲元素</strong> 来定位的（<strong>拥有定位的祖先元素：position的值不为static的元素</strong>）。如果元素没有已定位的父亲元素，那么<strong>它的位置则是相对于最初的包含块（body）</strong>，这点在做轮播时非常重要。</p>
 <ol>
 <li>absolute生成绝对定位的元素，相对于值不为static的第一个父元素的padding box进行定位，也可以理解为离自己这一级元素最近的一级5. 5.</li>
 <li>fixed（老IE不支持）生成绝对定位的元素，相对于浏览器窗口进行定位。relative生成相对定位的元素，相对于其元素本身所在正常位置进行定位。</li>
-<li>static默认值。没有定位，元素出现在正常的流中（忽略top,bottom,left,right,z-index声明）。</li>
+<li>static默认值。<strong>没有定位，</strong>元素出现在正常的流中（忽略top,bottom,left,right,z-index声明）。</li>
 <li>inherit规定从父元素继承position属性的值。</li>
 <li>position设置为absolute或者relative的父元素的padding box的左上角为原点的。</li>
 </ol>
