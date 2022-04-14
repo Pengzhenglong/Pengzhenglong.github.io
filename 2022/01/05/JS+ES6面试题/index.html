@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      212
+      213
        分钟
     </span>
   
@@ -426,8 +426,8 @@
 <li>JS的基本类型不存在浅拷贝还是深拷贝的问题,深拷贝与浅拷贝的概念<strong>只存在于引用类型。</strong></li>
 <li>对于仅仅是复制了引用（地址），换句话说，复制了之后，<strong>原来的变量和新的变量指向同一个东西，彼此之间的操作会互相影响，为 浅拷贝。而如果是在堆中重新分配内存，拥有不同的地址，但是值是一样的，复制后的对象与原来的对象是完全隔离，互不影响，为 深拷贝。</strong></li>
 </ol>
-<p>利用{…}实现拷贝。注意这里是拷贝，先不区分是深还是浅</p>
-<p><strong>如果是引用类型，且只有一层对象</strong>，则<strong>这一层就是深拷贝。拷贝前后，对象的基本类型互不影响</strong>，<br>如果是引用类型，<strong>且有两层以上嵌套对象，则这嵌套的，就是浅拷贝</strong>。嵌套的对象，拷贝的嵌套对象的引用。<strong>拷贝前后，嵌套对象数据相互影响，一层对象，互不影响</strong></p>
+<p>利用{…}（剩余运算符，不定参数）实现拷贝。注意这里是拷贝，先不区分是深还是浅</p>
+<p><strong>如果是引用类型，且只有一层对象</strong>，则<strong>这一层就是深拷贝。拷贝前后，对象的基本类型互不影响</strong>，<br>如果是引用类型，<strong>且有两层以上嵌套对象，则这嵌套的，就是浅拷贝</strong>。嵌套的对象，拷贝的嵌套对象的引用。<strong>拷贝前后，嵌套对象数据相互影响，一层对象，互不影响</strong><br><a target="_blank" rel="noopener" href="https://juejin.cn/post/6963515965791272967">掘金</a></p>
 <ol>
 <li>深浅拷贝 的主要区别就是：复制的是引用(地址)还是复制的是实例。</li>
 </ol>
@@ -453,7 +453,7 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> c = <span class="hljs-number">1</span><br><span class="hljs-keyword">let</span> d = c<br>d = <span class="hljs-number">2</span><br><span class="hljs-built_in">console</span>.log(c) <span class="hljs-comment">//c1</span><br><span class="hljs-built_in">console</span>.log(d) <span class="hljs-comment">//2</span><br></code></pre></td></tr></table></figure>
 
 <ol start="2">
-<li>当我们把一个对象赋值给一个新的对象时,<strong>赋的是该对象在栈中的地址，而不是堆中的数据<br>也就是赋值之后，两个对象指向同一个存储空间。无论哪个对象发生改变，其实都是改变的堆中的数据(会互相影响，指向的引用地址都相同)</strong></li>
+<li>当我们把一个对象赋值给一个新的对象时,<strong>赋的是该对象在栈中的地址，而不是堆中的数据，也就是赋值之后，两个对象指向同一个存储空间。无论哪个对象发生改变，其实都是改变的堆中的数据(会互相影响，指向的引用地址都相同)</strong></li>
 </ol>
 <figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">let a = &#123;<br><span class="hljs-type">name</span>: <span class="hljs-string">&#x27;a&#x27;</span>,<br><span class="hljs-keyword">like</span>: [<span class="hljs-string">&#x27;吃饭&#x27;</span>]<br>&#125;<br>let b = a<br><br>b.name = <span class="hljs-string">&#x27;b&#x27;</span><br>b.<span class="hljs-keyword">like</span>[<span class="hljs-number">0</span>] = <span class="hljs-string">&#x27;睡觉&#x27;</span><br>console.log(<span class="hljs-string">&#x27;a&#x27;</span>, a) //a &#123;<span class="hljs-type">name</span>: <span class="hljs-string">&#x27;b&#x27;</span>, <span class="hljs-keyword">like</span>: <span class="hljs-keyword">Array</span>(<span class="hljs-number">1</span>)&#125;<span class="hljs-keyword">like</span>: [<span class="hljs-string">&#x27;睡觉&#x27;</span>]<span class="hljs-type">name</span>: &quot;b&quot;<br>console.log(<span class="hljs-string">&#x27;b&#x27;</span>, b)//b  &#123;<span class="hljs-type">name</span>: <span class="hljs-string">&#x27;b&#x27;</span>, <span class="hljs-keyword">like</span>: <span class="hljs-keyword">Array</span>(<span class="hljs-number">1</span>)&#125;<span class="hljs-keyword">like</span>: [<span class="hljs-string">&#x27;睡觉&#x27;</span>]<span class="hljs-type">name</span>: &quot;b&quot;<br>打印的一样<br></code></pre></td></tr></table></figure>
 
@@ -492,7 +492,8 @@
 <h3 id="CommomJS-node应用由模块组成"><a href="#CommomJS-node应用由模块组成" class="headerlink" title="CommomJS(node应用由模块组成)"></a>CommomJS(node应用由模块组成)</h3><p>CommonJS定义了两个主要概念：<br>require函数，用于导入模块<br>module.exports变量，用于导出模块<br>require导入，代码很简单，let {count,addCount}=require(“./utils”)就可以了。<br>require的第一步是解析路径获取到模块内容：</p>
 <h3 id="ES6模块与CommonJS的区别"><a href="#ES6模块与CommonJS的区别" class="headerlink" title="ES6模块与CommonJS的区别"></a>ES6模块与CommonJS的区别</h3><h4 id="CommonJS-模块输出的是一个值的拷贝，ES6-模块输出的是值的引用"><a href="#CommonJS-模块输出的是一个值的拷贝，ES6-模块输出的是值的引用" class="headerlink" title="CommonJS 模块输出的是一个值的拷贝，ES6 模块输出的是值的引用"></a>CommonJS 模块输出的是一个值的拷贝，ES6 模块输出的是值的引用</h4><ol>
 <li>CommonJS 模块输出的是值的拷贝，也就是说，一旦输出一个值，模块内部的变化就影响不到这个值。</li>
-<li>ES6 模块的运行机制与 CommonJS 不一样。JS 引擎对脚本静态分析的时候，遇到模块加载命令import，就会生成一个只读引用。等到脚本真正执行时，再根据这个只读引用，到被加载的那个模块里面去取值。换句话说，ES6 的import有点像 Unix 系统的“符号连接”，原始值变了，import加载的值也会跟着变。因此，ES6 模块是动态引用，并且不会缓存值，模块里面的变量绑定其所在的模块。</li>
+<li>ES6 模块不会缓存运行结果，而是动态地去被加载的模块取值，并且变量总是绑定其所在的模块。</li>
+<li>ES6 模块的运行机制与 CommonJS 不一样。JS 引擎对脚本静态分析的时候，<strong>遇到模块加载命令import，就会生成一个只读引用。等到脚本真正执行时，再根据这个只读引用，到被加载的那个模块里面去取值</strong>。换句话说，ES6 的import有点像 Unix 系统的“符号连接”，原始值变了，import加载的值也会跟着变。因此，ES6 模块是动态引用，并且不会缓存值，模块里面的变量绑定其所在的模块。</li>
 </ol>
 <h4 id="CommonJS-模块是运行时加载，ES6-模块是编译时输出接口"><a href="#CommonJS-模块是运行时加载，ES6-模块是编译时输出接口" class="headerlink" title="CommonJS 模块是运行时加载，ES6 模块是编译时输出接口"></a>CommonJS 模块是运行时加载，ES6 模块是编译时输出接口</h4><ol>
 <li>运行时加载: CommonJS 模块就是对象；即在输入时是先加载整个模块，生成一个对象，然后再从这个对象上面读取方法，这种加载称为“运行时加载”。</li>
@@ -500,7 +501,7 @@
 </ol>
 <h4 id="CommonJs导出有有缓存，而ES6没有"><a href="#CommonJs导出有有缓存，而ES6没有" class="headerlink" title="CommonJs导出有有缓存，而ES6没有"></a>CommonJs导出有有缓存，而ES6没有</h4><p><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2022/03/01/CommonJS%E5%92%8CES6%E6%A8%A1%E5%9D%97/">博客</a></p>
 <p><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2021/04/17/ES6%E6%A8%A1%E5%9D%97%E5%8C%96/">博客：</a></p>
-<h3 id="ECMAScript6-怎么写-class，为什么会出现-class-这种东西"><a href="#ECMAScript6-怎么写-class，为什么会出现-class-这种东西" class="headerlink" title="ECMAScript6 怎么写 class，为什么会出现 class 这种东西?"></a>ECMAScript6 怎么写 class，为什么会出现 class 这种东西?</h3><p>在我看来 ES6 新添加的 class 只是为了补充 js 中缺少的一些面向对象语言的特性，但本质上来说它只是一种语法糖，不是一个新的东西，其背后还是原型继承的思想。通过加入 class 可以有利于我们更好的组织代码。在 class 中添加的方法，其实是添加在类的原型上的。</p>
+<h3 id="ECMAScript6-怎么写-class，为什么会出现-class-这种东西"><a href="#ECMAScript6-怎么写-class，为什么会出现-class-这种东西" class="headerlink" title="ECMAScript6 怎么写 class，为什么会出现 class 这种东西?"></a>ECMAScript6 怎么写 class，为什么会出现 class 这种东西?</h3><p>在我看来 ES6 新添加的 class 只是为了补充 js 中缺少的一些<strong>面向对象语言的特性</strong>，但本质上来说它只是一种<strong>语法糖，不是一个新的东西，其背后还是原型继承的思想</strong>。通过加入 class 可以有利于我们更好的组织代码。在 class 中添加的方法，其实是添加在类的原型上的。</p>
 <h2 id="数组-amp-amp-对象-方法（基础）"><a href="#数组-amp-amp-对象-方法（基础）" class="headerlink" title="数组&amp;&amp;对象 方法（基础）"></a>数组&amp;&amp;对象 方法（基础）</h2><h3 id="数组去重-indexOf-set-map-for-Object键值对"><a href="#数组去重-indexOf-set-map-for-Object键值对" class="headerlink" title="数组去重 (indexOf  set  map  for  Object键值对)"></a>数组去重 (indexOf  set  map  for  Object键值对)</h3><p>法一：indexOf循环去重<br>法二：ES6 Set去重；Array.from(new Set(array))<br>法三：Object 键值对去重；把数组的值存成 Object 的 key 值，比如 Object[value1] = true，在判断另一个值的时候，如果 Object[value2]存在的话，就说明该值是重复的。<br><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844904121380667399#heading-65">掘金</a></p>
 <h3 id="数组常用方法-一般方法"><a href="#数组常用方法-一般方法" class="headerlink" title="数组常用方法(一般方法)"></a>数组常用方法(一般方法)</h3><p>push()，pop()，shift()，unshift()，splice()，sort()，reverse()，map()等</p>
 <h4 id="会改变原始数组的方法有"><a href="#会改变原始数组的方法有" class="headerlink" title="会改变原始数组的方法有"></a>会改变原始数组的方法有</h4><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs stylus"><span class="hljs-function"><span class="hljs-title">push</span><span class="hljs-params">()</span></span>  压入到尾部        pop:  弹出尾部的一个元素<br>unshift  压入到头部           shift    弹出头部的一个元素<br><span class="hljs-function"><span class="hljs-title">sort</span><span class="hljs-params">()</span></span>  方法用于对数组的元素进行排序。 排序顺序可以是字母或数字，并按升序或降序。默认排序顺序为按字母升序。<br><span class="hljs-function"><span class="hljs-title">reverse</span><span class="hljs-params">()</span></span>   方法用于颠倒数组中元素的顺序。<br><span class="hljs-function"><span class="hljs-title">splice</span><span class="hljs-params">()</span></span>    方法用于添加或删除数组中的元素。注意：这种方法会改变原始数组。<br><br></code></pre></td></tr></table></figure>

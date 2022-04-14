@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      15.5k 字
+      15.6k 字
     </span>
   
 
@@ -369,8 +369,8 @@
 <li>每个新的首部键－值对要么被追加到当前表的末尾，要么替换表中之前的值。</li>
 </ol>
 <p><strong>你可以理解为只发送差异数据，而不是全部发送，从而减少头部的信息量</strong></p>
-<h4 id="多路复用"><a href="#多路复用" class="headerlink" title="多路复用"></a>多路复用</h4><p>HTTP <strong>1.x</strong> 中，如果想<strong>并发多个请求，必须使用多个 TCP 链接，且浏览器为了控制资源，还会对单个域名有 6-8个的TCP链接请求限制。</strong><br>HTTP2中：<br><strong>同域名下所有通信都在单个连接上完成。</strong>单个连接可以承载任意数量的双向数据流。<br>数据流以消息的形式发送，而消息又<strong>由一个或多个帧组成，多个帧之间可以乱序发送</strong>，因为根据帧首部的流标识可以重新组装</p>
-<h3 id="浏览器的缓存机制-强制缓存-amp-amp-协商缓存"><a href="#浏览器的缓存机制-强制缓存-amp-amp-协商缓存" class="headerlink" title="浏览器的缓存机制 强制缓存 &amp;&amp; 协商缓存"></a>浏览器的缓存机制 强制缓存 &amp;&amp; 协商缓存</h3><p>浏览器与服务器通信的方式为应答模式，即是：浏览器发起HTTP请求 – 服务器响应该请求。那么浏览器第一次向服务器发起该请求后拿到请求结果，会根据响应报文中HTTP头的缓存标识，决定是否缓存结果，是则将请求结果和缓存标识存入浏览器缓存中，简单的过程如下图：<br><img src="/imageO/HC.jpg" srcset="/img/loading.gif" lazyload alt="如图"><br>由上图我们可以知道：</p>
+<h4 id="多路复用"><a href="#多路复用" class="headerlink" title="多路复用"></a>多路复用</h4><p>HTTP <strong>1.x</strong> 中，如果想<strong>并发多个请求，必须使用多个 TCP 链接，且浏览器为了控制资源，还会对单个域名有 6-8个的TCP链接请求限制。</strong><br>HTTP2中：<br><strong>同域名下所有通信都在单个连接上完成。</strong>单个连接可以承载任意数量的双向数据流。<br>数据流以消息的形式发送，而消息又<strong>由一个或多个帧组成，多个帧之间可以乱序发送</strong>，因为<strong>根据帧首部的流标识可以重新组装</strong>（保证后端接收后返回数据正常）</p>
+<h3 id="浏览器的缓存机制-强制缓存-amp-amp-协商缓存fu"><a href="#浏览器的缓存机制-强制缓存-amp-amp-协商缓存fu" class="headerlink" title="浏览器的缓存机制 强制缓存 &amp;&amp; 协商缓存fu"></a>浏览器的缓存机制 强制缓存 &amp;&amp; 协商缓存fu</h3><p>浏览器与服务器通信的方式为应答模式，即是：浏览器发起HTTP请求 – 服务器响应该请求。那么浏览器第一次向服务器发起该请求后拿到请求结果，会根据响应报文中HTTP头的缓存标识，决定是否缓存结果，是则将请求结果和缓存标识存入浏览器缓存中，简单的过程如下图：<br><img src="/imageO/HC.jpg" srcset="/img/loading.gif" lazyload alt="如图"><br>由上图我们可以知道：</p>
 <ol>
 <li>浏览器每次发起请求，都会先在浏览器缓存中查找该请求的结果以及缓存标识</li>
 <li>浏览器每次拿到返回的请求结果都会将该结果和缓存标识存入浏览器缓存中</li>
