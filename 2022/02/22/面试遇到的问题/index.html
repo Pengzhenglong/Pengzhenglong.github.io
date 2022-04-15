@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      12.3k 字
+      12.5k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      138
+      140
        分钟
     </span>
   
@@ -375,18 +375,13 @@
 </ol>
 <p>对于一个请求的响应 401, 要这么处理, 对于十个请求的响应 401, 也要这么处理,<br><strong>我们可以统一将这个token过期处理放在响应拦截器中</strong><br>请求拦截器: 所有的请求, 在真正被发送出去之前, 都会先经过请求拦截器 (可以携带token)<br>响应拦截器: 所有的响应, 在真正被(.then.catch await)处理之前, 都会先经过响应拦截器, 可以在这个响应拦截器中统一对响应做判断<br><a target="_blank" rel="noopener" href="https://juejin.cn/post/7076022961316036638#heading-7">掘金</a></p>
 <h3 id="登录权限怎么处理-（动态路由）"><a href="#登录权限怎么处理-（动态路由）" class="headerlink" title="登录权限怎么处理 （动态路由）"></a>登录权限怎么处理 （动态路由）</h3><h3 id="Vue实现动态路由（和面试官吹项目亮点）"><a href="#Vue实现动态路由（和面试官吹项目亮点）" class="headerlink" title="Vue实现动态路由（和面试官吹项目亮点）"></a>Vue实现动态路由（和面试官吹项目亮点）</h3><h4 id="登录逻辑"><a href="#登录逻辑" class="headerlink" title="登录逻辑"></a>登录逻辑</h4><p>每个系统都有自己的登录登出逻辑，而我们前端所要做的其实是请求后台，<strong>拿到登录权限，带上登录权限，获取用户信息和菜单信息</strong>。 在vue项目开发当中，我们一般都是在全局路由钩子做这一系列判断。</p>
-<h4 id="菜单权限"><a href="#菜单权限" class="headerlink" title="菜单权限"></a>菜单权限</h4><p>以前的菜单路由是直接写死在前端，但是当我们直接访问这个路由时，用户还是可以进入到这个功能页面；后来直接改成<strong>动态添加路由的方式router.addRoutes。</strong></p>
-<ol>
-<li>前端先获取菜单列表</li>
-<li>根据获取的菜单列表循环添加用户菜单路由集合</li>
-<li>动态添加路由</li>
-</ol>
+<h4 id="菜单权限"><a href="#菜单权限" class="headerlink" title="菜单权限"></a>菜单权限</h4><p><strong>通过带有 token 请求头的请求方法，后端可以判断到是哪一个用户，前端也可以通过获取权限接口获得该用户的权限列表，根据权限列表做一份路由映射表</strong>，如果后端返回的数据结构与前端的路由设置的数据结构不同，此时还需编写此映射路由的业务功能函数。</p>
+<p>如果该<strong>用户拥有此路由权限，则通过在全局路由监控中 router.beforeEach 进行 router 中的 addRoutes 方法将有权限的路由配置添加到路由当中</strong>，侧边栏也可根据路由列表中的 <strong>meta 字段中关键字的判断进行相应的渲染</strong>。如果权限的颗粒度小到一个按钮，则<strong>可根据后端返回的权限列表映射出的权限参数，通过v-if 进行判断该功能组件是否渲染</strong>。在路由管理中通过 router.beforeEach 钩子中判断当前的路由权限是否为空，是的话则可执行获取权限路由的接口：</p>
+<p>以前的菜单路由是直接写死在前端，但是当我们直接访问这个路由时，用户还是可以进入到这个功能页面；后来直接改成<strong>动态添加路由的方式router.addRoutes。</strong></p>
 <p><strong>一个是操作权限，一个是路由访问权限（这里指前端路由）</strong><br>1.后端返回一个json格式的路由表<br>2.因为后端传回来的是都是字符串格式的，但前端这里需要的是一个组件对象，<strong>写个方法遍历一下，将字符串转换为组件对象</strong><br>3.利用vue-router的<strong>beforeEach、addRoutes、vuex</strong>来配合上边两步实现效果<br>4.左侧菜单拦截根据拿到转换好的路由列表进行展示<strong>拦截路由 -&gt; 后端取到路由 -&gt; 保存路由到vuex</strong>（用户登录进来只会从后端取一次，其余都从本地取，所以用户，只有退出在登录路由才会更新）</p>
-<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">router.add<span class="hljs-constructor">Routes(PermissionModule.<span class="hljs-params">dynamicRoutes</span>)</span> <span class="hljs-comment">// 动态添加路由</span><br></code></pre></td></tr></table></figure>
-
-<p>前端有一份动态路由表，等到用户登录拿到用户的角色之后根据当前登录用户的角色去筛选出可以访问的路由，形成一份定制路由表，然后动态挂载路由。花裤衩大佬说，这样做的好处就是，前端每开发一个页面不需要让后端再去配一下路由和权限了，从而避免被后端支配，哈哈哈。</p>
+<p>前端有一份动态路由表，等到用户登录拿到用户的角色之后根据当前登录用户的角色去筛选出可以访问的路由，形成一份定制路由表，然后动态挂载路由。，这样做的好处就是，前端每开发一个页面不需要让后端再去配一下路由和权限了，从而避免被后端支配。</p>
 <p>然而，路由表又是跟角色挂钩。考虑一种情况，项目上线之后，管理员添加了一个新角色，并且要给这个角色分配菜单。<br><strong>如果采用将路由表放在前端的话那么每个路由的可访问角色都是写死的，要给新添加的角色分配菜单，只能改前端代码，显然不是很合适</strong>。<br>所以我才用了后者，就是<strong>把路由信息放在后端，后端将路由信息和角色关联起来，用户登录之后请求对应的接口拿到属于这个用户的路由信息</strong>（也就是菜单），</p>
-<p><strong>然后前端对返回的数据格式化，转换成符合vue-router的路由格式，然后动态挂载。</strong>将路由信息放在后端，这样就可以对路由进行配置了，比如说超级管理员今天很不高兴，不想让某个角色下的用户访问某个路由，直接在该路由下剔除这个角色就可以了（之后会有图动态地演示这一过程），想想是不是很爽。</p>
+<p><strong>然后前端对返回的数据格式化，转换成符合vue-router的路由格式，然后动态挂载。</strong>将路由信息放在后端，这样就可以对路由进行配置了，比如说超级管理员今天很不高兴，不想让某个角色下的用户访问某个路由，直接在该路由下剔除这个角色就可以了</p>
 <p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6981031288803164173#comment">Vue后台管理系统怎么做权限验证和动态路由，谁来做？</a></p>
 <h6 id="什么是-Token（令牌）"><a href="#什么是-Token（令牌）" class="headerlink" title="什么是 Token（令牌）"></a>什么是 Token（令牌）</h6><p>Acesss Token</p>
 <p>访问资源接口（API）时所需要的资源凭证</p>

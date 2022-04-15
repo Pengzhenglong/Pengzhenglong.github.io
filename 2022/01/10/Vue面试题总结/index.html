@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      12k 字
+      12.2k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      130
+      132
        分钟
     </span>
   
@@ -282,7 +282,7 @@
 </ol>
 <h4 id="Compile（指令解析器）"><a href="#Compile（指令解析器）" class="headerlink" title="Compile（指令解析器）"></a>Compile（指令解析器）</h4><p> Compile主要做的事情是解析模板指令，将模板中变量替换成数据，然后初始化渲染页面视图，并将每个指令对应的节点绑定更新函数，添加鉴定数据的订阅者，一旦数据有变动，收到通知，更新试图</p>
 <h3 id="computed-和-watch-的差异？"><a href="#computed-和-watch-的差异？" class="headerlink" title="computed 和 watch 的差异？"></a>computed 和 watch 的差异？</h3><p>（1）computed 是计算一个新的属性，并将该属性挂载到 Vue 实例上，而 <strong>watch 是监听已经存在且已挂载到 Vue 实例上的数据，所以用 watch 同样可以监听 computed 计算属性的变化。</strong><br>（2）computed 本质是一个惰性求值的观察者，具有缓存性，只有当依赖变化后，第一次访问 computed 属性，才会计算新的值。而 watch 则是当数据发生变化便会调用执行函数。<br>（3）从使用场景上说，computed 适用一个数据被多个数据影响，而 watch 适用一个数据影响多个数据。</p>
-<p><a target="_blank" rel="noopener" href="https://juejin.im/post/5b98c4da6fb9a05d353c5fd7">《做面试的不倒翁：浅谈 Vue 中 computed 实现原理》</a><br><a target="_blank" rel="noopener" href="https://juejin.im/post/5af908ea5188254265399009">《深入理解 Vue 的 watch 实现原理及其实现方式》</a><br><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2021/04/18/Vue&computed%E8%AE%A1%E7%AE%97%E5%B1%9E%E6%80%A7/">我的博客</a></p>
+<h4 id="deep深度监听"><a href="#deep深度监听" class="headerlink" title="deep深度监听"></a>deep深度监听</h4><p>需要监听复杂数据（对象）内部属性的变化时，设置deep属性。<strong>Vue会递归的侦听数据和属性的变化（性能消耗较大）。也就是给所有数据和属性添加handler执行函数。</strong><br>性能优化 鉴于deep属性Vue性能消耗较大，对于要监听数据中某个属性的响应时，可以只给对应属性添加deep。<br><a target="_blank" rel="noopener" href="https://juejin.im/post/5b98c4da6fb9a05d353c5fd7">《做面试的不倒翁：浅谈 Vue 中 computed 实现原理》</a><br><a target="_blank" rel="noopener" href="https://juejin.im/post/5af908ea5188254265399009">《深入理解 Vue 的 watch 实现原理及其实现方式》</a><br><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2021/04/18/Vue&computed%E8%AE%A1%E7%AE%97%E5%B1%9E%E6%80%A7/">我的博客</a></p>
 <h3 id="计算属性和watch的原理"><a href="#计算属性和watch的原理" class="headerlink" title="计算属性和watch的原理"></a>计算属性和watch的原理</h3><h4 id="计算属性原理"><a href="#计算属性原理" class="headerlink" title="计算属性原理"></a>计算属性原理</h4><p>这里还是按照惯例，将定义的computed属性的每一项使用Watcher类进行实例化，不过这里是按照computed-watcher的形式，来看下如何实例化的：</p>
 <p>这里的变量watcher就是之前computed对应的computed-watcher实例，接下来会执行Watcher类专门为计算属性定义的两个方法，<strong>在执行evaluate方法进行求值的过程中又会触发computed内可以访问到的响应式数据的get，它们会将当前的computed-watcher作为依赖收集到自己的dep里，计算完毕之后将dirty置为false，表示已经计算过了。</strong></p>
 <p>然后执行depend让计算属性内的响应式数据订阅当前的render-watcher，所以computed内的响应式数据会收集computed-watcher和render-watcher两个watcher，<strong>当computed内的状态发生变更触发set后，首先通知computed需要进行重新计算，然后通知到视图执行渲染，再渲染中会访问到computed计算后的值，最后渲染到页面。</strong></p>
@@ -301,8 +301,7 @@
 </ol>
 <h3 id="Vue中的key到底有什么⽤？"><a href="#Vue中的key到底有什么⽤？" class="headerlink" title="Vue中的key到底有什么⽤？"></a>Vue中的key到底有什么⽤？</h3><p>vue 中 key 值的作用可以分为两种情况来考虑。</p>
 <h4 id="第一种情况是-v-if-中使用-key"><a href="#第一种情况是-v-if-中使用-key" class="headerlink" title="第一种情况是 v-if 中使用 key"></a>第一种情况是 v-if 中使用 key</h4><p>由于<strong>Vue 会尽可能高效地渲染元素，通常会复用已有元素而不是从头开始渲染。因此当我们使用 v-if 来实现元素切换的时候，如果切换前后含有相同类型的元素，那么这个元素就会被复用。</strong>如果是相同的 input 元素，那么切换前后用户的输入不会被清除掉，这样是不符合需求的。因此我们可以通过使用 key 来<strong>唯一的标识一个元素，这个情况下，使用 key 的元素不会被复用</strong>。这个时候 key 的作用是用来标识一个独立的元素。</p>
-<h4 id="第二种情况是-v-for-中使用-key"><a href="#第二种情况是-v-for-中使用-key" class="headerlink" title="第二种情况是 v-for 中使用 key"></a>第二种情况是 v-for 中使用 key</h4><p>用<strong>v-for 更新已渲染过的元素列表时，它默认使用“就地复用”的策略</strong>。如果数据项的顺序发生了改变，Vue <strong>不会移动 DOM 元素来匹配数据项的顺序，而是简单复用此处的每个元素</strong>。因此通过为每个列表项提供一个 key 值，来以便 Vue 跟踪元素的身份，从而高效的实现复用。这个时候 key 的作用是为了高效的更新渲染虚拟 DOM。</p>
-<p>详细资料可以参考：<br><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000016344599">《Vue 面试中，经常会被问到的面试题 Vue 知识点整理》</a><br><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/61064119">《Vue2.0 v-for 中 :key 到底有什么用？》</a><br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/RainyBear/p/8563101.html">《vue 中 key 的作用》</a></p>
+<h4 id="第二种情况是-v-for-中使用-key"><a href="#第二种情况是-v-for-中使用-key" class="headerlink" title="第二种情况是 v-for 中使用 key"></a>第二种情况是 v-for 中使用 key</h4><p>用<strong>v-for 更新已渲染过的元素列表时，它默认使用“就地复用”的策略</strong>。如果数据项的顺序发生了改变，Vue <strong>不会移动 DOM 元素来匹配数据项的顺序，而是简单复用此处的每个元素</strong>。因此通过为每个列表项提供一个 key 值，来以便 Vue 跟踪元素的身份，从而高效的实现复用。这个时候 key 的作用是为了高效的更新渲染虚拟 DOM。<br><strong>为了给 Vue 一个提示，以便它能跟踪每个节点的身份，从而重用和重新排序现有元素，你需要为每项提供一个唯一 key 属性</strong>。理想的 key 值是每项都有唯一 id。<br>详细资料可以参考：<br><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000016344599">《Vue 面试中，经常会被问到的面试题 Vue 知识点整理》</a><br><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/61064119">《Vue2.0 v-for 中 :key 到底有什么用？》</a><br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/RainyBear/p/8563101.html">《vue 中 key 的作用》</a></p>
 <h5 id="Vue-为什么不建议用数组的下标index作为key"><a href="#Vue-为什么不建议用数组的下标index作为key" class="headerlink" title="Vue-为什么不建议用数组的下标index作为key"></a>Vue-为什么不建议用数组的下标index作为key</h5><blockquote>
 <p>key 是给每一个 vnode 的唯一id,可以依靠 key,更准确,更快的拿到 oldVnode 中对应的 vnode 节点，高效的更新虚拟DOM</p>
 </blockquote>
