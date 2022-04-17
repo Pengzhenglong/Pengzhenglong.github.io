@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      5.6k 字
+      5.7k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      63
+      65
        分钟
     </span>
   
@@ -344,7 +344,8 @@
 <ol start="2">
 <li>中级解法<br>前端工程师在有一定的工作经验之后, 往往会去考虑工程化和复用性的问题, 并对数据结构有了一定的了解, 所以可能会有接下来的解法:</li>
 </ol>
-<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs actionscript">基本思路： <br>（<span class="hljs-number">1</span>）封装函数在保存数据时，指定有效时间，把数据和这个有效时间一起保存起来。<br>（<span class="hljs-number">2</span>）封装函数在获取数据时，不着急直接给出结果，而是检查之前保存的有效时间是否过期，如果在就返回数据，否则就删除数据，并返回<span class="hljs-literal">false</span>。<br></code></pre></td></tr></table></figure>
+<p>基本思路：<br>（1）封装函数在保存数据时，指定有效时间，把数据和这个有效时间一起保存起来。<br>（2）封装函数在获取数据时，不着急直接给出结果，而是检查之前保存的有效时间是否过期，如果在就返回数据，否则就删除数据，并返回false。</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs reasonml"><span class="hljs-comment">// key: 属性名</span><br><span class="hljs-comment">// value: 要保存的值</span><br><span class="hljs-comment">// availabletime: 有效时间，毫秒为单位</span><br>const setItem =<span class="hljs-function"> (<span class="hljs-params">key</span>, <span class="hljs-params">value</span>,<span class="hljs-params">availabletime</span> = 1000*60*60*24) =&gt;</span> &#123;<br>    <span class="hljs-comment">// 最晚这时间点</span><br>    const t = <span class="hljs-keyword">new</span> <span class="hljs-constructor">Date()</span>.get<span class="hljs-constructor">Time()</span> + availabletime;<br>    localStorage.set<span class="hljs-constructor">Item(<span class="hljs-params">key</span>, JSON.<span class="hljs-params">stringify</span>(&#123; <span class="hljs-params">data</span>: <span class="hljs-params">value</span>, <span class="hljs-params">time</span>: <span class="hljs-params">t</span> &#125;)</span>);<br>&#125;<br><br><span class="hljs-comment">// 获取数据</span><br>const getItem =<span class="hljs-function"> (<span class="hljs-params">key</span>) =&gt;</span> &#123;<br>    <span class="hljs-comment">// 去初始值</span><br>    const localData = localStorage.get<span class="hljs-constructor">Item(<span class="hljs-params">key</span>)</span>;<br>    const localDataObj = <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">JSON</span>.</span></span>parse(localData);<br>    <span class="hljs-keyword">if</span> (<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Date</span>.</span></span>now<span class="hljs-literal">()</span> &gt; localDataObj.time) &#123;<br>        <span class="hljs-comment">// console.log(&quot;数据已过期&quot;);</span><br>        <span class="hljs-comment">//删除</span><br>        localStorage.remove<span class="hljs-constructor">Item(<span class="hljs-params">key</span>)</span>;<br>        return <span class="hljs-literal">false</span>;<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        <span class="hljs-comment">// 返回真正的数据</span><br>        return <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">JSON</span>.</span></span>parse(localDataObj.data);<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
 
 <p>重写 set(存入) 方法：<br>首先有三个参数 key、value、expired ，分别对应 键、值、过期时间，<br>过期时间的单位可以自由发挥，小时、分钟、天都可以，<br>注意点：存储的值可能是数组/对象，不能直接存储，需要转换 JSON.stringify，<br>这个时间如何设置呢？在这个值存入的时候在键(key)的基础上扩展一个字段，如：key+’expires’，而它的值为当前 时间戳 + expired过期时间<br><a target="_blank" rel="noopener" href="https://juejin.cn/post/7083869252586831880">掘金</a></p>
 

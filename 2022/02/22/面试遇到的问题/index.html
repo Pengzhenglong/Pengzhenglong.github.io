@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      12.5k 字
+      12.7k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      140
+      142
        分钟
     </span>
   
@@ -341,6 +341,7 @@
 <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs php">export <span class="hljs-keyword">const</span> dataURItoBlob = (dataURI: <span class="hljs-keyword">string</span>) =&gt; &#123;<br>  <span class="hljs-keyword">const</span> <span class="hljs-keyword">binary</span> = atob(dataURI.split(<span class="hljs-string">&quot;,&quot;</span>)[<span class="hljs-number">1</span>]);<br>  <span class="hljs-keyword">const</span> <span class="hljs-keyword">array</span>: number[] = [];<br>  <span class="hljs-keyword">for</span> (let i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-keyword">binary</span>.length; i++) &#123;<br>    <span class="hljs-keyword">array</span>.push(<span class="hljs-keyword">binary</span>.charCodeAt(i));<br>  &#125;<br>  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Blob([<span class="hljs-keyword">new</span> Uint8Array(<span class="hljs-keyword">array</span>)], &#123; type: <span class="hljs-string">&quot;image/jpeg&quot;</span> &#125;);<br>&#125;;<br></code></pre></td></tr></table></figure>
 
 <h4 id="为何使用DataURL–想做图片预览，而图片预览是通过FileReader对象实现的-（FileReader-readAsDataURL-）"><a href="#为何使用DataURL–想做图片预览，而图片预览是通过FileReader对象实现的-（FileReader-readAsDataURL-）" class="headerlink" title="为何使用DataURL–想做图片预览，而图片预览是通过FileReader对象实现的  （FileReader.readAsDataURL()）"></a>为何使用DataURL–想做图片预览，而图片预览是通过FileReader对象实现的  （FileReader.readAsDataURL()）</h4><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903495703904263#heading-11">前端图片压缩上传（压缩篇）：可能是最适合小白的前端图片压缩文章了！</a></p>
+<h4 id="拓展问题：这个图片压缩的原理是啥？这个压缩影响图片质量么"><a href="#拓展问题：这个图片压缩的原理是啥？这个压缩影响图片质量么" class="headerlink" title="拓展问题：这个图片压缩的原理是啥？这个压缩影响图片质量么"></a>拓展问题：这个图片压缩的原理是啥？这个压缩影响图片质量么</h4><p>图片压缩原理，简单来说，<strong>通过算法减少一张图片上的颜色差异，牺牲图片画质。比如紧挨着的颜色相近的四个像素的颜色信息压缩前大概占16个字节，压缩后变成一个颜色就能减少近4倍。quality用来控制色差的力度，值越小力度越大，颜色相差较大的两个像素也会被处理，自然被压缩后文件就越小，画质就越烂，</strong>所以是会影响图片质量的，官方文档中也有说到。</p>
 <h3 id="了解Ts，Ts的好处是？"><a href="#了解Ts，Ts的好处是？" class="headerlink" title="了解Ts，Ts的好处是？"></a>了解Ts，Ts的好处是？</h3><h5 id="静态类型"><a href="#静态类型" class="headerlink" title="静态类型"></a>静态类型</h5><p>静态类型化是一种功能，可以在开发人员编写脚本是检测错误，有了这项功能，就会允许开发人员编写更健壮的代码并对其进行维护，以便使得代码质量更好、更清晰。<br>(从代码可知变量num是number类型，如果我们给num赋予其他类型的值就会报错。)</p>
 <h5 id="大型项目的优势"><a href="#大型项目的优势" class="headerlink" title="大型项目的优势"></a>大型项目的优势</h5><p>对于大型项目的开发，有时为了优化改进项目，对代码进行小小更改。这些小小的变化可能会产生严重的、意想不到的后果，因此有必要撤销这些变化。使用TypeScript工具来进行重构更变的容易、快捷。</p>
 <h5 id="更好的协作"><a href="#更好的协作" class="headerlink" title="更好的协作"></a>更好的协作</h5><p>对于大型项目的开发一般会有很多开发人员一起开发，此时乱码和错误的机也会增加。类型安全是一种在编码期间检测错误的功能，而不是在编译项目时检测错误。这为开发团队创建了一个更高效的编码和调试过程。</p>
