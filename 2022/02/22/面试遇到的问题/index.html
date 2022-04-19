@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      12.7k 字
+      12.3k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      142
+      138
        分钟
     </span>
   
@@ -242,23 +242,16 @@
 <p>Js动画<br>JavaScript 的动画正好弥补了这两个缺点，控制能力很强，可以单帧的控制、变换，同时写得好完全可以兼容 IE6，并且功能强大。对于一些复杂控制的动画，使用 javascript 会比较靠谱。而在实现一些小的交互动效的时候，就多考虑考虑 CSS 吧<br>如果动画相较复杂，我们可以采用 JS + canvas 去尝试，能不能实现最后再考虑纯 JS 实现<br><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2022/02/15/CSS%E9%9D%A2%E8%AF%95%E9%A2%98%E6%80%BB%E7%BB%93/#Js-%E5%8A%A8%E7%94%BB%E4%B8%8E-CSS-%E5%8A%A8%E7%94%BB%E5%8C%BA%E5%88%AB%E5%8F%8A%E7%9B%B8%E5%BA%94%E5%AE%9E%E7%8E%B0">博客</a></p>
 <h3 id="css预处理-sass-less-stylus-有什么区别-哪个更好用"><a href="#css预处理-sass-less-stylus-有什么区别-哪个更好用" class="headerlink" title="css预处理  sass  less  stylus 有什么区别  哪个更好用"></a>css预处理  sass  less  stylus 有什么区别  哪个更好用</h3><h4 id="下面从特性上比较三者异同"><a href="#下面从特性上比较三者异同" class="headerlink" title="下面从特性上比较三者异同"></a>下面从特性上比较三者异同</h4><ol>
 <li>变量：<br>Sass声明变量必须是 <strong>『$』开头，后面紧跟变量名和变量值</strong>，而且变量名和变量值需要使用冒号：分隔开。<br>Less 声明变量用 <strong>『@』开头，其余等同 Sass。</strong><br>Stylus 中声明变量没有任何限定，结尾的分号可有可无，但变量名和变量值之间必须要有『等号』。但需要注意的是，如果用“@”符号来声明变量，Stylus会进行编译，但不会赋值给变量。就是说，Stylus 不要使用『@』声明变量。Stylus 调用变量的方法和Less、Sass完全相同。</li>
-<li>作用域：<br>css 预编译器把变量赋予作用域，也就是存在生命周期。就像 js 一样，它会先从局部作用域查找变量，依次向上级作用域查找。<br>Sass：<strong>三者最差，不存在全局变量的概念。也就是说在 Sass 中定义了相同名字的变量时你就要小心蛋疼了。</strong><br><strong>Less：我认为跟 JS 一样，逐级查找，向上冒泡。<br>Stylus：完全等同 Less。Stylus 和 Sass 则更倾向于指令式。</strong></li>
+<li>作用域：<br>css 预编译器把变量赋予作用域，也就是存在生命周期。就像 js 一样，它会先从局部作用域查找变量，依次向上级作用域查找。<br>Sass：<strong>三者最差，不存在全局变量的概念。也就是说在 Sass 中定义了相同名字的变量时你就要小心蛋疼了。</strong></li>
 </ol>
+<p><strong>Less：我认为跟 JS 一样，逐级查找，向上冒泡。<br>Stylus：完全等同 Less。Stylus 和 Sass 则更倾向于指令式。</strong></p>
 <h5 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h5><p>个人认为：<br>Sass和Less语法严谨、Stylus相对自由。因为<strong>Less长得更像 css，所以它可能学习起来更容易。</strong><br>Sass 和 Compass、Stylus 和 Nib 都是好基友。<br><strong>Sass 和 Stylus 都具有类语言的逻辑方式处理：条件、循环等，而 Less 需要通过When等关键词模拟这些功能</strong>，这方面 Less 比不上 Sass 和 Stylus。<br>Less 在丰富性以及特色上都不及 Sass 和 Stylus，若不是因为 Bootstrap 引入了 Less，可能它不会像现在这样被广泛应用（个人愚见）。<br>身边有几个朋友在 css 预编译器的选择上犹豫不决，其实我认为选择什么无所谓，关键在于你的熟练程度以及团队合作方面的有利性。<br>当然，在大致学习、使用和研究了这三种 css 预编译器之后，我想我会选择 Stylus，它的语法自由度很高，而且写出来的代码非常简洁，这点十分吸引我。</p>
 <h3 id="TCP和UDP的区别"><a href="#TCP和UDP的区别" class="headerlink" title="TCP和UDP的区别"></a>TCP和UDP的区别</h3><h4 id="TCP-和-UDP-应用场景"><a href="#TCP-和-UDP-应用场景" class="headerlink" title="TCP 和 UDP 应用场景"></a>TCP 和 UDP 应用场景</h4><p>传送门 ☞<a target="_blank" rel="noopener" href="https://juejin.cn/post/6992743999756845087"># 深度剖析TCP与UDP的区别</a><br><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2021/07/09/TCP%E5%8D%8F%E8%AE%AE/">博客</a></p>
 <h3 id="请求头信息"><a href="#请求头信息" class="headerlink" title="请求头信息"></a>请求头信息</h3><h3 id="路由页面跳转后状态保存"><a href="#路由页面跳转后状态保存" class="headerlink" title="路由页面跳转后状态保存"></a>路由页面跳转后状态保存</h3><p>需求场景<br>首页搜索内容，点击跳转至详情页，页面后退返回主页，保留搜索结果。</p>
 <p> 这里介绍两种比较容易实现的解决方案</p>
 <h4 id="方案一：将搜索参数存储在路由参数（route-query）中，加载页面时根据参数搜索"><a href="#方案一：将搜索参数存储在路由参数（route-query）中，加载页面时根据参数搜索" class="headerlink" title="方案一：将搜索参数存储在路由参数（route.query）中，加载页面时根据参数搜索"></a>方案一：将搜索参数存储在路由参数（route.query）中，加载页面时根据参数搜索</h4><p>优点：刷新不影响；实现简单<br>缺点：参数只能是基础类型、长度受限；路径看起来比较难看；只对浏览器返回有效，手动跳转回首页不行</p>
 <h4 id="方案二：使用路由守卫钩子，在离开页面前本地存储页面参数（vuex、Local-Storage-等等）"><a href="#方案二：使用路由守卫钩子，在离开页面前本地存储页面参数（vuex、Local-Storage-等等）" class="headerlink" title="方案二：使用路由守卫钩子，在离开页面前本地存储页面参数（vuex、Local Storage 等等）"></a>方案二：使用路由守卫钩子，在离开页面前本地存储页面参数（vuex、Local Storage 等等）</h4><p>优点：参数类型长度都比较自由；路径看起来清爽美观；对任意方式返回主页都有效<br>缺点：需要额外进行数据存储操作，如果使用store模式或vuex则刷新页面失效<br>参考<br><a target="_blank" rel="noopener" href="https://juejin.cn/post/6987953448419328036#heading-2">前端 Vue路由返回恢复页面状态的实现方案</a></p>
-<h3 id="keep-alive-组件有什么作用？"><a href="#keep-alive-组件有什么作用？" class="headerlink" title="keep-alive 组件有什么作用？"></a>keep-alive 组件有什么作用？</h3><p>作用：<strong>实现组件缓存，保持这些组件的状态，以避免反复渲染导致的性能问题。 需要缓存组件 频繁切换，不需要重复渲染</strong><br>场景：tabs标签页 后台导航，vue性能优化</p>
-<h4 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h4><p>Vue.js内部将DOM节点抽象成了一个个的<strong>  VNode节点 </strong>，keep-alive组件的缓存也是基于VNode节点的而不是直接存储DOM结构。<strong>它将满足条件（pruneCache与pruneCache）的组件在cache对象中缓存起来，在需要重新渲染的时候再将vnode节点从cache对象中取出并渲染。</strong></p>
-<ol>
-<li>使用 <strong>LRU 缓存机制进行缓存</strong>，max 限制缓存表的最大容量</li>
-<li>根据设定的<strong> include/exclude（如果有）进行条件匹配,决定是否缓存。不匹配,直接返回组件实例</strong></li>
-<li>根据组件<strong> ID 和 tag 生成缓存 Key ,并在缓存对象中查找是否已缓存过该组件实例。如果存在,直接取出缓存值并更新该 key 在 this.keys 中的位置(更新 key 的位置是实现 LRU 置换策略的关键)</strong></li>
-<li>获取节点名称，或者根据节点 cid 等信息拼出当前 组件名称</li>
-<li>获取 keep-alive 包裹着的第一个子组件对象及其组件名<br><a target="_blank" rel="noopener" href="https://www.zoo.team/article/lru-keep-alive">参考文章</a></li>
-</ol>
+<h3 id="keep-alive-组件有什么作用？"><a href="#keep-alive-组件有什么作用？" class="headerlink" title="keep-alive 组件有什么作用？"></a>keep-alive 组件有什么作用？</h3><p><a target="_blank" rel="noopener" href="https://www.zoo.team/article/lru-keep-alive">参考文章</a></p>
 <h3 id="浏览器兼容性问题"><a href="#浏览器兼容性问题" class="headerlink" title="浏览器兼容性问题"></a>浏览器兼容性问题</h3><blockquote>
 <p>虽然面试官的问题十分的笼统，浏览器的兼容性无非还是样式兼容性（css），交互兼容性（javascript），浏览器 hack 三个方面。</p>
 </blockquote>

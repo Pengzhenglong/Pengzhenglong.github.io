@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      18.9k 字
+      19k 字
     </span>
   
 
@@ -625,7 +625,7 @@
 <blockquote>
 <p>Symbol 代表创建后独一无二且不可变的数据类型，它的出现我认为主要是为了解决可能出现的全局变量冲突的问题。<br>BigInt 是一种数字类型的数据，它可以表示任意精度格式的整数，使用 BigInt 可以安全地存储和操作大整数，即使这个数已经超出了 Number 能够表示的安全整数范围。</p>
 </blockquote>
-<h4 id="另一种是复杂数据类型：Object"><a href="#另一种是复杂数据类型：Object" class="headerlink" title="另一种是复杂数据类型：Object"></a>另一种是复杂数据类型：Object</h4><p>js 可以分为两种类型的值，一种是基本数据类型，一种是复杂数据类型。<br>复杂数据类型指的是 Object 类型，所有其他的如 Array、Date 等数据类型都可以理解为 Object 类型的子类。</p>
+<h4 id="另一种是复杂数据类型：Object"><a href="#另一种是复杂数据类型：Object" class="headerlink" title="另一种是复杂数据类型：Object"></a>另一种是复杂数据类型：Object</h4><p>js 可以分为两种类型的值，一种是基本数据类型，一种是复杂数据类型。<br>复杂数据类型指的是 Object 类型，所有其他的如 <strong>又称为引用类型，包括 Array  Date  function</strong> 等数据类型都可以理解为 Object 类型的子类。</p>
 <h4 id="两种类型间的主要区别是它们的存储位置不同，基本数据类型的值直接保存在栈中，而复杂数据类型的值保存在堆中，通过使用在栈中保存对应的指针来获取堆中的值"><a href="#两种类型间的主要区别是它们的存储位置不同，基本数据类型的值直接保存在栈中，而复杂数据类型的值保存在堆中，通过使用在栈中保存对应的指针来获取堆中的值" class="headerlink" title="两种类型间的主要区别是它们的存储位置不同，基本数据类型的值直接保存在栈中，而复杂数据类型的值保存在堆中，通过使用在栈中保存对应的指针来获取堆中的值"></a>两种类型间的主要区别是它们的存储位置不同，基本数据类型的值直接保存在栈中，而复杂数据类型的值保存在堆中，通过使用在栈中保存对应的指针来获取堆中的值</h4><h3 id="js判断类型"><a href="#js判断类型" class="headerlink" title="js判断类型"></a>js判断类型</h3><p>判断方法：<strong>typeof()，instanceof，constructor,Object.prototype.toString.call()等</strong></p>
 <h4 id="1-typeof-其中数组、对象、null都会被判断为Object，其他判断都正确"><a href="#1-typeof-其中数组、对象、null都会被判断为Object，其他判断都正确" class="headerlink" title="1. typeof   其中数组、对象、null都会被判断为Object，其他判断都正确"></a>1. typeof   其中数组、对象、null都会被判断为Object，其他判断都正确</h4><p>返回数据类型，包含这7种： number、boolean、symbol、string、object、undefined、function。typeof null   返回类型错误，返回object ,引用类型，除了function返回function类型外，其他均返回object。其中，null 有属于自己的数据类型 Null</p>
 <h4 id="2-instanceof-只能判断引用数据类型-不能判断基本数据类型"><a href="#2-instanceof-只能判断引用数据类型-不能判断基本数据类型" class="headerlink" title="2. instanceof 只能判断引用数据类型,不能判断基本数据类型"></a>2. instanceof 只能判断引用数据类型,不能判断基本数据类型</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><br>　　<span class="hljs-keyword">var</span> arr = [<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">1</span>];<br>　　<span class="hljs-built_in">console</span>.log(arr <span class="hljs-keyword">instanceof</span> <span class="hljs-built_in">Array</span>)<span class="hljs-comment">//true</span><br><br></code></pre></td></tr></table></figure>

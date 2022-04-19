@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      126 字
+      343 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      1
+      4
        分钟
     </span>
   
@@ -231,6 +231,12 @@
               <p>学习react的笔记</p>
 <hr>
 <h3 id="React-是什么？"><a href="#React-是什么？" class="headerlink" title="React 是什么？"></a>React 是什么？</h3><p>React 是一个声明式，高效且灵活的用于构建用户界面的 JavaScript 库。使用 React 可以将一些简短、独立的代码片段组合成复杂的 UI 界面，这些代码片段被称作“组件”。</p>
+<h3 id="jsx"><a href="#jsx" class="headerlink" title="jsx"></a>jsx</h3><p>这个有趣的标签语法既不是字符串也不是 HTML。<br>它被称为 JSX，是一个 JavaScript 的语法扩展</p>
+<h4 id="为什么使用-JSX？"><a href="#为什么使用-JSX？" class="headerlink" title="为什么使用 JSX？"></a>为什么使用 JSX？</h4><p>React 认为渲染逻辑本质上与其他 UI 逻辑内在耦合，比如，在 UI 中需要绑定处理事件、在某些时刻状态发生变化时需要通知到 UI，以及需要在 UI 中展示准备好的数据。</p>
+<p>React 并没有采用将标记与逻辑进行分离到不同文件这种人为地分离方式，而是通过将二者共同存放在称之为“组件”的松散耦合单元之中，来实现关注点分离。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">formatName</span>(<span class="hljs-params">user</span>) </span>&#123;<br>  <span class="hljs-keyword">return</span> user.firstName + <span class="hljs-string">&#x27; &#x27;</span> + user.lastName;<br>&#125;<br><br><span class="hljs-keyword">const</span> user = &#123;<br>  firstName: <span class="hljs-string">&#x27;Harper&#x27;</span>,<br>  lastName: <span class="hljs-string">&#x27;Perez&#x27;</span><br>&#125;;<br><br><span class="hljs-keyword">const</span> element = (<br>  &lt;h1&gt;<br>    Hello, &#123;formatName(user)&#125;!<br>  &lt;/h1&gt;<br>);<br><br>ReactDOM.render(<br>  element,<br>  <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;root&#x27;</span>)<br>);<br></code></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://react.docschina.org/docs/introducing-jsx.html">官网</a></p>
 <h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><ol>
 <li>文件名可以是jsx 或者js，不影响文件中的代码</li>
 <li>组件名称必须大写</li>
