@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      12.3k 字
+      12.4k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      138
+      139
        分钟
     </span>
   
@@ -368,7 +368,7 @@
 </li>
 </ol>
 <p>对于一个请求的响应 401, 要这么处理, 对于十个请求的响应 401, 也要这么处理,<br><strong>我们可以统一将这个token过期处理放在响应拦截器中</strong><br>请求拦截器: 所有的请求, 在真正被发送出去之前, 都会先经过请求拦截器 (可以携带token)<br>响应拦截器: 所有的响应, 在真正被(.then.catch await)处理之前, 都会先经过响应拦截器, 可以在这个响应拦截器中统一对响应做判断<br><a target="_blank" rel="noopener" href="https://juejin.cn/post/7076022961316036638#heading-7">掘金</a></p>
-<h3 id="登录权限怎么处理-（动态路由）"><a href="#登录权限怎么处理-（动态路由）" class="headerlink" title="登录权限怎么处理 （动态路由）"></a>登录权限怎么处理 （动态路由）</h3><h3 id="Vue实现动态路由（和面试官吹项目亮点）"><a href="#Vue实现动态路由（和面试官吹项目亮点）" class="headerlink" title="Vue实现动态路由（和面试官吹项目亮点）"></a>Vue实现动态路由（和面试官吹项目亮点）</h3><h4 id="登录逻辑"><a href="#登录逻辑" class="headerlink" title="登录逻辑"></a>登录逻辑</h4><p>每个系统都有自己的登录登出逻辑，而我们前端所要做的其实是请求后台，<strong>拿到登录权限，带上登录权限，获取用户信息和菜单信息</strong>。 在vue项目开发当中，我们一般都是在全局路由钩子做这一系列判断。</p>
+<h3 id="登录权限怎么处理-（动态路由）Vue实现动态路由（和面试官吹项目亮点）"><a href="#登录权限怎么处理-（动态路由）Vue实现动态路由（和面试官吹项目亮点）" class="headerlink" title="登录权限怎么处理 （动态路由）Vue实现动态路由（和面试官吹项目亮点）"></a>登录权限怎么处理 （动态路由）Vue实现动态路由（和面试官吹项目亮点）</h3><h4 id="登录逻辑"><a href="#登录逻辑" class="headerlink" title="登录逻辑"></a>登录逻辑</h4><p>每个系统都有自己的登录登出逻辑，而我们前端所要做的其实是请求后台，<strong>拿到登录权限，带上登录权限，获取用户信息和菜单信息</strong>。 在vue项目开发当中，我们一般都是在全局路由钩子做这一系列判断。</p>
 <h4 id="菜单权限"><a href="#菜单权限" class="headerlink" title="菜单权限"></a>菜单权限</h4><p><strong>通过带有 token 请求头的请求方法，后端可以判断到是哪一个用户，前端也可以通过获取权限接口获得该用户的权限列表，根据权限列表做一份路由映射表</strong>，如果后端返回的数据结构与前端的路由设置的数据结构不同，此时还需编写此映射路由的业务功能函数。</p>
 <p>如果该<strong>用户拥有此路由权限，则通过在全局路由监控中 router.beforeEach 进行 router 中的 addRoutes 方法将有权限的路由配置添加到路由当中</strong>，侧边栏也可根据路由列表中的 <strong>meta 字段中关键字的判断进行相应的渲染</strong>。如果权限的颗粒度小到一个按钮，则<strong>可根据后端返回的权限列表映射出的权限参数，通过v-if 进行判断该功能组件是否渲染</strong>。在路由管理中通过 router.beforeEach 钩子中判断当前的路由权限是否为空，是的话则可执行获取权限路由的接口：</p>
 <p>以前的菜单路由是直接写死在前端，但是当我们直接访问这个路由时，用户还是可以进入到这个功能页面；后来直接改成<strong>动态添加路由的方式router.addRoutes。</strong></p>
@@ -384,6 +384,7 @@
 </blockquote>
 <h6 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h6><p>服务端无状态化、可扩展性好，支持移动端设备，安全，支持跨程序调用，每一次请求都需要携带 token，需要把 token 放到 HTTP 的 Header 里</p>
 <h5 id="说一下前端权限管理怎么实现"><a href="#说一下前端权限管理怎么实现" class="headerlink" title="说一下前端权限管理怎么实现"></a>说一下前端权限管理怎么实现</h5><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_40599109/article/details/113728974">参考文章</a></p>
+<h3 id="Vue3-Composition-API-和-script-setup-（toRefs设置响应式）"><a href="#Vue3-Composition-API-和-script-setup-（toRefs设置响应式）" class="headerlink" title="Vue3 Composition API 和 script setup （toRefs设置响应式）"></a>Vue3 Composition API 和 script setup （toRefs设置响应式）</h3><p><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2022/01/10/Vue%E9%9D%A2%E8%AF%95%E9%A2%98%E6%80%BB%E7%BB%93/#Vue3">博客</a></p>
 <h3 id="使用mongodb的优势"><a href="#使用mongodb的优势" class="headerlink" title="使用mongodb的优势"></a>使用mongodb的优势</h3><p>为什么使用mongodb   好处(连接mongose)</p>
 <blockquote>
 <p>学习成本较低，非常简单</p>
@@ -458,7 +459,7 @@
 <h4 id="反问"><a href="#反问" class="headerlink" title="反问"></a>反问</h4><blockquote>
 <p>不要停留在使用层，多看看源码，要理解，http,tcp知识不熟练，沟通能力，表达</p>
 </blockquote>
-<h3 id="金桔科技（2022-3-8-53min-业务场景题偏多）"><a href="#金桔科技（2022-3-8-53min-业务场景题偏多）" class="headerlink" title="金桔科技（2022.3.8 53min  业务场景题偏多）"></a>金桔科技（2022.3.8 53min  业务场景题偏多）</h3><h5 id="登录权限怎么处理-（动态路由）-1"><a href="#登录权限怎么处理-（动态路由）-1" class="headerlink" title="登录权限怎么处理 （动态路由）"></a>登录权限怎么处理 （动态路由）</h5><h5 id="说一下前端登录的流程"><a href="#说一下前端登录的流程" class="headerlink" title="说一下前端登录的流程?"></a>说一下前端登录的流程?</h5><h6 id="什么是-Token（令牌）-1"><a href="#什么是-Token（令牌）-1" class="headerlink" title="什么是 Token（令牌）"></a>什么是 Token（令牌）</h6><h5 id="说一下前端权限管理怎么实现-1"><a href="#说一下前端权限管理怎么实现-1" class="headerlink" title="说一下前端权限管理怎么实现"></a>说一下前端权限管理怎么实现</h5><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_40599109/article/details/113728974">参考文章</a></p>
+<h3 id="金桔科技（2022-3-8-53min-业务场景题偏多）"><a href="#金桔科技（2022-3-8-53min-业务场景题偏多）" class="headerlink" title="金桔科技（2022.3.8 53min  业务场景题偏多）"></a>金桔科技（2022.3.8 53min  业务场景题偏多）</h3><h5 id="登录权限怎么处理-（动态路由）"><a href="#登录权限怎么处理-（动态路由）" class="headerlink" title="登录权限怎么处理 （动态路由）"></a>登录权限怎么处理 （动态路由）</h5><h5 id="说一下前端登录的流程"><a href="#说一下前端登录的流程" class="headerlink" title="说一下前端登录的流程?"></a>说一下前端登录的流程?</h5><h6 id="什么是-Token（令牌）-1"><a href="#什么是-Token（令牌）-1" class="headerlink" title="什么是 Token（令牌）"></a>什么是 Token（令牌）</h6><h5 id="说一下前端权限管理怎么实现-1"><a href="#说一下前端权限管理怎么实现-1" class="headerlink" title="说一下前端权限管理怎么实现"></a>说一下前端权限管理怎么实现</h5><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_40599109/article/details/113728974">参考文章</a></p>
 <p>全局引入，按需引入组件<br>1.项目中引入了第三方组件，该组件要升级了怎么处理，升级了要怎么检查（有什么好的替代方案)</p>
 <h3 id="杭州后起智能科技（2022-3-8-20min）"><a href="#杭州后起智能科技（2022-3-8-20min）" class="headerlink" title="杭州后起智能科技（2022.3.8 20min）"></a>杭州后起智能科技（2022.3.8 20min）</h3><ol>
 <li>有100个请求，一次发10个，允许最大容错3个超过3个就抛出异常   怎么处理</li>

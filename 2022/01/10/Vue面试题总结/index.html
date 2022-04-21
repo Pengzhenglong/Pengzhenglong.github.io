@@ -245,24 +245,21 @@
 <li>如果两者都有子节点，则执行updateChildren函数比较子节点，这一步很重要</li>
 <li>状态变更时，记录新树和旧树的差异,最后把差异更新到真正的dom中<br>updateChildren<br><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2022/02/20/Vue--diff%E7%AE%97%E6%B3%95/">博客</a></li>
 </ol>
-<h4 id="虚拟DOM的优劣如何"><a href="#虚拟DOM的优劣如何" class="headerlink" title="虚拟DOM的优劣如何?"></a>虚拟DOM的优劣如何?</h4><p>优点:</p>
-<p>保证性能下限: 虚拟DOM可以经过diff找出最小差异,然后批量进行patch,这种操作虽然比不上手动优化,但是<strong>比起粗暴的DOM操作性能要好很多,因此虚拟DOM可以保证性能下限</strong><br>无需手动操作DOM: 虚拟DOM的diff和patch都是在<strong>一次更新中自动进行的,我们无需手动操作DOM,极大提高开发效率</strong><br>跨平台: 虚拟DOM本质上是JavaScript对象,而DOM与平台强相关,相比之下虚拟DOM可以进行更方便地跨平台操作,例如服务器渲染、移动端开发等等</p>
-<p>缺点:</p>
-<p>无法进行极致优化: <strong>在一些性能要求极高的应用中虚拟DOM无法进行针对性的极致优化,比如VScode采用直接手动操作DOM的方式进行极端的性能优化</strong></p>
+<h4 id="虚拟DOM的优劣如何"><a href="#虚拟DOM的优劣如何" class="headerlink" title="虚拟DOM的优劣如何?"></a>虚拟DOM的优劣如何?</h4><p>优点:<br>保证性能下限: 虚拟DOM可以经过diff找出最小差异,然后批量进行patch,这种操作虽然比不上手动优化,但是<strong>比起粗暴的DOM操作性能要好很多,因此虚拟DOM可以保证性能下限</strong><br>无需手动操作DOM: 虚拟DOM的diff和patch都是在<strong>一次更新中自动进行的,我们无需手动操作DOM,极大提高开发效率</strong><br>跨平台: 虚拟DOM本质上是JavaScript对象,而DOM与平台强相关,相比之下虚拟DOM可以进行更方便地跨平台操作,例如服务器渲染、移动端开发等等<br>缺点:<br>无法进行极致优化: <strong>在一些性能要求极高的应用中虚拟DOM无法进行针对性的极致优化,比如VScode采用直接手动操作DOM的方式进行极端的性能优化</strong></p>
 <p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903903968903175#heading-14">虚拟DOM的优劣如何?</a></p>
 <h4 id="虚拟-DOM-真的渲染更快，性能更好吗？"><a href="#虚拟-DOM-真的渲染更快，性能更好吗？" class="headerlink" title="虚拟 DOM 真的渲染更快，性能更好吗？"></a>虚拟 DOM 真的渲染更快，性能更好吗？</h4><h5 id="Virtual-DOM有什么好处？"><a href="#Virtual-DOM有什么好处？" class="headerlink" title="Virtual DOM有什么好处？"></a>Virtual DOM有什么好处？</h5><p>Virtual DOM 是以对象的方式来描述真实dom对象的，那么在<strong>做一些update的时候，可以在内存中进行数据比对，减少对真实dom的操作减少浏览器重排重绘的次数，减少浏览器的压力，提高程序的性能，并且因为diff算法的差异比较，记录了差异部分，那么在开发中就会提高了开发效率</strong><br><strong>跨端</strong><br>首先我们先区分一下跨平台和跨端的区别，跨平台指的是跨操作系统，而跨端是指客户端。跨平台简单的来说就是一套代码在mac和windows上都能跑，<strong>跨端就是跨客户端在web、ios、安卓等跑</strong></p>
 <p>这时候虚拟dom就发挥了作用，就像vue、react等<strong>使用虚拟dom来缓存修改然后整体替换来优化性能，当然也可以用虚拟dom来缓存我们js画的页面，然后通过原生方法渲染出对应的原生组件，实现渲染跨端，正好我们对应dom绑定的方法也可以通过映射原生api实现逻辑跨端。</strong><br>其实Virtual DOM 的实现不仅仅是提高了开发效率和性能，并且也解决了跨终端开发的问题，例如rn， vux，uni-app 等实现跨终端开发的功能都是基于Virtual DOM的。<br><a target="_blank" rel="noopener" href="https://juejin.cn/post/7034900283645755405">掘金</a></p>
-<h5 id="Virtual-DOM-有什么坏处？"><a href="#Virtual-DOM-有什么坏处？" class="headerlink" title="Virtual DOM 有什么坏处？"></a>Virtual DOM 有什么坏处？</h5><p>在初始化时增加了对tpl的解析，<strong>最终需要生成Virtual DOM，那么就会产生一定的内存消耗，比初始化时直接挂载到真实dom 对象上的展示要慢一些</strong>。（纯web渲染的首页渲染慢，之前就一直被产品bb）<br>虚拟 DOM 真的渲染更快，性能更好吗？答案是否！<strong>虚拟dom增加了一层内存运算，那么渲染上肯定会慢上一些</strong></p>
+<h5 id="Virtual-DOM-有什么坏处？-（内存消耗）"><a href="#Virtual-DOM-有什么坏处？-（内存消耗）" class="headerlink" title="Virtual DOM 有什么坏处？ （内存消耗）"></a>Virtual DOM 有什么坏处？ （内存消耗）</h5><p>在初始化时增加了对tpl的解析，<strong>最终需要生成Virtual DOM，那么就会产生一定的内存消耗，比初始化时直接挂载到真实dom 对象上的展示要慢一些</strong>。（纯web渲染的首页渲染慢，之前就一直被产品bb）<br>虚拟 DOM 真的渲染更快，性能更好吗？答案是否！<strong>虚拟dom增加了一层内存运算，那么渲染上肯定会慢上一些</strong></p>
 <p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903991399153672">掘金</a></p>
-<h3 id="vue-双向数据绑定原理？"><a href="#vue-双向数据绑定原理？" class="headerlink" title="vue 双向数据绑定原理？"></a>vue 双向数据绑定原理？</h3><p>vue.js是采用<strong>数据劫持结合发布者-订阅者模式的方式，使用 Object.defineProperty 将属性进行劫持（只会劫持已经存在的属性）</strong>，数组则是通过重写数组方法来实现。<strong>当页面使用对应属性时，每个属性都拥有自己的 dep 属性，存放他所依赖的 watcher（依赖收集），当属性变化后会通知自己对应的 watcher 去更新(派发更新)。</strong></p>
+<h3 id="vue-双向数据绑定原理？"><a href="#vue-双向数据绑定原理？" class="headerlink" title="vue 双向数据绑定原理？"></a>vue 双向数据绑定原理？</h3><p>vue.js是采用<strong>数据劫持结合发布者-订阅者模式的方式，使用 Object.defineProperty 将属性进行劫持（只会劫持已经存在的属性）</strong>，数组则是通过重写数组方法来实现。<strong>当页面使用对应属性时，每个属性都拥有自己的 dep 属性，存放他所依赖的 watcher（依赖收集），当属性变化后会通知自己对应的 watcher 去更新(派发更新)。</strong><br>Object.defineProperty(obj, prop, desc) obj 需要定义属性的当前对象，prop 当前需要定义的属性名，desc 属性描述符<br>proxy(target,handler)</p>
 <h4 id="相比于vue2-x，使用proxy的优势如下"><a href="#相比于vue2-x，使用proxy的优势如下" class="headerlink" title="相比于vue2.x，使用proxy的优势如下"></a>相比于vue2.x，使用proxy的优势如下</h4><ol>
 <li><p>Object.defineProperty 只能劫持对象的属性，而 Proxy 是直接代理对象。<br>由于 Object.defineProperty <strong>只能对属性进行劫持，需要遍历对象的每个属性，如果属性值也是对象，则需要深度遍历。而 Proxy 直接代理对象，不需要遍历操作。</strong><br>可以省去for in、闭包等内容来提升效率（直接绑定整个对象即可）<br>可以监听数组，不用再去单独的对数组做特异性操作 vue3.x可以检测到数组内部数据的变化</p>
 </li>
 <li><p>Object.defineProperty <strong>对新增属性需要手动进行 Observe。(监听并通知Watcher更新)</strong><br>由于 Object.defineProperty 劫持的是对象的属性，所以新增属性时，需要重新遍历对象，对其新增属性再使用 Object.defineProperty 进行劫持。</p>
 </li>
-<li><p>默认进行懒观察（lazy observation）。<br>在 2.x 版本里，<strong>不管数据多大，都会在一开始就为其创建观察者。当数据很大时，这可能会在页面载入时造成明显的性能压力。3.x 版本，只会对「被用于渲染初始可见部分的数据」创建观察者，而且 3.x 的观察者更高效。</strong></p>
+<li><p>默认进行<strong>懒观察</strong>（lazy observation）。<br>在 2.x 版本里，<strong>不管数据多大，都会在一开始就为其创建观察者。当数据很大时，这可能会在页面载入时造成明显的性能压力。3.x 版本，只会对「被用于渲染初始可见部分的数据」创建观察者，而且 3.x 的观察者更高效。</strong></p>
 </li>
-<li><p>更精准的变更通知。<br>比例来说：2.x 版本中，<strong>使用 Vue.set 来给对象新增一个属性时，这个对象的所有 watcher 都会重新运行；3.x 版本中，只有依赖那个属性的 watcher 才会重新运行。</strong><br>详细资料可以参考：<br><a target="_blank" rel="noopener" href="http://www.cnblogs.com/kidney/p/6052935.html?utm_source=gold_browser_extension">《Vue.js 双向绑定的实现原理》</a><br><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2022/03/07/defineproPerty&&proxy/">Object.defineProperty和Proxy，Vue3.0为什么采用Proxy？</a></p>
+<li><p>更<strong>精准的变更通知</strong>。<br>比例来说：2.x 版本中，<strong>使用 Vue.set 来给对象新增一个属性时，这个对象的所有 watcher 都会重新运行；3.x 版本中，只有依赖那个属性的 watcher 才会重新运行。</strong><br>详细资料可以参考：<br><a target="_blank" rel="noopener" href="http://www.cnblogs.com/kidney/p/6052935.html?utm_source=gold_browser_extension">《Vue.js 双向绑定的实现原理》</a><br><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2022/03/07/defineproPerty&&proxy/">Object.defineProperty和Proxy，Vue3.0为什么采用Proxy？</a></p>
 </li>
 </ol>
 <h3 id="dep-watcher"><a href="#dep-watcher" class="headerlink" title="dep  watcher"></a>dep  watcher</h3><ol>

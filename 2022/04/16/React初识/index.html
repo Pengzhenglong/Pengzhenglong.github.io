@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      343 字
+      832 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      4
+      9
        分钟
     </span>
   
@@ -230,6 +230,16 @@
             <div class="markdown-body">
               <p>学习react的笔记</p>
 <hr>
+<h3 id="二、核心思想"><a href="#二、核心思想" class="headerlink" title="二、核心思想"></a>二、核心思想</h3><p>Vue 早期定位是尽可能的降低前端开发的门槛（这跟 Vue 作者是独立开发者也有关系）。所以 Vue 推崇灵活易用（渐进式开发体验），数据可变，双向数据绑定（依赖收集）。<br>React 早期口号是 Rethinking Best Practices(重新思考最佳实践)。背靠大公司 Facebook 的 React，从开始起就不缺关注和用户，而且 React 想要做的是用更好的方式去颠覆前端开发方式（事实上跟早期 jquery 称霸前端，的确是颠覆了）。所以 React 推崇函数式编程（纯组件），数据不可变以及单向数据流。函数式编程最大的好处是其稳定性（无副作用）和可测试性（输入相同，输出一定相同），所以通常大家说的 React 适合大型应用，根本原因还是在于其函数式编程。<br>由于两者核心思想的不同，所以导致 Vue 和 React 许多外在表现不同（从开发层面看）。</p>
+<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6953482028188860424#comment">掘金</a></p>
+<h4 id="总体感受–一些区别"><a href="#总体感受–一些区别" class="headerlink" title="总体感受–一些区别"></a>总体感受–一些区别</h4><ul>
+<li>vue 更简单，更方便，熟悉了 api 以后，实现某些简单功能更快。react 写法更偏向于原生 JS，Class 的写法不是很舒服，个人更喜欢 hooks。</li>
+<li>熟悉了 hooks 以后，写起来很自由，不用关心 vue 中固定的 options api</li>
+<li>react 做中后台优势更大，有大厂加持，生态更好，组件库功能也更多，解决方案也更多</li>
+<li>vue2.x 对 typescript 不太友好，react + typescript 更加舒适，两者写起来风格差距较大。</li>
+<li>react JSX 写起来还是不够熟练，onClick、style、className 等等，没有 v-if，v-for，All in JS。Vue 则推崇 html、js、css 分离的写法，当然 vue 也可以写 JSX</li>
+<li>vue 的 prop 必须在子组件 props 字段里声明。React 的 prop 不强制声明，直接使用，如果用 TS 的话还是要声明的</li>
+</ul>
 <h3 id="React-是什么？"><a href="#React-是什么？" class="headerlink" title="React 是什么？"></a>React 是什么？</h3><p>React 是一个声明式，高效且灵活的用于构建用户界面的 JavaScript 库。使用 React 可以将一些简短、独立的代码片段组合成复杂的 UI 界面，这些代码片段被称作“组件”。</p>
 <h3 id="jsx"><a href="#jsx" class="headerlink" title="jsx"></a>jsx</h3><p>这个有趣的标签语法既不是字符串也不是 HTML。<br>它被称为 JSX，是一个 JavaScript 的语法扩展</p>
 <h4 id="为什么使用-JSX？"><a href="#为什么使用-JSX？" class="headerlink" title="为什么使用 JSX？"></a>为什么使用 JSX？</h4><p>React 认为渲染逻辑本质上与其他 UI 逻辑内在耦合，比如，在 UI 中需要绑定处理事件、在某些时刻状态发生变化时需要通知到 UI，以及需要在 UI 中展示准备好的数据。</p>

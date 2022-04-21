@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      9.8k 字
+      9.9k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      112
+      113
        分钟
     </span>
   
@@ -231,16 +231,6 @@
               <p>总结了最近的一些面试题和之前的知识点</p>
 <hr>
 <h2 id="面试常问"><a href="#面试常问" class="headerlink" title="面试常问"></a>面试常问</h2><h3 id="flex中的缩写代表什么"><a href="#flex中的缩写代表什么" class="headerlink" title="flex中的缩写代表什么"></a>flex中的缩写代表什么</h3><p>flex是<strong>flex-grow,flex-shrink和flex-basis</strong>的缩写，flex属性值可以只指定一个属性的值，而另外的属性值采用各自在flex属性中的的初始值，但是有一点要注意的是：flex属性中flex-grow和flex-basis的初始值和它们原始的默认值不同，至于为什么不同，mdn中有明确的说过这样的设计是为了让「flex」缩写在最常见的情景下比较好用。<br><strong>flex:1—-(flex-grow:0;flex-shrink:1;flex-basis:auto)</strong></p>
-<h3 id="Flex-–请解释一下-CSS3-的-Flex-box（弹性盒布局模型），以及适用场景？"><a href="#Flex-–请解释一下-CSS3-的-Flex-box（弹性盒布局模型），以及适用场景？" class="headerlink" title="Flex –请解释一下 CSS3 的 Flex box（弹性盒布局模型），以及适用场景？"></a>Flex –请解释一下 CSS3 的 Flex box（弹性盒布局模型），以及适用场景？</h3><ol>
-<li>flex布局是CSS3新增的一种布局方式，我们可以通过将一个元素的display属性值设置为flex从而使它成为一个flex容器，它的所有子元素都会成为它的项目。</li>
-<li>一个容器默认有两条轴，一个是水平的主轴，一个是与主轴垂直的交叉轴。</li>
-<li>我们可以使用<strong>flex-direction</strong>来指定主轴的方向。（默认是x轴为主轴）</li>
-<li>我们可以使用<strong>justify-content</strong>来指定元素在主轴上的排列方式，使用<strong>align-items</strong>来指定元素在交叉轴上的排列方式。</li>
-<li>还可以使用<strong>flex-wrap</strong>来规定当一行排列不下时的换行方式。</li>
-<li>对于容器中的项目，我们可以使用order属性来指定项目的排列顺序，还可以使用flex-grow来指定当排列空间有剩余的时候，项目的放大比例。</li>
-<li>还可以使用flex-shrink /flex-grow来指定当排列空间不足时，项目的缩小比例。</li>
-</ol>
-<p><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2021/04/14/CSS3flex%E5%B8%83%E5%B1%80/">博客：Flex布局</a></p>
 <h3 id="水平垂直居中"><a href="#水平垂直居中" class="headerlink" title="水平垂直居中"></a>水平垂直居中</h3><p>一般常见的几种居中的方法有：</p>
 <h4 id="对于宽高固定的元素"><a href="#对于宽高固定的元素" class="headerlink" title="对于宽高固定的元素"></a>对于宽高固定的元素</h4><p>（1）我们可以利用<strong>margin:0 auto</strong>来实现元素的水平居中。</p>
 <p>（2）利用<strong>绝对定位，设置四个方向的值都为0，并将margin设置为auto</strong>，由于宽高固定，因此对应方向实现平分，可以实现水<br>平和垂直方向上的居中。</p>
@@ -286,7 +276,7 @@
 <p>列举一些相关的CSS样式：width、height、line-height、padding、margin、diaplay、border、top、position、float、font-size、overflow等</p>
 <h4 id="什么时候会进行重绘？"><a href="#什么时候会进行重绘？" class="headerlink" title="什么时候会进行重绘？"></a>什么时候会进行重绘？</h4><p>列举一些相关的CSS样式：color、background、background-size、visibility、box-shadow</p>
 <h4 id="如何进行性能优化？"><a href="#如何进行性能优化？" class="headerlink" title="如何进行性能优化？"></a>如何进行性能优化？</h4><ol>
-<li>用transform 代替 top，left ，margin-top， margin-left… 这些位移属性</li>
+<li>用<strong>transform 代替 top，left ，margin-top， margin-left… 这些位移属性</strong></li>
 <li>不要使用 js 代码对dom 元素设置多条样式，选择用一个 className 代替之</li>
 <li>不要在循环内获取dom 的样式例如：offsetWidth, offsetHeight, clientWidth, clientHeight等。浏览器有一个回流的缓冲机制，获取这些属性时会产生回流</li>
 <li>避免设置多层内联样式，写个外部类这样只回流一次</li>
@@ -294,12 +284,20 @@
 <li>一起变化（同时修改所有需要变化的属性）</li>
 </ol>
 <h4 id="如何避免"><a href="#如何避免" class="headerlink" title="如何避免"></a>如何避免</h4><p>CSS</p>
-<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs angelscript"><br>避免使用table布局。<br>尽可能在DOM树的最末端改变<span class="hljs-keyword">class</span>。<br>避免设置多层内联样式。<br>将动画效果应用到<span class="hljs-symbol">position</span>属性为<span class="hljs-symbol">absolute</span>或<span class="hljs-symbol">fixed</span>的元素上。<br>避免使用<span class="hljs-symbol">CSS</span>表达式（例如：<span class="hljs-symbol">calc</span>()）。<br></code></pre></td></tr></table></figure>
-
+<p>避免使用table布局。<br>尽可能在DOM树的最末端改变class。<br>避免设置多层内联样式。<br>将动画效果应用到position属性为absolute或fixed的元素上。<br>避免使用CSS表达式（例如：calc()）。</p>
 <p>JavaScript</p>
-<figure class="highlight angelscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs angelscript">避免频繁操作样式，最好一次性重写style属性，或者将样式列表定义为<span class="hljs-keyword">class</span>并一次性更改<span class="hljs-symbol">class</span>属性。<br>避免频繁操作<span class="hljs-symbol">DOM</span>，创建一个<span class="hljs-symbol">documentFragment</span>，在它上面应用所有<span class="hljs-symbol">DOM</span>操作，最后再把它添加到文档中。<br>也可以先为元素设置<span class="hljs-symbol">display: <span class="hljs-symbol">none</span></span>，操作结束后再把它显示出来。因为在<span class="hljs-symbol">display</span>属性为<span class="hljs-symbol">none</span>的元素上进行的<span class="hljs-symbol">DOM</span>操作不会引发回流和重绘。<br>避免频繁读取会引发回流/重绘的属性，如果确实需要多次使用，就用一个变量缓存起来。<br>对具有复杂动画的元素使用绝对定位，使它脱离文档流，否则会引起父元素及后续元素频繁回流。<br></code></pre></td></tr></table></figure>
-
+<p><strong>避免频繁操作样式，最好一次性重写style属性，或者将样式列表定义为class并一次性更改class属性</strong>。<br>避免频繁操作DOM，创建一个documentFragment，在它上面应用所有DOM操作，最后再把它添加到文档中。<br>也可以先为元素设置display: none，操作结束后再把它显示出来。因为在display属性为none的元素上进行的DOM操作不会引发回流和重绘。<br><strong>避免频繁读取会引发回流/重绘的属性，如果确实需要多次使用，就用一个变量缓存起来。</strong><br>对具有复杂动画的元素使用绝对定位，使它脱离文档流，否则会引起父元素及后续元素频繁回流。</p>
 <p><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2021/07/24/%E9%87%8D%E7%BB%98%E5%9B%9E%E6%B5%81/">博客：浏览器的回流与重绘</a></p>
+<h3 id="Flex-–请解释一下-CSS3-的-Flex-box（弹性盒布局模型），以及适用场景？"><a href="#Flex-–请解释一下-CSS3-的-Flex-box（弹性盒布局模型），以及适用场景？" class="headerlink" title="Flex –请解释一下 CSS3 的 Flex box（弹性盒布局模型），以及适用场景？"></a>Flex –请解释一下 CSS3 的 Flex box（弹性盒布局模型），以及适用场景？</h3><ol>
+<li>flex布局是CSS3新增的一种布局方式，我们<strong>可以通过将一个元素的display属性值设置为flex从而使它成为一个flex容器，它的所有子元素都会成为它的项目</strong>。</li>
+<li>一个容器默认有两条轴，一个是水平的主轴，一个是与主轴垂直的交叉轴。</li>
+<li>我们可以使用<strong>flex-direction</strong>来指定主轴的方向。（默认是x轴为主轴）（row 行  column列）</li>
+<li>我们可以使用<strong>justify-content</strong>来指定元素在主轴上的排列方式，使用<strong>align-items</strong>来指定元素在交叉轴上的排列方式。</li>
+<li>还可以使用<strong>flex-wrap</strong>来规定当一行排列不下时的换行方式。</li>
+<li>对于容器中的项目，我们可以使用order属性来指定项目的排列顺序，还可以使用flex-grow来指定当排列空间有剩余的时候，项目的放大比例。</li>
+<li>还可以使用flex-shrink /flex-grow来指定当排列空间不足时，项目的缩小比例。</li>
+</ol>
+<p><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2021/04/14/CSS3flex%E5%B8%83%E5%B1%80/">博客：Flex布局</a></p>
 <h3 id="css选择器优先级"><a href="#css选择器优先级" class="headerlink" title="css选择器优先级"></a>css选择器优先级</h3><p>!important &gt; inline &gt; id &gt; class &gt; tag &gt; *&gt; inherit &gt; default</p>
 <blockquote>
 <p>总结排序：!important &gt; 行内样式&gt;ID选择器 &gt; 类选择器 &gt; 标签 &gt; 通配符 &gt; 继承 &gt; 浏览器默认属性  同一级别</p>
@@ -309,6 +307,8 @@
 <p>同级别的后写的优先级高。</p>
 </blockquote>
 <p>相同class样式，css中后写的优先级高，和html中的class名字前后无关</p>
+<h3 id="CSS-中哪些属性是可以继承的"><a href="#CSS-中哪些属性是可以继承的" class="headerlink" title="CSS 中哪些属性是可以继承的"></a>CSS 中哪些属性是可以继承的</h3><p>前面通过一段代码来简单看了一下关于继承的一个概念。哪些 CSS 这些属性都可以被继承呢？这里总结出了一下常见被继承的 CSS 属性。</p>
+<p><strong>字体属性：font、font-family、font-size、font-style、font-variant、font-weight</strong><br>字母间距属性：letter-spancing<br>可见性属性：visibility<br><strong>文字展示属性：line-height、text-align、text-indent、text-transform</strong><br>字间距属性：word-spacing</p>
 <h4 id="基本选择器"><a href="#基本选择器" class="headerlink" title="基本选择器"></a>基本选择器</h4><p>id选择器&gt;class选择器&gt;标签选择器</p>
 <h4 id="层次选择器"><a href="#层次选择器" class="headerlink" title="层次选择器"></a>层次选择器</h4><ol>
 <li>后代选择器：在某个元素的后面(都会作用)</li>
