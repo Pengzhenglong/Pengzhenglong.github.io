@@ -241,7 +241,14 @@
 <figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs livecodeserver">place-<span class="hljs-keyword">items</span>:center<br></code></pre></td></tr></table></figure>
 
 <p>CSS 中的 place-items 是一个简写属性 ，它允许你在相关的布局（如 Grid 或 Flexbox）中可以同时沿着块级和内联方向对齐元素 (例如：align-items 和 justify-items 属性) 。如果未提供第二个值，则第一个值作为第二个值的默认值。<br>(7)文本水平居中：text-algin: center</p>
-<h3 id="CSS3-高斯模糊-filter-blur"><a href="#CSS3-高斯模糊-filter-blur" class="headerlink" title="CSS3    高斯模糊  filter  blur"></a>CSS3    高斯模糊  filter  blur</h3><h3 id="link标签和import标签的区别"><a href="#link标签和import标签的区别" class="headerlink" title="link标签和import标签的区别"></a>link标签和import标签的区别</h3><ol>
+<h3 id="CSS3-高斯模糊-filter-blur"><a href="#CSS3-高斯模糊-filter-blur" class="headerlink" title="CSS3    高斯模糊  filter  blur"></a>CSS3    高斯模糊  filter  blur</h3><h3 id="canvas和svg-使用场景及二者的区别"><a href="#canvas和svg-使用场景及二者的区别" class="headerlink" title="canvas和svg | 使用场景及二者的区别"></a>canvas和svg | 使用场景及二者的区别</h3><p>canvas是H5中新增的标签，官方解释说canvas是<strong>一块画布</strong>，可以在网页中绘制图像<br>svg即<strong>可缩放矢量图形，什么是矢量图形呢，也就是放大或者缩小不会失真的图形</strong>。 svg绘图时，每个图形都是以DOM节点的形式插入到页面中的，我们可以通过js来直接操作这些图形</p>
+<h4 id="canvas和svg的区别"><a href="#canvas和svg的区别" class="headerlink" title="canvas和svg的区别"></a>canvas和svg的区别</h4><p>canvas绘画出来的图形一般成为<strong>位图，也就是放大缩小的情况下会出现失真的情况</strong>，svg绘制的图形是<strong>矢量图，不存在失真的情况</strong></p>
+<p>canvas绘制的图形<strong>不会出现在DOM结构中，svg绘制的会存在于DOM结构</strong></p>
+<p>canvas<strong>类似于动画，每次图形的改变都是先清除原来的图形，然后把新的图形画上去</strong>，svg则是可以直接通过js来进行某些操作</p>
+<p>canvas依赖于分辨率，svg不依赖分辨率</p>
+<p>canvas最适合图像密集型的游戏，其中的许多对象会被频繁重绘，svg不适合游戏应用</p>
+<h4 id="图片格式-各自优缺点和使用场景"><a href="#图片格式-各自优缺点和使用场景" class="headerlink" title="图片格式,各自优缺点和使用场景"></a>图片格式,各自优缺点和使用场景</h4><p><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2022/03/04/%E5%9B%BE%E7%89%87%E6%A0%BC%E5%BC%8F--%E5%90%84%E8%87%AA%E4%BC%98%E7%BC%BA%E7%82%B9%E5%92%8C%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF/">图片格式&amp;&amp;各自优缺点和使用场景 _</a></p>
+<h3 id="link标签和import标签的区别"><a href="#link标签和import标签的区别" class="headerlink" title="link标签和import标签的区别"></a>link标签和import标签的区别</h3><ol>
 <li>link是属于html标签，而@import是css提供的</li>
 <li>页面被加载时，link会同时被加载，而@import引用的css会等到页面加载结束后加载</li>
 <li>link是html标签，因此没有兼容性，而@import只有IE5以上才能识别</li>
@@ -362,13 +369,6 @@
 <h5 id="切换-display-inline-block、inline和block"><a href="#切换-display-inline-block、inline和block" class="headerlink" title="切换  display:inline-block、inline和block"></a>切换  display:inline-block、inline和block</h5><h2 id="不常问（已掌握）"><a href="#不常问（已掌握）" class="headerlink" title="不常问（已掌握）"></a>不常问（已掌握）</h2><h3 id="介绍一下标准的CSS的盒子模型？与低版本IE的盒子模型有什么不同的？"><a href="#介绍一下标准的CSS的盒子模型？与低版本IE的盒子模型有什么不同的？" class="headerlink" title="介绍一下标准的CSS的盒子模型？与低版本IE的盒子模型有什么不同的？"></a>介绍一下标准的CSS的盒子模型？与低版本IE的盒子模型有什么不同的？</h3><p>（1）有两种盒子模型：IE盒模型（border-box）、W3C标准盒模型（content-box）<br>(2) 盒模型：由四个属性组成的外边距(margin)、内边距(padding)、边界(border)、内容区(width和height);</p>
 <h4 id="IE盒模型和W3C标准盒模型的区别"><a href="#IE盒模型和W3C标准盒模型的区别" class="headerlink" title="IE盒模型和W3C标准盒模型的区别"></a>IE盒模型和W3C标准盒模型的区别</h4><p>（1）W3C标准盒模型：属性width，height只包含内容content，不包含border和padding<br>（2）IE盒模型：属性width，height包含content、border和padding，指的是content+padding+border。</p>
 <h4 id="CSS-如何设置这两种模型？"><a href="#CSS-如何设置这两种模型？" class="headerlink" title="CSS 如何设置这两种模型？"></a>CSS 如何设置这两种模型？</h4><p>box-sizing : content-box  //标准(W3C)盒子模型<br>box-sizing : border-box   //IE盒子模型</p>
-<h3 id="canvas和svg-使用场景及二者的区别"><a href="#canvas和svg-使用场景及二者的区别" class="headerlink" title="canvas和svg | 使用场景及二者的区别"></a>canvas和svg | 使用场景及二者的区别</h3><p>canvas是H5中新增的标签，官方解释说canvas是<strong>一块画布</strong>，可以在网页中绘制图像<br>svg即<strong>可缩放矢量图形，什么是矢量图形呢，也就是放大或者缩小不会失真的图形</strong>。 svg绘图时，每个图形都是以DOM节点的形式插入到页面中的，我们可以通过js来直接操作这些图形</p>
-<h4 id="canvas和svg的区别"><a href="#canvas和svg的区别" class="headerlink" title="canvas和svg的区别"></a>canvas和svg的区别</h4><p>canvas绘画出来的图形一般成为位图，也就是放大缩小的情况下会出现失真的情况，svg绘制的图形是矢量图，不存在失真的情况</p>
-<p>canvas绘制的图形不会出现在DOM结构中，svg绘制的会存在于DOM结构</p>
-<p>canvas<strong>类似于动画，每次图形的改变都是先清除原来的图形，然后把新的图形画上去</strong>，svg则是可以直接通过js来进行某些操作</p>
-<p>canvas依赖于分辨率，svg不依赖分辨率</p>
-<p>canvas最适合图像密集型的游戏，其中的许多对象会被频繁重绘，svg不适合游戏应用</p>
-<h4 id="图片格式-各自优缺点和使用场景"><a href="#图片格式-各自优缺点和使用场景" class="headerlink" title="图片格式,各自优缺点和使用场景"></a>图片格式,各自优缺点和使用场景</h4><p><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2022/03/04/%E5%9B%BE%E7%89%87%E6%A0%BC%E5%BC%8F--%E5%90%84%E8%87%AA%E4%BC%98%E7%BC%BA%E7%82%B9%E5%92%8C%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF/">图片格式&amp;&amp;各自优缺点和使用场景 _</a></p>
 <h3 id="为什么要清除浮动？怎么清除浮动？"><a href="#为什么要清除浮动？怎么清除浮动？" class="headerlink" title="为什么要清除浮动？怎么清除浮动？"></a>为什么要清除浮动？怎么清除浮动？</h3><h4 id="产生原因：子盒子浮动导致的父盒子内高度为-0-，父级盒子不能被撑开，发生高度塌陷的情况"><a href="#产生原因：子盒子浮动导致的父盒子内高度为-0-，父级盒子不能被撑开，发生高度塌陷的情况" class="headerlink" title="产生原因：子盒子浮动导致的父盒子内高度为 0 ，父级盒子不能被撑开，发生高度塌陷的情况"></a>产生原因：子盒子浮动导致的父盒子内高度为 0 ，父级盒子不能被撑开，发生高度塌陷的情况</h4><h4 id="带来的负作用"><a href="#带来的负作用" class="headerlink" title="带来的负作用"></a>带来的负作用</h4><ol>
 <li>背景不能显示</li>
 <li>边框不能撑开</li>
