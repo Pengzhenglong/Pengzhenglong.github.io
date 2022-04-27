@@ -18,7 +18,7 @@
   <meta name="author" content="DragonPeng">
   <meta name="keywords" content="">
   
-  <title>React初识 - DragonPeng的博客</title>
+  <title>深入浅出Vite学习笔记(1) - DragonPeng的博客</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -163,7 +163,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="React初识">
+            <span class="h2" id="subtitle" title="深入浅出Vite学习笔记(1)">
               
             </span>
 
@@ -173,8 +173,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2022-04-16 11:15" pubdate>
-        April 16, 2022 am
+      <time datetime="2022-04-27 11:15" pubdate>
+        April 27, 2022 am
       </time>
     </span>
   
@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.1k 字
+      1.4k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      13
+      14
        分钟
     </span>
   
@@ -225,50 +225,48 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">React初识</h1>
+            <h1 style="display: none">深入浅出Vite学习笔记(1)</h1>
             
             <div class="markdown-body">
-              <p>学习react的笔记</p>
-<hr>
-<h3 id="react-项目-npm-i-安装依赖报错"><a href="#react-项目-npm-i-安装依赖报错" class="headerlink" title="react 项目 npm i 安装依赖报错"></a>react 项目 npm i 安装依赖报错</h3><figure class="highlight d"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs d">创建react工程，提示错误The engine <span class="hljs-string">&quot;node&quot;</span> <span class="hljs-keyword">is</span> incompatible <span class="hljs-keyword">with</span> <span class="hljs-keyword">this</span> <span class="hljs-keyword">module</span>. Expected <span class="hljs-keyword">version</span> <span class="hljs-string">&quot;^8.10.0 || ^10.13.0 || &gt;=11.10.1&quot;</span>. Got <span class="hljs-string">&quot;10.5.0&quot;</span>，导致一直没有创建成功<br></code></pre></td></tr></table></figure>
-
-<h4 id="node版本不一致"><a href="#node版本不一致" class="headerlink" title="node版本不一致"></a>node版本不一致</h4><ol>
-<li>升级node</li>
+              <hr>
+<h3 id="深入浅出-Vite"><a href="#深入浅出-Vite" class="headerlink" title="深入浅出 Vite"></a>深入浅出 Vite</h3><p>当下，在项目开发的过程中，前端工程师们越来越离不开构建工具了，可以说<strong>构建工具已经成为了前端工程项目的标配。</strong></p>
+<p>不过，如今的前端构建工具可谓乱花渐欲迷人眼，有远古时代的<strong>browserify、grunt，有传统的Webpack、Rollup、Parcel</strong>，也有现代的<strong>Esbuild、Vite</strong> 等等，不仅种类繁多，更新也很快。</p>
+<p>到底哪个构建工具更好用、值得学。事实上，<strong>无论工具层面如何更新，它们解决的核心问题，即前端工程的痛点是不变的</strong>。因此，想要知道哪个工具更好用，就要看它解决前端工程痛点的效果。</p>
+<p>那么，前端工程都有哪些痛点呢？</p>
+<p>首先是前端的<strong>模块化需求</strong>。我们知道，业界的模块标准非常多，包括 ESM、CommonJS、AMD 和 CMD 等等。前端工程一方面需要落实这些模块规范，保证模块正常加载。另一方面需要兼容不同的模块规范，以适应不同的执行环境。</p>
+<p>其次是<strong>兼容浏览器，编译高级语法</strong>。由于浏览器的实现规范所限，只要高级语言/语法（TypeScript、 JSX 等）想要在浏览器中正常运行，就必须被转化为浏览器可以理解的形式。这都需要工具链层面的支持，而且这个需求会一直存在。</p>
+<p>再者是<strong>线上代码的质量</strong>问题。和开发阶段的考虑侧重点不同，生产环境中，我们不仅要考虑代码的<strong>安全性、兼容性</strong>问题，保证线上代码的正常运行，也需要考虑代码运行时的性能问题。由于浏览器的版本众多，代码兼容性和安全策略各不相同，线上代码的质量问题也将是前端工程中长期存在的一个痛点。</p>
+<p>同时，<strong>开发效率</strong>也不容忽视。 我们知道，<strong>项目的冷启动/二次启动时间、热更新时间</strong>都可能严重影响开发效率，尤其是当项目越来越庞大的时候。因此，提高项目的启动速度和热更新速度也是前端工程的重要需求。</p>
+<h4 id="那么，前端构建工具是如何解决以上问题的呢？"><a href="#那么，前端构建工具是如何解决以上问题的呢？" class="headerlink" title="那么，前端构建工具是如何解决以上问题的呢？"></a>那么，前端构建工具是如何解决以上问题的呢？</h4><ol>
+<li><p>模块化方面，提供模块加载方案，并兼容不同的模块规范。</p>
+</li>
+<li><p>语法转译方面，配合<strong>Sass、TSC、Babel</strong> 等前端工具链，完成高级语法的转译功能，同时对于静态资源也能进行处理，使之能作为一个模块正常加载。</p>
+</li>
+<li><p>产物质量方面，在生产环境中，配合 <strong>Terser</strong>等压缩工具进行代码压缩和混淆，通过 <strong>Tree Shaking</strong> 删除未使用的代码，提供对于低版本浏览器的语法降级处理等等。</p>
+</li>
+<li><p>开发效率方面，构建工具本身通过各种方式来进行性能优化，包括<strong>使用原生语言 Go/Rust、no-bundle</strong>等等思路，提高项目的启动性能和热更新的速度。</p>
+</li>
 </ol>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">//</span> 第一步：使用npm安装n模块,n模块是专门用来管理nodejs版本的，名字就叫n执行命令<br>npm install -g n    <span class="hljs-regexp">//</span> （注意不带sudo，我按照网上带sudo提示错误）<br><span class="hljs-regexp">//</span> 出现此日志表示添加n包成功<br><span class="hljs-regexp">//</span> 第二步：使用n模块升级node<br><span class="hljs-regexp">//</span> 第一种是升级到最新版本<br>sudo n latest<br><span class="hljs-regexp">//</span> 第二种是升级到稳定版本（建议用稳定版本）<br>sudo n stable<br></code></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>如果更新了node或许或导致其他工程有问题，不能轻易更新，可以输入命令行,也可以恢复正常</li>
+<h3 id="为什么-Vite-是当前最高效的构建工具？"><a href="#为什么-Vite-是当前最高效的构建工具？" class="headerlink" title="为什么 Vite 是当前最高效的构建工具？"></a>为什么 Vite 是当前最高效的构建工具？</h3><ol>
+<li>首先是开发效率。传统构建工具普遍的缺点就是太慢了，与之相比，Vite 能将项目的启动性能提升一个量级，并且达到<strong>毫秒级的瞬间热更新效果</strong>。</li>
 </ol>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">yarn<span class="hljs-built_in"> config </span><span class="hljs-builtin-name">set</span> ignore-engines <span class="hljs-literal">true</span><br></code></pre></td></tr></table></figure>
-
-<h4 id="采用了第二种安装，别人的项目拉取node版本不同也能解决"><a href="#采用了第二种安装，别人的项目拉取node版本不同也能解决" class="headerlink" title="采用了第二种安装，别人的项目拉取node版本不同也能解决"></a>采用了第二种安装，别人的项目拉取node版本不同也能解决</h4><p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/a186f65c2586">参考</a></p>
-<h3 id="核心思想"><a href="#核心思想" class="headerlink" title="核心思想"></a>核心思想</h3><p>Vue 早期定位是尽可能的降低前端开发的门槛（这跟 Vue 作者是独立开发者也有关系）。所以 Vue 推崇灵活易用（渐进式开发体验），数据可变，双向数据绑定（依赖收集）。<br>React 早期口号是 Rethinking Best Practices(重新思考最佳实践)。背靠大公司 Facebook 的 React，从开始起就不缺关注和用户，而且 React 想要做的是用更好的方式去颠覆前端开发方式（事实上跟早期 jquery 称霸前端，的确是颠覆了）。所以 React 推崇函数式编程（纯组件），数据不可变以及单向数据流。函数式编程最大的好处是其稳定性（无副作用）和可测试性（输入相同，输出一定相同），所以通常大家说的 React 适合大型应用，根本原因还是在于其函数式编程。<br>由于两者核心思想的不同，所以导致 Vue 和 React 许多外在表现不同（从开发层面看）。</p>
-<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6953482028188860424#comment">掘金</a></p>
-<h4 id="总体感受–一些区别"><a href="#总体感受–一些区别" class="headerlink" title="总体感受–一些区别"></a>总体感受–一些区别</h4><ul>
-<li>vue 更简单，更方便，熟悉了 api 以后，实现某些简单功能更快。react 写法更偏向于原生 JS，Class 的写法不是很舒服，个人更喜欢 hooks。</li>
-<li>熟悉了 hooks 以后，写起来很自由，不用关心 vue 中固定的 options api</li>
-<li>react 做中后台优势更大，有大厂加持，生态更好，组件库功能也更多，解决方案也更多</li>
-<li>vue2.x 对 typescript 不太友好，react + typescript 更加舒适，两者写起来风格差距较大。</li>
-<li>react JSX 写起来还是不够熟练，onClick、style、className 等等，没有 v-if，v-for，All in JS。Vue 则推崇 html、js、css 分离的写法，当然 vue 也可以写 JSX</li>
-<li>vue 的 prop 必须在子组件 props 字段里声明。React 的 prop 不强制声明，直接使用，如果用 TS 的话还是要声明的</li>
+<p>就拿 Webpack 来说，我在工作中发现，一般的项目使用 Webpack 之后，启动花个几分钟都是很常见的事情，热更新也经常需要等待十秒以上。这主要是因为：</p>
+<ul>
+<li>项目冷启动时必须递归打包整个项目的依赖树</li>
+<li>JavaScript 语言本身的性能限制，导致构建性能遇到瓶颈，直接影响开发效率<br>这样一来，代码改动后不能立马看到效果，自然开发体验也越来越差。而其中，最占用时间的就是代码打包和文件编译。</li>
 </ul>
-<h3 id="React-是什么？"><a href="#React-是什么？" class="headerlink" title="React 是什么？"></a>React 是什么？</h3><p>React 是一个声明式，高效且灵活的用于构建用户界面的 JavaScript 库。使用 React 可以将一些简短、独立的代码片段组合成复杂的 UI 界面，这些代码片段被称作“组件”。</p>
-<h3 id="jsx"><a href="#jsx" class="headerlink" title="jsx"></a>jsx</h3><p>这个有趣的标签语法既不是字符串也不是 HTML。<br>它被称为 JSX，是一个 JavaScript 的语法扩展</p>
-<h4 id="为什么使用-JSX？"><a href="#为什么使用-JSX？" class="headerlink" title="为什么使用 JSX？"></a>为什么使用 JSX？</h4><p>React 认为渲染逻辑本质上与其他 UI 逻辑内在耦合，比如，在 UI 中需要绑定处理事件、在某些时刻状态发生变化时需要通知到 UI，以及需要在 UI 中展示准备好的数据。</p>
-<p>React 并没有采用将标记与逻辑进行分离到不同文件这种人为地分离方式，而是通过将二者共同存放在称之为“组件”的松散耦合单元之中，来实现关注点分离。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">formatName</span>(<span class="hljs-params">user</span>) </span>&#123;<br>  <span class="hljs-keyword">return</span> user.firstName + <span class="hljs-string">&#x27; &#x27;</span> + user.lastName;<br>&#125;<br><br><span class="hljs-keyword">const</span> user = &#123;<br>  firstName: <span class="hljs-string">&#x27;Harper&#x27;</span>,<br>  lastName: <span class="hljs-string">&#x27;Perez&#x27;</span><br>&#125;;<br><br><span class="hljs-keyword">const</span> element = (<br>  &lt;h1&gt;<br>    Hello, &#123;formatName(user)&#125;!<br>  &lt;/h1&gt;<br>);<br><br>ReactDOM.render(<br>  element,<br>  <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;root&#x27;</span>)<br>);<br></code></pre></td></tr></table></figure>
-
-<p><a target="_blank" rel="noopener" href="https://react.docschina.org/docs/introducing-jsx.html">官网</a></p>
-<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><ol>
-<li>文件名可以是jsx 或者js，不影响文件中的代码</li>
-<li>组件名称必须大写</li>
-<li>Js中出现 （）代表其中想要写的html</li>
-<li>HTML中出现 {} 代表其中想要写的js</li>
+<p>而 Vite 很好地解决了这些问题。<strong>一方面，Vite 在开发阶段基于浏览器原生 ESM 的支持实现了no-bundle服务，另一方面借助 Esbuild 超快的编译速度来做第三方库构建和 TS/JSX 语法编译，从而能够有效提高开发效率。</strong></p>
+<p>除了开发效率，在其他三个维度上， Vite 也表现不俗。</p>
+<ol start="2">
+<li><p>模块化方面，Vite <strong>基于浏览器原生 ESM 的支持实现模块加载</strong>，并且无论是开发环境还是生产环境，都可以<strong>将其他格式的产物(如 CommonJS)转换为 ESM</strong>。</p>
+</li>
+<li><p>语法转译方面，Vite 内置了对 TypeScript、JSX、Sass 等高级语法的支持，也能够加载各种各样的静态资源，如图片、Worker 等等。</p>
+</li>
+<li><p>产物质量方面，Vite 基于成熟的打包工具 Rollup 实现生产环境打包，同时可以配合Terser、Babel等工具链，可以极大程度保证构建产物的质量。</p>
+</li>
 </ol>
-<h3 id="函数式组件"><a href="#函数式组件" class="headerlink" title="函数式组件"></a>函数式组件</h3><p>1.函数式组件没有声明周期<br>2.函数式组件没有this<br>3.函数式组件没有state状态</p>
-<h3 id="项目初始–vite配置项目路径别名"><a href="#项目初始–vite配置项目路径别名" class="headerlink" title="项目初始–vite配置项目路径别名"></a>项目初始–vite配置项目路径别名</h3><p><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000041417219">参考</a></p>
-
+<p>因此，如果你想要学习一个前端构建工具，Vite 将会是你当下一个最好的选择。它不仅解决了传统构建工具的开发效率问题，而且具备一个优秀构建工具的各项要素，还经历了社区大规模的验证与落地。</p>
+<h3 id="模块标准：为什么ESM是前端模块化的未来？"><a href="#模块标准：为什么ESM是前端模块化的未来？" class="headerlink" title="模块标准：为什么ESM是前端模块化的未来？"></a>模块标准：为什么ESM是前端模块化的未来？</h3>
             </div>
             <hr>
             <div>
@@ -277,7 +275,7 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/React/">React</a>
+                      <a class="hover-with-bg" href="/categories/Vite/">Vite</a>
                     
                   </div>
                 
@@ -285,9 +283,9 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/">前端基础</a>
+                      <a class="hover-with-bg" href="/tags/%E5%89%8D%E7%AB%AF%E8%BF%9B%E9%98%B6/">前端进阶</a>
                     
-                      <a class="hover-with-bg" href="/tags/React/">React</a>
+                      <a class="hover-with-bg" href="/tags/Vite/">Vite</a>
                     
                   </div>
                 
@@ -304,18 +302,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/04/27/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAVite%E7%AC%94%E8%AE%B0(1)/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">深入浅出Vite学习笔记(1)</span>
-                        <span class="visible-mobile">Previous</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/03/29/%E5%87%BD%E6%95%B0%E6%9F%AF%E9%87%8C%E5%8C%96/">
-                        <span class="hidden-mobile">函数柯里化</span>
+                      <a href="/2022/04/16/React%E5%88%9D%E8%AF%86/">
+                        <span class="hidden-mobile">React初识</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
