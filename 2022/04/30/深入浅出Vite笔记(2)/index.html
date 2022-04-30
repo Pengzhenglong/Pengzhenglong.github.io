@@ -18,7 +18,7 @@
   <meta name="author" content="DragonPeng">
   <meta name="keywords" content="">
   
-  <title>React初识 - DragonPeng的博客</title>
+  <title>深入浅出Vite&amp;&amp;搭建vite项目&amp;&amp;(2) - DragonPeng的博客</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -163,7 +163,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="React初识">
+            <span class="h2" id="subtitle" title="深入浅出Vite&&搭建vite项目&&(2)">
               
             </span>
 
@@ -173,8 +173,8 @@
   
     <span class="post-meta">
       <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2022-04-16 11:15" pubdate>
-        April 16, 2022 am
+      <time datetime="2022-04-30 11:15" pubdate>
+        April 30, 2022 am
       </time>
     </span>
   
@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.1k 字
+      1k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      13
+      12
        分钟
     </span>
   
@@ -225,49 +225,43 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">React初识</h1>
+            <h1 style="display: none">深入浅出Vite&amp;&amp;搭建vite项目&amp;&amp;(2)</h1>
             
             <div class="markdown-body">
-              <p>学习react的笔记</p>
-<hr>
-<h3 id="react-项目-npm-i-安装依赖报错"><a href="#react-项目-npm-i-安装依赖报错" class="headerlink" title="react 项目 npm i 安装依赖报错"></a>react 项目 npm i 安装依赖报错</h3><figure class="highlight d"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs d">创建react工程，提示错误The engine <span class="hljs-string">&quot;node&quot;</span> <span class="hljs-keyword">is</span> incompatible <span class="hljs-keyword">with</span> <span class="hljs-keyword">this</span> <span class="hljs-keyword">module</span>. Expected <span class="hljs-keyword">version</span> <span class="hljs-string">&quot;^8.10.0 || ^10.13.0 || &gt;=11.10.1&quot;</span>. Got <span class="hljs-string">&quot;10.5.0&quot;</span>，导致一直没有创建成功<br></code></pre></td></tr></table></figure>
-
-<h4 id="node版本不一致"><a href="#node版本不一致" class="headerlink" title="node版本不一致"></a>node版本不一致</h4><ol>
-<li>升级node</li>
+              <hr>
+<h3 id="项目环境搭建"><a href="#项目环境搭建" class="headerlink" title="项目环境搭建"></a>项目环境搭建</h3><ol>
+<li>node -v<br>推荐 12.0.0 及以上版本，如果低于这个版本，推荐使用 nvm 工具切换 Nodejs 版本。</li>
 </ol>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">//</span> 第一步：使用npm安装n模块,n模块是专门用来管理nodejs版本的，名字就叫n执行命令<br>npm install -g n    <span class="hljs-regexp">//</span> （注意不带sudo，我按照网上带sudo提示错误）<br><span class="hljs-regexp">//</span> 出现此日志表示添加n包成功<br><span class="hljs-regexp">//</span> 第二步：使用n模块升级node<br><span class="hljs-regexp">//</span> 第一种是升级到最新版本<br>sudo n latest<br><span class="hljs-regexp">//</span> 第二种是升级到稳定版本（建议用稳定版本）<br>sudo n stable<br></code></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>如果更新了node或许或导致其他工程有问题，不能轻易更新，可以输入命令行,也可以恢复正常</li>
+<p>当然，在现代的前端项目中，我非常不推荐使用 npm 作为项目的包管理器，甚至也不再推荐yarn(npm 的替代方案)，因为<strong>两者都存在比较严重的性能和安全问题</strong>，而这些问题在 pnpm 中得到了很好的解决</p>
+<ol>
+<li>因此，包管理器方面我推荐使用 pnpm，安装方式非常简单，输入如下命令即可:</li>
 </ol>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">yarn<span class="hljs-built_in"> config </span><span class="hljs-builtin-name">set</span> ignore-engines <span class="hljs-literal">true</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs coffeescript"><span class="hljs-built_in">npm</span> i -g pnpm<br></code></pre></td></tr></table></figure>
 
-<h4 id="采用了第二种安装，别人的项目拉取node版本不同也能解决"><a href="#采用了第二种安装，别人的项目拉取node版本不同也能解决" class="headerlink" title="采用了第二种安装，别人的项目拉取node版本不同也能解决"></a>采用了第二种安装，别人的项目拉取node版本不同也能解决</h4><p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/a186f65c2586">参考</a></p>
-<h3 id="核心思想"><a href="#核心思想" class="headerlink" title="核心思想"></a>核心思想</h3><p>Vue 早期定位是尽可能的降低前端开发的门槛（这跟 Vue 作者是独立开发者也有关系）。所以 Vue 推崇灵活易用（渐进式开发体验），数据可变，双向数据绑定（依赖收集）。<br>React 早期口号是 Rethinking Best Practices(重新思考最佳实践)。背靠大公司 Facebook 的 React，从开始起就不缺关注和用户，而且 React 想要做的是用更好的方式去颠覆前端开发方式（事实上跟早期 jquery 称霸前端，的确是颠覆了）。所以 React 推崇函数式编程（纯组件），数据不可变以及单向数据流。函数式编程最大的好处是其稳定性（无副作用）和可测试性（输入相同，输出一定相同），所以通常大家说的 React 适合大型应用，根本原因还是在于其函数式编程。<br>由于两者核心思想的不同，所以导致 Vue 和 React 许多外在表现不同（从开发层面看）。</p>
-<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6953482028188860424#comment">掘金</a></p>
-<h4 id="总体感受–一些区别"><a href="#总体感受–一些区别" class="headerlink" title="总体感受–一些区别"></a>总体感受–一些区别</h4><ul>
-<li>vue 更简单，更方便，熟悉了 api 以后，实现某些简单功能更快。react 写法更偏向于原生 JS，Class 的写法不是很舒服，个人更喜欢 hooks。</li>
-<li>熟悉了 hooks 以后，写起来很自由，不用关心 vue 中固定的 options api</li>
-<li>react 做中后台优势更大，有大厂加持，生态更好，组件库功能也更多，解决方案也更多</li>
-<li>vue2.x 对 typescript 不太友好，react + typescript 更加舒适，两者写起来风格差距较大。</li>
-<li>react JSX 写起来还是不够熟练，onClick、style、className 等等，没有 v-if，v-for，All in JS。Vue 则推崇 html、js、css 分离的写法，当然 vue 也可以写 JSX</li>
-<li>vue 的 prop 必须在子组件 props 字段里声明。React 的 prop 不强制声明，直接使用，如果用 TS 的话还是要声明的</li>
-</ul>
-<h3 id="React-是什么？"><a href="#React-是什么？" class="headerlink" title="React 是什么？"></a>React 是什么？</h3><p>React 是一个声明式，高效且灵活的用于构建用户界面的 JavaScript 库。使用 React 可以将一些简短、独立的代码片段组合成复杂的 UI 界面，这些代码片段被称作“组件”。</p>
-<h3 id="jsx"><a href="#jsx" class="headerlink" title="jsx"></a>jsx</h3><p>这个有趣的标签语法既不是字符串也不是 HTML。<br>它被称为 JSX，是一个 JavaScript 的语法扩展</p>
-<h4 id="为什么使用-JSX？"><a href="#为什么使用-JSX？" class="headerlink" title="为什么使用 JSX？"></a>为什么使用 JSX？</h4><p>React 认为渲染逻辑本质上与其他 UI 逻辑内在耦合，比如，在 UI 中需要绑定处理事件、在某些时刻状态发生变化时需要通知到 UI，以及需要在 UI 中展示准备好的数据。</p>
-<p>React 并没有采用将标记与逻辑进行分离到不同文件这种人为地分离方式，而是通过将二者共同存放在称之为“组件”的松散耦合单元之中，来实现关注点分离。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">formatName</span>(<span class="hljs-params">user</span>) </span>&#123;<br>  <span class="hljs-keyword">return</span> user.firstName + <span class="hljs-string">&#x27; &#x27;</span> + user.lastName;<br>&#125;<br><br><span class="hljs-keyword">const</span> user = &#123;<br>  firstName: <span class="hljs-string">&#x27;Harper&#x27;</span>,<br>  lastName: <span class="hljs-string">&#x27;Perez&#x27;</span><br>&#125;;<br><br><span class="hljs-keyword">const</span> element = (<br>  &lt;h1&gt;<br>    Hello, &#123;formatName(user)&#125;!<br>  &lt;/h1&gt;<br>);<br><br>ReactDOM.render(<br>  element,<br>  <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;root&#x27;</span>)<br>);<br></code></pre></td></tr></table></figure>
+<p>由于默认的镜像源在国外，包下载速度和稳定性都不太好，因此我建议你换成国内的镜像源，这样pnpm install命令的体验会好很多，命令如下:</p>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs arduino">pnpm config set registry https:<span class="hljs-comment">//registry.npmmirror.com/</span><br></code></pre></td></tr></table></figure>
 
-<p><a target="_blank" rel="noopener" href="https://react.docschina.org/docs/introducing-jsx.html">官网</a></p>
-<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><ol>
-<li>文件名可以是jsx 或者js，不影响文件中的代码</li>
-<li>组件名称必须大写</li>
-<li>Js中出现 （）代表其中想要写的html</li>
-<li>HTML中出现 {} 代表其中想要写的js</li>
-</ol>
-<h3 id="函数式组件"><a href="#函数式组件" class="headerlink" title="函数式组件"></a>函数式组件</h3><p>1.函数式组件没有声明周期<br>2.函数式组件没有this<br>3.函数式组件没有state状态</p>
-<h3 id="项目初始–vite配置项目路径别名"><a href="#项目初始–vite配置项目路径别名" class="headerlink" title="项目初始–vite配置项目路径别名"></a>项目初始–vite配置项目路径别名</h3><p><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000041417219">参考</a></p>
+<h3 id="项目初始化"><a href="#项目初始化" class="headerlink" title="项目初始化"></a>项目初始化</h3><p>1.命令</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ebnf"><span class="hljs-attribute">pnpm create vite</span><br></code></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://vitejs.cn/guide/#scaffolding-your-first-vite-project">官网</a></p>
+<h3 id="项目入口加载"><a href="#项目入口加载" class="headerlink" title="项目入口加载"></a>项目入口加载</h3><p>言归正传，我们继续学习 Vite 初始化后的项目。项目的目录结构如下:</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs stylus">.<br>├── index.html<br>├── package.json<br>├── pnpm-lock.yaml<br>├── <span class="hljs-attribute">src</span><br>│   ├── App.css<br>│   ├── App.tsx<br>│   ├── favicon.svg<br>│   ├── index.css<br>│   ├── logo.svg<br>│   ├── <span class="hljs-selector-tag">main</span>.tsx<br>│   └── vite-env<span class="hljs-selector-class">.d</span>.ts<br>├── tsconfig.json<br>└── vite<span class="hljs-selector-class">.config</span>.ts<br></code></pre></td></tr></table></figure>
+
+<p>值得注意的是，在项目根目录中有一个index.html文件，这个文件十分关键，因为 Vite 默认会把项目根目录下的index.html作为入口文件。也就是说，当你访问<code>http://localhost:3000</code>的时候，Vite 的 Dev Server 会自动返回这个 HTML 文件的内容。<br>可以看到这个 HTML 文件的内容非常简洁，在 body 标签中除了 id 为 root 的根节点之外，还包含了一个声明了<strong>type=”module”的 script</strong>标签:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;module&quot;</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;/src/main.tsx&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>由于现代浏览器原生支持了 ES 模块规范，因此原生的 ES 语法也可以直接放到浏览器中执行，只需要在 script 标签中声明 type=”module” 即可。比如上面的 script 标签就声明了 type=”module”，同时 src 指向了/src/main.tsx文件，此时相当于请求了<code>http://localhost:3000/src/main.tsx</code>这个资源，Vite&gt; 的 Dev Server 此时会接受到这个请求，然后读取对应的文件内容，进行一定的中间处理，最后将处理的结果返回给浏览器。</p>
+<p><img src="/imageO/vite1.jpg" srcset="/img/loading.gif" lazyload alt="vite"><br>我们可以来看看 main.tsx 的内容:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span><br><span class="hljs-keyword">import</span> ReactDOM <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react-dom&#x27;</span><br><span class="hljs-keyword">import</span> <span class="hljs-string">&#x27;./index.css&#x27;</span><br><span class="hljs-keyword">import</span> App <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./App&#x27;</span><br><br>ReactDOM.render(<br>  &lt;React.StrictMode&gt;<br>    &lt;App /&gt;<br>  &lt;/React.StrictMode&gt;,<br>  <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;root&#x27;</span>)<br>)<br></code></pre></td></tr></table></figure>
+
+<p>到这里可能你会诧异: 浏览器并不识别 tsx 语法，也无法直接 import css 文件，上面这段代码究竟是如何被浏览器正常执行的呢？</p>
+<p>这就归功了 Vite Dev Server 所做的“中间处理”了，也就是说，在读取到 main.tsx文件的内容之后，Vite 会对文件的内容进行编译，大家可以从 Chrome 的网络调试面板看到编译后的结果:<br><img src="/imageO/vite2.jpg" srcset="/img/loading.gif" lazyload alt="调试"></p>
+<p>这里你只需要知道，Vite 会将项目的源代码编译成浏览器可以识别的代码，与此同时，一个 import 语句即代表了一个 HTTP 请求，如下面两个 import 语句:</p>
+<figure class="highlight capnproto"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs capnproto"><span class="hljs-keyword">import</span> <span class="hljs-string">&quot;/src/index.css&quot;</span>;<br><span class="hljs-keyword">import</span> App <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;/src/App.tsx&quot;</span>;<br></code></pre></td></tr></table></figure>
+
+<p>需要注意的是，在 Vite 项目中，<strong>一个import 语句即代表一个 HTTP 请求</strong>。上述两个语句则分别代表了两个不同的请求，Vite Dev Server 会读取本地文件，返回浏览器可以解析的代码。当浏览器解析到新的 import 语句，又会发出新的请求，以此类推，直到所有的资源都加载完成。</p>
+<p>现在，你应该知道了 Vite 所倡导的no-bundle理念的真正含义: <strong>利用浏览器原生 ES 模块的支持，实现开发阶段的 Dev Server，进行模块的按需加载</strong>，而不是<strong>先整体打包再进行加载</strong>。相比 Webpack 这种必须打包再加载的传统构建模式，Vite 在开发阶段省略了繁琐且耗时的打包过程，这也是它为什么快的一个重要原因。</p>
 
             </div>
             <hr>
@@ -277,7 +271,7 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/React/">React</a>
+                      <a class="hover-with-bg" href="/categories/Vite/">Vite</a>
                     
                   </div>
                 
@@ -285,9 +279,9 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/">前端基础</a>
+                      <a class="hover-with-bg" href="/tags/%E5%89%8D%E7%AB%AF%E8%BF%9B%E9%98%B6/">前端进阶</a>
                     
-                      <a class="hover-with-bg" href="/tags/React/">React</a>
+                      <a class="hover-with-bg" href="/tags/Vite/">Vite</a>
                     
                   </div>
                 
@@ -304,18 +298,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/04/27/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAVite%E7%AC%94%E8%AE%B0(1)/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">深入浅出Vite入门&&为什么ESM是前端模块化的未来(1)</span>
-                        <span class="visible-mobile">Previous</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/03/29/%E5%87%BD%E6%95%B0%E6%9F%AF%E9%87%8C%E5%8C%96/">
-                        <span class="hidden-mobile">函数柯里化</span>
+                      <a href="/2022/04/27/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAVite%E7%AC%94%E8%AE%B0(1)/">
+                        <span class="hidden-mobile">深入浅出Vite入门&&为什么ESM是前端模块化的未来(1)</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

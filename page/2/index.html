@@ -180,6 +180,66 @@
     
     
       <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2022/03/11/Js%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2%E8%A3%85%E7%AE%B1%E4%B8%8E%E6%8B%86%E7%AE%B1/" target="_self">
+          <img src="/imageO/MS.jpg" srcset="/img/loading.gif" lazyload alt="Js类型转换装箱与拆箱">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/03/11/Js%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2%E8%A3%85%E7%AE%B1%E4%B8%8E%E6%8B%86%E7%AE%B1/">Js类型转换装箱与拆箱</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2022/03/11/Js%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2%E8%A3%85%E7%AE%B1%E4%B8%8E%E6%8B%86%E7%AE%B1/">
+          
+          
+            
+          
+          众所周知，JS 是一门弱类型语言。它不需要事先具体声明变量的类型，因为会在程序运行过程中，类型会被自动推断确定。因此，可以用同一个变量保存不同类型的数据：
+var a = 1;a = ‘abc’;a = {  x: 1};
+
+装箱a.x 或者 a[‘x’] 中“.”和“[]”操作符是专门用来获取引用类型属性值的。然而在 JS 中基本类型变量也是可以使用“点”的，这给初学者造成一定困惑，比如：
+12
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-03-11 21:15" pubdate>
+              2022-03-11
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/JS/">JS</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/">前端基础</a>
+            
+              <a href="/tags/JS/">JS</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
         <a href="/2022/03/11/Ts%E9%9D%A2%E8%AF%95%E9%A2%98/" target="_self">
           <img src="/imageO/MS.jpg" srcset="/img/loading.gif" lazyload alt="整理Ts常见知识（面试题）">
         </a>
@@ -700,65 +760,6 @@ JS判断数组中是否包含某个值方法一：array.indexOf此方法判断�
               <a href="/tags/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/">前端基础</a>
             
               <a href="/tags/JS/">JS</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2022/02/28/Vue%E4%B8%AD%E7%88%B6%E5%AD%90%E7%BB%84%E4%BB%B6%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E6%89%A7%E8%A1%8C%E9%A1%BA/" target="_self">
-          <img src="/image/11.PNG" srcset="/img/loading.gif" lazyload alt="Vue中父子组件生命周期执行顺">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/02/28/Vue%E4%B8%AD%E7%88%B6%E5%AD%90%E7%BB%84%E4%BB%B6%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E6%89%A7%E8%A1%8C%E9%A1%BA/">Vue中父子组件生命周期执行顺</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2022/02/28/Vue%E4%B8%AD%E7%88%B6%E5%AD%90%E7%BB%84%E4%BB%B6%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E6%89%A7%E8%A1%8C%E9%A1%BA/">
-          
-          
-            
-          
-          问题背景
-在单一组件中，钩子的执行顺序是beforeCreate-&gt; created -&gt; mounted-&gt;… -&gt;destroyed，但当父子组件嵌套时，父组件和子组件各拥有各自独立的钩子函数，这些父子组件的这些钩子是如何交融执行，且执行顺序又是怎样的呢?
-
-父子组件生命周期执行顺序组件，分别在他们的钩子函数中打印日志，观察执行顺序。得到的结果如图所示，父组件先创建，然
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-02-28 12:15" pubdate>
-              2022-02-28
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Vue/">Vue</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/">前端基础</a>
-            
-              <a href="/tags/Vue/">Vue</a>
             
           </div>
         
