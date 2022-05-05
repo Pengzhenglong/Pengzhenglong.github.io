@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1k 字
+      2k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      12
+      23
        分钟
     </span>
   
@@ -262,6 +262,40 @@
 
 <p>需要注意的是，在 Vite 项目中，<strong>一个import 语句即代表一个 HTTP 请求</strong>。上述两个语句则分别代表了两个不同的请求，Vite Dev Server 会读取本地文件，返回浏览器可以解析的代码。当浏览器解析到新的 import 语句，又会发出新的请求，以此类推，直到所有的资源都加载完成。</p>
 <p>现在，你应该知道了 Vite 所倡导的no-bundle理念的真正含义: <strong>利用浏览器原生 ES 模块的支持，实现开发阶段的 Dev Server，进行模块的按需加载</strong>，而不是<strong>先整体打包再进行加载</strong>。相比 Webpack 这种必须打包再加载的传统构建模式，Vite 在开发阶段省略了繁琐且耗时的打包过程，这也是它为什么快的一个重要原因。</p>
+<h3 id="CSS工程化"><a href="#CSS工程化" class="headerlink" title="CSS工程化"></a>CSS工程化</h3><h4 id="那么，如果我们不用任何-CSS-工程方案，又会出现哪些问题呢？"><a href="#那么，如果我们不用任何-CSS-工程方案，又会出现哪些问题呢？" class="headerlink" title="那么，如果我们不用任何 CSS 工程方案，又会出现哪些问题呢？"></a>那么，如果我们不用任何 CSS 工程方案，又会出现哪些问题呢？</h4><ol>
+<li><strong>开发体验</strong>欠佳。比如原生 CSS 不支持选择器的嵌套:</li>
+</ol>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs stylus"><span class="hljs-comment">// 选择器只能平铺，不能嵌套</span><br><span class="hljs-selector-class">.container</span> <span class="hljs-selector-class">.header</span> <span class="hljs-selector-class">.nav</span> <span class="hljs-selector-class">.title</span> <span class="hljs-selector-class">.text</span> &#123;<br>  <span class="hljs-attribute">color</span>: blue;<br>&#125;<br><span class="hljs-selector-class">.container</span> <span class="hljs-selector-class">.header</span> <span class="hljs-selector-class">.nav</span> <span class="hljs-selector-class">.box</span> &#123;<br>  <span class="hljs-attribute">color</span>: blue;<br>  <span class="hljs-attribute">border</span>: <span class="hljs-number">1px</span> solid grey;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ol start="2">
+<li><strong>样式污染</strong>问题。如果出现同样的类名，很容易造成不同的样式互相覆盖和污染。</li>
+</ol>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs dts"><span class="hljs-comment">// a.css</span><br>.<span class="hljs-class">container </span>&#123;<br><span class="hljs-symbol">  color:</span> red;<br>&#125;<br><span class="hljs-comment">// b.css</span><br><span class="hljs-comment">// 很有可能覆盖 a.css 的样式！</span><br>.<span class="hljs-class">container </span>&#123;<br><span class="hljs-symbol">  color:</span> blue;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ol start="3">
+<li><strong>浏览器兼容</strong>问题。为了兼容不同的浏览器，我们需要对一些属性(如<strong>transition</strong>)加上不同的浏览器前缀，比如 **-webkit-、-moz-、-ms-、-o-**，意味着开发者要针对同一个样式属性写很多的冗余代码。</li>
+<li>打包后的<strong>代码体积</strong>问题。如果不用任何的 CSS 工程化方案，所有的 CSS 代码都将打包到产物中，即使有部分样式并没有在代码中使用，导致产物体积过大。</li>
+</ol>
+<h4 id="针对如上原生-CSS-的痛点，社区中诞生了不少解决方案，常见的有-5-类"><a href="#针对如上原生-CSS-的痛点，社区中诞生了不少解决方案，常见的有-5-类" class="headerlink" title="针对如上原生 CSS 的痛点，社区中诞生了不少解决方案，常见的有 5 类"></a>针对如上原生 CSS 的痛点，社区中诞生了不少解决方案，常见的有 5 类</h4><ol>
+<li><strong>CSS 预处理器</strong>：主流的包括Sass/Scss、Less和Stylus。这些方案各自定义了一套语法，让 CSS 也能使用嵌套规则，甚至能像编程语言一样定义变量、写条件判断和循环语句，大大增强了样式语言的灵活性，解决原生 CSS 的开发体验问题。</li>
+<li><strong>CSS Modules</strong>：能将 CSS 类名处理成哈希值，这样就可以避免同名的情况下样式污染的问题。</li>
+<li>SS 后处理器<strong>PostCSS</strong>，用来解析和处理 CSS 代码，可以实现的功能非常丰富，比如将 px 转换为 rem、根据目标浏览器情况自动加上类似于–moz–、-o-的属性前缀等等。</li>
+<li>CSS in JS 方案，主流的包括emotion、styled-components等等，顾名思义，这类方案可以实现直接在 JS 中写样式代码，基本包含CSS 预处理器和 CSS Modules 的各项优点，非常灵活，解决了开发体验和全局样式污染的问题。</li>
+<li>CSS 原子化框架，如<strong>Tailwind CSS、Windi CSS，通过类名来指定样式，大大简化了样式写法</strong>，提高了样式开发的效率，主要解决了原生 CSS 开发体验的问题。</li>
+</ol>
+<p><a target="_blank" rel="noopener" href="https://juejin.cn/book/7050063811973218341/section/7057872229589057576">参考</a></p>
+<h3 id="代码规范：使用Link工具链保证代码风格和质量"><a href="#代码规范：使用Link工具链保证代码风格和质量" class="headerlink" title="代码规范：使用Link工具链保证代码风格和质量"></a>代码规范：使用Link工具链保证代码风格和质量</h3><p>介绍了 3 个方面的自动化代码规范工具:</p>
+<ol>
+<li>JavaScript/TypeScript 规范。主流的 Lint 工具包括 Eslint、Prettier；</li>
+<li>样式开发规范。主流的 Lint 工具包括Stylelint、Prettier；</li>
+<li>Git 提交规范。主流的 Lint 工具包括Commitlint。</li>
+</ol>
+<h3 id="如何加载静态资源和如何在生产环境中对静态资源进行优化"><a href="#如何加载静态资源和如何在生产环境中对静态资源进行优化" class="headerlink" title="如何加载静态资源和如何在生产环境中对静态资源进行优化"></a>如何加载静态资源和如何在生产环境中对静态资源进行优化</h3><p>首先是如何加载各种静态资源，如图片、svg(组件形式)、JSON、Web Worker 脚本、Web Asssembly 文件等等格式，并通过一些示例带大家进行实际的操作。</p>
+<p>其次，我们会把关注点放到生产环境，对自定义部署域名、是否应该内联、图片压缩、svg 雪碧图等问题进行了详细的探讨和实践，对于如何解决这些问题，相信你也有了自己的答案。</p>
+<p>当然，在编码实操的过程当中，我也给你穿插了一些 Vite 其他的知识点，比如如何定义环境变量文件、如何使用 Glob 导入的语法糖。相信在学习本节的过程中你能更加体会到 Vite 给项目开发带来的便利，同时也对 Vite 的掌握更深入了一步。</p>
+<blockquote>
+<p>HTTP2 的多路复用设计可以解决大量 HTTP 的请求导致的网络加载性能问题，因此雪碧图技术在 HTTP2 并没有明显的优化效果，这个技术更适合在传统的 HTTP 1.1 场景下使用(比如本地的 Dev Server)。</p>
+</blockquote>
 
             </div>
             <hr>
@@ -302,8 +336,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/04/27/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAVite%E7%AC%94%E8%AE%B0(1)/">
-                        <span class="hidden-mobile">深入浅出Vite入门&&为什么ESM是前端模块化的未来(1)</span>
+                      <a href="/2022/04/30/%E7%8E%B0%E4%BB%A3%E7%AE%A1%E7%90%86%E5%99%A8pnpm/">
+                        <span class="hidden-mobile">现代包管理器--pnpm</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
