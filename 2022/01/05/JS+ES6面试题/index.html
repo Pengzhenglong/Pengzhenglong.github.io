@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      19k 字
+      19.2k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      218
+      221
        分钟
     </span>
   
@@ -518,6 +518,16 @@
 <li><p><strong>如果要返回一个布尔值—   includes  some every</strong></p>
 </li>
 </ol>
+<h3 id="js字符串数组互转"><a href="#js字符串数组互转" class="headerlink" title="js字符串数组互转"></a>js字符串数组互转</h3><h4 id="字符串转数组"><a href="#字符串转数组" class="headerlink" title="字符串转数组"></a>字符串转数组</h4><ol>
+<li>split() 方法  将字符串转换成一个数组</li>
+<li>扩展运算符[…]  es6里面的扩展运算符</li>
+<li>Array.from()方法  es6 Array.from()方法</li>
+</ol>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs coffeescript">split() 方法 <br><span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;abc&quot;</span>.split(<span class="hljs-string">&#x27;&#x27;</span>)); <span class="hljs-regexp">//</span> [<span class="hljs-string">&quot;a&quot;</span>,<span class="hljs-string">&quot;b&quot;</span>,<span class="hljs-string">&quot;c&quot;</span>] <br><br>扩展运算符[...] <br><span class="hljs-built_in">console</span>.log([...<span class="hljs-string">&quot;abc&quot;</span>]); <span class="hljs-regexp">//</span> [<span class="hljs-string">&quot;a&quot;</span>,<span class="hljs-string">&quot;b&quot;</span>,<span class="hljs-string">&quot;c&quot;</span>]<br><br> <span class="hljs-built_in">Array</span>.<span class="hljs-keyword">from</span>()方法<br><span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">Array</span>.<span class="hljs-keyword">from</span>(<span class="hljs-string">&quot;abc&quot;</span>)); <span class="hljs-regexp">//</span> [<span class="hljs-string">&quot;a&quot;</span>,<span class="hljs-string">&quot;b&quot;</span>,<span class="hljs-string">&quot;c&quot;</span>]<br></code></pre></td></tr></table></figure>
+
+<h4 id="数组转字符串"><a href="#数组转字符串" class="headerlink" title="数组转字符串"></a>数组转字符串</h4><p>toString()方法 将数组转换成一个字符串<br>toLocaleString()方法 把数组转换成本地约定的字符串<br>join()方法 将数组元素连接起来以构建一个字符串</p>
+<figure class="highlight sqf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sqf">console.<span class="hljs-built_in">log</span>([<span class="hljs-string">&quot;a&quot;</span>,<span class="hljs-string">&quot;b&quot;</span>,<span class="hljs-string">&quot;c&quot;</span>].<span class="hljs-built_in">join</span>(<span class="hljs-string">&#x27;;&#x27;</span>)); <span class="hljs-comment">// a;b;c </span><br>console.<span class="hljs-built_in">log</span>([<span class="hljs-string">&quot;a&quot;</span>,<span class="hljs-string">&quot;b&quot;</span>,<span class="hljs-string">&quot;c&quot;</span>].<span class="hljs-built_in">toString</span>()); <span class="hljs-comment">// a;b;c </span><br>console.<span class="hljs-built_in">log</span>([<span class="hljs-string">&quot;a&quot;</span>,<span class="hljs-string">&quot;b&quot;</span>,<span class="hljs-string">&quot;c&quot;</span>].toLocaleString()); <span class="hljs-comment">// a;b;c </span><br></code></pre></td></tr></table></figure>
+
 <h3 id="JS如何实现数组扁平化？"><a href="#JS如何实现数组扁平化？" class="headerlink" title="JS如何实现数组扁平化？"></a>JS如何实现数组扁平化？</h3><ol>
 <li>ES6的flat</li>
 </ol>
