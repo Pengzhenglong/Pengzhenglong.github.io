@@ -256,7 +256,7 @@
 </ul>
 <h3 id="React-是什么？"><a href="#React-是什么？" class="headerlink" title="React 是什么？"></a>React 是什么？</h3><p>React 是一个<strong>声明式</strong>，高效且灵活的用于构建用户界面的 JavaScript 库。使用 React 可以将一些简短、独立的代码片段组合成复杂的 UI 界面，这些代码片段被称作“组件”。</p>
 <h3 id="JSX基础"><a href="#JSX基础" class="headerlink" title="JSX基础"></a>JSX基础</h3><ol>
-<li>JSX介绍<br>目标任务: 能够理解什么是JSX，JSX的底层是什么<br>概念：JSX是 JavaScript XML（HTML）的缩写，表示在 JS 代码中书写 HTML 结构<br>作用：在React中创建HTML结构（页面UI结构）</li>
+<li>JSX介绍<br>概念：JSX是 JavaScript XML（HTML）的缩写，表示在 JS 代码中书写 HTML 结构<br>作用：在React中创建HTML结构（页面UI结构）</li>
 </ol>
 <h4 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h4><ol>
 <li>采用类似于HTML的语法，降低学习成本，会HTML就会JSX</li>
@@ -309,8 +309,12 @@
 <li>文件名可以是jsx 或者js，不影响文件中的代码</li>
 <li>组件名称必须大写</li>
 <li>Js中出现 （）代表其中想要写的html</li>
-<li>HTML中出现 {} 代表其中想要写的js<br>JSX注意事项<br>JSX<strong>必须有一个根节点</strong>，如果没有根节点，可以使用&lt;&gt;&lt;/&gt;（幽灵节点）替代<br>所有标签必须形成闭合，成对闭合或者自闭合都可以<br>JSX中的语法更加贴近JS语法，<strong>属性名采用驼峰命名法</strong> class -&gt; className for -&gt; htmlFor<br>JSX支持多行（换行），如果需要换行，需使用() 包裹，防止bug出现</li>
+<li>HTML中出现 {} 代表其中想要写的js</li>
 </ol>
+<h5 id="JSX注意事项"><a href="#JSX注意事项" class="headerlink" title="JSX注意事项"></a>JSX注意事项</h5><p>JSX<strong>必须有一个根节点</strong>，如果没有根节点，可以使用&lt;&gt;&lt;/&gt;（幽灵节点）替代</p>
+<p>所有标签必须形成闭合，成对闭合或者自闭合都可以</p>
+<p>JSX中的语法更加贴近JS语法，<strong>属性名采用驼峰命名法</strong> class -&gt; className for -&gt; htmlFor</p>
+<p>JSX支持多行（换行），如果需要换行，需使用() 包裹，防止bug出现</p>
 <h3 id="React组件基础"><a href="#React组件基础" class="headerlink" title="React组件基础"></a>React组件基础</h3><h4 id="函数式组件"><a href="#函数式组件" class="headerlink" title="函数式组件"></a>函数式组件</h4><p>1.函数式组件没有声明周期<br>2.函数式组件没有this<br>3.函数式组件没有state状态<br>函数组件</p>
 <p>使用 JS 的函数（或箭头函数）创建的组件，就叫做函数组件</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs javascript">组件定义与渲染<br><br><span class="hljs-comment">// 定义函数组件</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">HelloFn</span> (<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>这是我的第一个函数组件!<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>&#125;<br><br><span class="hljs-comment">// 定义类组件</span><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">App</span> (<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-keyword">return</span> (<br>    &lt;div className=<span class="hljs-string">&quot;App&quot;</span>&gt;<br>      &#123;<span class="hljs-comment">/* 渲染函数组件 */</span>&#125;<br>      &lt;HelloFn /&gt;<br>      &lt;HelloFn&gt;&lt;/HelloFn&gt;<br>    &lt;/div&gt;<br>  )<br>&#125;<br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> App<br></code></pre></td></tr></table></figure>
