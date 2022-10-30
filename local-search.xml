@@ -4,6 +4,33 @@
   
   
   <entry>
+    <title>框架+设计思想学习笔记</title>
+    <link href="/2022/10/31/%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0--%EF%BC%88%E6%80%9D%E6%83%B3%EF%BC%89/"/>
+    <url>/2022/10/31/%E6%A1%86%E6%9E%B6%E5%AD%A6%E4%B9%A0--%EF%BC%88%E6%80%9D%E6%83%B3%EF%BC%89/</url>
+    
+    <content type="html"><![CDATA[<hr><h3 id="高内聚低耦合"><a href="#高内聚低耦合" class="headerlink" title="高内聚低耦合"></a>高内聚低耦合</h3><h4 id="高内聚"><a href="#高内聚" class="headerlink" title="高内聚"></a>高内聚</h4><p>内聚性：又称块内联系。指模块的功能强度的度量，即一个模块内部各个元素彼此结合的紧密程度的度量。若一个模块内各元素（语名之间、程序段之间）联系的越紧密，则它的内聚性就越高—-（你中有我 我中有你）</p><h4 id="低耦合"><a href="#低耦合" class="headerlink" title="低耦合"></a>低耦合</h4><p>一个完整的系统，模块与模块之间，尽可能的使其独立存在—-（最好0耦合）</p><h5 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h5><p><a href="https://juejin.cn/post/6992023978466344997">如何理解“高内聚低耦合”</a></p><h5 id="参考文章-1"><a href="#参考文章-1" class="headerlink" title="参考文章"></a>参考文章</h5><p><a href="https://refactoring.guru/">设计思想参考网站</a></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>编程思想</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>前端进阶</tag>
+      
+      <tag>编程思想</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Js基础-类型判断等笔记</title>
     <link href="/2022/10/30/Js%E5%9F%BA%E7%A1%80+%E5%9F%BA%E7%A1%80%E5%B8%83%E5%B0%94%E7%B1%BB%E5%9E%8B%E5%88%A4%E6%96%AD/"/>
     <url>/2022/10/30/Js%E5%9F%BA%E7%A1%80+%E5%9F%BA%E7%A1%80%E5%B8%83%E5%B0%94%E7%B1%BB%E5%9E%8B%E5%88%A4%E6%96%AD/</url>
