@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      2.7k 字
+      2.9k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      32
+      34
        分钟
     </span>
   
@@ -306,9 +306,21 @@
 <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs awk">$ git branch -a<br>* br-<span class="hljs-number">2.1</span>.<span class="hljs-number">2.2</span><br>  master<br>  remotes<span class="hljs-regexp">/origin/</span>HEAD -&gt; origin/master<br>  remotes<span class="hljs-regexp">/origin/</span>br-<span class="hljs-number">2.1</span>.<span class="hljs-number">2.1</span><br>  remotes<span class="hljs-regexp">/origin/</span>br-<span class="hljs-number">2.1</span>.<span class="hljs-number">2.2</span><br>  remotes<span class="hljs-regexp">/origin/</span>br-<span class="hljs-number">2.1</span>.<span class="hljs-number">3</span><br>  remotes<span class="hljs-regexp">/origin/m</span>aster<br></code></pre></td></tr></table></figure>
 
 <h3 id="Git的基本操作指令"><a href="#Git的基本操作指令" class="headerlink" title="Git的基本操作指令"></a>Git的基本操作指令</h3><p><img src="/image/8.9.png" srcset="/img/loading.gif" lazyload alt="Git"></p>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs awk">切换分支命令:<br><br>git checkout (branchname)   <span class="hljs-regexp">//</span>切换分支<br>$ git init    <span class="hljs-regexp">//</span> 初始化仓库。<br>$ git add .    <span class="hljs-regexp">//</span>添加文件到暂存区。<br>$ git commit  <span class="hljs-regexp">//</span>将暂存区内容添加到仓库中。<br>$ git push   <span class="hljs-regexp">//</span>上传远程代码并合并<br>$ git pull   <span class="hljs-regexp">//</span>下载远程代码并合并<br><br><br></code></pre></td></tr></table></figure>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs awk">切换分支命令:<br><br>git checkout (branchname)   <span class="hljs-regexp">//</span>切换分支<br>$ git init    <span class="hljs-regexp">//</span> 初始化仓库。<br>$ git add .    <span class="hljs-regexp">//</span>添加文件到暂存区。<br>$ git commit  <span class="hljs-regexp">//</span>将暂存区内容添加到仓库中。<br>$ git push   <span class="hljs-regexp">//</span>上传远程代码并合并<br>$ git pull   <span class="hljs-regexp">//</span>下载远程代码并合并<br></code></pre></td></tr></table></figure>
 
-<h4 id="删除分支操作"><a href="#删除分支操作" class="headerlink" title="删除分支操作"></a>删除分支操作</h4><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs awk">删除本地分支：<br>git branch  <span class="hljs-regexp">//</span><span class="hljs-number">1</span>.查看本地分支列表<br>git branch -d 分支名称   <span class="hljs-regexp">//</span><span class="hljs-number">2</span>.删除本地分支<br><br><br>删除远程分支：<br>git branch -a    <span class="hljs-regexp">//</span><span class="hljs-number">1</span>.查看远程分支列表<br>git push origin --<span class="hljs-keyword">delete</span> 远程分支名称   <span class="hljs-regexp">//</span><span class="hljs-number">2</span>.删除远程分支<br></code></pre></td></tr></table></figure>
+<h4 id="删除分支操作"><a href="#删除分支操作" class="headerlink" title="删除分支操作"></a>删除分支操作</h4><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs awk">删除本地分支：<br>git branch  <span class="hljs-regexp">//</span><span class="hljs-number">1</span>.查看本地分支列表<br>git branch -d 分支名称   <span class="hljs-regexp">//</span><span class="hljs-number">2</span>.删除本地分支<br><br>删除远程分支：<br>git branch -a    <span class="hljs-regexp">//</span><span class="hljs-number">1</span>.查看远程分支列表<br>git push origin --<span class="hljs-keyword">delete</span> 远程分支名称   <span class="hljs-regexp">//</span><span class="hljs-number">2</span>.删除远程分支<br></code></pre></td></tr></table></figure>
+<h4 id="git强制提交"><a href="#git强制提交" class="headerlink" title="git强制提交"></a>git强制提交</h4><figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">git <span class="hljs-keyword">log</span>  查看<span class="hljs-keyword">commit</span>信息<br>git  <span class="hljs-keyword">reset</span>  <span class="hljs-comment">--hard  （commit号）  回滚到某个commit</span><br><br>提示要先git  pull 可以强制提交<br>git  push  <span class="hljs-comment">--force origin  分支名</span><br></code></pre></td></tr></table></figure>
+<h4 id="分支命名"><a href="#分支命名" class="headerlink" title="分支命名"></a>分支命名</h4><p>分支名称如果开发新功能时你就命名成feature/xxxx(xxxx表示具体描述)  修复bug时就fix/xxxx  fix/整个模块的名字</p>
+<h3 id="如何修改当前项目git的用户名和邮箱"><a href="#如何修改当前项目git的用户名和邮箱" class="headerlink" title="如何修改当前项目git的用户名和邮箱"></a>如何修改当前项目git的用户名和邮箱</h3><p>查看本地设置:</p>
+<figure class="highlight brainfuck"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs brainfuck"><span class="hljs-comment">git</span> <span class="hljs-comment">config</span> --<span class="hljs-comment">local</span> --<span class="hljs-comment">list</span><br></code></pre></td></tr></table></figure>
+<p>查看设置本地属性（本地用户和email）</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">git config <span class="hljs-keyword">user</span>.name<br>git config <span class="hljs-keyword">user</span>.email<br></code></pre></td></tr></table></figure>
+
+<p>解决方法:</p>
+<h4 id="修改当前的project"><a href="#修改当前的project" class="headerlink" title="修改当前的project"></a>修改当前的project</h4><p>修改当前project的用户名的命令:</p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">git config <span class="hljs-keyword">user</span>.name  &quot;你的目标用户名&quot;<br></code></pre></td></tr></table></figure>
+<p>修改当前project提交邮箱的命令:</p>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs arduino">git config user.email <span class="hljs-string">&quot;你的目标邮箱名&quot;</span><br></code></pre></td></tr></table></figure>
 
 <h3 id="git-stash暂存开发分支，拉去合并线上分支-开发后要合并线上分支-提pr-解决冲突"><a href="#git-stash暂存开发分支，拉去合并线上分支-开发后要合并线上分支-提pr-解决冲突" class="headerlink" title="git  stash暂存开发分支，拉去合并线上分支(开发后要合并线上分支(提pr)解决冲突)"></a>git  stash暂存开发分支，拉去合并线上分支(开发后要合并线上分支(提pr)解决冲突)</h3><h4 id="git-pull-和-git-fetch-的区别"><a href="#git-pull-和-git-fetch-的区别" class="headerlink" title="git pull 和 git fetch 的区别"></a>git pull 和 git fetch 的区别</h4><ol>
 <li><p>git fetch 只是将远程仓库的变化下载下来，并没有和本地分支合并。（fetch  只是下拉远程分支，怎么合并，可以自己再做选择）</p>

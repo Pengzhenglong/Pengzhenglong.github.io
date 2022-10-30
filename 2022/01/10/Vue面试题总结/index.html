@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      132
+      133
        分钟
     </span>
   
@@ -268,7 +268,7 @@
 <li><p>数据发生变化触发 setter 执行 dep.notify，Dep 会执行所有依赖的 update 方法并加入异步更新队列，这就是触发依赖过程。<br><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2022/02/25/Vue--Observer%E3%80%81Dep%E3%80%81Watcher/">博客</a></p>
 </li>
 </ol>
-<h3 id="MVVM思想-重要"><a href="#MVVM思想-重要" class="headerlink" title="MVVM思想(重要)"></a>MVVM思想(重要)</h3><h4 id="什么是MVVM？"><a href="#什么是MVVM？" class="headerlink" title="什么是MVVM？"></a>什么是MVVM？</h4><p>视图模型双向绑定，是Model-View-ViewModel的缩写，也就是把MVC中的Controller演变成ViewModel。Model层代表数据模型，View代表UI组件，ViewModel是View和Model层的桥梁，<strong>数据会绑定到viewModel层并自动将数据渲染到页面中，视图变化的时候会通知viewModel层更新数据。以前是操作DOM结构更新视图，现在是数据驱动视图。</strong></p>
+<h3 id="MVVM思想-重要-Vue并不是MVVM，而是类似于MV"><a href="#MVVM思想-重要-Vue并不是MVVM，而是类似于MV" class="headerlink" title="MVVM思想(重要)(Vue并不是MVVM，而是类似于MV*)"></a>MVVM思想(重要)(Vue并不是MVVM，而是类似于MV*)</h3><h4 id="什么是MVVM？"><a href="#什么是MVVM？" class="headerlink" title="什么是MVVM？"></a>什么是MVVM？</h4><p>视图模型双向绑定，是Model-View-ViewModel的缩写，也就是把MVC中的Controller演变成ViewModel。Model层代表数据模型，View代表UI组件，ViewModel是View和Model层的桥梁，<strong>数据会绑定到viewModel层并自动将数据渲染到页面中，视图变化的时候会通知viewModel层更新数据。以前是操作DOM结构更新视图，现在是数据驱动视图。</strong></p>
 <h4 id="MVVM的优点"><a href="#MVVM的优点" class="headerlink" title="MVVM的优点"></a>MVVM的优点</h4><p>1.低耦合。视图（View）可以独立于Model变化和修改，一个Model可以绑定到不同的View上，当View变化的时候Model可以不变化，当Model变化的时候View也可以不变；<br>2.可重用性。你可以把一些视图逻辑放在一个Model里面，让很多View重用这段视图逻辑。<br>3.独立开发。开发人员可以专注于业务逻辑和数据的开发(ViewModel)，设计人员可以专注于页面设计。<br>4.可测试。</p>
 <h4 id="Observer（数据监听器）"><a href="#Observer（数据监听器）" class="headerlink" title="Observer（数据监听器）"></a>Observer（数据监听器）</h4><p> Observer的核心是通过Object.defineProprtty()来监听数据的变动，这个函数内部可以定义setter和getter，每当数据发生变化，就会触发setter。这时候Observer就要通知订阅者，订阅者就是Watcher</p>
 <h4 id="Watcher（订阅者）"><a href="#Watcher（订阅者）" class="headerlink" title="Watcher（订阅者）"></a>Watcher（订阅者）</h4><p>Watcher订阅者作为Observer和Compile之间通信的桥梁，主要做的事情是：</p>

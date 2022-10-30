@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      19.2k 字
+      19.3k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      221
+      222
        分钟
     </span>
   
@@ -626,7 +626,9 @@
 <li>for可以用continue跳过循环中的一个迭代，forEach用continue会报错。</li>
 <li>forEach() 需要用 return 跳过循环中的一个迭代，跳过之后会执行下一个迭代。</li>
 </ol>
-<h3 id="forEach-map-ES5"><a href="#forEach-map-ES5" class="headerlink" title="forEach map(ES5)"></a>forEach map(ES5)</h3><p>能用forEach()做到的，map()同样可以。反过来也是如此<br>map()会<strong>分配内存空间存储新数组并返回，forEach()不会返回数据。</strong><br>forEach()允许callback更改原始数组的元素。map()返回新的数组。<br>map()   forEach()   <strong>(数据为基本类型,改变其值（不会改变）)(数据为引用类型,改变其属性方法的值（会改变）)</strong><br><a target="_blank" rel="noopener" href="https://juejin.cn/post/7034350835668615199#heading-2">js学习-forEach和map是否改变原数组？</a></p>
+<h3 id="forEach-map-ES5"><a href="#forEach-map-ES5" class="headerlink" title="forEach map(ES5)"></a>forEach map(ES5)</h3><p>能用forEach()做到的，map()同样可以。反过来也是如此<br>map()会<strong>分配内存空间存储新数组并返回，forEach()不会返回数据。</strong><br>forEach()允许callback更改原始数组的元素。map()返回新的数组。<br>map()   forEach()   <strong>(数据为基本类型,改变其值（不会改变）)(数据为引用类型,改变其属性方法的值（会改变）)</strong></p>
+<h4 id="map和forEach是按-（value-key）的方式遍历的"><a href="#map和forEach是按-（value-key）的方式遍历的" class="headerlink" title="map和forEach是按 （value,key）的方式遍历的"></a>map和forEach是按 （value,key）的方式遍历的</h4><figure class="highlight dust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs dust"><span class="xml">const  arr = [1,2,3]</span><br><span class="xml">arr.forEach((value,index)=&gt;</span><span class="hljs-template-variable">&#123;</span><br><span class="hljs-template-variable">console.log(value,index)</span><br><span class="hljs-template-variable">&#125;</span><span class="xml">)</span><br><span class="xml">arr.map((value,key)=&gt;</span><span class="hljs-template-variable">&#123;</span><br><span class="hljs-template-variable">    console.log(value,key)</span><br><span class="hljs-template-variable">&#125;</span><span class="xml">)</span><br><span class="xml"><span class="hljs-comment">&lt;!-- 两个打印的结果为 --&gt;</span></span><br><span class="xml">1 0</span><br><span class="xml">2 1</span><br><span class="xml">3 2</span><br></code></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach">mdn –forEach </a><br><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/map">mdn–map</a><br><a target="_blank" rel="noopener" href="https://juejin.cn/post/7034350835668615199#heading-2">js学习-forEach和map是否改变原数组？</a></p>
 <h2 id="基础-（已掌握）"><a href="#基础-（已掌握）" class="headerlink" title="基础 （已掌握）"></a>基础 （已掌握）</h2><h3 id="js种8种数据类型"><a href="#js种8种数据类型" class="headerlink" title="js种8种数据类型"></a>js种8种数据类型</h3><h4 id="六种基本数据类型：undefined-null-number-bollean-string"><a href="#六种基本数据类型：undefined-null-number-bollean-string" class="headerlink" title="六种基本数据类型：undefined,null,number,bollean, string"></a>六种基本数据类型：undefined,null,number,bollean, string</h4><p>还有在 ES6 中新增的 Symbol 和 ES10 中新增的 BigInt 类型。</p>
 <blockquote>
 <p>Symbol 代表创建后独一无二且不可变的数据类型，它的出现我认为主要是为了解决可能出现的全局变量冲突的问题。<br>BigInt 是一种数字类型的数据，它可以表示任意精度格式的整数，使用 BigInt 可以安全地存储和操作大整数，即使这个数已经超出了 Number 能够表示的安全整数范围。</p>
