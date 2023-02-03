@@ -1,0 +1,578 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/2.jpg">
+  <link rel="icon" href="/img/2.jpg">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="DragonPeng">
+  <meta name="keywords" content="">
+  
+  <title>知识图谱基础知识摘要(项目) - DragonPeng的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>DragonPeng' blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/page1.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="知识图谱基础知识摘要(项目)">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2023-02-03 23:15" pubdate>
+        February 3, 2023 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      4.1k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      41
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">知识图谱基础知识摘要(项目)</h1>
+            
+            <div class="markdown-body">
+              <hr>
+<h4 id="知识图谱基础知识摘要"><a href="#知识图谱基础知识摘要" class="headerlink" title="知识图谱基础知识摘要"></a>知识图谱基础知识摘要</h4><h5 id="什么是知识图谱？"><a href="#什么是知识图谱？" class="headerlink" title="什么是知识图谱？"></a>什么是知识图谱？</h5><p>简单理解就是一个图，节点是各种各样的现实当中的实体，如人、物、组织等，线是反应节点之间的关系或者属性。如图所示。<br><img src="/img/%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1.png" srcset="/img/loading.gif" lazyload alt="知识图谱"></p>
+<h5 id="知识图谱的作用"><a href="#知识图谱的作用" class="headerlink" title="知识图谱的作用"></a>知识图谱的作用</h5><p>如今知识图谱广泛应用于聊天机器人，推荐系统等方面，而在金融、农业、电商、医疗健康、环境保护、工业制造场景等各种不同的垂直领域，得益于知识图谱的先验知识的特性，均得到了广泛的应用。说的抽象点，知识图谱就是把离散的符号表述，变成了连续的向量表示的巨大的知识网络图。</p>
+<h5 id="知识图谱的表示和存储"><a href="#知识图谱的表示和存储" class="headerlink" title="知识图谱的表示和存储"></a>知识图谱的表示和存储</h5><p>目前有两种方法，一种是 RDF ，它是由很多三元组组成的，优点是易于发布分享，缺点是不支持实体或者关系拥有属性，如果非要加属性则需要做特殊的修改，目前多用于学术场景，常见的有 Jena 。另一种方法是图数据库，主要是由高校的查询和搜索，，如 Neo4j 应用最广泛，界面比较清晰，更容易表达现实的业务场景中的关系，数据量在不过亿级的情况下效果还是可以的，唯一的缺点就是不支持分布式。<br><img src="/img/%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B11.png" srcset="/img/loading.gif" lazyload alt="知识图谱"></p>
+<h5 id="知识抽取"><a href="#知识抽取" class="headerlink" title="知识抽取"></a>知识抽取</h5><p>构建知识图谱的数据无非就两个来源：一个是公司内部的业务数据，一般都存在结构化的数据库中，可以直接拿来用。另一种是需要通过爬虫从网上抓取的网页，或者外部提供的数据，此类数据比较杂乱无结构，需要进行必要的处理。所以难点主要来源于后者。主要涉及到自然语言的相关技术，如实体命名识别，关系抽取，实体统一，指代消解。如下图使用非结构化的文本构建知识图谱。</p>
+<h2 id="今天不写代码，聊聊热门的知识图谱"><a href="#今天不写代码，聊聊热门的知识图谱" class="headerlink" title="今天不写代码，聊聊热门的知识图谱"></a>今天不写代码，聊聊热门的知识图谱</h2><h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h4><p>诞生<br>知识图谱的概念诞生于2012年，由谷歌公司首先提出。大家都知道，谷歌是做搜索引擎的，所以他们最早提出了Google Knowledge Graph后，首先利用知识图谱技术改善了搜索引擎核心。<br>注意上面的说法，虽然知识图谱诞生于2012年，但其实在更早的时间它还有另外一个名字，那就是语义。那么语义又是什么呢？引用《统计自然语言处理基础》中的两句话来解答这个问题：</p>
+<blockquote>
+<p>语义可以分成两部分，研究单个词的语义（即词义）以及单个词的含义是怎么联合起来组成句子（或者更大的单位）的含义。<br>语义研究的是词语的含义、结构和说话的方式。</p>
+</blockquote>
+<p>那么，知识图谱究竟是个什么东西呢？</p>
+<p>你可以将它理解为<strong>是在自然界建立实体关系</strong>的知识数据库，它的提出是为了准确地阐述人、事、物之间的关系。</p>
+<p>目前在学术界还没有给知识图谱一个统一的定义，但是在谷歌发布的文档中有明确的描述：<strong>“知识图谱是一种用图模型来描述知识和建模世界万物之间关联关系的技术方法”。</strong></p>
+<h4 id="演进"><a href="#演进" class="headerlink" title="演进"></a>演进</h4><p>谷歌的Singhal博士用三个词点出了知识图谱加入之后搜索发生的变化：</p>
+<p>“Things，not string.”</p>
+<p>这寥寥的几个单词，点出了知识图谱的核心。以前的搜索，都是将要搜索的内容看作字符串，结果是和字符串进行匹配，将匹配程度高的排在前面，后面按照匹配度依次显示。而利用知识图谱之后，将搜索的内容不再看作字符串，而是看作客观世界的事物，也就是一个个的个体。</p>
+<p><strong>举个例子，当我们在搜索比尔盖茨的时候，搜索引擎不是搜索“比尔盖茨”这个字符串，而是搜索比尔盖茨这个人，围绕比尔盖茨这个人，展示与他相关的人和事。</strong></p>
+<p>在上面的图中，左侧百科会把比尔盖茨的主要情况列举出来，右侧显示比尔盖茨的微软产品和与他类似的人，主要是一些IT行业的创始人。这样，一个搜索结果页面就把和比尔盖茨的基本情况和他的主要关系都列出来了，搜索的人很容易找到自己感兴趣的结果。</p>
+<h4 id="三要素"><a href="#三要素" class="headerlink" title="三要素"></a>三要素</h4><p>在知识图谱中，通过三元组 &lt;<strong>实体 × 关系 × 属性&gt;</strong> 集合的形式来描述事物之间的关系：</p>
+<p>实体：又叫作本体，指客观存在并可相互区别的事物，可以是具体的人、事、物，也可以是抽象的概念或联系，实体是知识图谱中最基本的元素<br>关系：在知识图谱中，边表示知识图谱中的关系，用来表示不同实体间的某种联系<br>属性：知识图谱中的实体和关系都可以有各自的属性<br>这里所说的实体和普通意义上的实体略有不同，借用NLP中本体的概念来理解它会比较好：</p>
+<blockquote>
+<p>本体定义了组成主题领域的词汇表的基本术语及其关系，以及结合这些术语和关系来定义词汇表外延的规则。</p>
+</blockquote>
+<p>例如我们要描述大学这一领域时，对它来说教工、学生、课程就是相对比较重要的概念，并且教工和学生之间也存在一定的关联关系，此外对象之间还存在一定的约束关系，例如一个系的教职员工数量不能少于10人。</p>
+<p>在了解了上面的三元组后，我们可以基于它构建下面这样的一个关系：</p>
+<p>可以看到，女王和王储通过母子关系关联在一起，并且每个人拥有自己的属性。</p>
+<p>当知识图谱中的节点逐渐增多后，它的表现形式就会类似于化学分子式的结构，一个知识图谱往往存在多种类型的实体与关系。</p>
+<p>知识图谱将非线性世界中的知识信息进行加工，<strong>做到这样的结构化、可视化，从而辅助人类进行推理、预判、归类</strong>。</p>
+<p>到这里，可以简单概括一下知识图谱的基本特征：</p>
+<ol>
+<li>知识结构网络化</li>
+<li>网络结构复杂</li>
+<li>网络由三元组构成</li>
+<li>数据主要由知识库承载<h4 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h4><h5 id="搜索"><a href="#搜索" class="headerlink" title="搜索"></a>搜索</h5>前面提到过，以前的搜索引擎是从海量的关键词中找出与查询匹配度最高的内容，按照查询结果把排序分值最高的一些结果返回给用户。在整个过程中，搜索引擎可能并不需要知道用户输入的是什么，因为系统不具备推理能力，在精准搜索方面也略显不足。<strong>而基于知识图谱的搜索引擎，除了能够直接回答用户的问题外，还具有一定的语义推理能力，大大提高了搜索的精确度。</strong></li>
+</ol>
+<h5 id="推荐"><a href="#推荐" class="headerlink" title="推荐"></a>推荐</h5><p>在传统的推荐系统中，存在两个典型问题：</p>
+<ol>
+<li>数据稀疏问题：在实际应用场景中，用户和物品的交互信息往往是非常稀疏的，预测会产生过拟合风险</li>
+<li>冷启动问题：对于新加入的用户或者物品，由于系统没有其历史交互信息，因此无法进行准确地建模和推荐<br>例如，在一个电影类网站中可能包含了上万部电影，然而一个用户打过分的电影可能平均只有几十部。使用如此少量的已观测数据来预测大量的未知信息，会极大地增加算法的过拟合风险。</li>
+</ol>
+<p>因此在推荐算法中会额外引入一些辅助信息作为输入，这些辅助信息可以丰富对用户和物品的描述，从而有效地弥补交互信息的稀疏或缺失。在各种辅助信息中，知识图谱作为一种新兴类型的辅助信息，这几年的相关研究比较多。</p>
+<p>下面就是一个基于知识图谱的推荐例子：</p>
+<p>在将知识图谱引入推荐系统后，具有以下优势：</p>
+<ol>
+<li>精确性：知识图谱为物品引入了更多的语义关系，可以深层次地发现用户兴趣</li>
+<li>多样性：知识图谱提供了实体之间不同的关系连接种类，有利于推荐结果的发散，避免推荐结果局限于单一类型</li>
+<li>可解释性：知识图谱可以连接用户的历史记录和推荐结果，从而提高用户对推荐结果的满意度和接受度，增强用户对推荐系统的信<br>此外，知识图谱技术还在问答与对话系统、语言理解、决策分析等多个领域被广泛应用，它被挂载在这些系统之后，充当背景知识库的角色。总的来说，在这些场景下的应用，可以概括整个AI的发展趋势，就是<strong>从感知到认知</strong>的一个过程。</li>
+</ol>
+<p>架构<br>知识图谱的构建目前已有一套比较完善的架构体系，可以先来看一下下面这张图，然后我们再慢慢解释：</p>
+<p><img src="/img/%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B12.png" srcset="/img/loading.gif" lazyload alt="知识图谱"></p>
+<p>总的来说，整体过程可以分为下面5步：</p>
+<p>1.数据获取：主要获取半结构化数据，为后续的实体与实体属性构建做准备。结构化数据则为数值属性做准备<br>2.知识获取：从文本数据集中自动识别出命名实体，包括抽取人名、地名、机构名等；从语料中抽取实体之间的关系，形成关系网络；从不同的信息源中采集特定的属性信息<br>3.知识融合：完成指示代词与先行词的合并；完成同一实体的歧义消除；将已识别的实体对象，无歧义地指向知识库中的目标实体<br>4.知识加工：构建知识概念模块，抽取本体；进行知识图谱推理，并对知识图谱的可信度进行量化评估，评估过关的知识图谱流入知识图谱库中存储，评估不过关的知识图谱返回一开始的数据环节进行调整，而后重复相同环节直到评估过关<br>5.知识存储与计算：存储是为了快速查询与运用知识，需支持底层数据描述与上层计算，有的主体计算包含在存储中<br>下面，我们拆解其中部分重要核心细节，来具体描述。</p>
+<h4 id="知识获取"><a href="#知识获取" class="headerlink" title="知识获取"></a>知识获取</h4><p>数据是知识图谱的根基，直接关系到知识图谱构建的效率和质量。所以我们先从数据源进行分析它们的优势与劣势：</p>
+<ol>
+<li><p>站内数据：优势在于类别明确，结构化好，易于获取；而劣势在于类型有限，已有数据并不是广义上的知识类型</p>
+</li>
+<li><p>垂直网站数据：优势在于类别明确；而劣势在于获取解析成本高，数据质量参差不齐</p>
+</li>
+<li><p>百科类网站数据：优势在于数据量大，内容丰富；而劣势在于没有分类信息，结构不完全固定</p>
+</li>
+<li><p>人工创建的数据：优势在于类别明确；而劣势在于类别明确</p>
+<h4 id="实体抽取"><a href="#实体抽取" class="headerlink" title="实体抽取"></a>实体抽取</h4><p>实体抽取，是指从数据中识别和抽取实体的属性与关系信息，这一过程还是针对不同结构的数据来看：</p>
+</li>
+<li><p>结构化数据：包括站内/垂直网站信息、部分百科网站信息，可以利用策略模式，将抽取的具体规则用groovy脚本来实现</p>
+</li>
+<li><p>半结构化数据：包括百科网站中的表格以及列表，可以利用基于监督学习的包装器归纳方法进行抽取</p>
+</li>
+<li><p>非结构化数据：包括百科网站中的文本以及站内文本，可以利用自然语言处理的手段处理</p>
+<h4 id="关系抽取"><a href="#关系抽取" class="headerlink" title="关系抽取"></a>关系抽取</h4><p>回顾一下我们前面提到过的知识图谱三要素，分别是实体、关系和属性。关系抽取我们同样可以用一个三元组表示的RDF graph：</p>
+</li>
+</ol>
+<p><img src="/img/%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B12.png" srcset="/img/loading.gif" lazyload alt="知识图谱"></p>
+<p>这样的一个（S,P,O）三元组，就可以将一份知识分解为主语、谓语、宾语。这样的SPO结构，在配合知识图谱进行存储时可以被用来当做存储单元。</p>
+<p>在RDF中可以声明一些规则，从一些关系推导出另一些关系，这些规则被称为RDF Schema。规则可以用一些词汇表示，如class、subClassOf、type、property、subPropertyOf、domain、range等。</p>
+<p>下面这个例子中，节点到节点之间的关系就可以理解为前面提到的本体中的联系，而这一关联过程就可以被称为知识图谱中的推导或关联推理：</p>
+<h4 id="知识融合"><a href="#知识融合" class="headerlink" title="知识融合"></a>知识融合</h4><p>知识融合这一过程中，主要包括指代消解、实体对齐、实体链接等过程，我们主要来看一下这个过程中比较重要的实体对齐（Object Alignment）。</p>
+<p>完成实体抽取后，存在实体ID不同但代表真实世界中同一对象的情况。知识融合即是将这些实体合并成一个具有全局唯一标识的实体对象，添加到知识图谱中。</p>
+<ol>
+<li>首先在索引中根据<strong>名字、别名等字段查询出若干个可能是相同实体</strong>的候选列表，这个步骤的目的是减少接下来流程的计算量</li>
+<li>然后经过实体判别模型，根据模型得分识别出待合并对齐的原始实体</li>
+<li>最后经过属性融合模型，将各原始实体的属性字段进行融合，生成最终的实体。<br>这一过程可以用下面的图来表示：</li>
+</ol>
+<p>实际上，这个流程中的合并判断模型大家都比较熟悉，它就是通过机器学习训练生成的二分类器。</p>
+<h4 id="知识存储"><a href="#知识存储" class="headerlink" title="知识存储"></a>知识存储</h4><p>知识图谱的存储依赖于图数据库及其引擎，不同厂商的实现可能大有不同，例如可以选用的图数据库有RDF4j、Virtuoso、Neo4j等。例如爱奇艺的图数据库引擎选择了JanusGraph，借助云平台的Hbase和ES集群，搭建了自己的JanusGraph分布式图数据库引擎。</p>
+<p>JanusGraph通过借助外部的存储系统与外部索引系统的支持，支撑了上游的在线查询服务。</p>
+<p>补充<br>底层存储数据三元组的逻辑层次可以被称为数据层，通常通过本体库来管理数据层，本体库的概念相当于对象中“类”的概念。而建立在数据层之上的模式层，是知识图谱的核心，它借助本体库来管理公理、规则和约束条件，规范实体、关系、属性这些具体对象间的关系。</p>
+<p>从不同的视角去审视知识图谱，可以更方便我们对其进行了解：</p>
+<ol>
+<li>在Web视角下，知识图谱如同简单文本之间的超链接一样，通过建立数据之间的语义链接，支持语义搜索</li>
+<li>在自然语言处理视角下，知识图谱就是从文本中抽取语义和结构化的数据</li>
+<li>在知识表示视角下，知识图谱是采用计算机符号表示和处理知识的方法</li>
+<li>在人工智能视角下，知识图谱是利用知识库来辅助理解人类语言的工具</li>
+<li>在数据库视角下，知识图谱是利用图的方式去存储知识的方法</li>
+</ol>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E9%A1%B9%E7%9B%AE%E4%BC%98%E5%8C%96/">项目优化</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/">前端基础</a>
+                    
+                      <a class="hover-with-bg" href="/tags/JS/">JS</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/02/03/%5B%E9%A1%B9%E7%9B%AE%5D%E8%AE%BE%E8%AE%A1%E6%95%B4%E5%A5%97%E6%9D%83%E9%99%90%E6%8E%A7%E5%88%B6%E6%96%B9%E6%A1%88/">
+                        <span class="hidden-mobile">设计整套权限控制方案(项目)</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

@@ -1,0 +1,529 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/2.jpg">
+  <link rel="icon" href="/img/2.jpg">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="DragonPeng">
+  <meta name="keywords" content="">
+  
+  <title>设计整套权限控制方案(项目) - DragonPeng的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>DragonPeng' blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/page1.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="设计整套权限控制方案(项目)">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2023-02-03 22:15" pubdate>
+        February 3, 2023 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.8k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      23
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">设计整套权限控制方案(项目)</h1>
+            
+            <div class="markdown-body">
+              <hr>
+<h2 id="设计整套权限控制方案"><a href="#设计整套权限控制方案" class="headerlink" title="设计整套权限控制方案"></a>设计整套权限控制方案</h2><p>根据路由动态渲染菜单以及角色权限信息控制按设计按纽级别的显隐-封装V-permission指令</p>
+<h3 id="V-permission自定义指令"><a href="#V-permission自定义指令" class="headerlink" title="V-permission自定义指令"></a>V-permission自定义指令</h3><p>vue项目实现不同用户角色权限管控：</p>
+<h4 id="第一种方式：自定义指令实现用户角色权限控制v-permission："><a href="#第一种方式：自定义指令实现用户角色权限控制v-permission：" class="headerlink" title="第一种方式：自定义指令实现用户角色权限控制v-permission："></a>第一种方式：自定义指令实现用户角色权限控制v-permission：</h4><p>实现方法：Vue.directive+install+Vue.use</p>
+<p>步骤：</p>
+<ol>
+<li>新建permission.js 实现自定义指令的钩子方法：<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">import</span> store <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@/store&#x27;</span><br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;<br>  <span class="hljs-function"><span class="hljs-title">inserted</span>(<span class="hljs-params">el, binding</span>)</span> &#123;<br>    <span class="hljs-keyword">const</span> &#123; value &#125; = binding<br>    <span class="hljs-keyword">const</span> roles = store.getters &amp;&amp; store.getters.roles<br>    <span class="hljs-keyword">if</span> (value &amp;&amp; value <span class="hljs-keyword">instanceof</span> <span class="hljs-built_in">Array</span>) &#123;<br>      <span class="hljs-keyword">if</span> (value.length &gt; <span class="hljs-number">0</span>) &#123;<br>        <span class="hljs-keyword">const</span> permissionRoles = value<br>        <span class="hljs-keyword">const</span> hasPermission = roles.some(<span class="hljs-function"><span class="hljs-params">role</span> =&gt;</span> &#123;<br>          <span class="hljs-keyword">return</span> permissionRoles.includes(role)<br>        &#125;)<br>        <span class="hljs-keyword">if</span> (!hasPermission) &#123;<br>          el.parentNode &amp;&amp; el.parentNode.removeChild(el)<br>        &#125;<br>      &#125;<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>      <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">`使用方式： v-permission=&quot;[&#x27;admin&#x27;,&#x27;editor&#x27;]&quot;`</span>)<br>    &#125;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+<li>新建index.js 将permission转为install：</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">import</span> permission <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./permission&#x27;</span><br><br><span class="hljs-keyword">const</span> install = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">Vue</span>) </span>&#123;<br>  Vue.directive(<span class="hljs-string">&#x27;permission&#x27;</span>, permission)<br>&#125;<br><br><span class="hljs-keyword">if</span> (<span class="hljs-built_in">window</span>.Vue) &#123;<br>  <span class="hljs-built_in">window</span>[<span class="hljs-string">&#x27;permission&#x27;</span>] = permission<br>  Vue.use(install); <span class="hljs-comment">// eslint-disable-line</span><br>&#125;<br><br>permission.install = install<br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> permission<br></code></pre></td></tr></table></figure>
+<ol start="3">
+<li>在main.js中用use方法使用permission：</li>
+</ol>
+<figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs clean"><span class="hljs-comment">// 权限指令</span><br><span class="hljs-keyword">import</span> permission <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./components/Permission&#x27;</span><br>Vue.use(permission)<br></code></pre></td></tr></table></figure>
+<ol start="4">
+<li>在模板中使用v-permission控制访问权限:</li>
+</ol>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs scala">&lt;el-button<br>        slot=<span class="hljs-string">&quot;left&quot;</span><br>        v-permission=<span class="hljs-string">&quot;[&#x27;admin&#x27;, &#x27;storage:add&#x27;]&quot;</span><br>        <span class="hljs-class"><span class="hljs-keyword">class</span></span>=<span class="hljs-string">&quot;filter-item&quot;</span><br>        size=<span class="hljs-string">&quot;mini&quot;</span><br>        <span class="hljs-class"><span class="hljs-keyword">type</span></span>=<span class="hljs-string">&quot;primary&quot;</span><br>        icon=<span class="hljs-string">&quot;el-icon-upload&quot;</span><br>        <span class="hljs-meta">@click</span>=<span class="hljs-string">&quot;mainadd = true&quot;</span><br>        &gt;添加&lt;/el-button<br>      &gt;<br></code></pre></td></tr></table></figure>
+<h4 id="第二种方式：Vue-prototype-install-v-if实现用户角色权限控制："><a href="#第二种方式：Vue-prototype-install-v-if实现用户角色权限控制：" class="headerlink" title="第二种方式：Vue.prototype+install+v-if实现用户角色权限控制："></a>第二种方式：Vue.prototype+install+v-if实现用户角色权限控制：</h4><ol>
+<li>新建permission.js，将checkPer方法注册到Vue.prototype，并注册为install方法：<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">import</span> store <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@/store&#x27;</span><br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@param <span class="hljs-type">&#123;Array&#125;</span> <span class="hljs-variable">value</span></span></span><br><span class="hljs-comment"> * <span class="hljs-doctag">@returns <span class="hljs-type">&#123;Boolean&#125;</span></span></span><br><span class="hljs-comment"> * <span class="hljs-doctag">@example </span>see @/views/permission/directive.vue</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;<br>  <span class="hljs-function"><span class="hljs-title">install</span>(<span class="hljs-params">Vue</span>)</span> &#123;<br>    Vue.prototype.checkPer = <span class="hljs-function">(<span class="hljs-params">value</span>) =&gt;</span> &#123;<br>      <span class="hljs-keyword">if</span> (value &amp;&amp; value <span class="hljs-keyword">instanceof</span> <span class="hljs-built_in">Array</span> &amp;&amp; value.length &gt; <span class="hljs-number">0</span>) &#123;<br>        <span class="hljs-keyword">const</span> roles = store.getters &amp;&amp; store.getters.roles<br>        <span class="hljs-keyword">const</span> permissionRoles = value<br>        <span class="hljs-keyword">return</span> roles.some(<span class="hljs-function"><span class="hljs-params">role</span> =&gt;</span> &#123;<br>          <span class="hljs-keyword">return</span> permissionRoles.includes(role)<br>        &#125;)<br>      &#125; <span class="hljs-keyword">else</span> &#123;<br>        <span class="hljs-built_in">console</span>.error(<span class="hljs-string">`need roles! Like v-permission=&quot;[&#x27;admin&#x27;,&#x27;editor&#x27;]&quot;`</span>)<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>      &#125;<br>    &#125;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+在main.js中引入permission, 并用use方法:<figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs clean"><span class="hljs-comment">// 权限指令</span><br><span class="hljs-keyword">import</span> checkPer <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@/utils/permission&#x27;</span><br>Vue.use(checkPer)<br></code></pre></td></tr></table></figure>
+使用：配合 v-if 在模板中实现权限控制：<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">&lt;el-table-column <span class="hljs-attribute">v-if</span>=<span class="hljs-string">&quot;checkPer([&#x27;admin&#x27;,&#x27;app:edit&#x27;,&#x27;app:del&#x27;])&quot;</span> <span class="hljs-attribute">label</span>=<span class="hljs-string">&quot;操作&quot;</span> <span class="hljs-attribute">width</span>=<span class="hljs-string">&quot;150px&quot;</span> <span class="hljs-attribute">align</span>=<span class="hljs-string">&quot;center&quot;</span>&gt;<br></code></pre></td></tr></table></figure>
+<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/b9f3c43cf07a">vue权限管控permission实现</a><h4 id="vue自定义指令合集之权限校验v-permission"><a href="#vue自定义指令合集之权限校验v-permission" class="headerlink" title="vue自定义指令合集之权限校验v-permission"></a>vue自定义指令合集之权限校验v-permission</h4><blockquote>
+<p>在我们日常开发中权限校验是必不可少的一个环节，尤其是对于一些应用系统或一些中后台的开发，更是需要用到权限校验的。那么权限校验也有很多种类，比如菜单权限、组件权限甚至是小到元素权限等等，本文我们就将以元素权限为例，实现一个简单的权限校验自定义指令。<br>在有一些场景中我们可能会根据用户登录后所拥有的权限来决定哪些元素该显示，哪些元素不该显示。比如我们最常使用的就是增删改查操作，那么对于管理员来说权限很大，增删改查都有权限操作，而对于普通用户来说可能只有查询操作，这个时候就需要根据不同用户权限来决定元素的显示和隐藏了。</p>
+</blockquote>
+</li>
+</ol>
+<h5 id="思路分析"><a href="#思路分析" class="headerlink" title="思路分析"></a>思路分析</h5><ol>
+<li>首先因为会涉及到元素的展示和隐藏操作，所以在我们自定义指令时就不能再用beforeMount钩子函数了，而是需要用mounted函数，也就是说等元素渲染后再去控制是否展示。</li>
+<li>在mounted函数中，我们首先需要获取登录用户所拥有的权限。一般情况下在用户登录后会去请求服务器获取用户权限，然后再把权限数据保存在vuex中。这里我们要做的就是把权限数据从vuex中解析出来，便于后续使用。（为了方便展示，我们就直接使用字符串代替了）</li>
+<li>权限数据拿到以后，我们还需要判断当前元素需要哪些权限，比如删除按钮需要的就是对应的删除权限，而这个权限在元素被定义时就应该已经确定了，所以我们应该在对应的元素中把需要的权限传给我们的自定义指令，然后再通过binding.value拿到该权限</li>
+<li>最后就是对比校验，看看当前元素所需要的权限是否存在于用户的权限列表中，如果存在则说明有权限元素应该显示，否则没有权限移除对应的元素。</li>
+<li>以上便是权限自定义指令的整体实现思路，相对来说还是比较简单的，下面我们来看一下具体的代码实现。<br>权限校验代码实现<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">v-permission</span>=<span class="hljs-string">&quot;&#x27;add&#x27;&quot;</span>&gt;</span>add<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">v-permission</span>=<span class="hljs-string">&quot;&#x27;del&#x27;&quot;</span>&gt;</span>del<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">v-permission</span>=<span class="hljs-string">&quot;&#x27;update&#x27;&quot;</span>&gt;</span>update<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">v-permission</span>=<span class="hljs-string">&quot;&#x27;query&#x27;&quot;</span>&gt;</span>query<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs awk">const app = createApp();<br>app.directive(<span class="hljs-string">&#x27;permission&#x27;</span>,&#123;<br>	mounted(el,binding)&#123;<br>		<span class="hljs-regexp">//</span>从服务获取用户的权限列表，一般获取后存放于vuex中，本案例为了方便演示将直接以字符串的形式展示<br>		<span class="hljs-regexp">//</span>权限之间以分号分隔<br>		<span class="hljs-regexp">//</span>管理员权限：<span class="hljs-string">&quot;add;del;update;query&quot;</span><br>		<span class="hljs-regexp">//</span>普通用户权限：<span class="hljs-string">&quot;add;del;update;query&quot;</span><br>		let permission = <span class="hljs-string">&quot;update;query&quot;</span>,<span class="hljs-regexp">//</span>权限字符串<br>			permissionList = [];<span class="hljs-regexp">//</span>权限列表<br>		<span class="hljs-keyword">if</span>(!permission) permission = <span class="hljs-string">&quot;&quot;</span>;<br>		permissionList = permission.split(<span class="hljs-string">&quot;;&quot;</span>);<br><br>		<span class="hljs-regexp">//</span>获取需要的权限标识，即元素给指令传进来的参数值<br>		let passText = binding.value,<span class="hljs-regexp">//</span>可以是多个值，中间以分号分隔<br>			passTextArr = [];<span class="hljs-regexp">//</span>将权限解析到数组中<br>		<span class="hljs-keyword">if</span>(!passText) passText = <span class="hljs-string">&quot;&quot;</span>;<br>		passTextArr = passText.split(<span class="hljs-string">&#x27;;&#x27;</span>);<br>		<br>		<span class="hljs-regexp">//</span>定义一个权限标识变量，用于标识是否有权限<br>		let flag = false;<br>		<span class="hljs-regexp">//</span>循环遍历权限列表，检测用户是否有相应的操作权限<br>		<span class="hljs-keyword">for</span>(let i = <span class="hljs-number">0</span>; i &lt; passTextArr.length; i++)&#123;<br>			<span class="hljs-keyword">if</span>(permissionList.includes(passTextArr[i]))&#123;<br>				<span class="hljs-regexp">//</span>如果从服务器中获取的权限列表中有组件所需的权限，则将flag置为true,同时跳出循环<br>				flag = true;<br>				<span class="hljs-keyword">break</span>;<br>			&#125;<br>		&#125;<br>		<span class="hljs-regexp">//</span>如果flag为false，也就是没权限则直接将元素移除或者隐藏<br>		<span class="hljs-keyword">if</span>(!flag) el.parentNode &amp;&amp; el.parentNode.removeChild(el);<br>	&#125;<br>&#125;)<br></code></pre></td></tr></table></figure>
+代码运行起来后，我们会发现对应管理员来说，会看到全部按钮，而对于普通用户来说则只能看到update和query按钮。</li>
+</ol>
+<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6981031288803164173">Vue后台管理系统怎么做权限验证和动态路由，谁来做？</a></p>
+<h3 id="首屏看板优化，解决拖拉拽卡顿问题一-渲染优化重新封装组件-重新设计数据-设计vuex持久化存储"><a href="#首屏看板优化，解决拖拉拽卡顿问题一-渲染优化重新封装组件-重新设计数据-设计vuex持久化存储" class="headerlink" title="首屏看板优化，解决拖拉拽卡顿问题一 渲染优化重新封装组件 重新设计数据 设计vuex持久化存储"></a>首屏看板优化，解决拖拉拽卡顿问题一 渲染优化重新封装组件 重新设计数据 设计vuex持久化存储</h3><h3 id="vuex数据可持久化-对于刷新也需要保留状态的需要同步到本地存储"><a href="#vuex数据可持久化-对于刷新也需要保留状态的需要同步到本地存储" class="headerlink" title="vuex数据可持久化-对于刷新也需要保留状态的需要同步到本地存储"></a>vuex数据可持久化-对于刷新也需要保留状态的需要同步到本地存储</h3><h3 id="多条产品线共享sso单点登录设计"><a href="#多条产品线共享sso单点登录设计" class="headerlink" title="多条产品线共享sso单点登录设计"></a>多条产品线共享sso单点登录设计</h3><h4 id="单独提取登录模块-利用cookie-使二级域名可以共卓教据的持点来实现单点登录"><a href="#单独提取登录模块-利用cookie-使二级域名可以共卓教据的持点来实现单点登录" class="headerlink" title="单独提取登录模块 利用cookie 使二级域名可以共卓教据的持点来实现单点登录"></a>单独提取登录模块 利用cookie 使二级域名可以共卓教据的持点来实现单点登录</h4><p>涉及到cookie过大超过请求数据量–只保留必须的用户登录信息-token和userinfo至于项目个性信息保存在本地存储</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E9%A1%B9%E7%9B%AE%E4%BC%98%E5%8C%96/">项目优化</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/">前端基础</a>
+                    
+                      <a class="hover-with-bg" href="/tags/JS/">JS</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/02/03/%5B%E9%A1%B9%E7%9B%AE%5D%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">知识图谱基础知识摘要(项目)</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/02/03/%5B%E9%A1%B9%E7%9B%AE%5D%E5%AE%9E%E7%8E%B0select%E4%B8%8B%E6%8B%89%E6%90%9C%E7%B4%A2%EF%BC%8C%E6%97%A0%E9%99%90%E6%BB%9A%E5%8A%A8/">
+                        <span class="hidden-mobile">实现select下拉搜索，无限滚动(项目)</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

@@ -1,0 +1,541 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/2.jpg">
+  <link rel="icon" href="/img/2.jpg">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="DragonPeng">
+  <meta name="keywords" content="">
+  
+  <title>vuex数据可持久化(项目) - DragonPeng的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>DragonPeng' blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/page1.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="vuex数据可持久化(项目)">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2023-02-01 22:15" pubdate>
+        February 1, 2023 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.6k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      21
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">vuex数据可持久化(项目)</h1>
+            
+            <div class="markdown-body">
+              <hr>
+<h2 id="vuex数据可持久化-对于刷新也需要保留状态的需要同步到本地存储"><a href="#vuex数据可持久化-对于刷新也需要保留状态的需要同步到本地存储" class="headerlink" title="vuex数据可持久化-对于刷新也需要保留状态的需要同步到本地存储"></a>vuex数据可持久化-对于刷新也需要保留状态的需要同步到本地存储</h2><h4 id="Vuex实现数据持久化，解决浏览器刷新数据丢失问题"><a href="#Vuex实现数据持久化，解决浏览器刷新数据丢失问题" class="headerlink" title="Vuex实现数据持久化，解决浏览器刷新数据丢失问题"></a>Vuex实现数据持久化，解决浏览器刷新数据丢失问题</h4><p>vuex的 store 中的数据是保存在运行内存中的，当页面刷新时，页面会重新加载 vue 实例，vuex 里面的数据就会被重新赋值，这样就会出现页面刷新vuex中的数据丢失的问题。 如何解决浏览器刷新数据丢失问题呢？</p>
+<h5 id="方法一：全局监听，页面刷新的时候将-store-里-state-的值存到-sessionStorage-中，然后从sessionStorage-中获取，再赋值给-store-，并移除-sessionStorage-中的数据。在-app-vue-中添加以下代码："><a href="#方法一：全局监听，页面刷新的时候将-store-里-state-的值存到-sessionStorage-中，然后从sessionStorage-中获取，再赋值给-store-，并移除-sessionStorage-中的数据。在-app-vue-中添加以下代码：" class="headerlink" title="方法一：全局监听，页面刷新的时候将 store 里 state 的值存到 sessionStorage 中，然后从sessionStorage 中获取，再赋值给 store ，并移除 sessionStorage 中的数据。在 app.vue 中添加以下代码："></a>方法一：全局监听，页面刷新的时候将 store 里 state 的值存到 sessionStorage 中，然后从sessionStorage 中获取，再赋值给 store ，并移除 sessionStorage 中的数据。在 app.vue 中添加以下代码：</h5><figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">created<span class="hljs-literal">()</span> &#123;<br>   window.add<span class="hljs-constructor">EventListener(&#x27;<span class="hljs-params">beforeunload</span>&#x27;,()</span>=&gt;&#123;<br>      sessionStorage.set<span class="hljs-constructor">Item(&#x27;<span class="hljs-params">list</span>&#x27;, JSON.<span class="hljs-params">stringify</span>(<span class="hljs-params">this</span>.$<span class="hljs-params">store</span>.<span class="hljs-params">state</span>)</span>)<br>   &#125;)<br>   <br>   <span class="hljs-keyword">try</span>&#123;<br>     sessionStorage.get<span class="hljs-constructor">Item(&#x27;<span class="hljs-params">list</span>&#x27;)</span><span class="hljs-operator"> &amp;&amp; </span>this.$store.replace<span class="hljs-constructor">State(Object.<span class="hljs-params">assign</span>(&#123;&#125;,<span class="hljs-params">this</span>.$<span class="hljs-params">store</span>.<span class="hljs-params">state</span>,JSON.<span class="hljs-params">parse</span>(<span class="hljs-params">sessionStorage</span>.<span class="hljs-params">getItem</span>(&#x27;<span class="hljs-params">list</span>&#x27;)</span>)))<br>   &#125;catch(err) &#123;<br>     console.log(err);<br>   &#125;<br> <br>   sessionStorage.remove<span class="hljs-constructor">Item(<span class="hljs-string">&quot;list&quot;</span>)</span>;<br> &#125;<br></code></pre></td></tr></table></figure>
+<p><strong>注意!!! storage 只能存储字符串的数据，对于 JS 中常用的数组或对象不能直接存储。但我们可以通过JSON 对象提供的 parse 和 stringify 方法将其他数据类型转化成字符串，再存储到storage中就可以了。</strong></p>
+<h4 id="方法二：安装-vuex-persistedstate-插件"><a href="#方法二：安装-vuex-persistedstate-插件" class="headerlink" title="方法二：安装 vuex-persistedstate 插件"></a>方法二：安装 vuex-persistedstate 插件</h4><figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs axapta"><span class="hljs-number">1.</span> npm install vuex-persistedstate -S <span class="hljs-comment">//安装插件</span><br><span class="hljs-number">2.</span> 在 store/<span class="hljs-keyword">index</span>.js 文件中添加以下代码：<br>import persistedState <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vuex-persistedstate&#x27;</span><br><span class="hljs-keyword">const</span> store = <span class="hljs-keyword">new</span> Vuex.Store(&#123;<br> state:&#123;&#125;,<br> getters:&#123;&#125;,<br> ...<br> plugins: [persistedState()] <span class="hljs-comment">//添加插件</span><br>&#125;)<br></code></pre></td></tr></table></figure>
+<p><strong>注意!!! vuex-persistedstate 默认使用 localStorage 来存储数据，若要实现无痕浏览该如何实现呢？</strong></p>
+<p>这时候就<strong>需要使用 sessionStorage 进行存储，修改 plugins 中的代码</strong></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs css">plugins: [<br>    <span class="hljs-built_in">persistedState</span>(&#123; storage: window.sessionStorage &#125;)<br>]<br></code></pre></td></tr></table></figure>
+
+<h5 id="注意事项："><a href="#注意事项：" class="headerlink" title="注意事项："></a>注意事项：</h5><ol>
+<li>storage为存储方式，可选值为localStorage、sessionStorage和cookies；</li>
+<li>localStorage和sessionStorage两种存储方式可以采用上述代码中的写法，若想采用cookies坐位数据存储方式，则需要另外一种写法；</li>
+<li>render接收一个函数，返回值为一个对象；返回的对象中的键值对既是要持久化存储的数据；</li>
+<li>若想持久化存储部分数据，请在return的对象中采用key：value键值对的方式进行数据存储，render函数中的参数既为state对象。</li>
+</ol>
+<h4 id="方案三：vuex-persist"><a href="#方案三：vuex-persist" class="headerlink" title="方案三：vuex-persist"></a>方案三：vuex-persist</h4><figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs livecodeserver">安装插件<br>yarn <span class="hljs-built_in">add</span> vuex-persist<br>// 或<br>npm install <span class="hljs-comment">--save vuex-persist</span><br></code></pre></td></tr></table></figure>
+<p>使用方法</p>
+<figure class="highlight pf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs pf">import Vuex <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;vuex&quot;</span>;<br>// 引入插件<br>import VuexPersistence <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;vuex-persist&quot;</span>;<br><br>Vue.use(Vuex);<br>//  初始化<br><span class="hljs-keyword">const</span> <span class="hljs-keyword">state</span> = &#123;<br>	<span class="hljs-keyword">user</span>Name:&#x27;admin&#x27;<br>&#125;;<br><span class="hljs-keyword">const</span> mutations = &#123;&#125;;<br><span class="hljs-keyword">const</span> actions = &#123;&#125;;<br>// 创建实例<br><span class="hljs-keyword">const</span> vuexPersisted = new VuexPersistence(&#123;<br>	storage: window.sessionStorage,<br>  render:<span class="hljs-keyword">state</span>=&gt;(&#123;<br>  	<span class="hljs-keyword">user</span>Name:<span class="hljs-keyword">state</span>.<span class="hljs-keyword">user</span>Name<br>    // 或<br>    ...<span class="hljs-keyword">state</span><br>  &#125;)<br>&#125;);<br><br><span class="hljs-keyword">const</span> store = new Vuex.Store(&#123;<br>	<span class="hljs-keyword">state</span>,<br>  actions,<br>  mutations,<br>  // 数据持久化设置<br>  plugins:[vuexPersisted]<br>&#125;);<br><br>export <span class="hljs-keyword">default</span> store;<br></code></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6973916613506498567">Vuex实现数据持久化，解决浏览器刷新数据丢失问题</a><br><a target="_blank" rel="noopener" href="https://juejin.cn/post/6918684399659646989">Vuex数据持久化存储</a></p>
+<h4 id="比vuex更好用的Pinia-pinia模块化如何实现-pinia如何实现数据持久化"><a href="#比vuex更好用的Pinia-pinia模块化如何实现-pinia如何实现数据持久化" class="headerlink" title="比vuex更好用的Pinia,pinia模块化如何实现?pinia如何实现数据持久化?"></a>比vuex更好用的Pinia,pinia模块化如何实现?pinia如何实现数据持久化?</h4><h5 id="pinia模块化如何实现"><a href="#pinia模块化如何实现" class="headerlink" title="pinia模块化如何实现?"></a>pinia模块化如何实现?</h5><p>pinia相比vuex没有modules,那么如何实现模块化呢?<br>在复杂项目中，不可能把多个模块的数据都定义到一个store中，一般来说会一个模块对应一个store，最后通过一个根store进行整合</p>
+<p>假设我们目前store中有两个模块user.js和counter.js,我们再手动设置一个index.js</p>
+<p>1.我们在index.js中导入user.js和counter.js,</p>
+<p>2.并统一导出useStore方法,返回user和counter中的内容</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">import</span> useCounterStore <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./counter.js&#x27;</span><br><span class="hljs-keyword">import</span> useUserStore <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./user.js&#x27;</span><br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">useStore</span>(<span class="hljs-params"></span>)</span>&#123;<br>    <span class="hljs-keyword">return</span> &#123;<br>        user:useUserStore(),<br>        counter:useCounterStore()<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>3.那么如何在组件中具体使用呢?</p>
+<p>首先从store/index.js导入useStore方法</p>
+<p>由于使用useStore方法会返回一个对象,对象中有user和counter,</p>
+<p>我们使用解构赋值可以从useStore方法得到具体的某个模块</p>
+<p>注意:import useStore from ‘./store’ 虽然没有在后面加上/index.js,但是会默认选中文件夹下的index.js</p>
+<figure class="highlight handlebars"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs handlebars"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">setup</span>&gt;</span></span><br><span class="xml">import useStore from &#x27;./store&#x27;</span><br><span class="xml">const &#123; counter &#125; = useStore()</span><br><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span><br><br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span></span><br><span class="xml">    <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>主页组件<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="xml">    <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>计数:</span><span class="hljs-template-variable">&#123;&#123; <span class="hljs-name">counter.count</span> &#125;&#125;</span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="xml">    <span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>计数加倍: </span><span class="hljs-template-variable">&#123;&#123; <span class="hljs-name">counter.double</span> &#125;&#125;</span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span></span><br></code></pre></td></tr></table></figure>
+<h5 id="vuex中实现模块化的方法"><a href="#vuex中实现模块化的方法" class="headerlink" title="vuex中实现模块化的方法"></a>vuex中实现模块化的方法</h5><p>1.把各个模块导入index.js 2.把所有模块名放到mudules下</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">import</span> Vue <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vue&#x27;</span><br><span class="hljs-keyword">import</span> Vuex <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vuex&#x27;</span><br><span class="hljs-keyword">import</span> getters <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./getters&#x27;</span><br><span class="hljs-keyword">import</span> app <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./modules/app&#x27;</span><br><span class="hljs-keyword">import</span> settings <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./modules/settings&#x27;</span><br><span class="hljs-keyword">import</span> user <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./modules/user&#x27;</span><br><span class="hljs-keyword">import</span> menu <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./modules/menu&#x27;</span><br><br>Vue.use(Vuex)<br><br><span class="hljs-keyword">const</span> store = <span class="hljs-keyword">new</span> Vuex.Store(&#123;<br>  modules: &#123;<br>    app,<br>    settings,<br>    user,<br>    menu<br>  &#125;,<br>  getters<br>&#125;)<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> store<br></code></pre></td></tr></table></figure>
+<h4 id="pinia如何实现数据持久化"><a href="#pinia如何实现数据持久化" class="headerlink" title="pinia如何实现数据持久化?"></a>pinia如何实现数据持久化?</h4><p>我们可以通过通过 Pinia 插件pinia-plugin-persistedstate实现持久化存储</p>
+<p>配置pinia持久化插件</p>
+<p>1.下载安装pinia-plugin-persistedstate</p>
+<p>2.main.js导入pinia-plugin-persistedstate创建对象并挂载</p>
+<p>3.在具体的pinia模块中开启持久化</p>
+<p>下载安装插件</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm">yarn <span class="hljs-keyword">add </span>pinia-plugin-persistedstate<br><span class="hljs-keyword">or</span><br><span class="hljs-keyword">npm </span>i  pinia-plugin-persistedstate<br></code></pre></td></tr></table></figure>
+
+<p>在main.js中导入并且注册挂载</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 配置pinia持久化插件</span><br><span class="hljs-comment">// 1.下载安装pinia-plugin-persistedstate</span><br><span class="hljs-comment">// 2.main.js导入pinia-plugin-persistedstate创建对象并挂载</span><br><span class="hljs-comment">// 3.在具体的pinia模块中开启持久化</span><br><span class="hljs-keyword">import</span> &#123; createApp &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vue&#x27;</span><br><span class="hljs-keyword">import</span> &#123; createPinia &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;pinia&#x27;</span><br><span class="hljs-keyword">import</span> App <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./App.vue&#x27;</span><br><br><span class="hljs-keyword">import</span> piniaPluginPersistedstate <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;pinia-plugin-persistedstate&#x27;</span><br><span class="hljs-keyword">const</span> pinia = createPinia()<br>pinia.use(piniaPluginPersistedstate)<br><br>createApp(App).use(pinia).mount(<span class="hljs-string">&#x27;#app&#x27;</span>)<br></code></pre></td></tr></table></figure>
+<p>注意:当createApp(App)需要挂载多个时</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs javascript">createApp(App).use(router).use(pinia).mount(<span class="hljs-string">&quot;#app&quot;</span>)<br>复制代码<br>在具体的pinia模块中开启持久化<br>在user.js中设置 persist: <span class="hljs-literal">true</span><br><br><span class="hljs-keyword">import</span> &#123;defineStore&#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;pinia&#x27;</span><br><br><span class="hljs-keyword">const</span> useUserStore = defineStore(<span class="hljs-string">&#x27;user&#x27;</span>,&#123;<br>    <span class="hljs-function"><span class="hljs-title">state</span>(<span class="hljs-params"></span>)</span>&#123;<br>        <span class="hljs-keyword">return</span> &#123;<br>            userInfo:&#123;<br>                name:<span class="hljs-string">&#x27;tom&#x27;</span>,<br>                age:<span class="hljs-number">4</span><br>            &#125;<br>        &#125;<br>    &#125;,<br>    actions:&#123;<br>        <span class="hljs-function"><span class="hljs-title">addAge</span>(<span class="hljs-params"></span>)</span>&#123;<br>            <span class="hljs-built_in">this</span>.userInfo.age++<br>        &#125;<br>    &#125;,<br>    getters:&#123;<br>        <br>    &#125;,<br>    <span class="hljs-comment">//开启数据持久化</span><br>    persist: <span class="hljs-literal">true</span><br>&#125;)<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> useUserStore<br></code></pre></td></tr></table></figure>
+<p>实现效果,state数据存储在了LocalStorage中<br>总结</p>
+<ul>
+<li>pinia相比vuex有许多优化比如取消了mutations,同步异步修改数据都在actions中进行</li>
+<li>但是pinia取消了modules,我们可以手动实现模块化,导入把所有模块导入index.js,函数返回一个对象</li>
+<li>pinia实现持久化方法有许多种,此处使用插件比较简单<br><a target="_blank" rel="noopener" href="https://juejin.cn/post/7164957663522979848#heading-2">比vuex更好用的Pinia,pinia模块化如何实现?pinia如何实现数据持久化?</a></li>
+</ul>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E9%A1%B9%E7%9B%AE%E4%BC%98%E5%8C%96/">项目优化</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/">前端基础</a>
+                    
+                      <a class="hover-with-bg" href="/tags/JS/">JS</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/02/03/%5B%E9%A1%B9%E7%9B%AE%5D%E5%AE%9E%E7%8E%B0select%E4%B8%8B%E6%8B%89%E6%90%9C%E7%B4%A2%EF%BC%8C%E6%97%A0%E9%99%90%E6%BB%9A%E5%8A%A8/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">实现select下拉搜索，无限滚动(项目)</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/02/01/%5B%E9%A1%B9%E7%9B%AE%5D%E5%A4%9A%E6%9D%A1%E4%BA%A7%E5%93%81%E7%BA%BF%E5%85%B1%E4%BA%ABsso%E5%8D%95%E7%82%B9%E7%99%BB%E5%BD%95%E8%AE%BE%E8%AE%A1/">
+                        <span class="hidden-mobile">多条产品线共享sso单点登录设计(项目)</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
