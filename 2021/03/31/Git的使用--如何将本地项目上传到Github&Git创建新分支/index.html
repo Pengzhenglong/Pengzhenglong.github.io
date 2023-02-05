@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      2.9k 字
+      4.1k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      34
+      47
        分钟
     </span>
   
@@ -380,7 +380,95 @@
 </li>
 </ol>
 <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs awk">命令             作用<br>git diff       <span class="hljs-regexp">//</span>查看工作区与暂存区的差异<br>git diff --cached     <span class="hljs-regexp">//</span>查看暂存区与仓库的差异<br>git diff HEAD <span class="hljs-regexp">//</span>查看工作区与仓库的差异<br></code></pre></td></tr></table></figure>
-
+<h3 id="分支管理规范"><a href="#分支管理规范" class="headerlink" title="分支管理规范"></a><strong>分支管理规范</strong></h3><p>分批次研发规范流程</p>
+<h4 id="基本流程"><a href="#基本流程" class="headerlink" title="基本流程"></a>基本流程</h4><ol>
+<li>需求、UE评审，确定需求优先级</li>
+<li>基本确定需求间的依赖关系，确定不同提测批次的需求模块</li>
+<li>不同批次研发排期确定和提测时间确定</li>
+<li>第一批次需求开发开始</li>
+<li>第一批次需求自测 + 提测</li>
+<li>第二批次需求开发开始</li>
+<li>第二批次需求自测 + 提测</li>
+<li>以此类推……<h5 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h5></li>
+</ol>
+<ul>
+<li><p>有些隐晦的依赖关系可能在开发时才被发现，影响到了需求分批次的正确性，此时需要及时和项目后台负责人说明情况，调整受影响批次的需求内容</p>
+</li>
+<li><p>后续批次的研发，并不一定要等到第一批次提测结束后才开始，当然，提测时会被QA打断，影响编码效率，所以上一批次提测期间，后续批次的研发排期，需要自行判断延长，比如 1天 当 0.5天算</p>
+<h4 id="前端分支管理规范demo"><a href="#前端分支管理规范demo" class="headerlink" title="前端分支管理规范demo"></a>前端分支管理规范demo</h4></li>
+<li><p>需求评审 + UE评审 + 分批次提测模块划分</p>
+</li>
+<li><p>开始开发前，从develop拉取分支</p>
+<ul>
+<li> release/vx.x.x — 用于最终提测</li>
+<li>test/vx.x.x — 用于自测</li>
+<li>feature/xxx — 用于开发单个功能需求</li>
+</ul>
+</li>
+<li><p>第一批次feature开发联调完毕，合并到 test 分支，部署到开发环境进行自测，自测bug在 feature 分支修复后合并到 test 分支</p>
+</li>
+<li><p>自测结束，各feature分支合并到release分支，发起提测，提测bug从 release 拉取 fix 分支修复</p>
+</li>
+<li><p>第二批次feature开发联调完毕，合并到test分支，部署到开发环境进行自测，自测bug在 feature 分支修复后合并到 test 分支</p>
+</li>
+<li><p>自测结束，各feature分支合并到release分支，发起提测，提测bug从 release 拉取 fix 分支修复</p>
+</li>
+<li><p>以此类推……</p>
+</li>
+<li><p>全部提测通过，release分支合并到develop分支，打tag，删除各feature分支、test分支</p>
+<h3 id="commit提交规范"><a href="#commit提交规范" class="headerlink" title="commit提交规范"></a><strong>commit提交规范</strong></h3><ul>
+<li>1，每日下班前记得提交代码，避免遗失；</li>
+<li>2，提交代码时必须标注必要的描述信息；</li>
+<li>3，描述信息的规范：类型：具体信息，如：fix：修复子菜单未选中问题</li>
+<li>描述类型如下：<ul>
+<li>feat: 新特性</li>
+<li>fix: 修改问题</li>
+<li>refactor: 代码重构</li>
+<li>docs: 文档修改</li>
+<li>chore: 其他修改</li>
+<li>test: 测试用例修改</li>
+<li>style: 代码格式修改等等</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="分支命名规范"><a href="#分支命名规范" class="headerlink" title="分支命名规范"></a><strong>分支命名规范</strong></h4><ul>
+<li>1，功能分支命名：feature/版本日期_功能_作者，如：feature/20200924_createNode_ybl</li>
+<li>2，版本发布分支命名：release/发布日期，如：release/20200924</li>
+</ul>
+<h4 id="gitflow流程"><a href="#gitflow流程" class="headerlink" title="gitflow流程"></a><strong>gitflow流程</strong></h4><p><img src="/img/git.png" srcset="/img/loading.gif" lazyload alt="image"></p>
+<ul>
+<li><strong>功能开发</strong><ul>
+<li>所有的新功能开发应该通过创建<strong>feature</strong>分支的方式去开发，需要从最新代码的<strong>develop</strong>分支里进行创建，例如feature/add-user，开发完成之后需要发起<strong>Merge Request</strong>合并回develop分支；</li>
+<li>强调下：独立的功能尽量使用独立的feature分支来开发，切忌把多个功能合并使用一个feature分支来开发；</li>
+<li>不同的feature分支完成开发和联调后，需要严格执行自测，并且根据项目的需要来决定是否单独提测该feature分支。</li>
+</ul>
+</li>
+<li><strong>功能提测</strong><ul>
+<li>确认需要发布的功能集合以及对应的版本号后，将相应的feature分支统一合并回develop分支，并且从develop分支上新建相应的release分支，例如：release/v1.2.0；</li>
+<li>release分支在测试过程中<strong>出现的bug</strong>，可以通过新建hotfix分支的方式去并行修复问题，完成后需要通过<strong>Merge Request</strong>合并回当前release分支；</li>
+<li>release分支在测试过程中<strong>出现新的需求</strong>，可以通过feature分支的方式去开发，完成后需要通过<strong>Merge Request</strong>合并回当前release分支；</li>
+</ul>
+</li>
+<li><strong>发布上线</strong><ul>
+<li>待release分支测试验收通过后，在当前release分支上打出相应的tag（例如v1.2.0），然后将代码分别合并到master和develop分支中，并且需要将当前release分支相关历史的feature分支或hotfix分支进行删除。</li>
+</ul>
+</li>
+<li><strong>线上问题修复</strong><ul>
+<li>若线上发现有严重的bug，需要从具体tag（如v1.1.0）的提交版本中创建相应的hotfix分支（例如hotfix/v1.1.0）；</li>
+<li>当问题修复完成并且通过测试验证，需要在当前分支打tag（例如v1.1.0-P1），并且需要将当前hotfix分支分别通过<strong>Merge Request</strong>合并回master、develop分支上。</li>
+</ul>
+</li>
+</ul>
+<h4 id="注意事项："><a href="#注意事项：" class="headerlink" title="注意事项："></a><strong>注意事项：</strong></h4><ul>
+<li>1，定期清理已合并且无用的<strong>feature</strong>分支，留版本发布的<strong>release/xxx</strong>分支；<ul>
+<li>清理远程分支git remote  prune origin   </li>
+<li>清理本地分支git branch -D 分支名</li>
+</ul>
+</li>
+<li>2，记得发布后打tag；</li>
+</ul>
 <blockquote>
 <p>参考链接<br><a target="_blank" rel="noopener" href="https://www.runoob.com/git/git-basic-operations.html">菜鸟教程</a><br><a target="_blank" rel="noopener" href="https://www.cnblogs.com/jmhwsrr/p/14085463.html">git diff命令的使用</a></p>
 </blockquote>
