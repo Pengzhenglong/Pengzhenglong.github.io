@@ -180,64 +180,6 @@
     
     
       <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2021/07/04/Vue%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/" target="_self">
-          <img src="/image/11.PNG" srcset="/img/loading.gif" lazyload alt="Vue 响应式原理">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2021/07/04/Vue%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/">Vue 响应式原理</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2021/07/04/Vue%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/">
-          
-          
-            
-          
-          
-Vue 初始化先从最简单的一段 Vue 代码开始：
-1234567891011121314&lt;template&gt;  &lt;div&gt;    &#123;&#123; message &#125;&#125;  &lt;/div&gt;&lt;/template&gt;&lt;script&gt;new Vue(&#123;  data() &#123;    return &#1
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2021-07-04 12:15" pubdate>
-              2021-07-04
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Vue/">Vue</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/">前端基础</a>
-            
-              <a href="/tags/Vue/">Vue</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
         <a href="/2021/07/04/Vue-Router%E5%8E%9F%E7%90%86/" target="_self">
           <img src="/image/11.PNG" srcset="/img/loading.gif" lazyload alt="Vue 中的 router 实现原理如何&amp;SPA页面优缺点">
         </a>
@@ -774,6 +716,71 @@ offsetWidth/offsetHeight 是指一个元素的 CSS 「标准宽高」，它包�
               <a href="/tags/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/">前端基础</a>
             
               <a href="/tags/CSS/">CSS</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2021/06/17/Vue&&axios%E6%8B%A6%E6%88%AA%E5%99%A8/" target="_self">
+          <img src="/image/11.PNG" srcset="/img/loading.gif" lazyload alt="axios拦截器">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2021/06/17/Vue&&axios%E6%8B%A6%E6%88%AA%E5%99%A8/">axios拦截器</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2021/06/17/Vue&&axios%E6%8B%A6%E6%88%AA%E5%99%A8/">
+          
+          
+            
+          
+          
+基本思想首先要知道登录不仅仅是拿着用户名和密码通过接口发给后端就大功告成了,要从几个方面考虑
+
+异步登录，通过登录接口拿到token
+利用vuex的state管理token、用户信息等
+利用axios拦截器，拦截每一次请求/响应来处理token
+
+12token是用户登录成功的标识，每一次请求数据时都要发送token给后端验证 &amp; 接收后端返回状态码判断当前用户登录状态
+
+登录的基本实现
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2021-06-17 11:15" pubdate>
+              2021-06-17
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Vue/">Vue</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/">前端基础</a>
+            
+              <a href="/tags/Vue/">Vue</a>
             
           </div>
         
