@@ -1,0 +1,593 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/2.jpg">
+  <link rel="icon" href="/img/2.jpg">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="DragonPeng">
+  <meta name="keywords" content="">
+  
+  <title>长列表优化之虚拟列表(项目) - DragonPeng的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>DragonPeng' blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/page1.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="长列表优化之虚拟列表(项目)">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-03-28 21:15" pubdate>
+        March 28, 2022 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      5.5k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      62
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">长列表优化之虚拟列表(项目)</h1>
+            
+            <div class="markdown-body">
+              <p>为什么需要长列表优化，为什么需要虚拟列表？</p>
+<p>长列表是指<strong>包含大量数据项的列表</strong>，如果在渲染这些数据项时没有进行优化，则会导致应用程序变慢并占用更多的系统资源，从而影响用户体验。因此，需要对长列表进行优化。<br>长列表优化的目的是尽可能地减少应用程序在渲染长列表时的开销。优化的方法包括使用<strong>虚拟列表、懒加载、分页、无限滚动</strong>等技术。</p>
+<p>虚拟列表是一种在渲染长列表时非常有效的优化技术。其原理是只渲染可见的列表项，而不是全部渲染，以减少内存和 CPU 的使用量。当用户滚动列表时，只有新出现的列表项才会被渲染，已经滚出视图的列表项则会被销毁，从而避免了长列表中大量无用数据的渲染和占用内存资源。</p>
+<p>虚拟列表技术在实际应用开发中非常常见，因此也经常被面试考察。面试者可能会被要求实现一个虚拟列表组件，或者被问到虚拟列表的原理和优缺点等相关问题。因此，熟练掌握虚拟列表的实现原理和应用场景是非常重要的。</p>
+<hr>
+<h2 id="长列表优化之虚拟列表"><a href="#长列表优化之虚拟列表" class="headerlink" title="长列表优化之虚拟列表"></a>长列表优化之虚拟列表</h2><h4 id="为什么需要长列表优化，为什么需要虚拟列表"><a href="#为什么需要长列表优化，为什么需要虚拟列表" class="headerlink" title="为什么需要长列表优化，为什么需要虚拟列表"></a>为什么需要长列表优化，为什么需要虚拟列表</h4><p>长列表是指包含大量数据项的列表，如果在渲染这些数据项时没有进行优化，则会导致应用程序变慢并占用更多的系统资源，从而影响用户体验。因此，需要对长列表进行优化。</p>
+<p>长列表优化的目的是尽可能地减少应用程序在渲染长列表时的开销。优化的方法包括使用虚拟列表、懒加载、分页、无限滚动等技术。</p>
+<p>虚拟列表是一种在渲染长列表时非常有效的优化技术。其原理是只渲染可见的列表项，而不是全部渲染，以减少内存和 CPU 的使用量。当用户滚动列表时，只有新出现的列表项才会被渲染，已经滚出视图的列表项则会被销毁，从而避免了长列表中大量无用数据的渲染和占用内存资源。</p>
+<p>虚拟列表技术在实际应用开发中非常常见，因此也经常被面试考察。面试者可能会被要求实现一个虚拟列表组件，或者被问到虚拟列表的原理和优缺点等相关问题。因此，熟练掌握虚拟列表的实现原理和应用场景是非常重要的。</p>
+<h4 id="面试问虚拟列表如何回答能让面试官满意"><a href="#面试问虚拟列表如何回答能让面试官满意" class="headerlink" title="面试问虚拟列表如何回答能让面试官满意"></a>面试问虚拟列表如何回答能让面试官满意</h4><p>当面试官问到虚拟列表时，您可以采取以下步骤来回答问题，以便让面试官满意：</p>
+<p>简要解释虚拟列表的概念和原理：虚拟列表是一种在渲染大型列表时非常有效的优化技术，它只会渲染可见的列表项，而不会渲染整个列表。它的原理是通过监听列表的滚动事件，在用户滚动列表时动态地渲染新出现的列表项，并销毁已经滚出视图的列表项，从而避免了长列表中大量无用数据的渲染和占用内存资源。</p>
+<p>讲解虚拟列表的优点：虚拟列表的主要优点包括：</p>
+<p>优化性能：虚拟列表可以极大地减少在渲染长列表时的开销，从而提高应用程序的性能和响应速度。<br>节省内存：虚拟列表只渲染可见的列表项，而不会渲染整个列表，因此可以节省内存资源。<br>支持无限滚动：虚拟列表可以支持无限滚动，用户可以不断向下滚动列表，而不必等待整个列表渲染完成。<br>支持异步数据加载：虚拟列表可以与异步数据加载技术结合使用，当用户滚动到新的列表区域时，可以异步地加载数据并渲染新的列表项。<br>说明虚拟列表的缺点：虚拟列表的主要缺点是在实现时需要更多的代码复杂度和技术要求。特别是需要进行高级优化时，可能需要进行更多的计算和代码调试。此外，虚拟列表在处理动态高度的列表项时可能会存在一些问题，需要进行更多的测试和优化。</p>
+<p>提供实际的应用场景和使用案例：虚拟列表在很多 Web 应用程序中都有广泛的应用，比如社交网络、电商平台、新闻列表等。您可以分享您在实际开发中使用虚拟列表的案例和经验，展示您的实际能力和经验。</p>
+<p>可以讲解实现虚拟列表的技术细节：如果您有实现过虚拟列表的经验，可以进一步讲解如何实现虚拟列表的技术细节，比如如何计算可见区域、如何处理异步数据加载等等。这将有助于展示您的技术深度和专业能力。</p>
+<p>通过以上步骤的回答，您可以让面试官感受到您对虚拟列表的深入理解和实际</p>
+<h4 id="用Vue代码实现上面的问题"><a href="#用Vue代码实现上面的问题" class="headerlink" title="用Vue代码实现上面的问题"></a>用Vue代码实现上面的问题</h4><p>好的，以下是一个使用Vue实现虚拟列表的代码示例：</p>
+<figure class="highlight handlebars"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><code class="hljs handlebars"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span></span><br><span class="xml">  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;list-container&quot;</span> <span class="hljs-attr">ref</span>=<span class="hljs-string">&quot;listContainer&quot;</span> @<span class="hljs-attr">scroll</span>=<span class="hljs-string">&quot;handleScroll&quot;</span>&gt;</span></span><br><span class="xml">    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;list-item&quot;</span> <span class="hljs-attr">v-for</span>=<span class="hljs-string">&quot;(item, index) in visibleItems&quot;</span> <span class="hljs-attr">:key</span>=<span class="hljs-string">&quot;item.id&quot;</span>&gt;</span></span><br><span class="xml">      </span><span class="hljs-template-variable">&#123;&#123; <span class="hljs-name">item.text</span> &#125;&#125;</span><br><span class="xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="xml">  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span></span><br><br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span></span><br><span class="xml">export default &#123;</span><br><span class="xml">  data() &#123;</span><br><span class="xml">    return &#123;</span><br><span class="xml">      items: [], // 列表数据</span><br><span class="xml">      visibleStartIndex: 0, // 当前可见列表项的起始索引</span><br><span class="xml">      visibleItemCount: 0, // 当前可见列表项的数量</span><br><span class="xml">      itemHeight: 50 // 每个列表项的高度</span><br><span class="xml">    &#125;;</span><br><span class="xml">  &#125;,</span><br><span class="xml">  mounted() &#123;</span><br><span class="xml">    // 模拟异步获取数据</span><br><span class="xml">    this.fetchData().then((data) =&gt; &#123;</span><br><span class="xml">      this.items = data;</span><br><span class="xml">    &#125;);</span><br><span class="xml">  &#125;,</span><br><span class="xml">  computed: &#123;</span><br><span class="xml">    // 计算当前可见列表项</span><br><span class="xml">    visibleItems() &#123;</span><br><span class="xml">      return this.items.slice(</span><br><span class="xml">        this.visibleStartIndex,</span><br><span class="xml">        this.visibleStartIndex + this.visibleItemCount</span><br><span class="xml">      );</span><br><span class="xml">    &#125;</span><br><span class="xml">  &#125;,</span><br><span class="xml">  methods: &#123;</span><br><span class="xml">    // 处理滚动事件</span><br><span class="xml">    handleScroll() &#123;</span><br><span class="xml">      const scrollTop = this.$refs.listContainer.scrollTop;</span><br><span class="xml">      this.visibleStartIndex = Math.floor(scrollTop / this.itemHeight);</span><br><span class="xml">      this.visibleItemCount = Math.ceil(</span><br><span class="xml">        this.$refs.listContainer.clientHeight / this.itemHeight</span><br><span class="xml">      );</span><br><span class="xml">    &#125;,</span><br><span class="xml">    // 模拟异步获取数据</span><br><span class="xml">    fetchData() &#123;</span><br><span class="xml">      return new Promise((resolve) =&gt; &#123;</span><br><span class="xml">        setTimeout(() =&gt; &#123;</span><br><span class="xml">          const data = [];</span><br><span class="xml">          for (let i = 0; i &lt; 1000; i++) &#123;</span><br><span class="xml">            data.push(&#123;</span><br><span class="xml">              id: i,</span><br><span class="xml">              text: `Item $&#123;i&#125;`</span><br><span class="xml">            &#125;);</span><br><span class="xml">          &#125;</span><br><span class="xml">          resolve(data);</span><br><span class="xml">        &#125;, 1000);</span><br><span class="xml">      &#125;);</span><br><span class="xml">    &#125;</span><br><span class="xml">  &#125;</span><br><span class="xml">&#125;;</span><br><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span><br><br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span></span><br><span class="xml">.list-container &#123;</span><br><span class="xml">  height: 500px;</span><br><span class="xml">  overflow-y: scroll;</span><br><span class="xml">&#125;</span><br><span class="xml">.list-item &#123;</span><br><span class="xml">  height: 50px;</span><br><span class="xml">  line-height: 50px;</span><br><span class="xml">  border-bottom: 1px solid #eee;</span><br><span class="xml">&#125;</span><br><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span></span><br></code></pre></td></tr></table></figure>
+<p>这个示例中，我们首先通过fetchData方法模拟异步获取列表数据，然后在mounted生命周期函数中获取数据，并将其保存到items数据属性中。在模板中，我们使用一个v-for指令来动态渲染当前可见的列表项，并使用visibleItems计算属性来计算当前可见的列表项。在handleScroll方法中，我们处理滚动事件，根据滚动条的位置计算出当前可见列表项的起始索引和数量，然后更新visibleStartIndex和visibleItemCount数据属性。最后，我们使用一些简单的样式来设置列表的高度和样式。</p>
+<h3 id="分析需求"><a href="#分析需求" class="headerlink" title="分析需求"></a>分析需求</h3><p>首先，因为同事们对这个列表的长时间的使用已经习惯了，所以<strong>最好在体验上不要进行大的修改</strong>。为此，我需要把之前大概的功能列举出来:</p>
+<ol>
+<li>每次列表有新的消息传入的时候，都要能看到最新的那条数据。</li>
+<li>当用户点击列表中的其中一条数据的时候，列表需要停止更新，也就是停止滚动。</li>
+<li>当列表处于锁定状态，滚动条滚动到最底部的时候，列表恢复自动滚动。</li>
+<li>当列表中有被选中状态的数据时，可以通过上下左右键来让聚焦移动。</li>
+</ol>
+<p>总结完之前的功能之后，我需要再梳理一下我的需求：</p>
+<ol>
+<li>列表随着时间会越来越长，需要控制展示的节点数量。</li>
+<li>列表长度随着WebSocket的通信而增加，数据更新频度过快，需要有缓冲池。</li>
+<li>增加一个列表锁定的提示，可以手动解开列表的锁定。</li>
+<li>移动聚焦的时候会随即展示日志详情，因为移动速度过快，所以需要增加防抖。<br>梳理完成之后，经过考虑我决定使用虚拟列表来代替现有的长列表，这也是踩坑之路的开始。</li>
+</ol>
+<p>开始开发<br>长列表转虚拟列表</p>
+<h4 id="为什么需要虚拟列表"><a href="#为什么需要虚拟列表" class="headerlink" title="为什么需要虚拟列表"></a>为什么需要虚拟列表</h4><p>我们知道，在浏览器渲染页面的时候，当DOM节点的数量越多，每一次重绘的时候，对性能的影响也就越大。</p>
+<p>假如我们需要展示一个信息量很大，大约有数十万条数据。遇到这样子的情况，其实现在有许多的方案，我们最常见的方案就类似PC上的下一页、上一页，但是这个方案在体验上其实并不友好。大部分的用户会比较喜欢不停的向下滚动就可以看到新的内容，但是这个就会遇到一个问题，不停的加载数据，导致页面堆积的节点越来越多，所消耗的内存不断增大，最后连滚动都会卡顿。</p>
+<p>这时候我们重新分析一下，就会发现其实有很多数据我们大多数情况下是不需要看见的，如果只考虑我们能看到数据的话，其实需要渲染的数据量就会非常的少了，很好的提高了渲染的效率，减少因为大量的重绘照成不必要的影响。<br>这么一梳理一下，答案简直呼之欲出—-虚拟列表。</p>
+<h4 id="什么是虚拟列表"><a href="#什么是虚拟列表" class="headerlink" title="什么是虚拟列表"></a>什么是虚拟列表</h4><p>虚拟列表其实没有什么特别神奇的地方，说白了就是一种展示列表的思路，<strong>在页面上创建一个容器作为可视区，在这个可视区内展示长列表中的一部分</strong>，也就是在可视区渲染列表。</p>
+<p>如图中所示，是一个简单的虚拟列表的模型，图中有几个概念需要大家稍微了解一下：</p>
+<ol>
+<li>可视区。</li>
+<li>真实列表。</li>
+<li>startIndex。</li>
+<li>endIndex。<h4 id="可视区"><a href="#可视区" class="headerlink" title="可视区"></a>可视区</h4>可视区大家可以这么理解，我们现在有一个<div class="show-box">，给这个元素加一些样式。</li>
+</ol>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-class">.show-box</span>&#123;<br>    <span class="hljs-attribute">width</span>: <span class="hljs-number">375px</span>;<br>    <span class="hljs-attribute">height</span>: <span class="hljs-number">500px</span>;<br>    <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span> auto;<br>    <span class="hljs-attribute">position</span>: relative;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>通过这个样式我们可以看出这个可视区容器的高度为500px。</p>
+<h4 id="真实列表"><a href="#真实列表" class="headerlink" title="真实列表"></a>真实列表</h4><p>真实列表就是会被渲染出来的列表，这么说可能不太理解，举个栗子：现在需要被渲染出来的列表数量一共有<strong>1000</strong>条，但是实际上在页面需要被渲染的列表数量(需要被看到的数据)只需要100条，<strong>这个100条就是所谓的真实列表</strong>。</p>
+<figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs dsconfig">&lt;<span class="hljs-string">div</span> <span class="hljs-string">class</span>=<span class="hljs-string">&quot;list-body-box&quot;</span> @<span class="hljs-string">scroll</span>=<span class="hljs-string">&quot;listScroll&quot;</span>&gt; ----- 真实列表<br>  &lt;<span class="hljs-string">div</span> <span class="hljs-string">class</span>=<span class="hljs-string">&quot;list-body&quot;</span>&gt; ------ 载体<br>  &lt;/<span class="hljs-string">div</span>&gt;<br>&lt;/<span class="hljs-string">div</span>&gt;<br>-------------------------- <span class="hljs-string">style</span> --------------------------------<br>.<span class="hljs-built_in">list-body</span> &#123;<br>  <span class="hljs-string">min-height</span>: <span class="hljs-string">10px</span>;<br>  <span class="hljs-string">position</span>: <span class="hljs-string">absolute</span>;<br>  <span class="hljs-string">width</span>: <span class="hljs-string">100</span>%;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>在这里，建议<strong>真实列表的长度需要比可视区的高度长一些</strong>，有一个滚动条的话，之后可以通过scroll监听做一些其他的操作。</p>
+<p>可能有一个点需要和大家解释一下为什么我的<code>&lt;div class=&quot;list-body&quot;&gt;</code>是绝对定位。</p>
+<p>当你的某一个元素会频繁发生变化的时候，最好将这个模块通过绝对定位的方式，脱离文档流，可以减少回流带来的影响。</p>
+<h4 id="我们先看一下浏览器的渲染机制"><a href="#我们先看一下浏览器的渲染机制" class="headerlink" title="我们先看一下浏览器的渲染机制"></a>我们先看一下浏览器的渲染机制</h4><ul>
+<li>解析HTML，生成DOM树，解析CSS，生成CSSOM树</li>
+<li>将DOM树和CSSOM树结合，生成渲染树(Render Tree)</li>
+<li>Layout(回流):根据生成的渲染树，进行回流(Layout)，得到节点的几何信息（位置，大小）</li>
+<li>Painting(重绘):根据渲染树以及回流得到的几何信息，得到节点的绝对像素</li>
+<li>Display:将像素发送给GPU，展示在页面上。</li>
+</ul>
+<p>绝对定位或者浮动脱离了正常的文档流，相当于只是在节点上存放了一个token，然后通过这个token去进行映射，所以如果你采用了绝对定位的方法，也只会对这一块元素进行重绘。 </p>
+<h5 id="startIndex"><a href="#startIndex" class="headerlink" title="startIndex"></a>startIndex</h5><p>之前也说到了，真实列表实际上只是总列表其中很小的一部分，在这之外还有很多列表需要被渲染。因此，大家可以把真实列表理解为一个片段。被渲染的第一个元素的index就是片段中第一个元素在总列表中的位置，也就是数组中的index。</p>
+<p>举个栗子：我的总列表(数组)的长度为1000，而需要渲染的列表片段为100—200，那么这个开始的位置，也就是数组的index则为99。</p>
+<h5 id="edIndex"><a href="#edIndex" class="headerlink" title="edIndex"></a>edIndex</h5><p>解释同上，最后一个元素的index是199。</p>
+<p>虚拟列表的实现<br>这里要提一下，我的框架用的是vue，所以虚拟列表的实现也是比较方便的。</p>
+<figure class="highlight handlebars"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs handlebars"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;list-body-box&quot;</span>&gt;</span></span><br><span class="xml">  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;list-body&quot;</span>&gt;</span></span><br><span class="xml">    <span class="hljs-tag">&lt;<span class="hljs-name">templete</span> <span class="hljs-attr">v-for</span>=<span class="hljs-string">&quot;(item, idx) in list&quot;</span> &gt;</span></span><br><span class="xml">      <span class="hljs-tag">&lt;<span class="hljs-name">div</span> </span></span><br><span class="xml">        v-if=&quot;idx &gt;= startIdx &amp;&amp; idx &lt;= endIdx&quot; </span><br><span class="xml">        :key=&quot;idx&quot;</span><br><span class="xml">        class=&quot;list-row&quot;&gt;</span><br><span class="xml">        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;col-item col-1&quot;</span>&gt;</span></span><span class="hljs-template-variable">&#123;&#123;<span class="hljs-name">item.col_1</span>&#125;&#125;</span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="xml">        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;col-item col-2&quot;</span>&gt;</span></span><span class="hljs-template-variable">&#123;&#123;<span class="hljs-name">item.col_2</span>&#125;&#125;</span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="xml">        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;col-item col-3&quot;</span>&gt;</span></span><span class="hljs-template-variable">&#123;&#123;<span class="hljs-name">item.col_3</span>&#125;&#125;</span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="xml">        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;col-item col-4&quot;</span>&gt;</span></span><span class="hljs-template-variable">&#123;&#123;<span class="hljs-name">item.col_4</span>&#125;&#125;</span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="xml">        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;col-item col-5&quot;</span>&gt;</span></span><span class="hljs-template-variable">&#123;&#123;<span class="hljs-name">item.col_5</span>&#125;&#125;</span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="xml">        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;col-item col-6&quot;</span>&gt;</span></span><span class="hljs-template-variable">&#123;&#123;<span class="hljs-name">item.col_6</span>&#125;&#125;</span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="xml">        <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;col-item col-7&quot;</span>&gt;</span></span><span class="hljs-template-variable">&#123;&#123;<span class="hljs-name">item.col_7</span>&#125;&#125;</span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="xml">      <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">templete</span>&gt;</span></span><br><span class="xml">  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br></code></pre></td></tr></table></figure>
+<p>模板上，没有什么太特别的地方，主要就是<strong>通过v-if去控制列表的展</strong>示，通过startIdx和endIdx的增减，去展示不同位置的数据，<strong>让这两个值递增就可以实现列表滚动</strong>。</p>
+<p>下边我们会说一下自动滚动在代码上的实现，主要是通过一个主动的事件去频繁的触发对startIdx和endIdx递增或者递减。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> time = <span class="hljs-literal">null</span>;<br>...<br><span class="hljs-function"><span class="hljs-title">autoScroll</span>(<span class="hljs-params"></span>)</span>&#123;<br>  time = <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">()=&gt;</span>&#123;<br>    <span class="hljs-keyword">let</span> listLen = <span class="hljs-built_in">this</span>.list.length - <span class="hljs-number">1</span>;<br>    <span class="hljs-built_in">this</span>.endIdx = listLen;<br>    <span class="hljs-built_in">this</span>.startIdx = (listLen + <span class="hljs-number">1</span>) &lt;= <span class="hljs-number">100</span> ? <span class="hljs-number">0</span> : listLen - <span class="hljs-number">100</span>;<br>    <span class="hljs-built_in">this</span>.autoScroll();<br>  &#125;,<span class="hljs-number">300</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>如上代码所示，我只需要再让一个方法去触发<strong>autoScroll()<strong>，这个方法就会在</strong>setTimeout</strong>的作用下自调用，<strong>startIdx和endIdx</strong>会不断递增列表就可以自动滚动了,在这里边有一个表达式</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">this</span>.startIdx = (listLen + <span class="hljs-number">1</span>) &lt;= <span class="hljs-number">100</span> ? <span class="hljs-number">0</span> : listLen - <span class="hljs-number">100</span>;<br></code></pre></td></tr></table></figure>
+<p><strong>这一块的话主要是解决当页面刚打开或者清空列表的时候，实际上列表的长度比较短，是不需要进行滚动的，换句话说，startIndex需要在列表总长度在到达一个值之前一直为0。</strong></p>
+<p>到这里，简单的虚拟列表就实现了。</p>
+<h3 id="WebSocket缓冲池"><a href="#WebSocket缓冲池" class="headerlink" title="WebSocket缓冲池"></a>WebSocket缓冲池</h3><p>我们使用的是WebSocket来传递数据，数据量不少。因此很可能会出现过于频繁更新数据的情况，数据一更新，页面也会随之改变，这样会对性能照成一定的影响。所以我们需要对这个频度进行把控。目前的方案是加一个缓冲池。</p>
+<p> 这缓冲池的思路大概是这样的，WebSocket传递数据的时候，我们把这段时间的数据先存在一个数组中，然后每隔一段时间，比如500ms，再把数据push到完整的列表中，这个方案可能就会涉及到节流。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> socketPool = [];    <span class="hljs-comment">//存储一段时间的数据</span><br><span class="hljs-keyword">let</span> socketTimer;<br>socketFun( <span class="hljs-function">(<span class="hljs-params">data</span>) =&gt;</span> &#123;<br>  <span class="hljs-comment">//先制造一个缓存区间，用来做缓存socket的数据</span><br>  socketPool.push(data);<br>  <span class="hljs-comment">//每次都把当前的数据进行push到list</span><br>  <span class="hljs-keyword">if</span>(!socketTimer)&#123;<br>    socketTimer = <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">()=&gt;</span>&#123;<br>      <span class="hljs-built_in">this</span>.appendRecord(socketPool);<br>      socketPool.length = <span class="hljs-number">0</span>;<br>      <span class="hljs-built_in">this</span>.scrollToBottom();<br>      socketTimer = <span class="hljs-literal">null</span>;<br>    &#125;,<span class="hljs-number">500</span>);<br>  &#125;<br>&#125;);<br></code></pre></td></tr></table></figure>
+<p>在这里边 <strong>appendRecord()</strong> 是用来处理数据，并且把数据放入list中的方法，而 <strong>scrollToBottom()</strong> 就是为了当数据push到list之后，列表能直接展示最新的数据，也就是让页面滚动到列表的最底部。</p>
+<p>缓冲池其实也是提升性能的一个方案，<strong>这个方案最核心的地方</strong>就是<strong>减少页面渲染的次数</strong>。大家可以这么理解：每秒钟可能会有10条数据需要被渲染，假如我每次都老老实实的渲染，那么10秒的时间我就要渲染10次，其实是没有必要的，因此我们可以考虑每2秒渲染一次，这样10s的时间内我的渲染次数就会减少到5次。<strong>你可以理解为性能提升了一倍</strong>。 </p>
+<h4 id="列表锁定"><a href="#列表锁定" class="headerlink" title="列表锁定"></a>列表锁定</h4><p>按照之前的需求，当用户点击列表中的其中一条数据的时候，列表是需要停止滚动的。所以我加了一个滚动锁<strong>autoScrollLoack</strong>，<strong>这个锁的作用就是当我点击到列表中的某一条的时候，执行autoScrollLoack = true页面就不会滚动了</strong>。这个锁的判断会放在 <strong>this.scrollToBottom()</strong> 中，代码大家稍微看看就行。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-function"><span class="hljs-title">scrollToBottom</span>(<span class="hljs-params"></span>)</span>&#123;<br>  <span class="hljs-keyword">if</span>(autoScrollLoack)&#123;<br>    <span class="hljs-keyword">return</span>;<br>  &#125;<br>  ...do something<br>&#125;,<br></code></pre></td></tr></table></figure>
+<p>这个<strong>autoScrollLoack</strong>在页面中会与一个单选框进行双向绑定，因此用户就可以通过改变单选框的选中状态来控制锁的状态，其实在有了这个锁之后，页面如果因为需求停止滚动了，用户也能有所感知，不至于突然滚动就停止了，看起来像个bug。</p>
+<h3 id="聚焦移动"><a href="#聚焦移动" class="headerlink" title="聚焦移动"></a>聚焦移动</h3><p>聚焦移动的功能之前需求也说过了，就是选中了一条信息，可以通过上下键将聚焦指向上一个或者下一个，这个其实也比较好实现</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs routeros">&lt;div <br>  <span class="hljs-attribute">v-for</span>=<span class="hljs-string">&quot;(item, idx) in list&quot;</span> <br>  <span class="hljs-attribute">v-if</span>=<span class="hljs-string">&quot;idx &gt;= startIdx &amp;&amp; idx &lt;= endIdx&quot;</span> <br>  :<span class="hljs-attribute">key</span>=<span class="hljs-string">&quot;item.id&quot;</span><br>  :<span class="hljs-attribute">class</span>=<span class="hljs-string">&quot;&#123;&#x27;active&#x27;:curIdx==idx&#125;&quot;</span><br>  <span class="hljs-attribute">class</span>=<span class="hljs-string">&quot;list-row&quot;</span><br>  @<span class="hljs-attribute">click</span>=<span class="hljs-string">&quot;showDetail(item.id)&quot;</span>&gt;<br></code></pre></td></tr></table></figure>
+<p>在这里，大家可以看到，active就是聚焦的时候列表的样式。在逻辑上，把当前选中项的index赋给curIndex，前端模板上通过vue对class的绑定来控制样式，判断条件就是curIndex == index。</p>
+<p>聚焦功能已经实现了，那么接下来要实现通过键盘中的上下键，实现移动聚焦的效果。这个功能很简单，我们完全可以通过vue提供的监听事件来实现，具体的实现大家可以在官网上搜一下keyup。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs typescript">&lt;div <span class="hljs-class"><span class="hljs-keyword">class</span></span>=<span class="hljs-string">&quot;list-body-box&quot;</span> <span class="hljs-meta">@scroll</span>=<span class="hljs-string">&quot;listScroll&quot;</span> <span class="hljs-meta">@keyup</span>=<span class="hljs-string">&quot;moveFocus&quot;</span>&gt;<br>...<br>...<br><span class="hljs-function"><span class="hljs-title">moveFocus</span>(<span class="hljs-params">e</span>)</span>&#123;<br>  <span class="hljs-keyword">let</span> keyCode = <span class="hljs-built_in">Number</span>(e.keyCode);<br>  <span class="hljs-keyword">switch</span>(keyCode)&#123;<br>    <span class="hljs-keyword">case</span> <span class="hljs-number">38</span>:<br>      <span class="hljs-built_in">this</span>.curIdx -= <span class="hljs-number">1</span>;<br>      <span class="hljs-built_in">this</span>.showDetail();<br>      <span class="hljs-keyword">break</span>;<br>    <span class="hljs-keyword">case</span> <span class="hljs-number">40</span>:<br>      <span class="hljs-built_in">this</span>.curIdx += <span class="hljs-number">1</span>;<br>      <span class="hljs-built_in">this</span>.showDetail();<br>      <span class="hljs-keyword">break</span>;<br>  &#125;<br>&#125;,<br></code></pre></td></tr></table></figure>
+<p>这段代码实现了聚焦的上下挪动。根据需求我们每一次聚焦的时候需要展示聚焦项对应的日志详情，详情是需要发ajax请求来获取的。问题来了，有一个场景：我想通过键盘把当前的聚焦向下挪动10次，在不停聚焦的过程中我会触发10次请求，这个其实没必要，我在<strong>快速移动的过程中，是不care详情的</strong>，我只需要展示目标详情就行了。综上，我们需要再加一个防抖。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> detailTimer;<br><span class="hljs-function"><span class="hljs-title">showDetail</span>(<span class="hljs-params">id</span>)</span>&#123;<br>  <span class="hljs-keyword">if</span>(detailTimer)&#123;<br>    <span class="hljs-built_in">clearTimeout</span>(detailTimer);<br>  &#125;<br>  detailTimer = setTimeOut(<span class="hljs-function">() =&gt;</span> &#123;<br>    $.post(<span class="hljs-string">&#x27;...&#x27;</span>,&#123;<br>      id:id<br>    &#125;).then(<span class="hljs-function">(<span class="hljs-params">res</span>) =&gt;</span> &#123;<br>      <span class="hljs-keyword">do</span> something...  <br>    &#125;);<br>  &#125;,<span class="hljs-number">300</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>从上边的逻辑我们可以看出来，当用户在快速挪动聚焦的时候是不会触发请求的，实际上这个改动很大程度上提升了用户的流畅度。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ol>
+<li><p>计算可见列表项：首先，我需要计算当前可见的列表项数量和位置。这可以通过测量列表容器和列表项高度，以及滚动条的位置来实现。</p>
+</li>
+<li><p>动态渲染列表项：接下来，我需要根据当前可见的列表项数量和位置，动态地渲染这些列表项。这可以通过使用一个v-for指令来实现，只渲染当前可见的列表项。</p>
+</li>
+<li><p>优化性能：为了优化性能，我可以使用一些技巧，例如使用keep-alive缓存列表项，避免不必要的渲染，或使用Vue组件的生命周期钩子函数来处理列表项的渲染和销毁，以提高性能。</p>
+</li>
+<li><p>处理滚动事件：当用户滚动列表时，我需要根据滚动条的位置，重新计算当前可见的列表项，并相应地更新列表。这可以通过添加滚动事件监听器来实现。</p>
+</li>
+<li><p>处理列表项点击事件：最后，我需要处理列表项的点击事件。由于虚拟列表只渲染了当前可见的列表项，所以我需要确保只为当前可见的列表项添加事件处理程序，以避免不必要的性能开销。</p>
+</li>
+</ol>
+<p>总之，实现虚拟列表需要一定的计算和渲染技巧，需要注意性能优化和细节处理，可以借助第三方库来提高开发效率。当回答这个问题时，我需要清晰地表达我的思路和实现方案，注重细节和实现的可行性，并尽可能展示我的Vue编程技能和经验。</p>
+<h5 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h5><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903893441183751">长列表优化之虚拟列表</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E9%A1%B9%E7%9B%AE%E4%BC%98%E5%8C%96/">项目优化</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/">前端基础</a>
+                    
+                      <a class="hover-with-bg" href="/tags/JS/">JS</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/03/28/%5B%E9%A1%B9%E7%9B%AE%5D%E5%A4%9A%E6%9D%A1%E4%BA%A7%E5%93%81%E7%BA%BF%E5%85%B1%E4%BA%ABsso%E5%8D%95%E7%82%B9%E7%99%BB%E5%BD%95%E8%AE%BE%E8%AE%A1/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">多条产品线共享sso单点登录设计(项目)</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/03/28/%5B%E9%A1%B9%E7%9B%AE%5D%E5%AE%9E%E7%8E%B0select%E4%B8%8B%E6%8B%89%E6%90%9C%E7%B4%A2%EF%BC%8C%E6%97%A0%E9%99%90%E6%BB%9A%E5%8A%A8/">
+                        <span class="hidden-mobile">实现select下拉搜索，无限滚动(项目)</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

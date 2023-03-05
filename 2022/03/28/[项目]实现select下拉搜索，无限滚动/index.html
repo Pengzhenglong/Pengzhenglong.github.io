@@ -1,0 +1,595 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/2.jpg">
+  <link rel="icon" href="/img/2.jpg">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="DragonPeng">
+  <meta name="keywords" content="">
+  
+  <title>实现select下拉搜索，无限滚动(项目) - DragonPeng的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>DragonPeng' blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/page1.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="实现select下拉搜索，无限滚动(项目)">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-03-28 21:15" pubdate>
+        March 28, 2022 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      5.2k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      71
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">实现select下拉搜索，无限滚动(项目)</h1>
+            
+            <div class="markdown-body">
+              <hr>
+<h2 id="实现select下拉搜索，无限滚动"><a href="#实现select下拉搜索，无限滚动" class="headerlink" title="实现select下拉搜索，无限滚动"></a>实现select下拉搜索，无限滚动</h2><h3 id="xxxxx改造下拉列表-大数据量渲染"><a href="#xxxxx改造下拉列表-大数据量渲染" class="headerlink" title="xxxxx改造下拉列表-大数据量渲染"></a>xxxxx改造下拉列表-大数据量渲染</h3><h4 id="实现select下拉搜索-无限动-虚拟列表一封成指令–性能优化"><a href="#实现select下拉搜索-无限动-虚拟列表一封成指令–性能优化" class="headerlink" title="实现select下拉搜索 无限动-虚拟列表一封成指令–性能优化"></a>实现select下拉搜索 无限动-虚拟列表一封成指令–性能优化</h4><ol>
+<li>取得可见区域的可见列表项数量</li>
+<li>取得可见区域的起始数据索引和结束数据索引</li>
+<li>计算出可见区域对应的数据，让 Vue.js 更新</li>
+<li>把可见区域的 top 设置为起始元素在整个列表中的位置(使用 transform 是为了更好的性能)</li>
+</ol>
+<h3 id="二次封装el-select实现下拉滚动加载"><a href="#二次封装el-select实现下拉滚动加载" class="headerlink" title="二次封装el-select实现下拉滚动加载"></a>二次封装el-select实现下拉滚动加载</h3><p>平时我们做业务需求的时候，可能会遇到非常大量的数据，有时候成百上千条，一般后端都会写一个分页的接口，只要我们请求的时候加上页码参数即可。<br>但是在使用element-ui的el-select下拉菜单组件中，官方没有提供相应的方法进行多页加载。<br>这时候我们可以实现一个<strong>Vue的自定义指令directive</strong>，每当使用el-select滚动到列表底部的时候就请求下一页数据，来达到下拉滚动加载更多的目的。<br>实现自定义指令<br>首先实现一个el-select下拉加载的自定义指令v-loadmore：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// directives.js</span><br><span class="hljs-keyword">import</span> Vue <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vue&#x27;</span><br><br>Vue.directive(<span class="hljs-string">&quot;loadmore&quot;</span>, &#123;<br>    <span class="hljs-function"><span class="hljs-title">bind</span>(<span class="hljs-params">el, binding, vnode</span>)</span> &#123;<br>        <span class="hljs-keyword">const</span> SELECTWRAP = el.querySelector(<br>            <span class="hljs-string">&quot;.el-select-dropdown .el-select-dropdown__wrap&quot;</span><br>        );<br>        SELECTWRAP.addEventListener(<span class="hljs-string">&quot;scroll&quot;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;<br>            <span class="hljs-comment">// scrollTop 这里可能因为浏览器缩放存在小数点的情况，导致了滚动到底部时</span><br>            <span class="hljs-comment">// scrollHeight 减去滚动到底部时的scrollTop ，依然大于clientHeight 导致无法请求更多数据</span><br>            <span class="hljs-comment">// 这里将scrollTop向上取整 保证滚到底部时，触发调用</span><br>            <span class="hljs-keyword">const</span> CONDITION = <span class="hljs-built_in">this</span>.scrollHeight - <span class="hljs-built_in">Math</span>.ceil(<span class="hljs-built_in">this</span>.scrollTop) &lt;= <span class="hljs-built_in">this</span>.clientHeight;<br>            <span class="hljs-comment">// el.scrollTop !== 0 当输入时，如果搜索结果很少，以至于没看到滚动条，那么此时的CONDITION计算结果是true，会执行bind.value()，此时不应该执行，否则搜索结果不匹配</span><br>            <span class="hljs-keyword">if</span> (CONDITION &amp;&amp; <span class="hljs-built_in">this</span>.scrollTop !== <span class="hljs-number">0</span>) &#123;<br>                binding.value();<br>            &#125;<br>        &#125;);<br>    &#125;,<br>&#125;);<br></code></pre></td></tr></table></figure>
+<p>代码说明：</p>
+<p>document.querySelector：querySelector() 方法仅仅返回匹配指定选择器的第一个元素。<br>Element.scrollHeight：在不使用滚动条的情况下为了适应视口中所用内容所需的最小高度（只读）。<br>Element.scrollTop：获取或设置一个元素的内容垂直滚动的像素数。<br>Element.clientHeight：读取元素的可见高度（只读）。<br>如果元素滚动到底，下面等式返回true，没有则返回false。</p>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs livecodeserver"><span class="hljs-keyword">element</span>.scrollHeight - <span class="hljs-keyword">element</span>.scrollTop === <span class="hljs-keyword">element</span>.clientHeight<br></code></pre></td></tr></table></figure>
+<p>在项目中全局注册v-loadmore指令：</p>
+<figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs clean"><span class="hljs-comment">// main.js</span><br><br><span class="hljs-keyword">import</span> directives <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./directive.js&#x27;</span><br>Vue.use(directives)<br></code></pre></td></tr></table></figure>
+<p>最后在组件el-select中使用该指令：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!-- vue.js --&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">el-select</span> <span class="hljs-attr">v-model</span>=<span class="hljs-string">&quot;selected&quot;</span> <span class="hljs-attr">v-loadmore</span>=<span class="hljs-string">&quot;loadMore&quot;</span>&gt;</span><br>        &lt;el-option<br>            v-for=&quot;option in options&quot;<br>            :label=&quot;option.label&quot;<br>            :value=&quot;option.value&quot;<br>            :key=&quot;option.value&quot;<br>        &gt;<span class="hljs-tag">&lt;/<span class="hljs-name">el-option</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">el-select</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><br><span class="javascript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;</span><br><span class="javascript">    <span class="hljs-function"><span class="hljs-title">data</span>(<span class="hljs-params"></span>)</span> &#123;</span><br><span class="javascript">        <span class="hljs-keyword">return</span> &#123;</span><br><span class="javascript">            selected: <span class="hljs-string">&quot;&quot;</span>,</span><br>            options: [<br>                &#123;<br><span class="javascript">                    label: <span class="hljs-string">&quot;1&quot;</span>,</span><br>                    value: 1<br>                &#125;,<br><span class="javascript">                <span class="hljs-comment">// ... 此处省略多个选项</span></span><br>                &#123;<br><span class="javascript">                    label: <span class="hljs-string">&quot;到达底部啦&quot;</span>,</span><br>                    value: 9<br>                &#125;<br>            ]<br>        &#125;;<br>    &#125;,<br>    methods: &#123;<br><span class="javascript">        <span class="hljs-function"><span class="hljs-title">loadMore</span>(<span class="hljs-params"></span>)</span> &#123;</span><br><span class="javascript">            <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;more&quot;</span>)</span><br>        &#125;<br>    &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+<p>使用效果如下：<br>下拉加载<br>从效果图可以看出，每当菜单列表滚动到底部时，指令就会调用传入的loadMore函数，控制台随即打印出 “more”。</p>
+<p>注意事项：<br>传入的数组个数必须大于或者等于8个选项时才能让<strong>el-select</strong>组件出现下拉滚动。<br>列表里不存在滚动时，无法触发传入指令的函数。</p>
+<h3 id="进行二次封装"><a href="#进行二次封装" class="headerlink" title="进行二次封装"></a>进行二次封装</h3><p>滚动到底部调用函数的指令已经实现了，下面只要调用接口，把获取到下一页的数据拼接到当前的数据中即可。</p>
+<p>接下来把el-select进行二次封装，封装成公用的组件之后，传入必要的参数就可以在项目中调用。</p>
+<p>首先新建一个文件load-select.vue：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!-- load-select.vue --&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">el-select</span> <span class="hljs-attr">:value</span>=<span class="hljs-string">&quot;value&quot;</span> <span class="hljs-attr">v-loadmore</span>=<span class="hljs-string">&quot;loadMore&quot;</span> @<span class="hljs-attr">focus</span>=<span class="hljs-string">&quot;focus&quot;</span> <span class="hljs-attr">v-bind</span>=<span class="hljs-string">&quot;$attrs&quot;</span> <span class="hljs-attr">v-on</span>=<span class="hljs-string">&quot;$listeners&quot;</span>&gt;</span><br>        &lt;el-option<br>            v-for=&quot;option in data&quot;<br>            :label=&quot;option[dictLabel]&quot;<br>            :value=&quot;option[dictValue]&quot;<br>            :key=&quot;option.value&quot;<br>        &gt;<span class="hljs-tag">&lt;/<span class="hljs-name">el-option</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">el-select</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><br><span class="javascript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;</span><br>    props: &#123;<br>        value: &#123;<br><span class="javascript">            type: <span class="hljs-built_in">String</span>,</span><br><span class="javascript">            <span class="hljs-keyword">default</span>: <span class="hljs-string">&quot;&quot;</span></span><br>        &#125;,<br><span class="javascript">        <span class="hljs-comment">// 列表数据</span></span><br>        data: &#123;<br><span class="javascript">            type: <span class="hljs-built_in">Array</span>,</span><br><span class="javascript">            <span class="hljs-keyword">default</span>: <span class="hljs-function">() =&gt;</span> []</span><br>        &#125;,<br>        dictLabel: &#123;<br><span class="javascript">            type: <span class="hljs-built_in">String</span>,</span><br><span class="javascript">            <span class="hljs-keyword">default</span>: <span class="hljs-string">&quot;label&quot;</span></span><br>        &#125;,<br>        dictValue: &#123;<br><span class="javascript">            type: <span class="hljs-built_in">String</span>,</span><br><span class="javascript">            <span class="hljs-keyword">default</span>: <span class="hljs-string">&quot;value&quot;</span></span><br>        &#125;,<br><span class="javascript">        <span class="hljs-comment">// 调用页数的接口</span></span><br>        request: &#123;<br><span class="javascript">            type: <span class="hljs-built_in">Function</span>,</span><br><span class="javascript">            <span class="hljs-keyword">default</span>: <span class="hljs-function">() =&gt;</span> &#123;&#125;</span><br>        &#125;,<br>        page: &#123;<br><span class="javascript">            type: [<span class="hljs-built_in">Number</span>, <span class="hljs-built_in">String</span>],</span><br><span class="javascript">            <span class="hljs-keyword">default</span>: <span class="hljs-number">1</span></span><br>        &#125;<br>    &#125;,<br><span class="javascript">    <span class="hljs-function"><span class="hljs-title">data</span>(<span class="hljs-params"></span>)</span> &#123;</span><br><span class="javascript">        <span class="hljs-keyword">return</span> &#123;&#125;;</span><br>    &#125;,<br>    methods: &#123;<br><span class="javascript">        <span class="hljs-comment">// 请求下一页的数据</span></span><br><span class="javascript">        <span class="hljs-function"><span class="hljs-title">loadMore</span>(<span class="hljs-params"></span>)</span> &#123;</span><br><span class="javascript">            <span class="hljs-built_in">this</span>.request(&#123; <span class="hljs-attr">page</span>: <span class="hljs-built_in">this</span>.page + <span class="hljs-number">1</span> &#125;)</span><br>        &#125;,<br><span class="javascript">        <span class="hljs-comment">// 选中下拉框没有数据时，自动请求第一页的数据</span></span><br><span class="javascript">        <span class="hljs-function"><span class="hljs-title">focus</span>(<span class="hljs-params"></span>)</span> &#123;</span><br><span class="javascript">            <span class="hljs-keyword">if</span> (!<span class="hljs-built_in">this</span>.data.length) &#123;</span><br><span class="javascript">                <span class="hljs-built_in">this</span>.request(&#123;<span class="hljs-attr">page</span>: <span class="hljs-number">1</span>&#125;)</span><br>            &#125;<br>        &#125;<br>    &#125;<br>&#125;;<br><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<p>在页面组件中调用load-select.vue：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!-- page.vue --&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;xxx-page&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">load-select</span> <span class="hljs-attr">v-model</span>=<span class="hljs-string">&quot;selected&quot;</span> <span class="hljs-attr">:data</span>=<span class="hljs-string">&quot;data&quot;</span> <span class="hljs-attr">:page</span>=<span class="hljs-string">&quot;page&quot;</span> <span class="hljs-attr">:request</span>=<span class="hljs-string">&quot;getData&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">load-select</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><br><span class="javascript"><span class="hljs-comment">// 导入该组件</span></span><br><span class="javascript"><span class="hljs-keyword">import</span> loadSelect <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@/components/load-select/index&quot;</span>;</span><br><br><span class="javascript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;</span><br><span class="javascript">    name: <span class="hljs-string">&quot;app&quot;</span>,</span><br>    components: &#123;<br>        loadSelect<br>    &#125;,<br><span class="javascript">    <span class="hljs-function"><span class="hljs-title">data</span>(<span class="hljs-params"></span>)</span> &#123;</span><br><span class="javascript">        <span class="hljs-keyword">return</span> &#123;</span><br><span class="javascript">            selected: <span class="hljs-string">&quot;&quot;</span>,</span><br>            page: 1,<br><span class="javascript">            more: <span class="hljs-literal">true</span>,</span><br>            data: []<br>        &#125;;<br>    &#125;,<br>    methods: &#123;<br><span class="javascript">        <span class="hljs-comment">// 传入给load-select组件的函数</span></span><br><span class="javascript">        <span class="hljs-function"><span class="hljs-title">getData</span>(<span class="hljs-params">&#123; page = <span class="hljs-number">1</span> &#125; = &#123;&#125;</span>)</span> &#123;</span><br><span class="javascript">            <span class="hljs-comment">// 输出页数</span></span><br><span class="javascript">            <span class="hljs-built_in">console</span>.log(page)</span><br><span class="javascript">            <span class="hljs-comment">// 访问后端接口API</span></span><br><span class="javascript">            <span class="hljs-built_in">this</span>.requestAPI(&#123; page &#125;).then(<span class="hljs-function"><span class="hljs-params">res</span> =&gt;</span> &#123;</span><br><span class="javascript">                <span class="hljs-built_in">this</span>.data = [...this.data, ...res.result]</span><br><span class="javascript">                <span class="hljs-built_in">this</span>.page = res.page</span><br>            &#125;);<br>        &#125;,<br><span class="javascript">        <span class="hljs-comment">// 模拟后端接口的API</span></span><br><span class="javascript">        <span class="hljs-function"><span class="hljs-title">requestAPI</span>(<span class="hljs-params">&#123; page = <span class="hljs-number">1</span>, size = <span class="hljs-number">10</span> &#125; = &#123;&#125;</span>)</span> &#123;</span><br><span class="javascript">            <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function"><span class="hljs-params">resolve</span> =&gt;</span> &#123;</span><br><span class="javascript">                <span class="hljs-keyword">let</span> responseData = []</span><br><span class="javascript">                <span class="hljs-comment">// 假设总共的数据有50条</span></span><br><span class="javascript">                <span class="hljs-keyword">let</span> total = <span class="hljs-number">50</span>; </span><br><span class="javascript">                <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> index = <span class="hljs-number">1</span>; index &lt;= size; index++) &#123;</span><br><span class="javascript">                    <span class="hljs-comment">// serial：处于第几个元素，就显示多少序号</span></span><br><span class="javascript">                    <span class="hljs-keyword">let</span> serial = index + (page - <span class="hljs-number">1</span>) * size</span><br>                    if (serial &lt;= 50) &#123;<br>                        responseData.push(&#123;<br>                            label: serial,<br>                            value: serial<br>                        &#125;);<br>                    &#125;<br>                &#125;<br><span class="javascript">                <span class="hljs-comment">// 模拟异步请求，500ms之后返回接口的数据</span></span><br><span class="javascript">                <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> &#123;</span><br>                    resolve(&#123;<br>                        total,<br>                        page,<br>                        size,<br>                        result: responseData<br>                    &#125;);<br>                &#125;, 500);<br>            &#125;);<br>        &#125;<br>    &#125;<br>&#125;;<br><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<p>代码解析：</p>
+<p>首次点击下拉框时，会触发<strong>focus</strong>事件请求第一页的数据，之后只要每次滚动列表到底部，就会自动请求下一页的数据然后拼接到当前的数组中。</p>
+<p>我们来看看效果：<br>测试下拉组件<br>完美！但是在实际使用的过程中，可能会因为接口还来不及返回数据，然后列表又向下滚动再次触发了请求，结果就是返回了两份相同的数据。</p>
+<p>现在把接口的延迟调到2000ms重现这个场景：</p>
+<p>重复数据</p>
+<p>在两次快速滚动到底部的时候，请求的参数页数都是2，如何解决这个问题？<strong>可以在加载函数中加入一个拦截操作，在接口没有响应之前，不调用加载函数</strong>，不过这样做要把getData转换成异步函数的形式。</p>
+<p>首先在load-select.vue中的loadMore()中加入一个拦截操作：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!-- load-select.vue --&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span><br>    ...<br><span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><br><span class="javascript">    <span class="hljs-comment">// 请求下一页的数据</span></span><br>    methods: &#123;<br><span class="javascript">        <span class="hljs-function"><span class="hljs-title">loadMore</span>(<span class="hljs-params"></span>)</span> &#123;</span><br><span class="javascript">            <span class="hljs-comment">// 如果 intercept 属性为 true 则不请求数据</span></span><br><span class="javascript">            <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.loadMore.intercept) &#123;</span><br><span class="javascript">                <span class="hljs-keyword">return</span> </span><br>            &#125;<br><span class="javascript">            <span class="hljs-built_in">this</span>.loadMore.intercept = <span class="hljs-literal">true</span></span><br><span class="javascript">            <span class="hljs-built_in">this</span>.request(&#123; <span class="hljs-attr">page</span>: <span class="hljs-built_in">this</span>.page + <span class="hljs-number">1</span> &#125;).then(<span class="hljs-function">() =&gt;</span> &#123;</span><br><span class="javascript">                <span class="hljs-comment">// 接口响应之后才把 intercept 设置为 false</span></span><br><span class="javascript">                <span class="hljs-built_in">this</span>.loadMore.intercept = <span class="hljs-literal">false</span></span><br>            &#125;)<br>        &#125;<br>    &#125;<br><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<p>然后在page.vue中的getData()函数转换成异步函数的形式：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!-- page.vue --&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span><br>    ...<br><span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><br>    methods: &#123;<br><span class="javascript">        <span class="hljs-comment">// 传入给load-select组件的函数</span></span><br><span class="javascript">        <span class="hljs-function"><span class="hljs-title">getData</span>(<span class="hljs-params">&#123; page = <span class="hljs-number">1</span> &#125; = &#123;&#125;</span>)</span> &#123;</span><br><span class="javascript">            <span class="hljs-comment">// 返回 Promise 对象</span></span><br><span class="javascript">            <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>( <span class="hljs-function"><span class="hljs-params">resolve</span> =&gt;</span> &#123;</span><br><span class="javascript">                <span class="hljs-comment">// 访问后端接口API</span></span><br><span class="javascript">                <span class="hljs-built_in">this</span>.requestAPI(&#123; page &#125;).then(<span class="hljs-function"><span class="hljs-params">res</span> =&gt;</span> &#123;</span><br><span class="javascript">                    <span class="hljs-built_in">this</span>.data = [...this.data, ...res.result]</span><br><span class="javascript">                    <span class="hljs-built_in">this</span>.page = res.page</span><br>                    resolve()<br>                &#125;);<br>            &#125;)<br>        &#125;, <br>    <br>    &#125;<br><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<p>现在问题来了：</p>
+<p>一般分页的接口都支持关键字的搜索，load-select.vue组件能不能加入关键字搜索的功能呢？</p>
+<h4 id="关键字搜索功能"><a href="#关键字搜索功能" class="headerlink" title="关键字搜索功能"></a>关键字搜索功能</h4><p>还好el-select组件支持远程搜索功能，只要传入<strong>filterable和remote</strong>参数，具体的可以查看element-ui的官方文档。</p>
+<p>接下来对load-select.vue进行以下修改：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!-- load-select.vue --&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span><br>    &lt;el-select<br>        :value=&quot;value&quot;<br>        v-loadmore=&quot;loadMore&quot;<br>        @focus=&quot;focus&quot;<br>        filterable<br>        remote<br>        :filter-method=&quot;handleSearch&quot;<br>        :loading=&quot;loading&quot;<br>        clearable<br>        v-bind=&quot;$attrs&quot;<br>        v-on=&quot;$listeners&quot;<br>    &gt;<br>        &lt;el-option<br>            v-for=&quot;option in data&quot;<br>            :label=&quot;option[dictLabel]&quot;<br>            :value=&quot;option[dictValue]&quot;<br>            :key=&quot;option.value&quot;<br>        &gt;<span class="hljs-tag">&lt;/<span class="hljs-name">el-option</span>&gt;</span><br>        <span class="hljs-comment">&lt;!-- 此处加载中的value可以随便设置，只要不与其他数据重复即可 --&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">el-option</span> <span class="hljs-attr">v-if</span>=<span class="hljs-string">&quot;hasMore&quot;</span> <span class="hljs-attr">disabled</span> <span class="hljs-attr">label</span>=<span class="hljs-string">&quot;加载中...&quot;</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&quot;-1&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">el-option</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">el-select</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><br><span class="javascript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;</span><br>    props: &#123;<br>        value: &#123;<br><span class="javascript">            <span class="hljs-keyword">default</span>: <span class="hljs-string">&quot;&quot;</span></span><br>        &#125;,<br><span class="javascript">        <span class="hljs-comment">// 列表数据</span></span><br>        data: &#123;<br><span class="javascript">            type: <span class="hljs-built_in">Array</span>,</span><br><span class="javascript">            <span class="hljs-keyword">default</span>: <span class="hljs-function">() =&gt;</span> []</span><br>        &#125;,<br>        dictLabel: &#123;<br><span class="javascript">            type: <span class="hljs-built_in">String</span>,</span><br><span class="javascript">            <span class="hljs-keyword">default</span>: <span class="hljs-string">&quot;label&quot;</span></span><br>        &#125;,<br>        dictValue: &#123;<br><span class="javascript">            type: <span class="hljs-built_in">String</span>,</span><br><span class="javascript">            <span class="hljs-keyword">default</span>: <span class="hljs-string">&quot;value&quot;</span></span><br>        &#125;,<br><span class="javascript">        <span class="hljs-comment">// 调用页数的接口</span></span><br>        request: &#123;<br><span class="javascript">            type: <span class="hljs-built_in">Function</span>,</span><br><span class="javascript">            <span class="hljs-keyword">default</span>: <span class="hljs-function">() =&gt;</span> &#123;&#125;</span><br>        &#125;,<br><span class="javascript">        <span class="hljs-comment">// 传入的页码</span></span><br>        page: &#123;<br><span class="javascript">            type: [<span class="hljs-built_in">Number</span>, <span class="hljs-built_in">String</span>],</span><br><span class="javascript">            <span class="hljs-keyword">default</span>: <span class="hljs-number">1</span></span><br>        &#125;,<br><span class="javascript">        <span class="hljs-comment">// 是否还有更多数据</span></span><br>        hasMore: &#123;<br><span class="javascript">            type: <span class="hljs-built_in">Boolean</span>,</span><br><span class="javascript">            <span class="hljs-keyword">default</span>: <span class="hljs-literal">true</span></span><br>        &#125;<br>    &#125;,<br><span class="javascript">    <span class="hljs-function"><span class="hljs-title">data</span>(<span class="hljs-params"></span>)</span> &#123;</span><br><span class="javascript">        <span class="hljs-keyword">return</span> &#123;</span><br><span class="javascript">            <span class="hljs-comment">// 存储关键字用</span></span><br><span class="javascript">            keyword: <span class="hljs-string">&quot;&quot;</span>, </span><br><span class="javascript">            loading: <span class="hljs-literal">false</span></span><br>        &#125;;<br>    &#125;,<br>    methods: &#123;<br><span class="javascript">        <span class="hljs-comment">// 请求下一页的数据</span></span><br><span class="javascript">        <span class="hljs-function"><span class="hljs-title">loadMore</span>(<span class="hljs-params"></span>)</span> &#123;</span><br><span class="javascript">            <span class="hljs-comment">// 如果没有更多数据，则不请求</span></span><br><span class="javascript">            <span class="hljs-keyword">if</span> (!<span class="hljs-built_in">this</span>.hasMore) &#123;</span><br><span class="javascript">                <span class="hljs-keyword">return</span></span><br>            &#125;<br><span class="javascript">            <span class="hljs-comment">// 如果intercept属性为true则不请求数据，</span></span><br><span class="javascript">            <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.loadMore.intercept) &#123;</span><br><span class="javascript">                <span class="hljs-keyword">return</span></span><br>            &#125;<br><span class="javascript">            <span class="hljs-built_in">this</span>.loadMore.intercept = <span class="hljs-literal">true</span>;</span><br><span class="javascript">            <span class="hljs-built_in">this</span>.request(&#123;</span><br><span class="javascript">                page: <span class="hljs-built_in">this</span>.page + <span class="hljs-number">1</span>,</span><br><span class="javascript">                more: <span class="hljs-literal">true</span>,</span><br><span class="javascript">                keyword: <span class="hljs-built_in">this</span>.keyword</span><br><span class="javascript">            &#125;).then(<span class="hljs-function">() =&gt;</span> &#123;</span><br><span class="javascript">                <span class="hljs-built_in">this</span>.loadMore.intercept = <span class="hljs-literal">false</span></span><br>            &#125;);<br>        &#125;,<br><span class="javascript">        <span class="hljs-comment">// 选中下拉框没有数据时，自动请求第一页的数据</span></span><br><span class="javascript">        <span class="hljs-function"><span class="hljs-title">focus</span>(<span class="hljs-params"></span>)</span> &#123;</span><br><span class="javascript">            <span class="hljs-keyword">if</span> (!<span class="hljs-built_in">this</span>.data.length) &#123;</span><br><span class="javascript">                <span class="hljs-built_in">this</span>.request(&#123; <span class="hljs-attr">page</span>: <span class="hljs-number">1</span> &#125;)</span><br>            &#125;<br>        &#125;,<br><span class="javascript">        <span class="hljs-comment">// 关键字搜索</span></span><br><span class="javascript">        <span class="hljs-function"><span class="hljs-title">handleSearch</span>(<span class="hljs-params">keyword</span>)</span> &#123;</span><br><span class="javascript">            <span class="hljs-built_in">this</span>.keyword = keyword</span><br><span class="javascript">            <span class="hljs-built_in">this</span>.loading = <span class="hljs-literal">true</span></span><br><span class="javascript">            <span class="hljs-built_in">this</span>.request(&#123; <span class="hljs-attr">page</span>: <span class="hljs-number">1</span>, keyword &#125;).then(<span class="hljs-function">() =&gt;</span> &#123;</span><br><span class="javascript">                <span class="hljs-built_in">this</span>.loading = <span class="hljs-literal">false</span></span><br>            &#125;);<br>        &#125;,<br><span class="javascript">        <span class="hljs-comment">// 删除选中时，如果请求了关键字，则清除关键字再请求第一页的数据</span></span><br><span class="javascript">        <span class="hljs-function"><span class="hljs-title">clear</span>(<span class="hljs-params"></span>)</span> &#123;</span><br><span class="javascript">            <span class="hljs-keyword">if</span> (<span class="hljs-built_in">this</span>.keyword) &#123;</span><br><span class="javascript">                <span class="hljs-built_in">this</span>.keyword = <span class="hljs-string">&quot;&quot;</span></span><br><span class="javascript">                <span class="hljs-built_in">this</span>.request(&#123; <span class="hljs-attr">page</span>: <span class="hljs-number">1</span> &#125;)</span><br>            &#125;<br>        &#125;<br>    &#125;<br>&#125;;<br><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<p>页面调用时，getData()请求函数需要接收keyword和more参数并进行相应的处理：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!-- page.vue --&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;xxx-page&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">load-select</span> <span class="hljs-attr">v-model</span>=<span class="hljs-string">&quot;selected&quot;</span> <span class="hljs-attr">:data</span>=<span class="hljs-string">&quot;data&quot;</span> <span class="hljs-attr">:page</span>=<span class="hljs-string">&quot;page&quot;</span> <span class="hljs-attr">:hasMore</span>=<span class="hljs-string">&quot;more&quot;</span> <span class="hljs-attr">:request</span>=<span class="hljs-string">&quot;getData&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">load-select</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span><br><br><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><br><span class="javascript"><span class="hljs-comment">// 导入该组件</span></span><br><span class="javascript"><span class="hljs-keyword">import</span> loadSelect <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;@/components/load-select/index&quot;</span>;</span><br><br><span class="javascript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;</span><br><span class="javascript">    name: <span class="hljs-string">&quot;app&quot;</span>,</span><br>    components: &#123;<br>        loadSelect<br>    &#125;,<br><span class="javascript">    <span class="hljs-function"><span class="hljs-title">data</span>(<span class="hljs-params"></span>)</span> &#123;</span><br><span class="javascript">        <span class="hljs-keyword">return</span> &#123;</span><br><span class="javascript">            selected: <span class="hljs-string">&quot;&quot;</span>,</span><br>            page: 1,<br><span class="javascript">            more: <span class="hljs-literal">true</span>,</span><br>            data: []<br>        &#125;;<br>    &#125;,<br>    methods: &#123;<br><span class="javascript">        <span class="hljs-comment">// 传入给load-select组件的函数</span></span><br><span class="javascript">        <span class="hljs-function"><span class="hljs-title">getData</span>(<span class="hljs-params">&#123; page = <span class="hljs-number">1</span>, more = <span class="hljs-literal">false</span>, keyword = <span class="hljs-string">&quot;&quot;</span> &#125; = &#123;&#125;</span>)</span> &#123;</span><br><span class="javascript">            <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function"><span class="hljs-params">resolve</span> =&gt;</span> &#123;</span><br><span class="javascript">                <span class="hljs-comment">// 访问后端接口API</span></span><br><span class="javascript">                <span class="hljs-built_in">this</span>.requestAPI(&#123; page, keyword &#125;).then(<span class="hljs-function"><span class="hljs-params">res</span> =&gt;</span> &#123;</span><br><span class="javascript">                    <span class="hljs-comment">// 如果是加载更多，则合并之前的数据</span></span><br>                    if (more) &#123;<br><span class="javascript">                        <span class="hljs-built_in">this</span>.data = [...this.data, ...res.result]</span><br><span class="javascript">                    &#125; <span class="hljs-keyword">else</span> &#123;</span><br><span class="javascript">                        <span class="hljs-built_in">this</span>.data = res.result</span><br>                    &#125;<br><br><span class="javascript">                    <span class="hljs-built_in">this</span>.page = res.page;</span><br><span class="javascript">                    <span class="hljs-keyword">let</span> &#123; total, page, size &#125; = res</span><br><span class="javascript">                    <span class="hljs-comment">// 如果为最后一页，则设置more为false</span></span><br><span class="javascript">                    <span class="hljs-built_in">this</span>.more = page * size &lt; total</span><br><span class="javascript">                    <span class="hljs-built_in">this</span>.page = page</span><br>                    resolve()<br>                &#125;);<br>            &#125;);<br>        &#125;,<br><span class="javascript">        <span class="hljs-comment">// 模拟后端接口的API</span></span><br><span class="javascript">        <span class="hljs-function"><span class="hljs-title">requestAPI</span>(<span class="hljs-params">&#123; page = <span class="hljs-number">1</span>, size = <span class="hljs-number">10</span>, keyword = <span class="hljs-string">&quot;&quot;</span> &#125; = &#123;&#125;</span>)</span> &#123;</span><br><span class="javascript">            <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function"><span class="hljs-params">resolve</span> =&gt;</span> &#123;</span><br><span class="javascript">                <span class="hljs-comment">// 如果有 keyword 参数，则返回带有 keyword 的数据</span></span><br>                if (keyword) &#123;<br><span class="javascript">                    <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> &#123;</span><br>                        resolve(&#123;<br>                            total: 3,<br>                            page: 1,<br>                            size: 10,<br>                            result: [<br>                                &#123;<br>                                    label: keyword,<br>                                    value: 1<br>                                &#125;,<br>                                &#123;<br>                                    label: keyword + 1,<br>                                    value: 2<br>                                &#125;,<br>                                &#123;<br>                                    label: keyword + 2,<br>                                    value: 3<br>                                &#125;<br>                            ]<br>                        &#125;)<br>                    &#125;, 500)<br><span class="javascript">                    <span class="hljs-keyword">return</span></span><br>                &#125;<br><br><span class="javascript">                <span class="hljs-keyword">let</span> responseData = [];</span><br><span class="javascript">                <span class="hljs-comment">// 假设总共的数据有50条</span></span><br><span class="javascript">                <span class="hljs-keyword">let</span> total = <span class="hljs-number">50</span>; </span><br><span class="javascript">                <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> index = <span class="hljs-number">1</span>; index &lt;= size; index++) &#123;</span><br><span class="javascript">                    <span class="hljs-comment">// serial：处于第几个元素，就显示多少序号</span></span><br><span class="javascript">                    <span class="hljs-keyword">let</span> serial = index + (page - <span class="hljs-number">1</span>) * size</span><br>                    if (serial &lt;= 50) &#123;<br>                        responseData.push(&#123;<br>                            label: serial,<br>                            value: serial<br>                        &#125;);<br>                    &#125;<br>                &#125;<br><span class="javascript">                <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =&gt;</span> &#123;</span><br>                    resolve(&#123;<br>                        total,<br>                        page,<br>                        size,<br>                        result: responseData<br>                    &#125;)<br>                &#125;, 500)<br>            &#125;)<br>        &#125;<br>    &#125;<br>&#125;;<br><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<p>接下来看看搜索关键字的效果：关键字搜索 搜索功能也完成啦！</p>
+<p>总结<br>为了适用于大部分的请求接口，因此在设计这个组件的时候只能把请求与组件剥离开来，易用程度不算太高，不过我们可以适当地传入一些简单必要的参数去维持基本地使用。<br>当然，在项目中遇到某些固定的加载请求时，我们也可以对该组件进行再次封装，具体可以根据自身的业务需求进行修改。</p>
+<h3 id="vue对el-autocomplete二次封装增加下拉分页-参考文章"><a href="#vue对el-autocomplete二次封装增加下拉分页-参考文章" class="headerlink" title="vue对el-autocomplete二次封装增加下拉分页 (参考文章)"></a>vue对el-autocomplete二次封装增加下拉分页 (参考文章)</h3><p>项目中的联想输入框现在都是采用的el-autocomplete实现的，但是随着数据量越来越多，产品要求一次不要返回所有的联想数据，要做分页处理，所以需要添加一个分页的功能。</p>
+<p>注：看懂下面的代码需要先对vue和element有一定的学习。</p>
+<p>废话不多数，先上完整代码</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span><br>  &lt;el-autocomplete<br>    ref=&quot;autocomplete&quot;<br>    value-key=&quot;value&quot;<br>    v-scrollLoad=&quot;selectLoadMore&quot;<br>    v-loading=&quot;loading&quot;<br>    v-model=&quot;state&quot;<br>    :fetch-suggestions=&quot;querySearch&quot;<br>    :placeholder=&quot;placeholder&quot;<br>    :trigger-on-focus=&quot;false&quot;<br>    @select=&quot;handleSelect&quot;<br>  &gt;<span class="hljs-tag">&lt;/<span class="hljs-name">el-autocomplete</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span><br> <br><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><br><span class="javascript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;</span><br><span class="javascript">  name: <span class="hljs-string">&#x27;InputLoadMore&#x27;</span>,</span><br>  props: &#123;<br><span class="javascript">    <span class="hljs-comment">// 封装的查数据方法</span></span><br>    getOptionFn: &#123;<br><span class="javascript">      <span class="hljs-built_in">require</span>: <span class="hljs-literal">true</span></span><br>    &#125;,<br><span class="javascript">    <span class="hljs-comment">// 后端定义的联想的key</span></span><br>    searchKey: &#123;<br><span class="javascript">      type: <span class="hljs-built_in">String</span>,</span><br><span class="javascript">      <span class="hljs-built_in">require</span>: <span class="hljs-literal">true</span></span><br>    &#125;,<br><span class="javascript">    <span class="hljs-comment">// v-model的绑定值</span></span><br>    value: &#123;<br><span class="javascript">      type: <span class="hljs-built_in">String</span>,</span><br><span class="javascript">      <span class="hljs-built_in">require</span>: <span class="hljs-literal">true</span></span><br>    &#125;,<br><span class="javascript">    <span class="hljs-comment">// placehoder</span></span><br>    placeholder: &#123;<br><span class="javascript">      type: <span class="hljs-built_in">String</span>,</span><br><span class="javascript">      <span class="hljs-keyword">default</span>: <span class="hljs-string">&#x27;请输入&#x27;</span></span><br>    &#125;<br>  &#125;,<br><span class="javascript">  <span class="hljs-function"><span class="hljs-title">data</span>(<span class="hljs-params"></span>)</span> &#123;</span><br><span class="javascript">    <span class="hljs-keyword">return</span> &#123;</span><br><span class="javascript">      state: <span class="hljs-string">&#x27;&#x27;</span>,</span><br><span class="javascript">      loading: <span class="hljs-literal">false</span>,</span><br>      page: 1,<br>      pageTotal: 0<br>    &#125;<br>  &#125;,<br>  watch: &#123;<br><span class="javascript">    <span class="hljs-function"><span class="hljs-title">state</span>(<span class="hljs-params">val</span>)</span> &#123;</span><br><span class="javascript">      <span class="hljs-built_in">this</span>.$emit(<span class="hljs-string">&#x27;input&#x27;</span>, val)</span><br>    &#125;,<br><span class="javascript">    <span class="hljs-function"><span class="hljs-title">value</span>(<span class="hljs-params">val</span>)</span> &#123;</span><br><span class="javascript">      <span class="hljs-built_in">this</span>.state = val</span><br>    &#125;<br>  &#125;,<br>  directives: &#123;<br><span class="javascript">    <span class="hljs-comment">// 自定义指令，监听下拉框的滚动，滚动到底部就加载下一页</span></span><br>    scrollLoad: &#123;<br><span class="javascript">      <span class="hljs-function"><span class="hljs-title">bind</span>(<span class="hljs-params">el, binding, vnode</span>)</span> &#123;</span><br><span class="javascript">        <span class="hljs-keyword">let</span> wrapDom = el.querySelector(<span class="hljs-string">&#x27;.el-autocomplete-suggestion__wrap&#x27;</span>)</span><br><span class="javascript">        <span class="hljs-keyword">let</span> listDom = el.querySelector(<span class="hljs-string">&#x27;.el-autocomplete-suggestion__wrap  .el-autocomplete-suggestion__list&#x27;</span>)</span><br>        wrapDom.addEventListener(<br><span class="javascript">          <span class="hljs-string">&#x27;scroll&#x27;</span>,</span><br>          e =&gt; &#123;<br><span class="javascript">            <span class="hljs-comment">// 注意load的使用，节流</span></span><br><span class="javascript">            <span class="hljs-keyword">let</span> condition = wrapDom.offsetHeight + wrapDom.scrollTop + <span class="hljs-number">10</span> - listDom.offsetHeight</span><br>            if (condition &gt; 0 &amp;&amp; !vnode.context.loading) &#123;<br><span class="javascript">              <span class="hljs-comment">//滚动到底部则执行滚动方法load，binding.value就是v-scrollLoad绑定的值，加()表示执行绑定的方法</span></span><br>              binding.value()<br>            &#125;<br>          &#125;,<br><span class="javascript">          <span class="hljs-literal">false</span></span><br>        )<br>      &#125;<br>    &#125;<br>  &#125;,<br>  methods: &#123;<br><span class="javascript">    <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-title">querySearch</span>(<span class="hljs-params">queryString, cb</span>)</span> &#123;</span><br><span class="javascript">      <span class="hljs-built_in">this</span>.page = <span class="hljs-number">1</span></span><br><span class="javascript">      <span class="hljs-built_in">this</span>.loading = <span class="hljs-literal">true</span></span><br><span class="javascript">      <span class="hljs-keyword">try</span> &#123;</span><br><span class="javascript">        <span class="hljs-keyword">let</span> &#123; result &#125; = <span class="hljs-keyword">await</span> <span class="hljs-built_in">this</span>.getOptionFn(&#123;</span><br>          page: 1,<br>          pageSize: 50,<br><span class="javascript">          [<span class="hljs-built_in">this</span>.searchKey]: queryString</span><br>        &#125;)<br><span class="javascript">        <span class="hljs-comment">// 根据实际情况修改下面的代码，展示数据</span></span><br>        if (result.rows) &#123;<br><span class="javascript">          <span class="hljs-keyword">let</span> arr = []</span><br><span class="javascript">          result.rows.forEach(<span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span> &#123;</span><br>            arr.push(&#123; value: item &#125;)<br>          &#125;)<br>          cb(arr)<br><span class="javascript">        &#125; <span class="hljs-keyword">else</span> &#123;</span><br>          cb([])<br>        &#125;<br><span class="javascript">        <span class="hljs-built_in">this</span>.pageTotal = result.total || <span class="hljs-number">0</span></span><br><span class="javascript">      &#125; <span class="hljs-keyword">catch</span>(e) &#123;</span><br><span class="javascript">        <span class="hljs-comment">// console.log(e)</span></span><br><span class="javascript">      &#125; <span class="hljs-keyword">finally</span> &#123;</span><br><span class="javascript">        <span class="hljs-built_in">this</span>.loading = <span class="hljs-literal">false</span></span><br>      &#125;<br>    &#125;,<br><span class="javascript">    <span class="hljs-function"><span class="hljs-title">handleSelect</span>(<span class="hljs-params">item</span>)</span> &#123;&#125;,</span><br><span class="javascript">    <span class="hljs-comment">// 加载更多</span></span><br><span class="javascript">    <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-title">selectLoadMore</span>(<span class="hljs-params"></span>)</span> &#123;</span><br><span class="javascript">      <span class="hljs-keyword">if</span>(<span class="hljs-built_in">Number</span>(<span class="hljs-built_in">this</span>.pageTotal) &lt;= <span class="hljs-built_in">this</span>.$refs[<span class="hljs-string">&#x27;autocomplete&#x27;</span>].$data.suggestions.length) &#123;</span><br><span class="javascript">        <span class="hljs-keyword">return</span></span><br>      &#125;<br><span class="javascript">      <span class="hljs-built_in">this</span>.page = <span class="hljs-built_in">this</span>.page + <span class="hljs-number">1</span></span><br><span class="javascript">      <span class="hljs-built_in">this</span>.loading = <span class="hljs-literal">true</span></span><br><span class="javascript">      <span class="hljs-keyword">try</span> &#123;</span><br><span class="javascript">        <span class="hljs-keyword">let</span> &#123; result &#125; = <span class="hljs-keyword">await</span> <span class="hljs-built_in">this</span>.getOptionFn(&#123;</span><br><span class="javascript">          page: <span class="hljs-built_in">this</span>.page,</span><br>          pageSize: 50,<br><span class="javascript">          [<span class="hljs-built_in">this</span>.searchKey]: <span class="hljs-built_in">this</span>.state</span><br>        &#125;)<br><span class="javascript">        <span class="hljs-comment">// 根据实际情况修改下面的代码，展示数据</span></span><br>        if (result.rows) &#123;<br><span class="javascript">          <span class="hljs-keyword">const</span> arr = result.rows.map(<span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span> &#123;</span><br><span class="javascript">            <span class="hljs-keyword">return</span> &#123; <span class="hljs-attr">value</span>: item &#125;</span><br>          &#125;)<br><span class="javascript">          <span class="hljs-comment">// 将数据添加到下拉列表</span></span><br><span class="javascript">          <span class="hljs-built_in">this</span>.$refs[<span class="hljs-string">&#x27;autocomplete&#x27;</span>].$data.suggestions = <span class="hljs-built_in">this</span>.$refs[<span class="hljs-string">&#x27;autocomplete&#x27;</span>].$data.suggestions.concat(arr)</span><br>        &#125;<br><span class="javascript">        <span class="hljs-built_in">this</span>.pageTotal = result.total || <span class="hljs-number">0</span></span><br><span class="javascript">      &#125; <span class="hljs-keyword">catch</span>(e) &#123;</span><br><span class="javascript">        <span class="hljs-comment">// console.log(e)</span></span><br><span class="javascript">      &#125; <span class="hljs-keyword">finally</span> &#123;</span><br><span class="javascript">        <span class="hljs-built_in">this</span>.loading = <span class="hljs-literal">false</span></span><br>      &#125;<br>    &#125;<br>  &#125;<br>&#125;<br><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span><br></code></pre></td></tr></table></figure>
+<h4 id="下面对主要的地方进行讲解。"><a href="#下面对主要的地方进行讲解。" class="headerlink" title="下面对主要的地方进行讲解。"></a>下面对主要的地方进行讲解。</h4><h5 id="1-自定义指令实现下拉加载更多。"><a href="#1-自定义指令实现下拉加载更多。" class="headerlink" title="1.自定义指令实现下拉加载更多。"></a>1.自定义指令实现下拉加载更多。</h5><p>主要代码</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs stylus"><span class="hljs-comment">// 自定义指令，监听下拉框的滚动，滚动到底部就加载下一页</span><br>    scrollLoad: &#123;<br>      bind(el, binding, vnode) &#123;<br>        let wrapDom = el<span class="hljs-selector-class">.querySelector</span>(<span class="hljs-string">&#x27;.el-autocomplete-suggestion__wrap&#x27;</span>)<br>        let listDom = el<span class="hljs-selector-class">.querySelector</span>(<span class="hljs-string">&#x27;.el-autocomplete-suggestion__wrap  .el-autocomplete-suggestion__list&#x27;</span>)<br>        wrapDom<span class="hljs-selector-class">.addEventListener</span>(<br>          <span class="hljs-string">&#x27;scroll&#x27;</span>,<br>          e =&gt; &#123;<br>            <span class="hljs-comment">// 注意load的使用，节流</span><br>            let condition = wrapDom<span class="hljs-selector-class">.offsetHeight</span> + wrapDom<span class="hljs-selector-class">.scrollTop</span> + <span class="hljs-number">10</span> - listDom.offsetHeight<br>            <span class="hljs-keyword">if</span> (condition &gt; <span class="hljs-number">0</span> &amp;&amp; !vnode<span class="hljs-selector-class">.context</span>.loading) &#123;<br>              <span class="hljs-comment">//滚动到底部则执行滚动方法load，binding.value就是v-scrollLoad绑定的值，加()表示执行绑定的方法</span><br>              binding<span class="hljs-selector-class">.value</span>()<br>            &#125;<br>          &#125;,<br>          false<br>        )<br>      &#125;<br></code></pre></td></tr></table></figure>
+<p>上面主要是运用了vue的自定义指令的bind钩子。不太了解的可以先看这个<a target="_blank" rel="noopener" href="https://cn.vuejs.org/v2/guide/custom-directive.html">官方文档</a> 。bind有四个参数（el、binding、vnode、oldVnode）这里用前三个，el代表绑定的元素，用来操作dom，这里用来添加scroll事件，以及计算下拉框是否滑动到底部（注意计算中的+10高度）；binding是一个对象，包含旧值、新值、指令名等，这里主要用绑定值value，用来执行加载更多的方法；Vnode指的是虚拟节点，这里取他的context即为this控制loading来节流。</p>
+<h5 id="2-增加props（getOptionFn、searchKey、value、placeholder）抽离业务。成为公共组件"><a href="#2-增加props（getOptionFn、searchKey、value、placeholder）抽离业务。成为公共组件" class="headerlink" title="2.增加props（getOptionFn、searchKey、value、placeholder）抽离业务。成为公共组件"></a>2.增加props（getOptionFn、searchKey、value、placeholder）抽离业务。成为公共组件</h5><ol>
+<li>getOptionFn为接口封装的方法。fetch-suggestions和加载更多里面都要用到</li>
+<li>searchKey表示接口需要传的参数的key，不同的接口的key可能不一致。</li>
+<li>value是外面v-modle的绑定值，注意在watch里面设置值，不知道的可以看看v-model的实现原理。</li>
+<li>placeholder不解释</li>
+</ol>
+<h5 id="3-可能需要解释的"><a href="#3-可能需要解释的" class="headerlink" title="3.可能需要解释的"></a>3.可能需要解释的</h5><p>在加载到更多数据后怎么把输入加到下拉里面？</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stylus">this.<span class="hljs-variable">$refs</span><span class="hljs-selector-attr">[<span class="hljs-string">&#x27;autocomplete&#x27;</span>]</span>.<span class="hljs-variable">$data</span><span class="hljs-selector-class">.suggestions</span> <span class="hljs-comment">// 下拉的列表</span><br></code></pre></td></tr></table></figure>
+<p>怎么避免加载完了还加载更多。<br>这里是用的数量比较，也可以加一个标识符，加载完了设置为true，变化条件后设为false。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs kotlin"><span class="hljs-keyword">if</span>(Number(<span class="hljs-keyword">this</span>.pageTotal) &lt;= <span class="hljs-keyword">this</span>.$refs[<span class="hljs-string">&#x27;autocomplete&#x27;</span>].$<span class="hljs-keyword">data</span>.suggestions.length) &#123;<br>    <span class="hljs-keyword">return</span><br>  &#125;<br></code></pre></td></tr></table></figure>
+<p><a target="_blank" rel="noopener" href="https://www.jb51.net/article/240061.htm">vue对el-autocomplete二次封装增加下拉分页</a><br><a target="_blank" rel="noopener" href="http://www.seozhijia.net/vue/196.html">el-autocomplete实现滚动分页加载的方法</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_46074961/article/details/127449047">ElementUI el-dropdown 如何实现下拉框出现“触发元素”样式修改</a></p>
+<h3 id="使用-transform-是为了更好的性能-重绘回流"><a href="#使用-transform-是为了更好的性能-重绘回流" class="headerlink" title="使用 transform 是为了更好的性能(重绘回流)"></a>使用 transform 是为了更好的性能(重绘回流)</h3><p><img src="/img/transform.png" srcset="/img/loading.gif" lazyload alt="transform"><br>通过以下performance调试可以看出时间也有差异，使用transform会比top少一个layout延时（因为使用top引起了回流）。<br><img src="/img/transform2.png" srcset="/img/loading.gif" lazyload alt="transform"></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43996061/article/details/122977367">为什么使用transform偏移比使用定位top性能更好？重绘、回流是什么？</a></p>
+<h4 id="居中为什么用transform，而不是margin-top-left"><a href="#居中为什么用transform，而不是margin-top-left" class="headerlink" title="居中为什么用transform，而不是margin top/left"></a>居中为什么用transform，而不是margin top/left</h4><p>首先。我们了解下transform是干嘛的。</p>
+<p>在MDN中的官方解释：CSS <code>transform</code>属性允许你旋转，缩放，倾斜或平移给定元素。这是通过修改CSS视觉格式化模型的坐标空间来实现的。简言之，transform可以操作一些动画、位移效果。</p>
+<p>margin top/left，我们应该很熟悉，用得比较多。</p>
+<p>那为什么说，居中显示，CSS3标准的transform更胜一筹呢？我们主要还是<strong>从浏览器渲染的性能方面</strong>考虑。</p>
+<ol>
+<li>浏览器渲染过程</li>
+</ol>
+<p>我们知道，浏览器中有JS引擎和渲染引擎，对于HTML页面的渲染就靠渲染引擎来完成。下面是chrome浏览器页面渲染的整体过程图：<br><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903753783443463">居中为什么用transform，而不是margin top/left</a></p>
+<p>从上面的流程图中不难看出，Chrome渲染主要包括Parse Html、Recalculate Style、Layout、Paint、Image Decode、Image Resize和Composite Layers等。相对应的中文表述就是：<strong>html解析、查找并计算样式、排布、绘制、图片解码、图片大小设置、合并图层并输出页面到屏幕。浏览器最终渲染出来的页面，跟Photoshop有点类似，是由多个图层合并而来。</strong></p>
+<ol start="2">
+<li>transform的原理：</li>
+</ol>
+<p>transform是通过创建一个RenderLayers合成层，拥有独立的GraphicsLayers。每一个GraphicsLayers都有一个Graphics Context，其对应的RenderLayers会paint进Graphics Context中。合成器（Compositor）最终会负责将由Graphics Context输出的位图合并成最终屏幕展示的图案。<br>满足如下条件的RenderLayers，会被认为是一个独立的合成层：</p>
+<ul>
+<li>有3D或者perspective transform的CSS属性的层</li>
+<li>video元素的层</li>
+<li>canvas元素的层</li>
+<li>flash</li>
+<li>对opacity和transform应用了CSS动画的层</li>
+<li>使用了CSS滤镜（filters）的层</li>
+<li>有合成层后代的层</li>
+<li>同合成层重叠，且在该合成层上面（z-index）渲染的层<br>如果RenderLayer是一个合成层，那么它有属于它自己的单独的GraphicsLayer，否则它和它的最近的拥有GraphicsLayer的父layer共用一个GraphicsLayer。</li>
+</ul>
+<p>由此可见，transform发生在Composite Layer这一步，它所引起的paint也只是发生在单独的GraphicsLayer中，并不会引起整个页面的回流重绘。</p>
+<ol start="3">
+<li>GPU</li>
+</ol>
+<p>我们经常会听到GPU会加速渲染，那GPU在这里又扮演什么角色呢？</p>
+<p>前面说到，合成器会负责将层合成绘制为最终的屏幕画面。在硬件加速体系结构，合成由GPU负责。在chrome浏览器多进程模型中，<strong>有一个专门的进程来负责传递Render进程的命令，即GPU进程</strong>。Render进程和GPU进程是通过共享内存传递的。</p>
+<p><strong>Render进程可以快速 的将命令发给命令缓冲区，并且返回到CPU密集的render活动中，留给GPU进程去处理这些命令</strong>。我们可以充分利用多内核机器上的GPU进程和CPU进程。这也是为什么GPU会加速渲染，使transform渲染速度更快的又一原因。</p>
+<ol start="4">
+<li>margin top/left</li>
+</ol>
+<p>marign：外边距，定义元素周围的空间；简言之，可以改变元素的位移。在浏览器页面渲染的时候，margin可以控制元素的位置，也就是说，改变margin，<strong>就会改变render tree的结构，必定会引起页面layout回流和repaint重绘</strong>。</p>
+<p>因此，从浏览器性能考虑，transform会比margin更省时间。</p>
+<p><strong>但是，transform真的处处适用吗？</strong></p>
+<ol start="5">
+<li>transform的局限性</li>
+</ol>
+<p>上面提到，transform实际上也是用到了GPU加速，也就是说占用了内存。由此可见创建GraphicsLayer，虽然节省了layout，paint阶段，但Layer创建的越多，占用内存就会越大，而过多的渲染开销会超过性能的改善。</p>
+<p>因此，<strong>当且仅当需要的时候，才会为元素创建渲染层。</strong><br><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903753783443463">居中为什么用transform，而不是margin top/left</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E9%A1%B9%E7%9B%AE%E4%BC%98%E5%8C%96/">项目优化</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/">前端基础</a>
+                    
+                      <a class="hover-with-bg" href="/tags/JS/">JS</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/03/28/%5B%E9%A1%B9%E7%9B%AE%5D%E9%95%BF%E5%88%97%E8%A1%A8%E6%80%8E%E4%B9%88%E4%BC%98%E5%8C%96%EF%BC%9F/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">长列表优化之虚拟列表(项目)</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/03/28/%5B%E9%A1%B9%E7%9B%AE%5D%E5%A4%A7%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E4%BB%A5%E5%8F%8A%E6%96%AD%E7%82%B9%E7%BB%AD%E4%BC%A0/">
+                        <span class="hidden-mobile">大文件上传以及断点续传(项目)</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

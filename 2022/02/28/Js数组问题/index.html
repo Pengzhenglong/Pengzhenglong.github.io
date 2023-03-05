@@ -351,7 +351,7 @@
 <h4 id="toString-NaN"><a href="#toString-NaN" class="headerlink" title="toString"></a>toString</h4><figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs perl">function flatten(arr)&#123;<br><br>    //arr.join(<span class="hljs-string">&#x27;,&#x27;</span>).<span class="hljs-keyword">split</span>(<span class="hljs-string">&#x27;,&#x27;</span>);  <span class="hljs-keyword">join</span>也可以实现  <br>    <span class="hljs-keyword">return</span> arr.toString().<span class="hljs-keyword">split</span>(<span class="hljs-string">&#x27;,&#x27;</span>).map(function(item)&#123;<br>        <span class="hljs-keyword">return</span> +item;  <span class="hljs-regexp">//</span>+将字符转换为数字<br> &#125;)<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <p>如果数组的元素都是数字，可以考虑使用 toString 方法，因为：toString会将数组中的数以逗号形式结合起来。toString之后再split转成数组，并将其转换回数字。所以这种场景只适用于数组内全部是数字的情况，因为中间是全部转换为字符串了。</p>
-<h5 id="转载文章"><a href="#转载文章" class="headerlink" title="转载文章"></a>转载文章</h5><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6978115075672375326">🔥🔥JS如何实现数组扁平化？不同的方法有什么区别？</a></p>
+<h5 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h5><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6978115075672375326">🔥🔥JS如何实现数组扁平化？不同的方法有什么区别？</a></p>
 
             </div>
             <hr>

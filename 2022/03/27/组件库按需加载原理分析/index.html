@@ -262,7 +262,7 @@
 
 <p>可以想到，如果每次需要用到新的组件都像这样时都同时手动引入 js、css 或 less 文件岂不是很麻烦，所以为了免去引入写法的繁杂，产生了两种方案：<strong>引入全部组件和使用插件自动引入。使用插件自动引入就是插件帮我们把引入组件的写法进行了转换，最后转换成了上文中手动加载方式的写法。</strong></p>
 <h4 id="babel-plugin-import-插件"><a href="#babel-plugin-import-插件" class="headerlink" title="babel-plugin-import 插件"></a>babel-plugin-import 插件</h4><p>上文已经介绍了使用插件自动按需加载的本质，下面开始进一步地分析该插件底层是如何实现的。</p>
-<h6 id="转载文章"><a href="#转载文章" class="headerlink" title="转载文章"></a>转载文章</h6><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6968505746757533710#heading-12">组件库按需加载原理分析</a></p>
+<h6 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h6><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6968505746757533710#heading-12">组件库按需加载原理分析</a></p>
 <h3 id="Vue3中提到的Tree-shaking"><a href="#Vue3中提到的Tree-shaking" class="headerlink" title="Vue3中提到的Tree-shaking"></a>Vue3中提到的Tree-shaking</h3><p>按照作者的原话解释，Tree-shaking其实就是：<strong>把无用的模块进行“剪枝”，很多没有用到的API就不会打包到最后的包里</strong><br>vue3一个比较大的显著的区别就是，当你用一个bundler的时候，比如webpack或者rollup，webpack和rollup都是有tree shaking功能，但是tree shaking的<strong>前提是所有的东西都必须用ES6 module的import来写</strong></p>
 <p>而vue3 在浏览器里的时候依然会由一个全局的Vue对象，但是当你用了一个bundler时（比如webpack），它就没有default export，你就不能import xxx from vue，然后把vue本身当一个对象去操作。那所有的这些API全部要用import的方式import进来，这样的结果就是使得一些可能不会用到的一些功能就可以被tree shaking掉。比如说 v-model、<code>&lt;transition&gt;</code>这些功能，如果你不用的话，就不会引用到最后的包里。</p>
 <p><strong>Tree-shaking某种程度上来讲，也是通过编译器去实现的（记住这句话）</strong></p>
@@ -304,9 +304,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/03/28/%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/">
+                      <a href="/2022/03/28/%5B%E9%A1%B9%E7%9B%AE%5D%E4%B8%AD%E6%96%AD%E8%AF%B7%E6%B1%82%E4%B8%8E%E5%B9%B6%E5%8F%91/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">前端性能优化建议(项目)</span>
+                        <span class="hidden-mobile">如何中断已经发出去的请求&&大文件上传处理（项目）</span>
                         <span class="visible-mobile">Previous</span>
                       </a>
                     
