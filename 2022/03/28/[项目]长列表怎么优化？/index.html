@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      5.5k 字
+      5.3k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      62
+      60
        分钟
     </span>
   
@@ -228,23 +228,8 @@
             <h1 style="display: none">长列表优化之虚拟列表(项目)</h1>
             
             <div class="markdown-body">
-              <p>为什么需要长列表优化，为什么需要虚拟列表？</p>
-<p>长列表是指<strong>包含大量数据项的列表</strong>，如果在渲染这些数据项时没有进行优化，则会导致应用程序变慢并占用更多的系统资源，从而影响用户体验。因此，需要对长列表进行优化。<br>长列表优化的目的是尽可能地减少应用程序在渲染长列表时的开销。优化的方法包括使用<strong>虚拟列表、懒加载、分页、无限滚动</strong>等技术。</p>
-<p>虚拟列表是一种在渲染长列表时非常有效的优化技术。其原理是只渲染可见的列表项，而不是全部渲染，以减少内存和 CPU 的使用量。当用户滚动列表时，只有新出现的列表项才会被渲染，已经滚出视图的列表项则会被销毁，从而避免了长列表中大量无用数据的渲染和占用内存资源。</p>
-<p>虚拟列表技术在实际应用开发中非常常见，因此也经常被面试考察。面试者可能会被要求实现一个虚拟列表组件，或者被问到虚拟列表的原理和优缺点等相关问题。因此，熟练掌握虚拟列表的实现原理和应用场景是非常重要的。</p>
-<hr>
-<h2 id="长列表优化之虚拟列表"><a href="#长列表优化之虚拟列表" class="headerlink" title="长列表优化之虚拟列表"></a>长列表优化之虚拟列表</h2><h4 id="为什么需要长列表优化，为什么需要虚拟列表"><a href="#为什么需要长列表优化，为什么需要虚拟列表" class="headerlink" title="为什么需要长列表优化，为什么需要虚拟列表"></a>为什么需要长列表优化，为什么需要虚拟列表</h4><p>长列表是指包含大量数据项的列表，如果在渲染这些数据项时没有进行优化，则会导致应用程序变慢并占用更多的系统资源，从而影响用户体验。因此，需要对长列表进行优化。</p>
-<p>长列表优化的目的是尽可能地减少应用程序在渲染长列表时的开销。优化的方法包括使用虚拟列表、懒加载、分页、无限滚动等技术。</p>
-<p>虚拟列表是一种在渲染长列表时非常有效的优化技术。其原理是只渲染可见的列表项，而不是全部渲染，以减少内存和 CPU 的使用量。当用户滚动列表时，只有新出现的列表项才会被渲染，已经滚出视图的列表项则会被销毁，从而避免了长列表中大量无用数据的渲染和占用内存资源。</p>
-<p>虚拟列表技术在实际应用开发中非常常见，因此也经常被面试考察。面试者可能会被要求实现一个虚拟列表组件，或者被问到虚拟列表的原理和优缺点等相关问题。因此，熟练掌握虚拟列表的实现原理和应用场景是非常重要的。</p>
-<h4 id="面试问虚拟列表如何回答能让面试官满意"><a href="#面试问虚拟列表如何回答能让面试官满意" class="headerlink" title="面试问虚拟列表如何回答能让面试官满意"></a>面试问虚拟列表如何回答能让面试官满意</h4><p>当面试官问到虚拟列表时，您可以采取以下步骤来回答问题，以便让面试官满意：</p>
-<p>简要解释虚拟列表的概念和原理：虚拟列表是一种在渲染大型列表时非常有效的优化技术，它只会渲染可见的列表项，而不会渲染整个列表。它的原理是通过监听列表的滚动事件，在用户滚动列表时动态地渲染新出现的列表项，并销毁已经滚出视图的列表项，从而避免了长列表中大量无用数据的渲染和占用内存资源。</p>
-<p>讲解虚拟列表的优点：虚拟列表的主要优点包括：</p>
-<p>优化性能：虚拟列表可以极大地减少在渲染长列表时的开销，从而提高应用程序的性能和响应速度。<br>节省内存：虚拟列表只渲染可见的列表项，而不会渲染整个列表，因此可以节省内存资源。<br>支持无限滚动：虚拟列表可以支持无限滚动，用户可以不断向下滚动列表，而不必等待整个列表渲染完成。<br>支持异步数据加载：虚拟列表可以与异步数据加载技术结合使用，当用户滚动到新的列表区域时，可以异步地加载数据并渲染新的列表项。<br>说明虚拟列表的缺点：虚拟列表的主要缺点是在实现时需要更多的代码复杂度和技术要求。特别是需要进行高级优化时，可能需要进行更多的计算和代码调试。此外，虚拟列表在处理动态高度的列表项时可能会存在一些问题，需要进行更多的测试和优化。</p>
-<p>提供实际的应用场景和使用案例：虚拟列表在很多 Web 应用程序中都有广泛的应用，比如社交网络、电商平台、新闻列表等。您可以分享您在实际开发中使用虚拟列表的案例和经验，展示您的实际能力和经验。</p>
-<p>可以讲解实现虚拟列表的技术细节：如果您有实现过虚拟列表的经验，可以进一步讲解如何实现虚拟列表的技术细节，比如如何计算可见区域、如何处理异步数据加载等等。这将有助于展示您的技术深度和专业能力。</p>
-<p>通过以上步骤的回答，您可以让面试官感受到您对虚拟列表的深入理解和实际</p>
-<h4 id="用Vue代码实现上面的问题"><a href="#用Vue代码实现上面的问题" class="headerlink" title="用Vue代码实现上面的问题"></a>用Vue代码实现上面的问题</h4><p>好的，以下是一个使用Vue实现虚拟列表的代码示例：</p>
+              <hr>
+<h2 id="长列表优化之虚拟列表"><a href="#长列表优化之虚拟列表" class="headerlink" title="长列表优化之虚拟列表"></a>长列表优化之虚拟列表</h2><h4 id="用Vue代码实现上面的问题"><a href="#用Vue代码实现上面的问题" class="headerlink" title="用Vue代码实现上面的问题"></a>用Vue代码实现上面的问题</h4><p>好的，以下是一个使用Vue实现虚拟列表的代码示例：</p>
 <figure class="highlight handlebars"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><code class="hljs handlebars"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">template</span>&gt;</span></span><br><span class="xml">  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;list-container&quot;</span> <span class="hljs-attr">ref</span>=<span class="hljs-string">&quot;listContainer&quot;</span> @<span class="hljs-attr">scroll</span>=<span class="hljs-string">&quot;handleScroll&quot;</span>&gt;</span></span><br><span class="xml">    <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">&quot;list-item&quot;</span> <span class="hljs-attr">v-for</span>=<span class="hljs-string">&quot;(item, index) in visibleItems&quot;</span> <span class="hljs-attr">:key</span>=<span class="hljs-string">&quot;item.id&quot;</span>&gt;</span></span><br><span class="xml">      </span><span class="hljs-template-variable">&#123;&#123; <span class="hljs-name">item.text</span> &#125;&#125;</span><br><span class="xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="xml">  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">template</span>&gt;</span></span><br><br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span></span><br><span class="xml">export default &#123;</span><br><span class="xml">  data() &#123;</span><br><span class="xml">    return &#123;</span><br><span class="xml">      items: [], // 列表数据</span><br><span class="xml">      visibleStartIndex: 0, // 当前可见列表项的起始索引</span><br><span class="xml">      visibleItemCount: 0, // 当前可见列表项的数量</span><br><span class="xml">      itemHeight: 50 // 每个列表项的高度</span><br><span class="xml">    &#125;;</span><br><span class="xml">  &#125;,</span><br><span class="xml">  mounted() &#123;</span><br><span class="xml">    // 模拟异步获取数据</span><br><span class="xml">    this.fetchData().then((data) =&gt; &#123;</span><br><span class="xml">      this.items = data;</span><br><span class="xml">    &#125;);</span><br><span class="xml">  &#125;,</span><br><span class="xml">  computed: &#123;</span><br><span class="xml">    // 计算当前可见列表项</span><br><span class="xml">    visibleItems() &#123;</span><br><span class="xml">      return this.items.slice(</span><br><span class="xml">        this.visibleStartIndex,</span><br><span class="xml">        this.visibleStartIndex + this.visibleItemCount</span><br><span class="xml">      );</span><br><span class="xml">    &#125;</span><br><span class="xml">  &#125;,</span><br><span class="xml">  methods: &#123;</span><br><span class="xml">    // 处理滚动事件</span><br><span class="xml">    handleScroll() &#123;</span><br><span class="xml">      const scrollTop = this.$refs.listContainer.scrollTop;</span><br><span class="xml">      this.visibleStartIndex = Math.floor(scrollTop / this.itemHeight);</span><br><span class="xml">      this.visibleItemCount = Math.ceil(</span><br><span class="xml">        this.$refs.listContainer.clientHeight / this.itemHeight</span><br><span class="xml">      );</span><br><span class="xml">    &#125;,</span><br><span class="xml">    // 模拟异步获取数据</span><br><span class="xml">    fetchData() &#123;</span><br><span class="xml">      return new Promise((resolve) =&gt; &#123;</span><br><span class="xml">        setTimeout(() =&gt; &#123;</span><br><span class="xml">          const data = [];</span><br><span class="xml">          for (let i = 0; i &lt; 1000; i++) &#123;</span><br><span class="xml">            data.push(&#123;</span><br><span class="xml">              id: i,</span><br><span class="xml">              text: `Item $&#123;i&#125;`</span><br><span class="xml">            &#125;);</span><br><span class="xml">          &#125;</span><br><span class="xml">          resolve(data);</span><br><span class="xml">        &#125;, 1000);</span><br><span class="xml">      &#125;);</span><br><span class="xml">    &#125;</span><br><span class="xml">  &#125;</span><br><span class="xml">&#125;;</span><br><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span><br><br><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">style</span>&gt;</span></span><br><span class="xml">.list-container &#123;</span><br><span class="xml">  height: 500px;</span><br><span class="xml">  overflow-y: scroll;</span><br><span class="xml">&#125;</span><br><span class="xml">.list-item &#123;</span><br><span class="xml">  height: 50px;</span><br><span class="xml">  line-height: 50px;</span><br><span class="xml">  border-bottom: 1px solid #eee;</span><br><span class="xml">&#125;</span><br><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">style</span>&gt;</span></span><br></code></pre></td></tr></table></figure>
 <p>这个示例中，我们首先通过fetchData方法模拟异步获取列表数据，然后在mounted生命周期函数中获取数据，并将其保存到items数据属性中。在模板中，我们使用一个v-for指令来动态渲染当前可见的列表项，并使用visibleItems计算属性来计算当前可见的列表项。在handleScroll方法中，我们处理滚动事件，根据滚动条的位置计算出当前可见列表项的起始索引和数量，然后更新visibleStartIndex和visibleItemCount数据属性。最后，我们使用一些简单的样式来设置列表的高度和样式。</p>
 <h3 id="分析需求"><a href="#分析需求" class="headerlink" title="分析需求"></a>分析需求</h3><p>首先，因为同事们对这个列表的长时间的使用已经习惯了，所以<strong>最好在体验上不要进行大的修改</strong>。为此，我需要把之前大概的功能列举出来:</p>
@@ -263,7 +248,7 @@
 </ol>
 <p>开始开发<br>长列表转虚拟列表</p>
 <h4 id="为什么需要虚拟列表"><a href="#为什么需要虚拟列表" class="headerlink" title="为什么需要虚拟列表"></a>为什么需要虚拟列表</h4><p>我们知道，在浏览器渲染页面的时候，当DOM节点的数量越多，每一次重绘的时候，对性能的影响也就越大。</p>
-<p>假如我们需要展示一个信息量很大，大约有数十万条数据。遇到这样子的情况，其实现在有许多的方案，我们最常见的方案就类似PC上的下一页、上一页，但是这个方案在体验上其实并不友好。大部分的用户会比较喜欢不停的向下滚动就可以看到新的内容，但是这个就会遇到一个问题，不停的加载数据，导致页面堆积的节点越来越多，所消耗的内存不断增大，最后连滚动都会卡顿。</p>
+<p>假如我们需要展示一个信息量很大，<strong>大约有数十万条数据</strong>。遇到这样子的情况，其实现在有许多的方案，我们最常见的方案就类似PC上的下一页、上一页，但是这个方案在体验上其实并不友好。<strong>大部分的用户会比较喜欢不停的向下滚动就可以看到新的内容，但是这个就会遇到一个问题，不停的加载数据，导致页面堆积的节点越来越多，所消耗的内存不断增 大，最后连滚动都会卡顿。</strong></p>
 <p>这时候我们重新分析一下，就会发现其实有很多数据我们大多数情况下是不需要看见的，如果只考虑我们能看到数据的话，其实需要渲染的数据量就会非常的少了，很好的提高了渲染的效率，减少因为大量的重绘照成不必要的影响。<br>这么一梳理一下，答案简直呼之欲出—-虚拟列表。</p>
 <h4 id="什么是虚拟列表"><a href="#什么是虚拟列表" class="headerlink" title="什么是虚拟列表"></a>什么是虚拟列表</h4><p>虚拟列表其实没有什么特别神奇的地方，说白了就是一种展示列表的思路，<strong>在页面上创建一个容器作为可视区，在这个可视区内展示长列表中的一部分</strong>，也就是在可视区渲染列表。</p>
 <p>如图中所示，是一个简单的虚拟列表的模型，图中有几个概念需要大家稍微了解一下：</p>
@@ -271,7 +256,7 @@
 <li>可视区。</li>
 <li>真实列表。</li>
 <li>startIndex。</li>
-<li>endIndex。<h4 id="可视区"><a href="#可视区" class="headerlink" title="可视区"></a>可视区</h4>可视区大家可以这么理解，我们现在有一个<div class="show-box">，给这个元素加一些样式。</li>
+<li>endIndex。<h4 id="可视区"><a href="#可视区" class="headerlink" title="可视区"></a>可视区</h4>可视区大家可以这么理解，我们现在有一个<code>&lt;div class=&quot;show-box&quot;&gt;</code>，给这个元素加一些样式。</li>
 </ol>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-class">.show-box</span>&#123;<br>    <span class="hljs-attribute">width</span>: <span class="hljs-number">375px</span>;<br>    <span class="hljs-attribute">height</span>: <span class="hljs-number">500px</span>;<br>    <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span> auto;<br>    <span class="hljs-attribute">position</span>: relative;<br>&#125;<br></code></pre></td></tr></table></figure>
 <p>通过这个样式我们可以看出这个可视区容器的高度为500px。</p>
@@ -329,6 +314,25 @@
 </li>
 </ol>
 <p>总之，实现虚拟列表需要一定的计算和渲染技巧，需要注意性能优化和细节处理，可以借助第三方库来提高开发效率。当回答这个问题时，我需要清晰地表达我的思路和实现方案，注重细节和实现的可行性，并尽可能展示我的Vue编程技能和经验。</p>
+<h3 id="文章长列表优化这一块讲讲是怎么做的？"><a href="#文章长列表优化这一块讲讲是怎么做的？" class="headerlink" title="文章长列表优化这一块讲讲是怎么做的？"></a>文章长列表优化这一块讲讲是怎么做的？</h3><ol>
+<li> 发现问题</li>
+<li> 解决问题  （原理 -&gt;实现思路） <h4 id="1-发现问题"><a href="#1-发现问题" class="headerlink" title="1. 发现问题"></a>1. 发现问题</h4></li>
+</ol>
+<p>项目中文档分析模块显示的文档长列表会卡顿（如果数据量大的较大<strong>大约有数十万条数据</strong>，直接渲染所有数据会导致页面加载缓慢、卡顿等问题）–（performance查看可以看到执行栈task-帧执行（正常15ms,超过60ms））—-长列表是指<strong>包含大量数据项的列表</strong>，如果在渲染这些数据项时没有进行优化，则会导致应用程序变慢并占用更多的系统资源，从而影响用户体验。因此，需要对长列表进行优化。</p>
+<h5 id="2-解决问题"><a href="#2-解决问题" class="headerlink" title="2. 解决问题"></a>2. 解决问题</h5><p>优化的方法包括使用<strong>虚拟列表、懒加载、分页、无限滚动</strong>等技术。</p>
+<h6 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h6><ul>
+<li>简要解释虚拟列表的<strong>概念和原理</strong>：虚拟列表是一种在<strong>渲染大型列表</strong>时非常有效的优化技术，<strong>它只会渲染可见的列表项，而不会渲染整个列表</strong>。它的原理是<strong>通过监听列表的滚动事件</strong>，在用户滚动列表时动态地渲染新出现的列表项，并销毁已经滚出视图的列表项，从而避免了长列表中大量无用数据的渲染和占用内存资源。</li>
+</ul>
+<h5 id="实现思路"><a href="#实现思路" class="headerlink" title="实现思路"></a>实现思路</h5><h6 id="讲解虚拟列表的优点：虚拟列表的主要优点包括："><a href="#讲解虚拟列表的优点：虚拟列表的主要优点包括：" class="headerlink" title="讲解虚拟列表的优点：虚拟列表的主要优点包括："></a>讲解虚拟列表的优点：虚拟列表的主要优点包括：</h6><p>优化性能：虚拟列表可以极大地减少在渲染长列表时的开销，从而提高应用程序的性能和响应速度。<br>节省内存：虚拟列表只渲染可见的列表项，而不会渲染整个列表，因此可以节省内存资源。<br>支持无限滚动：虚拟列表可以支持无限滚动，用户可以不断向下滚动列表，而不必等待整个列表渲染完成。<br>支持异步数据加载：虚拟列表可以与异步数据加载技术结合使用，当用户滚动到新的列表区域时，可以异步地加载数据并渲染新的列表项。<br>说明虚拟列表的缺点：虚拟列表的主要缺点是在实现时需要更多的代码复杂度和技术要求。特别是需要进行高级优化时，可能需要进行更多的计算和代码调试。此外，虚拟列表在处理动态高度的列表项时可能会存在一些问题，需要进行更多的测试和优化。</p>
+<h5 id="面试问你为什么这里使用虚拟列表而不使用懒加载、分页、无限滚动该怎么回答呢"><a href="#面试问你为什么这里使用虚拟列表而不使用懒加载、分页、无限滚动该怎么回答呢" class="headerlink" title="面试问你为什么这里使用虚拟列表而不使用懒加载、分页、无限滚动该怎么回答呢"></a>面试问你为什么这里使用虚拟列表而不使用懒加载、分页、无限滚动该怎么回答呢</h5><ol>
+<li><p>虚拟列表可以提升用户体验：虚拟列表可以在页面上显示一定数量的列表项，而不会导致整个页面的渲染和布局都被阻塞。因此，当用户在列表中滚动时，新的列表项会被动态加载，而不会导致页面的重新渲染，从而提升了用户的体验。相比之下，<strong>懒加载、分页、无限滚动的加载方式可能会导致页面闪烁或整体布局变化，用户体验相对较差。</strong></p>
+</li>
+<li><p>虚拟列表可以提高页面性能：由于虚拟列表只会渲染当前可视区域内的列表项，因此可以大大降低页面的渲染负担，提高页面的性能。相比之下，<strong>懒加载、分页、无限滚动的加载方式可能会导致不必要的DOM操作和数据绑定，从而影响页面性能。</strong></p>
+</li>
+<li><p>虚拟列表适用于大数据量的列表展示：当需要在页面上展示大量数据时，虚拟列表是一种非常适用的方式。相比之下，<strong>懒加载、分页、无限滚动的加载方式通常只适用于数据量较小的列表展示，因为这些方式需要预先加载所有数据，并在用户滚动到相应位置时再进行渲染。</strong></p>
+</li>
+</ol>
+<p>综上所述，虚拟列表相比于懒加载、分页、无限滚动具有更好的用户体验和页面性能，并且<strong>适用于大数据量的列表展示</strong>。因此，当需要在Web应用中展示大量数据时，使用虚拟列表是一种非常优秀的解决方案。</p>
 <h5 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h5><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903893441183751">长列表优化之虚拟列表</a></p>
 
             </div>
