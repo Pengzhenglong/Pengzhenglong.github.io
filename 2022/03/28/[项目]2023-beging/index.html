@@ -1,0 +1,601 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/2.jpg">
+  <link rel="icon" href="/img/2.jpg">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="DragonPeng">
+  <meta name="keywords" content="">
+  
+  <title>2023-beging(项目) - DragonPeng的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>DragonPeng' blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/page1.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="2023-beging(项目)">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2022-03-28 23:15" pubdate>
+        March 28, 2022 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      7.3k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      80
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">2023-beging(项目)</h1>
+            
+            <div class="markdown-body">
+              <hr>
+<h3 id="面试总结–（一面）"><a href="#面试总结–（一面）" class="headerlink" title="面试总结–（一面）"></a>面试总结–（一面）</h3><h4 id="讲一下图谱可视化分析项目是什么？"><a href="#讲一下图谱可视化分析项目是什么？" class="headerlink" title="讲一下图谱可视化分析项目是什么？"></a>讲一下图谱可视化分析项目是什么？</h4><p>图谱可视化分析项目是指将大规模、复杂的数据转化成图谱形式，并通过可视化的方式展示出来，以便人们更好地理解和分析这些数据。这种项目通常需要使用数据挖掘、机器学习、自然语言处理等技术来将数据进行处理和转化，最终生成可视化图谱。</p>
+<p>图谱是一种以节点和边为基础构建的数据结构，节点代表实体或概念，边表示实体或概念之间的关系。图谱可视化分析项目通过将数据转化成节点和边的形式，可以更直观地展现出数据之间的关系，以及它们的属性和特征。这种展示方式可以帮助人们发现数据中的规律和趋势，支持数据驱动的决策和分析。</p>
+<p>图谱可视化分析项目可以应用于各种领域，例如金融、医疗、社交网络等。在金融领域，图谱可视化分析可以用于检测欺诈行为和风险分析；在医疗领域，可以用于疾病诊断和药物发现；在社交网络领域，可以用于社交网络分析和影响力分析等。</p>
+<p>总之，图谱可视化分析项目是一种将大规模、复杂的数据通过图谱形式展示出来的技术，可以帮助人们更好地理解和分析数据，发现数据中的规律和趋势，支持数据驱动的决策和分析。</p>
+<h4 id="d3js和echarts的区别"><a href="#d3js和echarts的区别" class="headerlink" title="d3js和echarts的区别"></a>d3js和echarts的区别</h4><p>d3.js和ECharts都是用于可视化数据的JavaScript库，但是它们有以下几点区别：</p>
+<p>功能和用途不同：d3.js是一个数据驱动的JavaScript库，用于创建动态交互式数据可视化。ECharts则是专注于图表可视化的库，提供了一系列内置的图表类型，如折线图、柱状图、饼图等。</p>
+<p>数据绑定方式不同：d3.js的核心理念是数据绑定，即将数据与DOM元素绑定，然后通过操作数据来控制DOM元素。而ECharts则是通过设置选项来配置图表的样式和数据。</p>
+<p>API和使用方式不同：d3.js的API相对更为底层，需要开发者手动进行DOM操作和动画效果的编写。而ECharts则提供了更多的封装，通过简单的配置选项即可生成丰富的图表，也提供了更多的交互和动画效果。</p>
+<p>社区支持不同：d3.js是由Mike Bostock等人创建的开源项目，拥有庞大的社区和活跃的开发者，有丰富的示例和文档资源。ECharts则是由百度开发并维护的项目，拥有庞大的用户群体和活跃的社区，也有丰富的文档和示例资源。</p>
+<p>总的来说，d3.js更加灵活和自由，适用于开发者需要高度自定义的数据可视化场景，而ECharts则更加便捷和高效，适用于快速构建各种类型的图表。</p>
+<h6 id="d3js是操作svg吗"><a href="#d3js是操作svg吗" class="headerlink" title="d3js是操作svg吗"></a>d3js是操作svg吗</h6><p>d3.js是一个JavaScript库，它可以用于操作HTML文档中的各种元素，包括SVG元素和HTML元素。它最初是为了操作SVG（Scalable Vector Graphics，可缩放矢量图形）而创建的，但现在它也可以用于操作HTML元素。因此，d3.js可以用于创建和操作各种图形，包括线条、圆形、矩形、文字、路径、饼图、力导向图等等。它具有强大的数据绑定和动画功能，可以使数据可视化的开发更加简单和高效。</p>
+<h6 id="d3js可以操作canvas吗"><a href="#d3js可以操作canvas吗" class="headerlink" title="d3js可以操作canvas吗"></a>d3js可以操作canvas吗</h6><p>虽然d3.js<strong>最初是为了操作SVG而创建的，但它也可以用于操作HTML5中的canvas元素</strong>。HTML5的canvas元素提供了一种使用JavaScript绘制图形和动画的方式，它比SVG更适合于处理大量数据或高度动态的图形。d3.js提供了一些方法来在canvas上绘制基本的图形，如矩形、圆形、线条等，以及提供了一些布局算法和数据绑定功能，可以帮助我们在canvas上创建数据可视化。但需要注意的是，d3.js在canvas上的表现和在SVG上不同，需要针对canvas元素做出一些特殊的处理和适应。</p>
+<h4 id="负责http请求的axios封装-（这一块是怎么做的能讲一下吗）"><a href="#负责http请求的axios封装-（这一块是怎么做的能讲一下吗）" class="headerlink" title="负责http请求的axios封装  （这一块是怎么做的能讲一下吗）"></a>负责http请求的axios封装  （这一块是怎么做的能讲一下吗）</h4><p>在项目中进行<em><strong>axios的封装可以提高代码的复用性和可维护性</strong></em>，可以在<strong>多个地方引用相同的axios实例</strong>，也可以通过<strong>拦截器对请求和响应进行统一处理</strong>，以<strong>减少代码的重复性</strong>。</p>
+<p>以下是一个示例axios封装的具体步骤：</p>
+<p>在项目中创建一个单独的文件，例如http.js，用于封装axios请求。</p>
+<p>在http.js中引入axios，并创建一个新的axios实例：</p>
+<figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs clean"><span class="hljs-keyword">import</span> axios <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;axios&#x27;</span>;<br><br>const <span class="hljs-keyword">instance</span> = axios.create(&#123;<br>  baseURL: <span class="hljs-string">&#x27;https://example.com/api&#x27;</span>,<br>  timeout: <span class="hljs-number">5000</span>,<br>  headers: &#123;<br>    <span class="hljs-string">&#x27;Content-Type&#x27;</span>: <span class="hljs-string">&#x27;application/json&#x27;</span><br>  &#125;<br>&#125;);<br><br><span class="hljs-comment">// 设置请求拦截器和响应拦截器</span><br><span class="hljs-keyword">instance</span>.interceptors.request.use(...);<br><span class="hljs-keyword">instance</span>.interceptors.response.use(...);<br><br><span class="hljs-keyword">export</span> default <span class="hljs-keyword">instance</span>;<br></code></pre></td></tr></table></figure>
+<p>在创建axios实例时，可以设置一些默认参数，例如<strong>基础URL、超时时间和请求头信息</strong>等，这些参数将应用于所有使用该实例发出的请求。</p>
+<p>在其他组件或模块中引入封装好的axios实例，并使用它发送请求。例如：</p>
+<figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs livescript"><span class="hljs-keyword">import</span> http <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./http&#x27;</span>;<br><br>http.get(<span class="hljs-string">&#x27;/users&#x27;</span>)<br>  .<span class="hljs-keyword">then</span>(response =&gt; &#123;<br>    <span class="hljs-built_in">console</span>.log(response);<br>  &#125;)<br>  .<span class="hljs-keyword">catch</span>(error =&gt; &#123;<br>    <span class="hljs-built_in">console</span>.error(error);<br>  &#125;);<br></code></pre></td></tr></table></figure>
+<p>在这个示例中，我们使用了在http.js中创建的axios实例，发送了一个GET请求，如果请求成功，则输出响应数据；如果请求失败，则输出错误信息。</p>
+<p>通过这种方式进行封装，我们可以<strong>在整个项目中使用相同的axios实例</strong>，避免了在每个组件或模块中重复地创建实例，<strong>同时可以在请求拦截器和响应拦截器中对请求和响应进行统一处理</strong>，提高了代码的<strong>可维护性和可读性</strong>。</p>
+<h5 id="中断取消请求是怎么做的"><a href="#中断取消请求是怎么做的" class="headerlink" title="中断取消请求是怎么做的"></a>中断取消请求是怎么做的</h5><p>在axios中，中断/取消请求可以通过使用<strong>CancelToken</strong>实现。CancelToken是axios提供的一个构造函数，它可以用来创建一个取消请求的令牌。当一个请求被取消时，我们可以使用该令牌来通知axios取消该请求。</p>
+<p>以下是一个示例：</p>
+<figure class="highlight mel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs mel">import axios from <span class="hljs-string">&#x27;axios&#x27;</span>;<br><br><span class="hljs-comment">// 创建一个取消请求的令牌</span><br>const <span class="hljs-keyword">source</span> = axios.CancelToken.<span class="hljs-keyword">source</span>();<br><br><span class="hljs-comment">// 发送请求</span><br>axios.get(<span class="hljs-string">&#x27;/api&#x27;</span>, &#123;<br>  cancelToken: <span class="hljs-keyword">source</span>.token<br>&#125;)<br>  .then(response =&gt; &#123;<br>    console.<span class="hljs-keyword">log</span>(response);<br>  &#125;)<br>  .<span class="hljs-keyword">catch</span>(<span class="hljs-keyword">error</span> =&gt; &#123;<br>    <span class="hljs-keyword">if</span> (axios.isCancel(<span class="hljs-keyword">error</span>)) &#123;<br>      console.<span class="hljs-keyword">log</span>(<span class="hljs-string">&#x27;请求已取消&#x27;</span>);<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>      console.<span class="hljs-keyword">error</span>(<span class="hljs-keyword">error</span>);<br>    &#125;<br>  &#125;);<br><br><span class="hljs-comment">// 取消请求</span><br><span class="hljs-keyword">source</span>.cancel(<span class="hljs-string">&#x27;请求已被取消&#x27;</span>);<br></code></pre></td></tr></table></figure>
+<p>在这个示例中，我们创建了一个取消请求的令牌，将该令牌传递给请求的配置对象中的cancelToken属性中。当需要取消请求时，我们调用source.cancel()方法，并传入一个取消请求的原因，这个原因将被传递给请求的catch函数。</p>
+<p>当请求被取消时，catch函数将捕获到一个带有message属性的错误对象，我们可以通过判断该错误是否是一个取消请求的错误来处理请求被取消的情况。</p>
+<p>需要注意的是，<strong>一旦请求被取消，axios将不再执行then函数，而是直接跳转到catch函数。此外，使用CancelToken取消请求的前提是该请求必须是可取消的，即该请求必须是一个异步请求，不能是同步请求。</strong></p>
+<h4 id="大文件上传，使用切片上传形式，支持上传、暂停、续传"><a href="#大文件上传，使用切片上传形式，支持上传、暂停、续传" class="headerlink" title="大文件上传，使用切片上传形式，支持上传、暂停、续传"></a>大文件上传，使用切片上传形式，支持上传、暂停、续传</h4><h5 id="大文件长传并发的怎么确保后端接收的顺序"><a href="#大文件长传并发的怎么确保后端接收的顺序" class="headerlink" title="大文件长传并发的怎么确保后端接收的顺序"></a>大文件长传并发的怎么确保后端接收的顺序</h5><p>另外由于是并发，<strong>传输到服务端的顺序可能会发生变化，因此我们还需要给每个切片记录顺序</strong></p>
+<p>在生成文件切片时，需要给每个切片一个标识作为 hash，这里暂时使用文件名 + 下标，这样后端可以知道当前切片是第几个切片，用于之后的合并切片</p>
+<p>随后调用 uploadChunks 上传所有的文件切片，将文件切片，切片 hash，以及文件名放入 formData 中，再调用上一步的 request 函数返回一个 proimise，最后调用** Promise.all **并发上传所有的切片发送合并请求</p>
+<p><strong>使用 spark-md5 根据文件内容算出文件 hash</strong><br>生成 hash<br>无论是前端还是服务端，都必须要生成文件和切片的 hash，之前我们使用文件名 + 切片下标作为切片 hash，这样做文件名一旦修改就失去了效果，而事实上只要<strong>文件内容不变</strong>，<strong>hash 就不应该变化</strong>，所以正确的做法是根据文件内容生成 hash，所以我们修改一下 hash 的生成规则</p>
+<h6 id="大文件上传上传几个G的，文件丢失有做处理嘛，有日志吗"><a href="#大文件上传上传几个G的，文件丢失有做处理嘛，有日志吗" class="headerlink" title="大文件上传上传几个G的，文件丢失有做处理嘛，有日志吗"></a>大文件上传上传几个G的，文件丢失有做处理嘛，有日志吗</h6><p>大文件上传过程中，文件丢失的情况通常会通过一些机制来处理，以保证上传的文件不会丢失或损坏。下面是一些处理丢失文件的机制和日志记录的建议：</p>
+<ol>
+<li><p>断点续传机制：上传大文件时，可以采用断点续传的方式，即将文件分成多个部分进行上传，每个部分上传完成后，服务器会记录已经上传的位置，以便于下次上传时可以从上次中断的位置继续上传，从而减小上传失败的概率。</p>
+</li>
+<li><p>文件校验机制：上传完整个文件后，可以对文件进行校验，验证文件的完整性和正确性，以确保文件没有丢失或损坏。一种常用的文件校验方式是使用MD5或SHA256等哈希算法计算文件的散列值，服务器可以比对客户端上传的散列值和服务器端计算的散列值是否相同来判断文件是否丢失或损坏。</p>
+</li>
+<li><p>日志记录：服务器应该记录每次上传的日志，包括上传时间、上传的文件名称、上传的文件大小、上传成功或失败的状态等信息。这样，在发生文件丢失或其他问题时，管理员可以查看日志文件，找出问题的原因，并采取相应的措施。</p>
+</li>
+</ol>
+<p>总之，对于大文件上传，需要采用多种机制来保证上传的文件不会丢失或损坏，并建议记录上传日志，以便于快速定位和解决问题。</p>
+<h4 id="文章列表的长列表优化，使用虚拟滚动-滚动用的是节流做的（这一块用监听滚动条做的，还有什么别的方法嘛）"><a href="#文章列表的长列表优化，使用虚拟滚动-滚动用的是节流做的（这一块用监听滚动条做的，还有什么别的方法嘛）" class="headerlink" title="文章列表的长列表优化，使用虚拟滚动  滚动用的是节流做的（这一块用监听滚动条做的，还有什么别的方法嘛）"></a>文章列表的长列表优化，使用虚拟滚动  滚动用的是节流做的（这一块用监听滚动条做的，还有什么别的方法嘛）</h4><p>虚拟滚动是处理长列表的常用技术，其原理是只渲染可见部分，当滚动时动态渲染视口内的列表项，从而减少页面渲染所需的时间和内存占用。虚拟滚动的实现方法可以基于监听滚动条，也可以使用其他方式，下面介绍几种常见的实现方式：</p>
+<h5 id="IntersectionObserver-解决方案"><a href="#IntersectionObserver-解决方案" class="headerlink" title="IntersectionObserver 解决方案"></a>IntersectionObserver 解决方案</h5><p>通过 IntersectionObserver 的特性，当目标对象中的 entry.isIntersecting 为 true 或者 intersectionRatio &gt; 0 （元素与祖先元素交叉、可见）时，说明本来不可见的元素浮现在视图中，表示它向上或向下滑动，我们动态设置视图中的顶部和底部 id 即可对其判断。当下滑时 entry.traget.id === ‘bottom’，我们修改 start 和 end；同理，当上滑时entry.traget.id === ‘top 时，我们也一样修改 start 和 end</p>
+<ol>
+<li><p>Intersection Observer：Intersection Observer API是浏览器提供的一种观察元素与其祖先元素或视窗交叉情况的机制。使用<strong>Intersection Observer可以判断列表项是否在视口内，从而触发渲染和回收</strong>，<strong>相较于监听滚动条，它更加高效和灵活</strong>。</p>
+</li>
+<li><p>Resize Observer：Resize Observer API是浏览器提供的一种观察元素尺寸变化的机制，用于动态计算可视区域内需要渲染的列表项数量，从而实现虚拟滚动的动态调整。</p>
+</li>
+<li><p>使用CSS样式实现虚拟滚动：在CSS中设置滚动容器的高度和overflow属性为auto，列表项的高度为固定值，通过控制容器中的子元素数量，从而实现虚拟滚动的效果。</p>
+</li>
+</ol>
+<p>总之，虚拟滚动是处理长列表的有效技术，<strong>除了监听滚动条外，还可以使用Intersection Observer、Resize Observer等API或CSS样式实现虚拟滚动</strong>，根据实际需求选择最合适的实现方式。</p>
+<p>渲染十万条数据有三种解决方案，为虚拟列表、懒加载、时间分片。最优选是虚拟列表，DOM 树上只挂载有限的DOM；懒加载和时间分片的缺点在于插入大量的DOM，占内存运行时会造成卡顿<br>无论是虚拟列表还是懒加载，传统的做法是 scroll + 节流，这种做法的优势是老 API，兼容性刚刚的，缺点是，滑多了还是会引起性能问题，<strong>当然 IntersectionObserver 也是一样的，无非是换了个 API 做“元素是否出现在视图”判断，最好的方案是用 IntersectionObserver（交叉观察器），异步加载、性能消耗小</strong></p>
+<h4 id="设计整套权限控制方案"><a href="#设计整套权限控制方案" class="headerlink" title="设计整套权限控制方案"></a>设计整套权限控制方案</h4><p>登录权限怎么处理 （动态路由）Vue实现动态路由（和面试官吹项目亮点）<br>登录逻辑<br>每个系统都有自己的登录登出逻辑，而我们前端所要做的其实是请求后台，拿到登录权限，带上登录权限，获取用户信息和菜单信息。 在vue项目开发当中，我们一般都是在全局路由钩子做这一系列判断。</p>
+<p>菜单权限<br>通过带有 token 请求头的请求方法，后端可以判断到是哪一个用户，前端也可以通过获取权限接口获得该用户的权限列表，根据权限列表做一份路由映射表，如果后端返回的数据结构与前端的路由设置的数据结构不同，此时还需编写此映射路由的业务功能函数。</p>
+<p>如果该用户拥有此路由权限，则通过在全局路由监控中 router.beforeEach 进行 router 中的 addRoutes 方法将有权限的路由配置添加到路由当中，侧边栏也可根据路由列表中的 meta 字段中关键字的判断进行相应的渲染。如果权限的颗粒度小到一个按钮，则可根据后端返回的权限列表映射出的权限参数，通过v-if 进行判断该功能组件是否渲染。在路由管理中通过 router.beforeEach 钩子中判断当前的路由权限是否为空，是的话则可执行获取权限路由的接口：</p>
+<p>以前的菜单路由是直接写死在前端，但是当我们直接访问这个路由时，用户还是可以进入到这个功能页面；后来直接改成动态添加路由的方式router.addRoutes。</p>
+<p>一个是操作权限，一个是路由访问权限（这里指前端路由）<br>1.后端返回一个json格式的路由表<br>2.因为后端传回来的是都是字符串格式的，但前端这里需要的是一个组件对象，写个方法遍历一下，将字符串转换为组件对象<br>3.利用vue-router的beforeEach、addRoutes、vuex来配合上边两步实现效果<br>4.左侧菜单拦截根据拿到转换好的路由列表进行展示拦截路由 -&gt; 后端取到路由 -&gt; 保存路由到vuex（用户登录进来只会从后端取一次，其余都从本地取，所以用户，只有退出在登录路由才会更新）</p>
+<p>前端有一份动态路由表，等到用户登录拿到用户的角色之后根据当前登录用户的角色去筛选出可以访问的路由，形成一份定制路由表，然后动态挂载路由。，这样做的好处就是，前端每开发一个页面不需要让后端再去配一下路由和权限了，从而避免被后端支配。</p>
+<p>然而，路由表又是跟角色挂钩。考虑一种情况，项目上线之后，管理员添加了一个新角色，并且要给这个角色分配菜单。<br>如果采用将路由表放在前端的话那么每个路由的可访问角色都是写死的，要给新添加的角色分配菜单，只能改前端代码，显然不是很合适。<br>所以我才用了后者，就是把路由信息放在后端，后端将路由信息和角色关联起来，用户登录之后请求对应的接口拿到属于这个用户的路由信息（也就是菜单），</p>
+<p>然后前端对返回的数据格式化，转换成符合vue-router的路由格式，然后动态挂载。将路由信息放在后端，这样就可以对路由进行配置了，比如说超级管理员今天很不高兴，不想让某个角色下的用户访问某个路由，直接在该路由下剔除这个角色就可以了</p>
+<h4 id="父子组件通信有哪些"><a href="#父子组件通信有哪些" class="headerlink" title="父子组件通信有哪些"></a>父子组件通信有哪些</h4><p>props/$emit<br>父子组件通信父-&gt;子props，<br>子-&gt;父 $on、$emit 获取父子组件实例</p>
+<p>获取实例的方式调用组件的属性或者方法parent、children Ref</p>
+<p>父-&gt;子孙 Provide、inject 官方不推荐使用，但是写组件库时很常用</p>
+<p>$emit/$on 自定义事件 兄弟组件通信Event Bus 实现跨组件通信 Vue.prototype.$bus = new Vue() 自定义事件<br>（event-bus原理:就是一个发布订阅着模式） (注册后挂载到Vue实例，实现监听和触发)<br>vuex 跨级组件通信Vuex、$attrs、$listeners Provide、inject</p>
+<h4 id="event-bus-发布订阅模式了解嘛"><a href="#event-bus-发布订阅模式了解嘛" class="headerlink" title="$event.bus  发布订阅模式了解嘛"></a>$event.bus  发布订阅模式了解嘛</h4><p>观察者模式和发布订阅模式有什么不同？<br>发布订阅模式其实属于广义上的观察者模式</p>
+<p>在观察者模式中，观察者需要直接订阅目标事件。在目标发出内容改变的事件后，直接接收事件并作出响应。</p>
+<p><strong>而在发布订阅模式中，发布者和订阅者之间多了一个调度中心。调度中心一方面从发布者接收事件，另一方面向订阅者发布事件，订阅者需要在调度中心中订阅事件</strong>。通过调<strong>度中心实现了发布者和订阅者关系的解耦</strong>。使用发布订阅者模式更利于我们代码的可维护性。</p>
+<h5 id="发布-订阅模式（Publish-Subscribe-pattern）是一种常见的软件设计模式，用于实现应用程序内部的解耦和消息传递。该模式的基本思想是将发布者（Publisher）和订阅者（Subscriber）解耦，从而使它们不需要直接相互通信，而是通过一个称为“消息代理”或“事件总线”的中介来传递消息。"><a href="#发布-订阅模式（Publish-Subscribe-pattern）是一种常见的软件设计模式，用于实现应用程序内部的解耦和消息传递。该模式的基本思想是将发布者（Publisher）和订阅者（Subscriber）解耦，从而使它们不需要直接相互通信，而是通过一个称为“消息代理”或“事件总线”的中介来传递消息。" class="headerlink" title="发布-订阅模式（Publish-Subscribe pattern）是一种常见的软件设计模式，用于实现应用程序内部的解耦和消息传递。该模式的基本思想是将发布者（Publisher）和订阅者（Subscriber）解耦，从而使它们不需要直接相互通信，而是通过一个称为“消息代理”或“事件总线”的中介来传递消息。"></a>发布-订阅模式（Publish-Subscribe pattern）是一种常见的软件设计模式，用于实现应用程序内部的解耦和消息传递。该模式的基本思想是将发布者（Publisher）和订阅者（Subscriber）解耦，从而使它们不需要直接相互通信，而是通过一个称为“消息代理”或“事件总线”的中介来传递消息。</h5><p>在这种模式下，发布者负责产生消息并将其发送到消息代理中心，而订阅者则负责从代理中心接收它们感兴趣的消息。发布者和订阅者都不需要知道对方的存在，因为它们只需要与代理中心进行交互即可。</p>
+<p>这种模式的好处是它可以大大降低应用程序的复杂性和耦合度，从而提高其可维护性和可扩展性。此外，它还可以方便地实现异步消息传递和多个订阅者的支持。</p>
+<p>在实现中，发布-订阅模式可以通过事件驱动编程（Event-driven programming）来实现。许多编程语言和框架都提供了内置的实现，例如JavaScript中的Node.js框架的事件（Event）和Java中的Java Message Service（JMS）等。</p>
+<h6 id="event-bus原理-就是一个发布订阅着模式"><a href="#event-bus原理-就是一个发布订阅着模式" class="headerlink" title="event-bus原理:就是一个发布订阅着模式"></a>event-bus原理:就是一个发布订阅着模式</h6><p>是的，事件总线是一个基于发布-订阅模式的消息传递系统，用于在应用程序内或跨应用程序之间传递事件和消息。</p>
+<p>在事件总线中，有一个中央的事件总线对象，负责协调和处理消息的传递。发布者（也称为生产者）向事件总线发送事件或消息，而订阅者（也称为消费者）通过向事件总线注册来接收这些事件或消息。</p>
+<p>当发布者发送事件时，事件总线会将其传递给所有订阅者。订阅者可以选择仅接收特定类型的事件或消息，也可以选择在特定条件下接收事件。这样，事件总线可以实现高度灵活的消息传递，支持异步消息处理，解耦应用程序组件，并提高应用程序的可扩展性和可维护性。</p>
+<p>在实现事件总线时，通常会使用一些特定的框架或库，如Apache Kafka、RabbitMQ、Redis、Google Cloud Pub/Sub等，这些框架提供了各种功能和特性，以满足不同应用场景的需求。</p>
+<h4 id="Vue中的key到底有什么⽤？"><a href="#Vue中的key到底有什么⽤？" class="headerlink" title="Vue中的key到底有什么⽤？"></a>Vue中的key到底有什么⽤？</h4><p>vue 中 key 值的作用可以分为两种情况来考虑。</p>
+<p>第一种情况是 v-if 中使用 key<br><strong>由于Vue 会尽可能高效地渲染元素，通常会复用已有元素而不是从头开始渲染</strong>。因此当我们使用 v-if 来实现元素切换的时候，如果切换前后含有相同类型的元素，那么这个元素就会被复用。如果是相同的 input 元素，那么切换前后用户的输入不会被清除掉，这样是不符合需求的。<strong>因此我们可以通过使用 key 来唯一的标识一个元素，这个情况下，使用 key 的元素不会被复用</strong>。这个时候 key 的作用是用来标识一个独立的元素。</p>
+<p>第二种情况是 v-for 中使用 key<br>用v-for 更新已渲染过的元素列表时，它默认使用“就地复用”的策略。<strong>如果数据项的顺序发生了改变，Vue 不会移动 DOM 元素来匹配数据项的顺序，而是简单复用此处的每个元素。因此通过为每个列表项提供一个 key 值，来以便 Vue 跟踪元素的身份，从而高效的实现复用。这个时候 key 的作用是为了高效的更新渲染虚拟 DOM。</strong><br>为了给 Vue 一个提示，以便它能跟踪每个节点的身份，从而重用和重新排序现有元素，你需要为每项提供一个唯一 key 属性。理想的 key 值是每项都有唯一 id。</p>
+<h5 id="Vue-为什么不建议用数组的下标index作为key"><a href="#Vue-为什么不建议用数组的下标index作为key" class="headerlink" title="Vue-为什么不建议用数组的下标index作为key"></a>Vue-为什么不建议用数组的下标index作为key</h5><p>key 是给每一个 vnode 的唯一id,可以依靠 key,更准确,更快的拿到 oldVnode 中对应的 vnode 节点，高效的更新虚拟DOM</p>
+<p>用组件唯一的 id（一般由后端返回）作为它的 key，实在没有的情况下，可以在获取到列表的时候通过某种规则为它们创建一个 key，并保证这个 key 在组件整个生命周期中都保持稳定。</p>
+<p><strong>如果你的列表顺序会改变，别用 index 作为 key，和没写基本上没区别，因为不管你数组的顺序怎么颠倒，index 都是 0, 1, 2 这样排列，导致 Vue 会复用错误的旧子节点，做很多额外的工作。列表顺序不变也尽量别用，可能会误导新人。</strong></p>
+<h4 id="react的Hooks讲几个"><a href="#react的Hooks讲几个" class="headerlink" title="react的Hooks讲几个"></a>react的Hooks讲几个</h4><p>当使用 React Hooks 时，可以使用以下一些最常用的 Hooks:</p>
+<h5 id="useState"><a href="#useState" class="headerlink" title="useState"></a>useState</h5><p>useState 是一个函数，用于在函数式组件中添加状态。它接收一个初始状态值，并返回一个数组，其中第一个元素是当前状态的值，第二个元素是更新该状态的函数。例如，以下代码演示如何使用 useState 来跟踪一个计数器的状态：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">import</span> React, &#123; useState &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span>;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Counter</span>(<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-keyword">const</span> [count, setCount] = useState(<span class="hljs-number">0</span>);<br><br>  <span class="hljs-keyword">return</span> (<br>    &lt;div&gt;<br>      &lt;p&gt;You clicked &#123;count&#125; times&lt;/p&gt;<br>      &lt;button onClick=&#123;<span class="hljs-function">() =&gt;</span> setCount(count + <span class="hljs-number">1</span>)&#125;&gt;<br>        Click me<br>      &lt;/button&gt;<br>    &lt;/div&gt;<br>  );<br>&#125;<br></code></pre></td></tr></table></figure>
+<h5 id="useEffect"><a href="#useEffect" class="headerlink" title="useEffect"></a>useEffect</h5><p>useEffect 用于在组件渲染后执行副作用操作，例如发起网络请求或订阅事件。它接收一个函数和一个可选的依赖数组。在每次渲染后，React 都会检查依赖项数组中的每个元素是否与上一次渲染时的值相同。如果不同，useEffect 将重新运行函数。如果省略依赖项数组，则 useEffect 将在每次渲染后运行函数。以下是一个示例：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">import</span> React, &#123; useState, useEffect &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span>;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">MyComponent</span>(<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-keyword">const</span> [data, setData] = useState(<span class="hljs-literal">null</span>);<br><br>  useEffect(<span class="hljs-function">() =&gt;</span> &#123;<br>    fetchData();<br>  &#125;, []);<br><br>  <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fetchData</span>(<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-keyword">const</span> response = <span class="hljs-keyword">await</span> fetch(<span class="hljs-string">&#x27;https://api.example.com/data&#x27;</span>);<br>    <span class="hljs-keyword">const</span> json = <span class="hljs-keyword">await</span> response.json();<br>    setData(json);<br>  &#125;<br><br>  <span class="hljs-keyword">return</span> (<br>    &lt;div&gt;<br>      &#123;data ? (<br>        &lt;ul&gt;<br>          &#123;data.map(<span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span> (<br>            &lt;li key=&#123;item.id&#125;&gt;&#123;item.name&#125;&lt;/li&gt;<br>          ))&#125;<br>        &lt;/ul&gt;<br>      ) : (<br>        &lt;p&gt;Loading...&lt;/p&gt;<br>      )&#125;<br>    &lt;/div&gt;<br>  );<br>&#125;<br></code></pre></td></tr></table></figure>
+<h5 id="useContext"><a href="#useContext" class="headerlink" title="useContext"></a>useContext</h5><p>useContext 用于在 React 组件之间共享数据，而无需通过层层传递 props。它接收一个上下文对象（由 React.createContext 创建）并返回当前上下文值。例如，以下代码演示了如何使用 useContext 来共享主题值：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">import</span> React, &#123; useContext &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span>;<br><span class="hljs-keyword">import</span> &#123; ThemeContext &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./theme-context&#x27;</span>;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">MyComponent</span>(<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-keyword">const</span> theme = useContext(ThemeContext);<br><br>  <span class="hljs-keyword">return</span> (<br>    &lt;div style=&#123;&#123; <span class="hljs-attr">backgroundColor</span>: theme.background &#125;&#125;&gt;<br>      &lt;p style=&#123;&#123; <span class="hljs-attr">color</span>: theme.foreground &#125;&#125;&gt;This is some text&lt;/p&gt;<br>    &lt;/div&gt;<br>  );<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>这里的 ThemeContext 是通过 React.createContext 创建的上下文对象，其值被 MyComponent 组件及其子组件所共享。</p>
+<h4 id="Promise讲讲-promise-all-race"><a href="#Promise讲讲-promise-all-race" class="headerlink" title="Promise讲讲  promise.all  race"></a>Promise讲讲  promise.all  race</h4><p>promise 原理 （回调函数+状态处理队列）<br>promise 的本质是回调函数，then 方法的本质是依赖收集，它把 fulfilled 状态要执行的回调函数放在一个队列， rejected 状态要执行的回调函数放在另一个队列。待 promise 从 pending 变为 fulfilled/rejected 状态后，把相应队列的所有函数，执行一遍。</p>
+<h4 id="catch能捕捉到-then的错误吗"><a href="#catch能捕捉到-then的错误吗" class="headerlink" title=".catch能捕捉到.then的错误吗"></a>.catch能捕捉到.then的错误吗</h4><h5 id="mounted中-catch报错了是白屏还是这一块组件没用？"><a href="#mounted中-catch报错了是白屏还是这一块组件没用？" class="headerlink" title="mounted中.catch报错了是白屏还是这一块组件没用？"></a>mounted中.catch报错了是白屏还是这一块组件没用？</h5><p><strong>是白屏</strong><br>如果在 JavaScript 中使用了 .catch() 方法捕获异常，但没有对异常进行处理，可能会导致页面出现白屏或其他错误。这通常是因为未处理的异常会中断 JavaScript 的执行，并导致页面的其他部分无法正常工作。</p>
+<p>在实际应用中，建议始终对异常进行适当的处理，以确保代码的稳定性和可靠性。可以在 .catch() 方法中添加错误处理逻辑，如向用户显示错误信息、记录错误日志、尝试恢复应用程序状态等等。</p>
+<p>除了 .catch() 方法，还可以使用 try…catch 语句来捕获异常，并在 catch 语句块中处理异常。无论使用哪种方式，都应该确保捕获和处理所有可能的异常，以避免页面白屏或其他错误。</p>
+<h4 id="扁平化数组js-手撕代码"><a href="#扁平化数组js-手撕代码" class="headerlink" title="扁平化数组js 手撕代码"></a>扁平化数组js 手撕代码</h4><p>以下是 JavaScript 中实现扁平化数组的几种方法：</p>
+<p>方法一：使用递归</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs reasonml"><span class="hljs-keyword">function</span> flatten<span class="hljs-constructor">Array(<span class="hljs-params">arr</span>)</span> &#123;<br>  var result = <span class="hljs-literal">[]</span>;<br>  <span class="hljs-keyword">for</span> (var i = <span class="hljs-number">0</span>; i &lt; arr.length; i++) &#123;<br>    <span class="hljs-keyword">if</span> (<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Array</span>.</span></span>is<span class="hljs-constructor">Array(<span class="hljs-params">arr</span>[<span class="hljs-params">i</span>])</span>) &#123;<br>      result = result.concat(flatten<span class="hljs-constructor">Array(<span class="hljs-params">arr</span>[<span class="hljs-params">i</span>])</span>);<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>      result.push(arr<span class="hljs-literal">[<span class="hljs-identifier">i</span>]</span>);<br>    &#125;<br>  &#125;<br>  return result;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>方法二：使用 reduce 方法</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs reasonml"><span class="hljs-keyword">function</span> flatten<span class="hljs-constructor">Array(<span class="hljs-params">arr</span>)</span> &#123;<br>  return arr.reduce(<span class="hljs-keyword">function</span> (prev, curr) &#123;<br>    return prev.concat(<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Array</span>.</span></span>is<span class="hljs-constructor">Array(<span class="hljs-params">curr</span>)</span> ? flatten<span class="hljs-constructor">Array(<span class="hljs-params">curr</span>)</span> : curr);<br>  &#125;, <span class="hljs-literal">[]</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>方法三：使用扩展运算符</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs reasonml"><span class="hljs-keyword">function</span> flatten<span class="hljs-constructor">Array(<span class="hljs-params">arr</span>)</span> &#123;<br>  <span class="hljs-keyword">while</span> (arr.some(item =&gt; <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Array</span>.</span></span>is<span class="hljs-constructor">Array(<span class="hljs-params">item</span>)</span>)) &#123;<br>    arr = <span class="hljs-literal">[]</span>.concat(...arr);<br>  &#125;<br>  return arr;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>方法四：使用迭代器</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs reasonml"><span class="hljs-keyword">function</span>* flatten<span class="hljs-constructor">Array(<span class="hljs-params">arr</span>)</span> &#123;<br>  <span class="hljs-keyword">for</span> (var i = <span class="hljs-number">0</span>; i &lt; arr.length; i++) &#123;<br>    <span class="hljs-keyword">if</span> (<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Array</span>.</span></span>is<span class="hljs-constructor">Array(<span class="hljs-params">arr</span>[<span class="hljs-params">i</span>])</span>) &#123;<br>      yield* flatten<span class="hljs-constructor">Array(<span class="hljs-params">arr</span>[<span class="hljs-params">i</span>])</span>;<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>      yield arr<span class="hljs-literal">[<span class="hljs-identifier">i</span>]</span>;<br>    &#125;<br>  &#125;<br>&#125;<br><br>var flattenedArray = <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Array</span>.</span></span>from(flatten<span class="hljs-constructor">Array([1, [2, 3], [4, [5, 6]]])</span>);<br></code></pre></td></tr></table></figure>
+<p>以上是一些常见的扁平化数组的方法。无论使用哪种方法，都需要确保对于所有可能的数组嵌套层次，都可以正确地扁平化数组。</p>
+<h3 id="反问"><a href="#反问" class="headerlink" title="反问"></a>反问</h3><ol>
+<li>技术栈  react</li>
+<li>公司项目  主要做toB的sass平台   一些文件的上传，素材的处理，（公司目前前端3个左右 后端有几个，预计招聘20个开发）</li>
+<li>反问能给一些建议<br>答： 建议多做项目，公司的项目，把事情做的最好，不只是完成。（完成之后看看有没有别的更好的方法解决）</li>
+</ol>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E9%A1%B9%E7%9B%AE%E4%BC%98%E5%8C%96/">项目优化</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/">前端基础</a>
+                    
+                      <a class="hover-with-bg" href="/tags/JS/">JS</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/03/28/%5B%E9%A1%B9%E7%9B%AE%5D%E9%85%8D%E7%BD%AE%E4%B8%80%E5%A5%97%E7%AC%A6%E5%90%88%E5%9B%A2%E9%98%9F%E4%B9%A0%E6%83%AF%E4%B8%94%E8%A7%84%E8%8C%83%E7%9A%84husky/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">配置一套符合团队习惯且规范的husky(项目)</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/03/28/%5B%E9%A1%B9%E7%9B%AE%5Dvuex%E6%95%B0%E6%8D%AE%E5%8F%AF%E6%8C%81%E4%B9%85%E5%8C%96/">
+                        <span class="hidden-mobile">vuex数据可持久化(项目)</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
