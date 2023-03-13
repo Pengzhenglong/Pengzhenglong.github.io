@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      20.4k 字
+      20.7k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      236
+      239
        分钟
     </span>
   
@@ -355,6 +355,10 @@
 <p>2、隐式原型也是一个对象,是指向我们构造函数的原型</p>
 <p>3、除了最顶层的Object对象没有__proto_，其他所有的对象都有__proto__,这是隐式原型</p>
 <p>4、<strong>隐式原型__proto__的作用是让对象通过它来一直往上查找属性或方法，直到找到最顶层的Object的__proto__属性，它的值是null,这个查找的过程就是原型链</strong><br>特点：<br>JavaScript 对象是通过引用来传递的，我们创建的每个新对象实体中并没有一份属于自己的原型副本。当我们修改原型时，与之相关的对象也会继承这一改变。<br><img src="/imageO/YX.jpg" srcset="/img/loading.gif" lazyload alt="原型链"></p>
+<h4 id="面试题–原型链的顶端是什么（如果找不到是什么）"><a href="#面试题–原型链的顶端是什么（如果找不到是什么）" class="headerlink" title="面试题–原型链的顶端是什么（如果找不到是什么）"></a>面试题–原型链的顶端是什么（如果找不到是什么）</h4><p>在JavaScript中，每个对象都有一个原型（prototype）属性，指向它的原型对象。原型对象也有原型属性，指向它的原型对象，这样就形成了原型链。</p>
+<p>原型链的顶端是Object.prototype，它是所有对象的祖先对象。<strong>Object.prototype的原型指向null，即它没有原型对象</strong>，所以<strong>当在原型链中找不到某个属性或方法时，就会返回undefined</strong>，而不是继续查找。</p>
+<p>例如，当我们创建一个对象，并尝试访问它的属性或方法时，JavaScript引擎会先查找该对象本身是否具有该属性或方法，如果没有，则沿着原型链向上查找，直到找到该属性或方法或者到达Object.prototype为止。如果在整个原型链上都没有找到该属性或方法，那么就返回undefined。</p>
+<p>总之，<strong>原型链的顶端是Object.prototype，它是所有对象的祖先对象</strong>，当在原型链中<strong>找不到某个属性或方法时，就会返回undefined</strong>。（这个答错了，回答的是null）</p>
 <h4 id="js-获取原型的方法？"><a href="#js-获取原型的方法？" class="headerlink" title="js 获取原型的方法？"></a>js 获取原型的方法？</h4><p>p.<code>__proto__</code><br>p.constructor.prototype<br>Object.getPrototypeOf(p)</p>
 <h4 id="hasOwnProperty表示是否有自己的属性。这个方法会查找一个对象是否有某个属性，但是不会去查找它的原型链"><a href="#hasOwnProperty表示是否有自己的属性。这个方法会查找一个对象是否有某个属性，但是不会去查找它的原型链" class="headerlink" title="hasOwnProperty表示是否有自己的属性。这个方法会查找一个对象是否有某个属性，但是不会去查找它的原型链"></a>hasOwnProperty表示是否有自己的属性。这个方法会查找一个对象是否有某个属性，但是不会去查找它的原型链</h4><h3 id="箭头函数和普通函数的区别"><a href="#箭头函数和普通函数的区别" class="headerlink" title="箭头函数和普通函数的区别"></a>箭头函数和普通函数的区别</h3><h4 id="1-没有-this"><a href="#1-没有-this" class="headerlink" title="1.没有 this"></a>1.没有 this</h4><p>箭头函数没有 this，所以需要通过查找作用域链来确定 this 的值。<br>这就意味着如果箭头函数被非箭头函数包含，this 绑定的就是最近一层非箭头函数的 this。</p>
 <h5 id="箭头函数this为父作用域的this，不是调用时的this"><a href="#箭头函数this为父作用域的this，不是调用时的this" class="headerlink" title="箭头函数this为父作用域的this，不是调用时的this"></a>箭头函数this为父作用域的this，不是调用时的this</h5><p><img src="/imageO/JTHS.jpg" srcset="/img/loading.gif" lazyload alt="this"><br>箭头函数的<strong>this永远指向其父作用域，任何方法都改变不了，包括call，apply，bind</strong>。</p>
