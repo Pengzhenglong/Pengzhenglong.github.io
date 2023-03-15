@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      7.3k 字
+      13k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      80
+      143
        分钟
     </span>
   
@@ -333,12 +333,133 @@
 <p>方法四：使用迭代器</p>
 <figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs reasonml"><span class="hljs-keyword">function</span>* flatten<span class="hljs-constructor">Array(<span class="hljs-params">arr</span>)</span> &#123;<br>  <span class="hljs-keyword">for</span> (var i = <span class="hljs-number">0</span>; i &lt; arr.length; i++) &#123;<br>    <span class="hljs-keyword">if</span> (<span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Array</span>.</span></span>is<span class="hljs-constructor">Array(<span class="hljs-params">arr</span>[<span class="hljs-params">i</span>])</span>) &#123;<br>      yield* flatten<span class="hljs-constructor">Array(<span class="hljs-params">arr</span>[<span class="hljs-params">i</span>])</span>;<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>      yield arr<span class="hljs-literal">[<span class="hljs-identifier">i</span>]</span>;<br>    &#125;<br>  &#125;<br>&#125;<br><br>var flattenedArray = <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Array</span>.</span></span>from(flatten<span class="hljs-constructor">Array([1, [2, 3], [4, [5, 6]]])</span>);<br></code></pre></td></tr></table></figure>
 <p>以上是一些常见的扁平化数组的方法。无论使用哪种方法，都需要确保对于所有可能的数组嵌套层次，都可以正确地扁平化数组。</p>
-<h3 id="反问"><a href="#反问" class="headerlink" title="反问"></a>反问</h3><ol>
+<h4 id="反问"><a href="#反问" class="headerlink" title="反问"></a>反问</h4><ol>
 <li>技术栈  react</li>
 <li>公司项目  主要做toB的sass平台   一些文件的上传，素材的处理，（公司目前前端3个左右 后端有几个，预计招聘20个开发）</li>
 <li>反问能给一些建议<br>答： 建议多做项目，公司的项目，把事情做的最好，不只是完成。（完成之后看看有没有别的更好的方法解决）</li>
 </ol>
-
+<h3 id="面试总结-二面"><a href="#面试总结-二面" class="headerlink" title="面试总结(二面)"></a>面试总结(二面)</h3><h4 id="自我介绍"><a href="#自我介绍" class="headerlink" title="自我介绍"></a>自我介绍</h4><h4 id="vue和react的区别-（从原理上解释）"><a href="#vue和react的区别-（从原理上解释）" class="headerlink" title="vue和react的区别 （从原理上解释）"></a>vue和react的区别 （从原理上解释）</h4><p>从原理上来说，Vue和React的区别主要体现在以下几个方面：</p>
+<p>数据绑定方式：<strong>Vue采用双向数据绑定，React采用单向数据流</strong>。在Vue中，每个组件都有一个响应式的数据对象，当数据发生变化时，视图会自动更新。<strong>而在React中，数据是通过props从父组件向子组件传递的，子组件需要通过回调函数向父组件传递数据</strong>。</p>
+<p>组件化开发方式：<strong>Vue中的组件化开发更加直观和简单，每个组件都包含了模板、逻辑和样式，可以直接编写</strong>。而在React中，<strong>组件的逻辑和样式是通过JavaScript代码编写的，需要使用JSX语法进行组件开发</strong>。</p>
+<p><strong>数据流管理方式</strong>：Vue中提供了Vuex状态管理库，可以更好地管理大型应用中的状态，包括状态的修改和响应。而React则更倾向于使用第三方状态管理库，例如Redux。</p>
+<p>渲染性能优化：<strong>Vue和React都采用了虚拟DOM技术，但是它们的渲染性能优化方式有所不同</strong>。在Vue中，<strong>通过模板编译和静态分析等技术，可以减少虚拟DOM的比较和计算</strong>；而在React中，通过<strong>Fiber架构和异步渲染等技术</strong>，可以更好地控制渲染的流程和响应性能。</p>
+<p>总体而言，Vue和React的区别主要在于数据绑定方式、组件化开发方式、数据流管理方式和渲染性能优化方式等方面。在实际开发中，我们可以根据具体的应用场景和需求选择合适的框架，以提高开发效率和应用程序性能。</p>
+<h4 id="为什么vue采用的是双向数据绑定，react用的是单向数据流"><a href="#为什么vue采用的是双向数据绑定，react用的是单向数据流" class="headerlink" title="为什么vue采用的是双向数据绑定，react用的是单向数据流"></a>为什么vue采用的是双向数据绑定，react用的是单向数据流</h4><p>Vue和React是两个流行的前端框架，它们的数据绑定方式不同，其中Vue采用的是双向数据绑定，React采用的是单向数据流。</p>
+<p><strong>双向数据绑定指的是数据的变化会立即反映到视图上，同时用户的交互操作也会立即更新数据</strong>。在Vue中，使用v-model指令可以实现双向数据绑定。双向数据绑定的优点是可以减少开发人员的代码量和重复性工作，同时也方便用户操作和体验。</p>
+<p>而<strong>单向数据流指的是数据只能从父组件传递到子组件，子组件无法直接修改父组件的数据</strong>。在React中，父组件可以通过props将数据传递给子组件，子组件可以通过回调函数将修改后的数据传递给父组件。单向数据流的优点是可以更好地控制数据流向，避免出现意料之外的数据变化，同时也方便进行数据的追踪和调试。</p>
+<p>选择双向数据绑定还是单向数据流，主要取决于具体的应用场景和开发需求。Vue适用于开发中小型应用，双向数据绑定可以提高开发效率；React适用于开发大型应用，单向数据流可以提高代码的可维护性和可读性。</p>
+<h4 id="typeScript有了解嘛"><a href="#typeScript有了解嘛" class="headerlink" title="typeScript有了解嘛"></a>typeScript有了解嘛</h4><h4 id="原型链的顶端是什么（如果找不到是什么）"><a href="#原型链的顶端是什么（如果找不到是什么）" class="headerlink" title="原型链的顶端是什么（如果找不到是什么）"></a>原型链的顶端是什么（如果找不到是什么）</h4><p>在JavaScript中，每个对象都有一个原型（prototype）属性，指向它的原型对象。原型对象也有原型属性，指向它的原型对象，这样就形成了原型链。</p>
+<p>原型链的顶端是Object.prototype，它是所有对象的祖先对象。<strong>Object.prototype的原型指向null，即它没有原型对象</strong>，所以<strong>当在原型链中找不到某个属性或方法时，就会返回undefined</strong>，而不是继续查找。</p>
+<p>例如，当我们创建一个对象，并尝试访问它的属性或方法时，JavaScript引擎会先查找该对象本身是否具有该属性或方法，如果没有，则沿着原型链向上查找，直到找到该属性或方法或者到达Object.prototype为止。如果在整个原型链上都没有找到该属性或方法，那么就返回undefined。</p>
+<p>总之，<strong>原型链的顶端是Object.prototype，它是所有对象的祖先对象</strong>，当在原型链中<strong>找不到某个属性或方法时，就会返回undefined</strong>。（这个答错了，回答的是null）</p>
+<h4 id="事件循环（如果微任务里面产生了微任务是继续执行微任务还是下一个宏任务？）-—是执行完产生的所有微任务再执行下一个宏任务"><a href="#事件循环（如果微任务里面产生了微任务是继续执行微任务还是下一个宏任务？）-—是执行完产生的所有微任务再执行下一个宏任务" class="headerlink" title="事件循环（如果微任务里面产生了微任务是继续执行微任务还是下一个宏任务？） —是执行完产生的所有微任务再执行下一个宏任务"></a>事件循环（如果微任务里面产生了微任务是继续执行微任务还是下一个宏任务？） —是执行完产生的所有微任务再执行下一个宏任务</h4><p>在JavaScript中，事件循环机制（Event Loop）用于协调处理事件和执行代码的顺序。它不断地从任务队列中取出任务，执行任务，并在任务执行完毕后等待新的任务加入队列。</p>
+<p>在事件循环中，<strong>每次执行一个宏任务（例如脚本的整体代码、setTimeout/setInterval回调函数等），都会在宏任务执行完毕后先执行所有的微任务（例如Promise回调函数、MutationObserver回调函数等），然后才会执行下一个宏任务。这个过程称为“微任务队列优先于宏任务队列”。</strong></p>
+<p><strong>如果在微任务队列中产生了新的微任务，那么它会被添加到微任务队列的末尾，等待下一次事件循环时执行。如果在微任务执行过程中产生了新的微任务，那么这些新的微任务也会被依次添加到微任务队列的末尾。</strong></p>
+<p>举个例子，假设有如下代码：</p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs coffeescript"><span class="hljs-built_in">Promise</span>.resolve().<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> &#123;<br>  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;微任务1&#x27;</span>)<br>  <span class="hljs-built_in">Promise</span>.resolve().<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> &#123;<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;微任务2&#x27;</span>)<br>  &#125;)<br>&#125;)<br><span class="hljs-built_in">setTimeout</span>(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> &#123;<br>  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;宏任务1&#x27;</span>)<br>  <span class="hljs-built_in">Promise</span>.resolve().<span class="hljs-keyword">then</span>(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> &#123;<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;微任务3&#x27;</span>)<br>  &#125;)<br>&#125;, <span class="hljs-number">0</span>)<br></code></pre></td></tr></table></figure>
+<p>当上述代码执行时，它会依次执行如下步骤：</p>
+<ol>
+<li><p>执行第一个宏任务（即整体代码）。</p>
+</li>
+<li><p>执行第一个微任务，即输出“微任务1”。</p>
+</li>
+<li><p>在执行微任务的过程中，产生了新的微任务“微任务2”，它会被添加到微任务队列的末尾。</p>
+</li>
+<li><p>第一个微任务执行完毕后，开始执行第二个微任务，即输出“微任务2”。</p>
+</li>
+<li><p>执行第二个宏任务，即输出“宏任务1”。</p>
+</li>
+<li><p>在执行第二个宏任务的过程中，产生了新的微任务“微任务3”，它会被添加到微任务队列的末尾。</p>
+</li>
+<li><p>第二个宏任务执行完毕后，开始执行微任务队列中的剩余任务，即输出“微任务3”。<br>综上所述，如果微任务队列中产生了新的微任务，它们会被依次添加到微任务队列的末尾，等待下一次事件循环时执行，不会影响当前的微任务执行。</p>
+<h4 id="网络模型-（5层-7层）http在哪一层–应用层"><a href="#网络模型-（5层-7层）http在哪一层–应用层" class="headerlink" title="网络模型 （5层-7层）http在哪一层–应用层"></a>网络模型 （5层-7层）http在哪一层–应用层</h4><p>5层–（<strong>应-运-网-链-物</strong>） –（应用层-运输层-网络层-链路层-物理层）<br>7层–(应-(表现层-会话层)运-网-链-物)</p>
+<h4 id="缓存有哪些（强缓存-协商缓存）"><a href="#缓存有哪些（强缓存-协商缓存）" class="headerlink" title="缓存有哪些（强缓存/协商缓存）"></a>缓存有哪些（强缓存/协商缓存）</h4><p>浏览器与服务器<strong>通信的方式为应答模式</strong>，即是：<strong>浏览器发起HTTP请求 – 服务器响应该请求</strong>。那么浏览器第一次向服务器发起该请求后拿到请求结果，会根据响应报文中HTTP头的缓存标识，决定是否缓存结果，是则将请求结果和缓存标识存入浏览器缓存中</p>
+</li>
+<li><p>浏览器每次发起请求，都会先在浏览器缓存中查找该请求的结果以及缓存标识</p>
+</li>
+<li><p>浏览器每次拿到返回的请求结果都会将该结果和缓存标识存入浏览器缓存中</p>
+</li>
+</ol>
+<p>以上两点结论就是浏览器缓存机制的关键，他确保了每个请求的缓存存入与读取，只要我们再理解浏览器缓存的使用规则，那么所有的问题就迎刃而解了。为了方便理解，这里根据是否需要向服务器重新发起HTTP请求将缓存过程分为两个部分，分别是强制缓存和协商缓存。</p>
+<p><strong>强制缓存强制缓存就是向浏览器缓存查找该请求结果，并根据该结果的缓存规则来决定是否使用该缓存结果的过程</strong><br>当浏览器向服务器发起请求时，服务器会将缓存规则放入HTTP响应报文的HTTP头中和请求结果一起返回给浏览器，控制强制缓存的字段分别是 <strong>Expires 和 Cache-Control</strong>，其中<strong>Cache-Control优先级比Expires</strong>高。强制缓存的情况主要有三种(暂不分析协商缓存过程)，如下： 状态仍然返回200，但不会请求数据，<strong>在浏览器中能明显看到from cache字样</strong>。</p>
+<ol>
+<li>不存在该缓存结果和缓存标识，强制缓存失效，则直接向服务器发起请求（跟第一次发起请求一致）。</li>
+<li>存在该缓存结果和缓存标识，但该结果已失效，强制缓存失效，则使用协商缓存。</li>
+<li>存在该缓存结果和缓存标识，且该结果尚未失效，强制缓存生效，直接返回该结果</li>
+</ol>
+<p><strong>协商缓存协商缓存就是强制缓存失效后，浏览器携带缓存标识向服务器发起请求，由服务器根据缓存标识决定是否使用缓存的过程</strong><br><strong>Etag &gt;Last-Modifie Last-Modified</strong>与ETag是可以一起使用的，服务器会优先验证ETag，一致的情况下，才会继续比对Last-Modified，最后才决定是否返回304<br>同样，协商缓存的标识也是在响应报文的HTTP头中和请求结果一起返回给浏览器的，控制协商缓存的字段分别有：Last-Modified / If-Modified-Since 和 Etag / If-None-Match，其中Etag / If-None-Match的优先级比Last-Modified / If-Modified-Since高。协商缓存主要有以下两种情况：</p>
+<ol>
+<li>协商缓存生效，返回304</li>
+<li>协商缓存失效，返回200和请求结果结果<br>传送门 ☞ #彻底理解浏览器的缓存机制<br><a target="_blank" rel="noopener" href="https://pengzhenglong.github.io/2022/01/07/%E8%AE%A1%E7%BD%91+%E6%B5%8F%E8%A7%88%E5%99%A8+http+%E5%AE%89%E5%85%A8%E9%9D%A2%E8%AF%95%E9%A2%98/#%E6%B5%8F%E8%A7%88%E5%99%A8%E7%9A%84%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6-%E5%BC%BA%E5%88%B6%E7%BC%93%E5%AD%98-amp-amp-%E5%8D%8F%E5%95%86%E7%BC%93%E5%AD%98">博客地址</a><h4 id="http的content-type有哪些"><a href="#http的content-type有哪些" class="headerlink" title="http的content-type有哪些"></a>http的content-type有哪些</h4>HTTP的Content-Type请求头字段用于指定发送给客户端的实体的类型。常见的Content-Type值及其含义如下：<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs pgsql"><span class="hljs-type">text</span>/plain：纯文本格式，没有指定格式的字节流。<br><span class="hljs-type">text</span>/html：HTML格式的文本。<br><span class="hljs-type">text</span>/css：Cascading Style Sheets (CSS) 样式表。<br><span class="hljs-type">text</span>/javascript：JavaScript脚本代码。<br>application/<span class="hljs-type">json</span>：<span class="hljs-type">JSON</span>格式的数据。<br>application/<span class="hljs-type">xml</span>：<span class="hljs-type">XML</span>格式的数据。<br>application/pdf：PDF文档格式。<br>image/jpeg：JPEG格式的图片。<br>image/png：PNG格式的图片。<br>audio/mpeg：MPEG音频文件。<br>video/mp4：MP4格式的视频文件。<br></code></pre></td></tr></table></figure>
+除了上述列出的类型之外，还有很多其他的Content-Type类型，这些类型可以根据实际需要进行自定义。Content-Type值通常与HTTP请求的Accept头字段一起使用，以便指定客户端所期望的响应类型。例如，如果客户端希望接收JSON格式的响应，它可以将Accept头字段设置为“application/json”。</li>
+</ol>
+<h5 id="如何设置呢"><a href="#如何设置呢" class="headerlink" title="如何设置呢"></a>如何设置呢</h5><p>在HTTP请求中设置Content-Type请求头字段通常有两种方法：</p>
+<p>通过手动设置请求头字段：<br>在大多数HTTP客户端中，您可以手动设置Content-Type请求头字段。例如，使用axios库发送HTTP请求时，您可以通过设置headers选项来指定Content-Type值，例如：</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs less"><span class="hljs-selector-tag">axios</span><span class="hljs-selector-class">.post</span>(<span class="hljs-string">&#x27;/api/data&#x27;</span>, &#123;<br>  <span class="hljs-comment">// 请求数据...</span><br>&#125;, &#123;<br>  headers: &#123;<br>    &#x27;<span class="hljs-attribute">Content-Type&#x27;</span>: <span class="hljs-string">&#x27;application/json&#x27;</span><br>  &#125;<br>&#125;)<br></code></pre></td></tr></table></figure>
+<p>这将向服务器发送一个Content-Type值为“application/json”的请求。</p>
+<p>使用特定的API方法：<br>在某些HTTP客户端库中，例如jQuery和Fetch API，您可以使用特定的API方法来发送不同类型的请求，这些方法将自动设置Content-Type请求头字段。例如，使用Fetch API发送JSON格式的请求时，您可以使用以下代码：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs awk">fetch(<span class="hljs-string">&#x27;/api/data&#x27;</span>, &#123;<br>  method: <span class="hljs-string">&#x27;POST&#x27;</span>,<br>  body: JSON.stringify(&#123;<br>    <span class="hljs-regexp">//</span> 请求数据...<br>  &#125;),<br>  headers: &#123;<br>    <span class="hljs-string">&#x27;Content-Type&#x27;</span>: <span class="hljs-string">&#x27;application/json&#x27;</span><br>  &#125;<br>&#125;);<br></code></pre></td></tr></table></figure>
+<p>这将自动设置Content-Type请求头字段为“application/json”。</p>
+<p>请注意，Content-Type请求头字段必须与请求实体的格式匹配，否则服务器可能无法正确解析请求。因此，在设置Content-Type值时，请确保选择正确的格式。</p>
+<h4 id="后端怎么修改返回的status-code（状态码）"><a href="#后端怎么修改返回的status-code（状态码）" class="headerlink" title="后端怎么修改返回的status.code（状态码）"></a>后端怎么修改返回的status.code（状态码）</h4><p>HTTP状态码是由服务器返回的标准HTTP响应的一部分，它们指示请求的成功或失败状态。状态码是HTTP协议的一部分，它们定义了不同类型的响应，例如200表示成功，404表示未找到，500表示服务器错误等等。</p>
+<p>由于HTTP状态码是由服务器返回的，客户端无法直接修改它们。只有服务器可以控制响应的状态码，根据服务器处理请求的结果来生成适当的状态码。如果您想修改HTTP状态码，您需要访问服务器并修改响应的代码。</p>
+<p>在Node.js中，您可以使用内置的HTTP模块来创建HTTP服务器，并在响应对象上设置HTTP状态码。以下是一个简单的示例：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> http = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;http&#x27;</span>);<br><br><span class="hljs-keyword">const</span> server = http.createServer(<span class="hljs-function">(<span class="hljs-params">req, res</span>) =&gt;</span> &#123;<br>  <span class="hljs-comment">// 处理请求</span><br><br>  <span class="hljs-comment">// 设置状态码为404</span><br>  res.statusCode = <span class="hljs-number">404</span>;<br><br>  <span class="hljs-comment">// 发送响应</span><br>  res.end(<span class="hljs-string">&#x27;Not found&#x27;</span>);<br>&#125;);<br><br>server.listen(<span class="hljs-number">3000</span>, <span class="hljs-function">() =&gt;</span> &#123;<br>  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;Server is running on port 3000&#x27;</span>);<br>&#125;);<br></code></pre></td></tr></table></figure>
+<p>在这个示例中，我们创建了一个HTTP服务器，并在响应对象上设置了状态码为404。在实际应用中，您可以根据请求的处理结果动态设置状态码。</p>
+<p>除了设置状态码外，您还可以设置其他HTTP响应头，例如内容类型、缓存控制、跨域等。例如，您可以使用以下代码设置响应的内容类型：</p>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ada">res.setHeader(<span class="hljs-symbol">&#x27;Content</span>-<span class="hljs-keyword">Type</span>&#x27;, <span class="hljs-symbol">&#x27;text</span>/html&#x27;);<br></code></pre></td></tr></table></figure>
+<p>在这个示例中，我们将响应的内容类型设置为HTML。</p>
+<p>总之，在Node.js中，您可以通过设置响应对象的状态码和其他HTTP响应头来控制HTTP响应。</p>
+<p>除了示例中设置404状态码以外，您可以通过将res.statusCode属性设置为任何有效的HTTP状态码来设置响应的状态码。例如，以下是一些常见的HTTP状态码及其含义：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs plain">200：请求成功<br>201：创建成功<br>204：请求成功，但没有返回内容<br>400：请求参数不正确或格式不正确<br>401：未授权访问资源<br>403：禁止访问资源<br>404：请求的资源不存在<br>500：服务器错误<br>例如，如果您要将状态码设置为500，可以使用以下代码：<br></code></pre></td></tr></table></figure>
+<p>res.statusCode = 500;<br>然后，您可以使用res.end()方法向客户端发送响应内容。例如：</p>
+<p>res.end(‘Server Error’);<br>在实际应用中，您需要根据请求的处理结果设置适当的状态码，以便客户端可以正确处理响应并采取适当的行动。</p>
+<h4 id="跨域怎么实现？jsonp的原理是什么？"><a href="#跨域怎么实现？jsonp的原理是什么？" class="headerlink" title="跨域怎么实现？jsonp的原理是什么？"></a>跨域怎么实现？jsonp的原理是什么？</h4><p><strong>跨域，指的是浏览器不能执行其他网站的脚本。浏览器执行javascript脚本时，会检查这个脚本属于哪个页面，如果不是同源页面，就不会被执行</strong><br>解决办法：</p>
+<ol>
+<li>JSONP：<strong>注意JSONP只支持GET请求，不支持POST请求</strong>。<br>原理：ajax请求受同源策略影响，不允许进行跨域请求，而script标签src属性中的链接却可以访问跨域的js脚本，利用这个特性，服务端不再返回JSON格式的数据，而是返回一段调用某个函数的js代码，在src中进行了调用，这样实现了跨域。 — callback</li>
+<li>代理：写后端接口，在后端调用页面拿到返回值返回给html文件。相当于绕过了浏览器，就不会存在跨域问题。例；(nigx反向代理)</li>
+<li>CORS CORS(Cross-origin resource sharing)跨域资源共享 服务器设置对CORS的支持原理：服务器设置Access-Control-Allow-Origin HTTP响应头之后，浏览器将会允许跨域请求<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs less"><span class="hljs-selector-tag">header</span>(<span class="hljs-string">&#x27;Access-Control-Allow-Origin:*&#x27;</span>);<span class="hljs-comment">//允许所有来源访问</span><br><span class="hljs-selector-tag">header</span>(<span class="hljs-string">&#x27;Access-Control-Allow-Method:POST,GET&#x27;</span>);<span class="hljs-comment">//允许访问的方式</span><br></code></pre></td></tr></table></figure></li>
+<li>proxy代理 目前常用方式,通过服务器设置代理 在 vue.config.js 项目中配置 proxy 解决跨域问题</li>
+<li>window.postMessage() 利用h5新特性window.postMessage()</li>
+</ol>
+<p><strong>Options(CORS跨域，非简单请求)</strong><br>1.HTTP的options方法作用</p>
+<p>检测服务器所支持的请求方法。（比如：‘／user’路由支持哪些方法：get、post、delete…）<br>CORS中的预检请求（检测某个接口是否支持跨域）</p>
+<p>2.allowedMethods方法<br>响应options方法，告诉它所支持的请求方法<br>相应的返回405（不允许）和501（没实现）（比如我使用delete，会返回405，因为我没有写这个接口。但我使用link接口请求，会返回501，因为koa里不支持link请求）<br>options 请求就是预检请求，可用于检测服务器允许的 http 方法。当发起跨域请求时，由于安全原因，触发一定条件时浏览器会在正式请求之前自动先发起 OPTIONS 请求，即 CORS 预检请求，服务器若接受该跨域请求，浏览器才继续发起正式请求。</p>
+<h4 id="uniapp为什么可以跨端"><a href="#uniapp为什么可以跨端" class="headerlink" title="uniapp为什么可以跨端"></a>uniapp为什么可以跨端</h4><p>UniApp是一种基于Vue.js框架的跨平台开发解决方案，它可以使用一套代码同时构建多个不同平台的应用程序，包括iOS、Android、H5和微信小程序等。UniApp之所以可以实现跨端，主要有以下几个原因：</p>
+<ol>
+<li><p>采用基于Web标准的技术：UniApp采用了基于Web标准的技术，包括HTML、CSS和JavaScript等，这些技术可以在各个平台上得到很好的支持。因此，UniApp能够实现跨端。</p>
+</li>
+<li><p>基于多端适配的框架：UniApp框架对多端适配进行了优化，它会根据不同的平台，生成对应的代码和样式，从而能够适配多个不同的平台。</p>
+</li>
+<li><p>借助原生能力实现跨端：UniApp还可以借助原生能力实现跨端。例如，UniApp可以调用原生的API来实现一些特定功能，从而使得应用程序在各个平台上都能够具有相同的特性和体验。</p>
+</li>
+</ol>
+<p>综上所述，UniApp之所以可以实现跨端，是因为它采用了基于Web标准的技术，并且通过框架的多端适配以及借助原生能力的方式，来实现跨平台的开发。</p>
+<h4 id="了解浏览器原理-–说成http请求url了"><a href="#了解浏览器原理-–说成http请求url了" class="headerlink" title="了解浏览器原理 –说成http请求url了"></a>了解浏览器原理 –说成http请求url了</h4><p>浏览器是一种用于访问互联网的软件应用程序，它通过解析 HTML、CSS、JavaScript 等网络资源，将它们呈现给用户。以下是浏览器的一些基本原理：</p>
+<ol>
+<li><p>用户界面：浏览器的用户界面包括地址栏、后退和前进按钮、书签等等。浏览器的用户界面通常由浏览器的开发者设计，用户可以根据自己的喜好进行个性化设置。</p>
+</li>
+<li><p>渲染引擎：渲染引擎负责将网页内容解析成可视化的格式。主要的渲染引擎有 Blink（Chrome 和 Opera 使用）、Gecko（Firefox 使用）以及 WebKit（Safari 使用）。渲染引擎可以理解 HTML、CSS、JavaScript 等网页资源，并将它们渲染成用户可以看到的样式。</p>
+</li>
+<li><p>JavaScript 解释器：JavaScript 解释器负责解析和执行 JavaScript 代码。现代浏览器通常使用 Just-in-Time（JIT）编译器，以便提高 JavaScript 的性能和效率。</p>
+</li>
+<li><p>布局引擎：布局引擎负责处理网页的布局和排版。它会根据渲染引擎生成的网页内容，将内容排版成适合于显示的格式，并在用户界面中进行展示。</p>
+</li>
+<li><p>网络：浏览器的网络组件负责从网络中获取所需的资源，如 HTML 文件、CSS 样式表、JavaScript 脚本等等。它通过使用 HTTP 或 HTTPS 协议，向服务器请求资源并获取响应，然后将响应的内容提供给渲染引擎进行解析和渲染。</p>
+</li>
+<li><p>数据存储：浏览器还提供了一些数据存储的机制，用于存储本地数据，如 cookie、localStorage 和 sessionStorage 等等。这些存储机制使得网站可以保存用户的偏好设置、登录状态等等，并提供一种用于在浏览器和服务器之间传输数据的机制。</p>
+</li>
+</ol>
+<h4 id="性能优化有了解吗-–能讲讲吗"><a href="#性能优化有了解吗-–能讲讲吗" class="headerlink" title="性能优化有了解吗 –能讲讲吗"></a>性能优化有了解吗 –能讲讲吗</h4><p>http2&gt;http1(优势？)<br>后面讲了一下项目中的防抖节流</p>
+<h4 id="如何减少项目中的bug"><a href="#如何减少项目中的bug" class="headerlink" title="如何减少项目中的bug"></a>如何减少项目中的bug</h4><p>需求澄清，串讲，反串讲，设计，编码，代码检视，用例评审，自测。</p>
+<p>减少项目中的bug需要采取一系列措施，下面是一些可能有用的建议：</p>
+<p>1.编写高质量的代码：编写高质量的代码是减少bug的最有效方法之一。为了使代码更加清晰、简洁、可读性更好，可以通过代码规范、注释、文档以及自动化测试等方式来实现。</p>
+<p>2.使用自动化测试：自动化测试可以提高代码质量，减少bug的出现。可以采用单元测试、集成测试、接口测试、性能测试等方式来确保代码可靠性。</p>
+<p>3.代码审查：定期进行代码审查，及时发现并修复潜在的问题，这有助于提高代码质量。</p>
+<p>4.使用版本控制工具：使用版本控制工具可以追踪代码变更，并允许你回退到之前的版本。这可以防止错误代码被部署到生产环境，并使团队成员更容易协作。</p>
+<p>5.使用可靠的第三方库：对于需要使用第三方库的项目，选择一个可靠的、有良好口碑的库，可以减少出现bug的机会。同时，需要及时更新第三方库，以避免遗留的安全漏洞和错误。</p>
+<p>总之，为了减少项目中的bug，需要具备高质量的代码、自动化测试和代码审查等技能来检查、分发并减少代码错误。</p>
+<h4 id="配置一套符合团队习惯且规范的husky能讲讲吗"><a href="#配置一套符合团队习惯且规范的husky能讲讲吗" class="headerlink" title="配置一套符合团队习惯且规范的husky能讲讲吗"></a>配置一套符合团队习惯且规范的husky能讲讲吗</h4><h4 id="反问？-公司的业务和项目-–公司的培养计划和晋升计划？"><a href="#反问？-公司的业务和项目-–公司的培养计划和晋升计划？" class="headerlink" title="反问？ 公司的业务和项目 –公司的培养计划和晋升计划？"></a>反问？ 公司的业务和项目 –公司的培养计划和晋升计划？</h4><h4 id="建议-（不只是要会用，原理这一块得熟悉）"><a href="#建议-（不只是要会用，原理这一块得熟悉）" class="headerlink" title="建议 （不只是要会用，原理这一块得熟悉）"></a>建议 （不只是要会用，原理这一块得熟悉）</h4>
             </div>
             <hr>
             <div>
