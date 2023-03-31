@@ -1,0 +1,637 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/2.jpg">
+  <link rel="icon" href="/img/2.jpg">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="DragonPeng">
+  <meta name="keywords" content="">
+  
+  <title>Performance使用指南前端性能排查 - DragonPeng的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>DragonPeng' blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/page1.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="Performance使用指南前端性能排查">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2023-03-31 18:15" pubdate>
+        March 31, 2023 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      4.7k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      49
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Performance使用指南前端性能排查</h1>
+            
+            <div class="markdown-body">
+              <hr>
+<h3 id="Performance使用指南前端性能排查"><a href="#Performance使用指南前端性能排查" class="headerlink" title="Performance使用指南前端性能排查"></a>Performance使用指南前端性能排查</h3><h4 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h4><p>在前端领域, <strong>性能优化</strong>都是一个非常重要的组成部分，如何通过合理的手段尽可能地提高页面性能，是需要我们不断地努力要做到的，但在那之前, <strong>性能排查</strong>又是让你能够“对症下药”的重要手段, 通过性能排查, 咱们才能清楚的知道页面中具体是什么原因影响了性能，<strong>Chrome DevTools</strong>给我们提供了2种常用方式 Audits和Performance，<strong>Audits</strong>可以对页面进行性能评分，同时，还会给我们提供一些优化建议。而<strong>Performance</strong>则提供了非常多的运行时数据，能让我们看到更多细节数据。下面主要介绍一下如何利用DevTools中的Performance面板来进行性能分析, 并排查性能问题。</p>
+<h4 id="Performance-面板介绍"><a href="#Performance-面板介绍" class="headerlink" title="Performance 面板介绍"></a>Performance 面板介绍</h4><p>首先在新的无痕窗口打开网页(使用无痕的目的是尽可能减少浏览器插件和缓存对页面的影响)，打开Chrome DevTools 切换到 Performance 下可以看到以下界面：<br><img src="/img/performance1.png" srcset="/img/loading.gif" lazyload alt="Performance 面板介绍"><br>上图1、3区域按钮可以用来控制性能数据记录，黑色按钮可以记录交互阶段的性能数据，圆形箭头按钮用来记录加载阶段的性能数据。<br>上图2区域 可以设置当前页面的网络加载速度与CPU运算速度, 通过这2项可以去尽可能的模拟移动端设备的加载环境。<br>通过点击3区域内的<strong>刷新</strong>按钮,会刷新页面并记录性能数据, 并得到以下性能报告。</p>
+<p><img src="/img/performance2.png" srcset="/img/loading.gif" lazyload alt="Performance 面板介绍"></p>
+<h4 id="整个页面性能数据分析报告从上至下可简单分为三个部分"><a href="#整个页面性能数据分析报告从上至下可简单分为三个部分" class="headerlink" title="整个页面性能数据分析报告从上至下可简单分为三个部分."></a>整个页面性能数据分析报告从上至下可简单分为三个部分.</h4><h5 id="第一部分：网页性能总览图"><a href="#第一部分：网页性能总览图" class="headerlink" title="第一部分：网页性能总览图"></a>第一部分：网页性能总览图</h5><p>这里最主要是整体的界面渲染的时候，每个时间段执行的事件顺序，通过上图我们就能知道我们每个时间段（精确到毫秒）都做了什么，当鼠标放上去的时候，我们还可以大图的形式去查看我们每个时间段界面的渲染情况，Performance 就会将几个关键指标，诸如FPS（每秒帧数情况）、CPU（CPU占用情况）、NET（网络资源情况）、HEAP（JS堆内存占用情况） 等，按照时间顺序做成图表的形式展现出来。</p>
+<h6 id="FPS"><a href="#FPS" class="headerlink" title="FPS"></a>FPS</h6><p>全称Frames Per Second，表示每秒传输帧数，是速度单位，用来分析动画的一个主要性能指标。 如下图所示，绿色竖线越高，FPS 越高。 红色表示长时间帧，可能出现卡顿。</p>
+<p>不同帧的体验：<br>帧率能够达到 50 ～ 60 FPS 的动画将会相当流畅，让人倍感舒适；<br>帧率在 30 ～ 50 FPS 之间的动画，因各人敏感程度不同，舒适度因人而异；<br>帧率在 30 FPS 以下的动画，让人感觉到明显的卡顿和不适感；<br>帧率波动很大的动画，亦会使人感觉到卡顿。<br><img src="/img/performance3.png" srcset="/img/loading.gif" lazyload alt="Performance 面板介绍"></p>
+<h6 id="CPU"><a href="#CPU" class="headerlink" title="CPU"></a>CPU</h6><p>CPU 资源占用情况。此面积图指示消耗 CPU 资源的事件类型。<br>下图中颜色分别为（与数据统计中的颜色数据表示一致）：<br>蓝色(Loading)：表示网络通信和 HTML 解析时间。<br>黄色(Scripting)：表示 JavaScript 执行时间。<br>紫色(Rendering)：表示样式计算和布局（重排）时间。<br>绿色(Painting)：表示重绘时间。<br>灰色(other)：表示其它事件花费的时间。<br>白色(Idle)：表示空闲时间。<br><img src="/img/performance4.png" srcset="/img/loading.gif" lazyload alt="Performance 面板介绍"></p>
+<h6 id="NET"><a href="#NET" class="headerlink" title="NET"></a>NET</h6><p>Network 概览。深蓝色表示存在高优先级的资源请求的时间段，浅蓝色表示存在低优先级的资源请求的时间段。<br><img src="/img/performance5.png" srcset="/img/loading.gif" lazyload alt="Performance 面板介绍"></p>
+<h6 id="HEAP"><a href="#HEAP" class="headerlink" title="HEAP"></a>HEAP</h6><p>JavaScript代码执行时堆内存的占用情况<br><img src="/img/performance6.png" srcset="/img/loading.gif" lazyload alt="Performance 面板介绍"></p>
+<h5 id="第二部分：各项指标的区块图"><a href="#第二部分：各项指标的区块图" class="headerlink" title="第二部分：各项指标的区块图"></a>第二部分：各项指标的区块图</h5><p>详情展开<br><img src="/img/performance7.png" srcset="/img/loading.gif" lazyload alt="Performance 面板介绍"></p>
+<ol>
+<li>Network(网络)：这里可以直观的看到页面的网络资源加载的顺序与时长。</li>
+<li>Frames(帧)：表示每帧的运行情况。</li>
+<li>Timings(时间)：用来记录<strong>一些关键的时间节点</strong>在何时产生的数据信息，诸如 FP、FCP、LCP 等</li>
+<li>Main(主线程)：是Performance工具中比较重要的部分，记录了渲染进程中主线程的执行记录，点击main可以看到某个任务执行的具体情况</li>
+<li>Raster(光栅)：光栅化线程池，用来让 GPU 执行光栅化的任务</li>
+<li>GPU：对GPU进程主线程的执行过程记录</li>
+<li>Chrome_childIOThread: 子线程</li>
+<li>Compositor(合成线程) 合成线程的执行记录，用来记录html绘制阶段 (Paint)结束后的图层合成操作<br>下面针对几个比较重要的指标进行介绍：</li>
+</ol>
+<h6 id="Timing"><a href="#Timing" class="headerlink" title="Timing"></a>Timing</h6><p><img src="/img/performance8.png" srcset="/img/loading.gif" lazyload alt="Performance 面板介绍"></p>
+<ul>
+<li>DCL（DOMContentLoaded）表示 HTML 文档加载完成事件。当初始 HTML 文档完全加载并解析之后触发，无需等待样式、图片、子 frame 结束。作为明显的对比，load 事件是当个页面完全被加载时才触发。</li>
+<li>FP（First Paint）首屏绘制，页面第一个像素渲染到屏幕上所用的时间。</li>
+<li>FCP（First Contentful Paint）首屏内容绘制，首次绘制任何文本，图像，非空白canvas 或 SVG 的时间点。</li>
+<li>L（Onload）页面所有资源加载完成事件。</li>
+<li>LCP（Largest Contentful Paint ）最大内容绘制，页面上尺寸最大的元素绘制时间。</li>
+</ul>
+<h6 id="Main"><a href="#Main" class="headerlink" title="Main"></a>Main</h6><p>主线程活动。通过倒置的火焰图展示主线程上发生的活动，x 轴表示随时间的记录。y 轴代表调用堆栈。上层的事件调用（触发）了下层的事件（anonymous代表匿名函数），火焰图<strong>顶层宽度越大就表示该活动可能存在性能问题</strong>。<br><img src="/img/performance9.png" srcset="/img/loading.gif" lazyload alt="Performance 面板介绍"></p>
+<p>查看长任务<br>火焰图顶部（根部）由很多任务（Task）组成，使用灰色背景色区分。鼠标悬浮上去可以看到任务的总耗时。<br><img src="/img/performance10.png" srcset="/img/loading.gif" lazyload alt="Performance 面板介绍"></p>
+<p><strong>查看代码位置和执行时间</strong><br>通过某个Task下的代码块会对应显示该代码对应位置以及执行时间<br><img src="/img/performance11.png" srcset="/img/loading.gif" lazyload alt="Performance 面板介绍"></p>
+<h4 id="第三部分：数据统计与汇总"><a href="#第三部分：数据统计与汇总" class="headerlink" title="第三部分：数据统计与汇总"></a>第三部分：数据统计与汇总</h4><ul>
+<li>背景</li>
+<li>Performance 面板介绍<ul>
+<li>第一部分：网页性能总览图<ul>
+<li>FPS</li>
+<li>CPU</li>
+<li>NET</li>
+<li>HEAP</li>
+</ul>
+</li>
+<li>第二部分：各项指标的区块图<ul>
+<li>Timing</li>
+<li>Main<ul>
+<li>查看长任务</li>
+<li>查看代码位置和执行时间</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>第三部分：数据统计与汇总<ul>
+<li> Summary</li>
+<li>Bottom-Up</li>
+<li> Call Tree</li>
+<li> Event log</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Performance面板实践<pre><code> * 网络资源和白屏
+ *  timings(时间线)和内存情况
+ *  火焰图
+</code></pre>
+</li>
+</ul>
+<h4 id="背景-1"><a href="#背景-1" class="headerlink" title="背景"></a>背景</h4><p>在前端领域, <strong>性能优化</strong>都是一个非常重要的组成部分，如何通过合理的手段尽可能地提高页面性能，是需要我们不断地努力要做到的，但在那之前, 性能排查又是让你能够“对症下药”的重要手段, 通过性能排查, 咱们才能清楚的知道页面中具体是什么原因影响了性能，Chrome DevTools给我们提供了2种常用方式 Audits和Performance，Audits可以对页面进行性能评分，同时，还会给我们提供一些优化建议。而Performance则提供了非常多的运行时数据，能让我们看到更多细节数据。下面主要介绍一下如何利用DevTools中的Performance面板来进行性能分析, 并排查性能问题。</p>
+<h4 id="Performance-面板介绍-1"><a href="#Performance-面板介绍-1" class="headerlink" title="Performance 面板介绍"></a>Performance 面板介绍</h4><p>首先在新的无痕窗口打开网页(使用无痕的目的是尽可能减少浏览器插件和缓存对页面的影响)，打开Chrome DevTools 切换到 Performance 下可以看到以下界面：</p>
+<p>上图1、3区域按钮可以用来控制性能数据记录，黑色按钮可以记录交互阶段的性能数据，圆形箭头按钮用来记录加载阶段的性能数据。<br>上图2区域 可以设置当前页面的网络加载速度与CPU运算速度, 通过这2项可以去尽可能的模拟移动端设备的加载环境。<br>通过点击3区域内的按钮,会刷新页面并记录性能数据, 并得到以下性能报告。</p>
+<p>整个页面性能数据分析报告从上至下可简单分为三个部分.</p>
+<h4 id="第一部分：网页性能总览图-1"><a href="#第一部分：网页性能总览图-1" class="headerlink" title="第一部分：网页性能总览图"></a>第一部分：网页性能总览图</h4><p>详情展开<br>这里最主要是整体的界面渲染的时候，每个时间段执行的事件顺序，通过上图我们就能知道我们每个时间段（精确到毫秒）都做了什么，当鼠标放上去的时候，我们还可以大图的形式去查看我们每个时间段界面的渲染情况，Performance 就会将几个关键指标，诸如FPS（每秒帧数情况）、CPU（CPU占用情况）、NET（网络资源情况）、HEAP（JS堆内存占用情况） 等，按照时间顺序做成图表的形式展现出来。</p>
+<h5 id="FPS-1"><a href="#FPS-1" class="headerlink" title="FPS"></a>FPS</h5><p>全称Frames Per Second，表示每秒传输帧数，是速度单位，用来分析动画的一个主要性能指标。 如下图所示，绿色竖线越高，FPS 越高。 红色表示长时间帧，可能出现卡顿。</p>
+<blockquote>
+<p>不同帧的体验：<br>帧率能够达到 50 ～ 60 FPS 的动画将会相当流畅，让人倍感舒适；<br>帧率在 30 ～ 50 FPS 之间的动画，因各人敏感程度不同，舒适度因人而异；<br>帧率在 30 FPS 以下的动画，让人感觉到明显的卡顿和不适感；<br>帧率波动很大的动画，亦会使人感觉到卡顿。</p>
+</blockquote>
+<h5 id="CPU-1"><a href="#CPU-1" class="headerlink" title="CPU"></a>CPU</h5><p>CPU 资源占用情况。此面积图指示消耗 CPU 资源的事件类型。<br>下图中颜色分别为（与数据统计中的颜色数据表示一致）：<br>蓝色(Loading)：表示网络通信和 HTML 解析时间。<br>黄色(Scripting)：表示 JavaScript 执行时间。<br>紫色(Rendering)：表示样式计算和布局（重排）时间。<br>绿色(Painting)：表示重绘时间。<br>灰色(other)：表示其它事件花费的时间。<br>白色(Idle)：表示空闲时间。</p>
+<h5 id="NET-1"><a href="#NET-1" class="headerlink" title="NET"></a>NET</h5><p>Network 概览。深蓝色表示存在高优先级的资源请求的时间段，浅蓝色表示存在低优先级的资源请求的时间段。</p>
+<h5 id="HEAP-1"><a href="#HEAP-1" class="headerlink" title="HEAP"></a>HEAP</h5><p>JavaScript代码执行时堆内存的占用情况</p>
+<h4 id="第二部分：各项指标的区块图-1"><a href="#第二部分：各项指标的区块图-1" class="headerlink" title="第二部分：各项指标的区块图"></a>第二部分：各项指标的区块图</h4><p>详情展开</p>
+<ol>
+<li>Network(网络)：这里可以直观的看到页面的网络资源加载的顺序与时长。</li>
+<li>Frames(帧)：表示每帧的运行情况。</li>
+<li>Timings(时间)：用来记录一些关键的时间节点在何时产生的数据信息，诸如<br>FP、<br>FCP、<br>LCP 等</li>
+<li>Main(主线程)：是<br>Performance工具中比较重要的部分，记录了渲染进程中主线程的执行记录，点击<br>main可以看到某个任务执行的具体情况</li>
+<li>Raster(光栅)：光栅化线程池，用来让 GPU 执行光栅化的任务</li>
+<li>GPU：对GPU进程主线程的执行过程记录</li>
+<li>Chrome_childIOThread: 子线程</li>
+<li>Compositor(合成线程) 合成线程的执行记录，用来记录<br>html绘制阶段 (Paint)结束后的图层合成操作,下面针对几个比较重要的指标进行介绍：</li>
+</ol>
+<h5 id="Timing-1"><a href="#Timing-1" class="headerlink" title="Timing"></a>Timing</h5><ul>
+<li>DCL<br>（DOMContentLoaded）表示 HTML 文档加载完成事件。当初始 HTML 文档完全加载并解析之后触发，无需等待样式、图片、子 frame 结束。作为明显的对比，load 事件是当个页面完全被加载时才触发。</li>
+<li>FP<br>（First Paint）首屏绘制，页面第一个像素渲染到屏幕上所用的时间。</li>
+<li>FCP<br>（First Contentful Paint）首屏内容绘制，首次绘制任何文本，图像，非空白canvas 或 SVG 的时间点。</li>
+<li>L<br>（Onload）页面所有资源加载完成事件。</li>
+<li>LCP<br>（Largest Contentful Paint ）最大内容绘制，页面上尺寸最大的元素绘制时间。</li>
+</ul>
+<h5 id="Main-1"><a href="#Main-1" class="headerlink" title="Main"></a>Main</h5><p>主线程活动。通过倒置的火焰图展示主线程上发生的活动，x 轴表示随时间的记录。y 轴代表调用堆栈。上层的事件调用（触发）了下层的事件（anonymous代表匿名函数），<strong>火焰图顶层宽度越大就表示该活动可能存在性能问题。</strong></p>
+<p>查看长任务<br>火焰图顶部（根部）由很多任务（Task）组成，使用灰色背景色区分。鼠标悬浮上去可以看到任务的总耗时。</p>
+<p>查看代码位置和执行时间<br>通过某个Task下的代码块会对应显示该代码对应位置以及执行时间</p>
+<h4 id="第三部分：数据统计与汇总-1"><a href="#第三部分：数据统计与汇总-1" class="headerlink" title="第三部分：数据统计与汇总"></a>第三部分：数据统计与汇总</h4><h5 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h5><p><img src="/img/performance12.png" srcset="/img/loading.gif" lazyload alt="Performance 面板介绍"><br>表示各指标时间占用统计报表, 它是一个用来统计在我们检测性能的时间范围内，都做了哪些事情：</p>
+<ul>
+<li>Loading：网络请求与解析。</li>
+<li>Scripting: JS 执行时间。</li>
+<li>Rendering: 重排，主要包含样式计算、更新布局树、布局、分层等。</li>
+<li>Painting：重绘。更新分层、光栅化分层、合成等。</li>
+<li>System: 系统占用时间。</li>
+<li>Idle: 空闲时间。</li>
+<li>Total: 总计时间<br>分类中的详细事件可点击这里<h5 id="Bottom-Up"><a href="#Bottom-Up" class="headerlink" title="Bottom-Up"></a>Bottom-Up</h5>自下而上，通常用于查看选择的时间段中直接花费时间最多的活动。<br>使用 <strong>Bottom-Up</strong> 可以查看哪些活动在总体上占用了最多的时间。<strong>Bottom-Up</strong> 只显示选中部分的记录。<br><img src="/img/performance13.png" srcset="/img/loading.gif" lazyload alt="Performance 面板介绍"></li>
+</ul>
+<p>在上图的火焰图中可以看出几乎所有的时间都花在三个对wait的调用上，所以 Bottom-Up 中，最顶部的是wait；wait调用下面的黄色部分其实是数以千计的 GC（垃圾回收） 调用，所以下一个开销最大的是Minor GC。<br>Self Time 表示直接花费在该事件上的时间，Total Time 表示花费在该事件及其所有后代（子孙）事件的总时间。</p>
+<h5 id="Call-Tree"><a href="#Call-Tree" class="headerlink" title="Call Tree"></a>Call Tree</h5><p>调用树，通常用于查看选择的时间段中导致最多耗时的根活动。<br>下图中 Event 是一个根活动，嵌套结构表示表示调用栈，表示 Event 导致了 button.addEventListener，button.addEventListener 中执行了 b…<br><img src="/img/performance14.png" srcset="/img/loading.gif" lazyload alt="Performance 面板介绍"></p>
+<ul>
+<li><p>Self Time：该活动直接花费的时间。</p>
+</li>
+<li><p>Total Time：该活动和其所有子活动花费的时间。</p>
+<h5 id="Event-log"><a href="#Event-log" class="headerlink" title="Event log"></a>Event log</h5><p>事件日志，用于按照活动的发生顺序查看活动。<br><img src="/img/performance15.png" srcset="/img/loading.gif" lazyload alt="Performance 面板介绍"></p>
+</li>
+<li><p>Start Time: 该活动的启动时间，它相对于录制的开始时间。</p>
+</li>
+<li><p>Self Time：直接在该活动上花费的时间。</p>
+</li>
+<li><p>Total Time：直接在该活动及其所有子活动上花费的时间。</p>
+<h4 id="Performance面板实践"><a href="#Performance面板实践" class="headerlink" title="Performance面板实践"></a>Performance面板实践</h4><p>下面举例来说明一下<strong>Performance</strong>面板的使用，在无痕窗口下点击自动重启页面，并记录整个页面加载的过程，然后来分析结果～</p>
+<h5 id="网络资源和白屏"><a href="#网络资源和白屏" class="headerlink" title="网络资源和白屏"></a>网络资源和白屏</h5><p>咱们首先从白屏时间和网络资源加载两方面来查看, 如下图：<br><img src="/img/performance16.png" srcset="/img/loading.gif" lazyload alt="Performance 面板介绍"><br>那么从上图, 我们可以看到几点信息：<br>本次页面的白屏时间约为150ms, 并且从网络资源加载情况来看, 图片资源没有启用HTTP2协议, 同一时间请求的图片有限, 导致资源出现排队等待的情况。<br>此外, 从网络资源的加载时长咱们也能分析出几个问题：</p>
+</li>
+<li><p>白屏时间是否过长</p>
+</li>
+<li><p>单个资源文件过大导致加载时间过长, 可以采用压缩代码、拆包等方式优化</p>
+</li>
+<li><p>资源加载是否有空白期, 有的话说明没有充分利用资源加载的空闲时间</p>
+</li>
+<li><p>服务器性能较差, 导致各资源加载时间过长</p>
+<h5 id="timings-时间线-和内存情况"><a href="#timings-时间线-和内存情况" class="headerlink" title="timings(时间线)和内存情况"></a>timings(时间线)和内存情况</h5><p>上述在讲timings的时候我们有提到几个关键指标: FCP、FP、L、LCP、DCL，那么通过这几个指标咱们也可以判断出页面加载性能的情况<br><img src="/img/performance17.png" srcset="/img/loading.gif" lazyload alt="Performance 面板介绍"></p>
+</li>
+</ul>
+<p>另外，我们可以看到页面中的内存使用的情况，比如 JS Heap(堆)，如果曲线一直在增长，则说明存在内存泄露。如果Nodes和Listeners不断增加说明可能存在重复添加节点或者事件的情况。<br>最下方就是页面的一个整体耗时概况，如果 Scripting 时间过长，则说明JS执行的逻辑太多，可以考虑优化JS，如果渲染时间过长，则考虑优化渲染过程，如果空闲时间过多，则可以考虑充分利用起来，比如把一些上报操作放到页面空闲时间再上报等。</p>
+<h5 id="火焰图"><a href="#火焰图" class="headerlink" title="火焰图"></a>火焰图</h5><p>火焰图，主要在 Main 面板中，是我们分析具体函数耗时最常看的面板，我们来看一下，如图：<br><img src="/img/performance18.png" srcset="/img/loading.gif" lazyload alt="Performance 面板介绍"></p>
+<p>首先，面板中会有很多的 Task，如果是耗时长的 Task，其右上角会<strong>标红色三角形</strong>，这个时候，我们可以选中标红的 <strong>Task</strong>，然后放大，看其具体的耗时点。<br>放大后，这里可以看到都在做哪些操作，哪些函数耗时了多少。然后我们点击一下某个函数，在面板最下面，就会出现代码的信息，是哪个函数，耗时多少，在哪个文件上的第几行等。这样我们就很方便地定位到耗时函数了。<br><img src="/img/performance19.png" srcset="/img/loading.gif" lazyload alt="Performance 面板介绍"></p>
+<p>从图里的例子可以看出 <strong>prototypeClone</strong>函数占比较大, 可以查看下这个函数的作用是什么? 看是否有优化空间, 通过点击下方Summary里的代码位置, 可以得到这样的一张图<br><img src="/img/performance20.png" srcset="/img/loading.gif" lazyload alt="Performance 面板介绍"></p>
+<p>从图中可以看到这个函数的详细代码, 分析出这是一个<strong>深拷贝对象</strong>的工具函数, 那么就可以分析出这里耗时长的原因是由于需要深拷贝的对象体积过大, 导致深拷贝对象需要的时间较长, 知道原因后, 咱们可以找到调用这个函数的代码位置，改为使用浅拷贝或者移除深拷贝的方式去解决。</p>
+<p>同时也可以查看 Main 指标分析代码里面是否存在强制同步布局等操作，分析出来这些原因之后，我们可以有针对性地去优化我们的程序。</p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>本篇文章, 主要讲解Chrome DevTools Performance面板的一些常用的功能, 并简单地实践了一下如何利用该工具分析页面性能的优化点，总的来说, Chrome DevTools Performance面板功能是十分的强大的，通过这个工具, 方便咱们开发人员可以更快更容易的找到性能优化的点, “对症下药”, 达到性能优化的目的，同时Performance 不仅是性能分析工具，在分析的过程中, 也能加深咱们对浏览器工作原理的理解。</p>
+<h5 id="相关资料"><a href="#相关资料" class="headerlink" title="相关资料"></a>相关资料</h5><p><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000023272526">Chrome Performance 页面性能分析指南</a></p>
+<p><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000038442806">使用 Performance 看看浏览器在做什么</a></p>
+<p><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000037699517">https://segmentfault.com/a/1190000037699517</a></p>
+<p><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/61922993/chrome-devtools-performance-tab-summary">Chrome DevTools - Performance Tab Summary</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%B7%A5%E5%85%B7/">工具</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%89%8D%E7%AB%AF%E8%BF%9B%E9%98%B6/">前端进阶</a>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%B7%A5%E5%85%B7/">工具</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/03/31/querySelector%E5%92%8CgetElementsBy%E7%B3%BB%E5%88%97%E7%9A%84%E5%8C%BA%E5%88%AB/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">querySelector和getElementsBy系列的区别</span>
+                        <span class="visible-mobile">Previous</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/03/28/Cookie-JS%20%E5%A6%82%E4%BD%95%E5%88%9B%E5%BB%BA%E3%80%81%E8%AF%BB%E5%8F%96%E5%92%8C%E5%88%A0%E9%99%A4cookie/">
+                        <span class="hidden-mobile">Cookie-JS 如何创建、读取和删除cookie</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

@@ -185,7 +185,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.9k 字
+      2.6k 字
     </span>
   
 
@@ -195,7 +195,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      21
+      28
        分钟
     </span>
   
@@ -229,7 +229,7 @@
             
             <div class="markdown-body">
               <hr>
-<h3 id="1-1-命令式与声明式"><a href="#1-1-命令式与声明式" class="headerlink" title="1.1 命令式与声明式"></a>1.1 命令式与声明式</h3><p>从范式上来看，视图层框架通常分为命令式和声明式，它们各有优缺点。 </p>
+<h2 id="第一章-权衡的艺术"><a href="#第一章-权衡的艺术" class="headerlink" title="第一章  权衡的艺术"></a>第一章  权衡的艺术</h2><h3 id="1-1-命令式与声明式"><a href="#1-1-命令式与声明式" class="headerlink" title="1.1 命令式与声明式"></a>1.1 命令式与声明式</h3><p>从范式上来看，视图层框架通常分为命令式和声明式，它们各有优缺点。 </p>
 <h4 id="JQuery是命令式框架-命令式一大特点就是关注过程。"><a href="#JQuery是命令式框架-命令式一大特点就是关注过程。" class="headerlink" title="JQuery是命令式框架,命令式一大特点就是关注过程。"></a>JQuery是命令式框架,命令式一大特点就是关注过程。</h4><p>例如，我们把下面这段话翻译成对应的代码：</p>
 <figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs basic"><span class="hljs-symbol">01 </span>- 获取 id 为 app 的 div 标签<br><span class="hljs-symbol">02 </span>- 它的文本内容为 hello world<br><span class="hljs-symbol">03 </span>- 为其绑定点击事件<br><span class="hljs-symbol">04 </span>- 当点击时弹出提示：ok<br></code></pre></td></tr></table></figure>
 <h4 id="Vue-js的内部一定是命令式的，而暴露给用户的确实更加声明式的。（Vue-js帮我们封装了过程）"><a href="#Vue-js的内部一定是命令式的，而暴露给用户的确实更加声明式的。（Vue-js帮我们封装了过程）" class="headerlink" title="Vue.js的内部一定是命令式的，而暴露给用户的确实更加声明式的。（Vue.js帮我们封装了过程）"></a>Vue.js的内部一定是命令式的，而暴露给用户的确实更加声明式的。（Vue.js帮我们封装了过程）</h4><p>这段类 HTML 的模板就是 Vue.js 实现如上功能的方式。可以看到，我们提供的是一个“结果”，至于如何实现这个“结果”，我们并不关心，这就像我们在告诉 Vue.js：“嘿，Vue.js，看到没，我要的就是一个div，文本内容是 hello world，它有个事件绑定，你帮我搞定吧。”至于实现该“结果”的过程，则是由 Vue.js 帮我们完成的。换句话说，Vue.js 帮我们封装了过程。</p>
@@ -260,6 +260,8 @@
 
 <p>然而这句话远没有看上去那么简单。<strong>为了渲染出页面，首先要把字符串解析成 DOM 树，这是一个 DOM 层面的计算</strong>。我们知道，涉及DOM 的运算要远比 JavaScript 层面的计算性能差，这有一个跑分结果可供参考，如图 1-1 所示。</p>
 <p>在图 1-1 中，上边是纯 JavaScript 层面的计算，循环 10 000 次，每次创建一个 JavaScript 对象并将其添加到数组中；下边是 DOM 操作，每次创建一个 DOM 元素并将其添加到页面中。跑分结果显示，<strong>纯JavaScript 层面的操作要比 DOM 操作快得多</strong>，它们不在一个数量级上。基于这个背景，我们可以用一个公式来表达通过 innerHTML 创建页面的性能：<strong>HTML 字符串拼接的计算量 + innerHTML 的 DOM计算量</strong>。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>我们<strong>分了几个维度：心智负担、可维护性和性能</strong>。其中<strong>原生 DOM操作方法心智负担最大，因为你要手动创建、删除、修改大量的DOM 元素。但它的性能是最高的，不过为了使其性能最佳，我们同样要承受巨大的心智负担。另外，以这种方式编写的代码，可维护性也极差</strong>。而<strong>对于 innerHTML 来说，由于我们编写页面的过程有一部分是通过拼接 HTML 字符串来实现的，这有点儿接近声明式的意思，但是拼接字符串总归也是有一定心智负担的，而且对于事件绑定之类的事情，我们还是要使用原生 JavaScript 来处理。如果 innerHTML 模板很大，则其更新页面的性能最差，尤其是在只有少量更新时</strong>。最后，<strong>我们来看看虚拟 DOM，它是声明式的，因此心智负担小，可维护性强，性能虽然比不上极致优化的原生 JavaScript，但是在保证心智负担和可维护性的前提下相当不错</strong>。</p>
+<h4 id="1-4-运行时和编译时"><a href="#1-4-运行时和编译时" class="headerlink" title="1.4 运行时和编译时"></a>1.4 运行时和编译时</h4><p>首先是<strong>纯运行时的框架</strong>。由于<strong>它没有编译的过程，因此我们没办法分析用户提供的内容</strong>，但是如果加入编译步骤，可能就大不一样了，我们可以分析用户提供的内容，<strong>看看哪些内容未来可能会改变，哪些内容永远不会改变，这样我们就可以在编译的时候提取这些信息，然后将其传递给 Render 函数，Render 函数得到这些信息之后，就可以做进一步的优化了</strong>。然而，假如我们设计的框架是<strong>纯编译时</strong>的，那么它也可以分析用户提供的内容。由于不需要任何运行时，而是直接编译成可执行的 JavaScript 代码，<strong>因此性能可能会更好，但是这种做法有损灵活性，即用户提供的内容必须编译后才能用</strong>。实际上，在这三个方向上业内都有探索，<strong>其中 Svelte 就是纯编译时的框架，但是它的真实性能可能达不到理论高度</strong>。<strong>Vue.js 3 仍然保持了运行时 + 编译时的架构，在保持灵活性的基础上能够尽可能地去优化</strong>。等到后面讲解 Vue.js 3 的编译优化相关内容时，你会看到 Vue.js 3 在保留运行时的情况下，其性能甚至不输纯编译时的框架。</p>
 <h4 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h4><p><a href="">Vuejs设计与实现书籍</a></p>
 
             </div>

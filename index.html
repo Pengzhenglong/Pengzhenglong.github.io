@@ -180,6 +180,299 @@
     
     
       <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2023/04/01/%5B%E6%BA%90%E7%A0%81%5D%E4%B8%BA%E4%BB%80%E4%B9%88Vue2this%E8%83%BD%E5%A4%9F%E7%9B%B4%E6%8E%A5%E8%8E%B7%E5%8F%96%E5%88%B0data%E5%92%8Cmethods/" target="_self">
+          <img src="/imageO/27.png" srcset="/img/loading.gif" lazyload alt="源码学习---为什么 Vue2 this 能够直接获取到 data 和 methods ?">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/04/01/%5B%E6%BA%90%E7%A0%81%5D%E4%B8%BA%E4%BB%80%E4%B9%88Vue2this%E8%83%BD%E5%A4%9F%E7%9B%B4%E6%8E%A5%E8%8E%B7%E5%8F%96%E5%88%B0data%E5%92%8Cmethods/">源码学习---为什么 Vue2 this 能够直接获取到 data 和 methods ?</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2023/04/01/%5B%E6%BA%90%E7%A0%81%5D%E4%B8%BA%E4%BB%80%E4%B9%88Vue2this%E8%83%BD%E5%A4%9F%E7%9B%B4%E6%8E%A5%E8%8E%B7%E5%8F%96%E5%88%B0data%E5%92%8Cmethods/">
+          
+          
+            
+          
+          
+为什么 Vue2 this 能够直接获取到 data 和 methods ?
+当我们使用Vue.js开发应用时，经常会使用一些状态，例如props、methods、data、computed和watch。在Vue.js内部，这些状态在使用之前需要进行初始化。这里将介绍methods和data的内部原理，理解为什么data和methods的数据可以通过this访问。
+
+new Vue被调用时发生了
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-04-01 18:15" pubdate>
+              2023-04-01
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/">源码学习</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%89%8D%E7%AB%AF%E8%BF%9B%E9%98%B6/">前端进阶</a>
+            
+              <a href="/tags/%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/">源码学习</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2023/03/31/%E5%9C%A8DOM%E7%BC%96%E7%A8%8B%E4%B8%AD%EF%BC%8CinnerHTML%E5%92%8CcreateElement%E9%83%BD%E5%8F%AF%E4%BB%A5%E5%BE%80%E9%A1%B5%E9%9D%A2%E4%B8%AD%E5%8E%BB%E8%BF%BD%E5%8A%A0%E5%85%83%E7%B4%A0%EF%BC%8C%E9%82%A3%E4%B9%88%E5%AE%83%E4%BB%AC%E4%B9%8B%E9%97%B4%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%EF%BC%9F/" target="_self">
+          <img src="/imageO/15.png" srcset="/img/loading.gif" lazyload alt="在DOM编程中，innerHTML和createElement都可以往页面中去追加元素，那么它们之间有什么区别？">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/03/31/%E5%9C%A8DOM%E7%BC%96%E7%A8%8B%E4%B8%AD%EF%BC%8CinnerHTML%E5%92%8CcreateElement%E9%83%BD%E5%8F%AF%E4%BB%A5%E5%BE%80%E9%A1%B5%E9%9D%A2%E4%B8%AD%E5%8E%BB%E8%BF%BD%E5%8A%A0%E5%85%83%E7%B4%A0%EF%BC%8C%E9%82%A3%E4%B9%88%E5%AE%83%E4%BB%AC%E4%B9%8B%E9%97%B4%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%EF%BC%9F/">在DOM编程中，innerHTML和createElement都可以往页面中去追加元素，那么它们之间有什么区别？</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2023/03/31/%E5%9C%A8DOM%E7%BC%96%E7%A8%8B%E4%B8%AD%EF%BC%8CinnerHTML%E5%92%8CcreateElement%E9%83%BD%E5%8F%AF%E4%BB%A5%E5%BE%80%E9%A1%B5%E9%9D%A2%E4%B8%AD%E5%8E%BB%E8%BF%BD%E5%8A%A0%E5%85%83%E7%B4%A0%EF%BC%8C%E9%82%A3%E4%B9%88%E5%AE%83%E4%BB%AC%E4%B9%8B%E9%97%B4%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%EF%BC%9F/">
+          
+          
+            
+          
+          
+在DOM编程中，innerHTML和createElement都可以往页面中去追加元素，那么它们之间有什么区别？下面让我们来一步一步看
+#1) createElement 性能更好假如我们有一个div，然后需要往里插入元素
+createElement使用createElement来创建元素，然后使用appendChild来插入到页面中
+123456789&lt;div class=&quot;c
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-03-31 20:15" pubdate>
+              2023-03-31
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/JS%E8%BF%9B%E9%98%B6/">JS进阶</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/">前端基础</a>
+            
+              <a href="/tags/JS%E8%BF%9B%E9%98%B6/">JS进阶</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2023/03/31/querySelector%E5%92%8CgetElementsBy%E7%B3%BB%E5%88%97%E7%9A%84%E5%8C%BA%E5%88%AB/" target="_self">
+          <img src="/imageO/15.png" srcset="/img/loading.gif" lazyload alt="querySelector和getElementsBy系列的区别">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/03/31/querySelector%E5%92%8CgetElementsBy%E7%B3%BB%E5%88%97%E7%9A%84%E5%8C%BA%E5%88%AB/">querySelector和getElementsBy系列的区别</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2023/03/31/querySelector%E5%92%8CgetElementsBy%E7%B3%BB%E5%88%97%E7%9A%84%E5%8C%BA%E5%88%AB/">
+          
+          
+            
+          
+          
+querySelector和getElementsBy系列的区别querySelector系列和getElementsBy系列之前在使用的时候，比较经常用getElementsById，这两个似乎可以混用，但是在有一些地方这两个的差别还是很大的，现在来整理一下。
+querySelector 属于 W3C 中的 Selectors API 规范，接收的参数是一个css选择符。而 getElemen
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-03-31 18:15" pubdate>
+              2023-03-31
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/JS%E8%BF%9B%E9%98%B6/">JS进阶</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/">前端基础</a>
+            
+              <a href="/tags/JS%E8%BF%9B%E9%98%B6/">JS进阶</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2023/03/31/Performance%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E6%8E%92%E6%9F%A5/" target="_self">
+          <img src="/img/performance19.png" srcset="/img/loading.gif" lazyload alt="Performance使用指南前端性能排查">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/03/31/Performance%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E6%8E%92%E6%9F%A5/">Performance使用指南前端性能排查</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2023/03/31/Performance%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97%E5%89%8D%E7%AB%AF%E6%80%A7%E8%83%BD%E6%8E%92%E6%9F%A5/">
+          
+          
+            
+          
+          
+Performance使用指南前端性能排查背景在前端领域, 性能优化都是一个非常重要的组成部分，如何通过合理的手段尽可能地提高页面性能，是需要我们不断地努力要做到的，但在那之前, 性能排查又是让你能够“对症下药”的重要手段, 通过性能排查, 咱们才能清楚的知道页面中具体是什么原因影响了性能，Chrome DevTools给我们提供了2种常用方式 Audits和Performance，Audits
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-03-31 18:15" pubdate>
+              2023-03-31
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/%E5%B7%A5%E5%85%B7/">工具</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%89%8D%E7%AB%AF%E8%BF%9B%E9%98%B6/">前端进阶</a>
+            
+              <a href="/tags/%E5%B7%A5%E5%85%B7/">工具</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2023/03/28/Cookie-JS%20%E5%A6%82%E4%BD%95%E5%88%9B%E5%BB%BA%E3%80%81%E8%AF%BB%E5%8F%96%E5%92%8C%E5%88%A0%E9%99%A4cookie/" target="_self">
+          <img src="/imageO/15.png" srcset="/img/loading.gif" lazyload alt="Cookie-JS 如何创建、读取和删除cookie">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/03/28/Cookie-JS%20%E5%A6%82%E4%BD%95%E5%88%9B%E5%BB%BA%E3%80%81%E8%AF%BB%E5%8F%96%E5%92%8C%E5%88%A0%E9%99%A4cookie/">Cookie-JS 如何创建、读取和删除cookie</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2023/03/28/Cookie-JS%20%E5%A6%82%E4%BD%95%E5%88%9B%E5%BB%BA%E3%80%81%E8%AF%BB%E5%8F%96%E5%92%8C%E5%88%A0%E9%99%A4cookie/">
+          
+          
+            
+          
+          
+Cookie-JS 如何创建、读取和删除cookieCookie 为 Web 应用程序保存用户相关信息提供了一种有用的方法。例如，当用户访问咱们的站点时，可以利用 Cookie 保存用户首选项或其他信息，这样，当用户下次再访问咱们的站点时，应用程序就可以检索以前保存的信息。
+Cookie 是什么鬼Cookie 是一小段文本信息，伴随着用户请求和页面在 Web 服务器和浏览器之间传递。用户每次访问
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-03-28 21:15" pubdate>
+              2023-03-28
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/JS%E8%BF%9B%E9%98%B6/">JS进阶</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/">前端基础</a>
+            
+              <a href="/tags/JS%E8%BF%9B%E9%98%B6/">JS进阶</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
         <a href="/2023/03/26/%E6%8B%86%E8%A7%A3%E8%BF%BD%E6%BA%AF%20GPT-3.5%20%E5%90%84%E9%A1%B9%E8%83%BD%E5%8A%9B%E7%9A%84%E8%B5%B7%E6%BA%90/" target="_self">
           <img src="/imageO/gpt.png" srcset="/img/loading.gif" lazyload alt="拆解追溯 GPT-3.5 各项能力的起源">
         </a>
@@ -319,10 +612,10 @@
             
           
           
-1.1 命令式与声明式从范式上来看，视图层框架通常分为命令式和声明式，它们各有优缺点。 
+第一章  权衡的艺术1.1 命令式与声明式从范式上来看，视图层框架通常分为命令式和声明式，它们各有优缺点。 
 JQuery是命令式框架,命令式一大特点就是关注过程。例如，我们把下面这段话翻译成对应的代码：
 123401 - 获取 id 为 app 的 div 标签02 - 它的文本内容为 hello world03 - 为其绑定点击事件04 - 当点击时弹出提示：ok
-Vue.js的内部一定是命令式的，而暴露给用户
+Vue.js的内部一定是命
         </a>
       </p>
 
@@ -475,313 +768,6 @@ React组件通信组件通信的意义组件是独立且封闭的单元，默认
               <a href="/tags/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/">前端基础</a>
             
               <a href="/tags/React/">React</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2023/03/04/React%E5%88%9D%E8%AF%86&&JSX&&%E5%87%BD%E6%95%B0%E7%BB%84%E4%BB%B6(1)/" target="_self">
-          <img src="/imageO/react.png" srcset="/img/loading.gif" lazyload alt="React初识&amp;&amp;JSX&amp;&amp;函数式组件">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2023/03/04/React%E5%88%9D%E8%AF%86&&JSX&&%E5%87%BD%E6%95%B0%E7%BB%84%E4%BB%B6(1)/">React初识&amp;&amp;JSX&amp;&amp;函数式组件</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2023/03/04/React%E5%88%9D%E8%AF%86&&JSX&&%E5%87%BD%E6%95%B0%E7%BB%84%E4%BB%B6(1)/">
-          
-          
-            
-          
-          学习react的笔记
-
-react 项目 npm i 安装依赖报错1创建react工程，提示错误The engine &quot;node&quot; is incompatible with this module. Expected version &quot;^8.10.0 || ^10.13.0 || &gt;=11.10.1&quot;. Got &quot;10.5.0&quot;，导
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2023-03-04 11:15" pubdate>
-              2023-03-04
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/React/">React</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/">前端基础</a>
-            
-              <a href="/tags/React/">React</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2022/10/30/Js%E5%9F%BA%E7%A1%80+%E5%9F%BA%E7%A1%80%E5%B8%83%E5%B0%94%E7%B1%BB%E5%9E%8B%E5%88%A4%E6%96%AD/" target="_self">
-          <img src="/imageO/MS.jpg" srcset="/img/loading.gif" lazyload alt="Js基础-类型判断等笔记">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/10/30/Js%E5%9F%BA%E7%A1%80+%E5%9F%BA%E7%A1%80%E5%B8%83%E5%B0%94%E7%B1%BB%E5%9E%8B%E5%88%A4%E6%96%AD/">Js基础-类型判断等笔记</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2022/10/30/Js%E5%9F%BA%E7%A1%80+%E5%9F%BA%E7%A1%80%E5%B8%83%E5%B0%94%E7%B1%BB%E5%9E%8B%E5%88%A4%E6%96%AD/">
-          
-          
-            
-          
-          一、js中的数字0就是false，非0为true。 ！表示取反。
-!0–false取反–true；
-
-!!0–false双重取反–false；
-
-!1–true取反–false；
-
-!!1–双重取反–true；
-
-!-1–true取反–false;
-
-!!-1–true双重取反–true。
-
-
-参考文章
-
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-10-30 21:15" pubdate>
-              2022-10-30
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/JS/">JS</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/">前端基础</a>
-            
-              <a href="/tags/JS/">JS</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2022/05/05/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAVite%E7%AC%94%E8%AE%B0(3)/" target="_self">
-          <img src="/imageO/vite.jpg" srcset="/img/loading.gif" lazyload alt="深入浅出Vite&amp;&amp;(3)">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/05/05/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAVite%E7%AC%94%E8%AE%B0(3)/">深入浅出Vite&amp;&amp;(3)</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2022/05/05/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAVite%E7%AC%94%E8%AE%B0(3)/">
-          
-          
-            
-          
-          大家都知道， Vite 是一个提倡 no-bundle 的构建工具，相比于传统的 Webpack，能做到开发时的模块按需编译，而不用先打包完再加载。
-需要注意的是，我们所说的模块代码其实分为两部分，一部分是源代码，也就是业务代码，另一部分是第三方依赖的代码，即node_modules中的代码。所谓的no-bundle只是对于源代码而言，对于第三方依赖而言，Vite 还是选择 bundle(打包)，
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-05-05 11:15" pubdate>
-              2022-05-05
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Vite/">Vite</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E5%89%8D%E7%AB%AF%E8%BF%9B%E9%98%B6/">前端进阶</a>
-            
-              <a href="/tags/Vite/">Vite</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2022/04/30/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAVite%E7%AC%94%E8%AE%B0(2)/" target="_self">
-          <img src="/imageO/vite.jpg" srcset="/img/loading.gif" lazyload alt="深入浅出Vite&amp;&amp;搭建vite项目&amp;&amp;css工程化&amp;&amp;代码规范&amp;&amp;静态资源优化(2)">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/04/30/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAVite%E7%AC%94%E8%AE%B0(2)/">深入浅出Vite&amp;&amp;搭建vite项目&amp;&amp;css工程化&amp;&amp;代码规范&amp;&amp;静态资源优化(2)</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2022/04/30/%E6%B7%B1%E5%85%A5%E6%B5%85%E5%87%BAVite%E7%AC%94%E8%AE%B0(2)/">
-          
-          
-            
-          
-          
-项目环境搭建
-node -v推荐 12.0.0 及以上版本，如果低于这个版本，推荐使用 nvm 工具切换 Nodejs 版本。
-
-当然，在现代的前端项目中，我非常不推荐使用 npm 作为项目的包管理器，甚至也不再推荐yarn(npm 的替代方案)，因为两者都存在比较严重的性能和安全问题，而这些问题在 pnpm 中得到了很好的解决
-
-因此，包管理器方面我推荐使用 pnpm，安装方式非常简单，输入如
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-04-30 11:15" pubdate>
-              2022-04-30
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Vite/">Vite</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E5%89%8D%E7%AB%AF%E8%BF%9B%E9%98%B6/">前端进阶</a>
-            
-              <a href="/tags/Vite/">Vite</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2022/04/30/%E7%8E%B0%E4%BB%A3%E7%AE%A1%E7%90%86%E5%99%A8pnpm/" target="_self">
-          <img src="/imageO/pnpm.png" srcset="/img/loading.gif" lazyload alt="现代包管理器--pnpm &amp;&amp; nvm node版本管理工具">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/04/30/%E7%8E%B0%E4%BB%A3%E7%AE%A1%E7%90%86%E5%99%A8pnpm/">现代包管理器--pnpm &amp;&amp; nvm node版本管理工具</a>
-      </h1>
-
-      <p class="index-excerpt">
-        <a href="/2022/04/30/%E7%8E%B0%E4%BB%A3%E7%AE%A1%E7%90%86%E5%99%A8pnpm/">
-          
-          
-            
-          
-          这篇文章给大家分享一个业内一款出色的包管理器——pnpm。目前 GitHub 已经有 star 9.8k，现在已经相对成熟且稳定了。它由 npm/yarn 衍生而来，但却解决了 npm/yarn 内部潜在的 bug，并且极大了地优化了性能，扩展了使用场景
-
-pnpm一、什么是 pnpm ?pnpm 的官方文档是这样说的:
-1Fast, disk space efficient package ma
-        </a>
-      </p>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-04-30 11:15" pubdate>
-              2022-04-30
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E5%B7%A5%E5%85%B7/">工具</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/">前端基础</a>
-            
-              <a href="/tags/pnpm/">pnpm</a>
             
           </div>
         
