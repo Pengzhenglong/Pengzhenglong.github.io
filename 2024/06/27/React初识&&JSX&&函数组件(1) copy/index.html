@@ -1,0 +1,567 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/2.jpg">
+  <link rel="icon" href="/img/2.jpg">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="DragonPeng">
+  <meta name="keywords" content="">
+  
+  <title>React hooks（一）：useState 的几个基础用法和进阶技巧 - DragonPeng的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>DragonPeng' blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/page1.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="React hooks（一）：useState 的几个基础用法和进阶技巧">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2024-06-27 11:15" pubdate>
+        June 27, 2024 am
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.2k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      25
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">React hooks（一）：useState 的几个基础用法和进阶技巧</h1>
+            
+            <div class="markdown-body">
+              <p>学习react Hooks的笔记</p>
+<p>自从 React v16.8 版本以来，React Hooks 为我们提供了全新的编写和思考 React 组件的方式。不仅管理状态和生命周期变得更简洁、更强大，Hooks 还引入了并发渲染和其他高级功能。本系列文章将详细探讨每一个 Hook，从基础到高级。首篇，我们将探讨最常用的 hook——useState。</p>
+<hr>
+<h3 id="useState-的基本用法"><a href="#useState-的基本用法" class="headerlink" title="useState 的基本用法"></a>useState 的基本用法</h3><p>useState主要用于给组件添加状态变量。注意，我们只能在组件的顶层或自定义的 Hooks 中调用useState。</p>
+<h4 id="初始化状态"><a href="#初始化状态" class="headerlink" title="初始化状态"></a>初始化状态</h4><ol>
+<li>基础定义</li>
+</ol>
+<figure class="highlight pf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs pf"><span class="hljs-keyword">const</span> [age, <span class="hljs-built_in">set</span>Age] = useState(<span class="hljs-number">42</span>);<br></code></pre></td></tr></table></figure>
+<ol start="2">
+<li>懒初始化</li>
+</ol>
+<p>对于需要计算得到的初始状态，可以使用函数传递给useState。这样，函数只在初次渲染时执行，而非每次渲染。</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">const <span class="hljs-literal">[<span class="hljs-identifier">todos</span>, <span class="hljs-identifier">setTodos</span>]</span> = use<span class="hljs-constructor">State(<span class="hljs-params">createInitialTodos</span>)</span>; <span class="hljs-comment">// 注意：传递函数本身，非执行结果</span><br></code></pre></td></tr></table></figure>
+
+
+
+
+
+
+<h4 id="更新状态"><a href="#更新状态" class="headerlink" title="更新状态"></a>更新状态</h4><p><strong>直接更新vs函数式更新</strong><br>大部分情况，直接更新状态即可：</p>
+<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs haxe">setAge(<span class="hljs-keyword">new</span><span class="hljs-type">State</span>);<br></code></pre></td></tr></table></figure>
+<p>但当新状态依赖于前一个状态时，推荐使用函数式更新。这确保了更新准确性，特别是在并发模式下。</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">set<span class="hljs-constructor">State(<span class="hljs-params">prevState</span> =&gt; <span class="hljs-params">prevState</span> + 1)</span>;<br></code></pre></td></tr></table></figure>
+<ol start="2">
+<li>以下两个例子展示函数式更新的重要性：</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 示例1: 使用函数式更新</span><br><span class="hljs-keyword">import</span> &#123; useState &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span>;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Counter</span>(<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-keyword">const</span> [age, setAge] = useState(<span class="hljs-number">42</span>);<br><br>  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">increment</span>(<span class="hljs-params"></span>) </span>&#123;<br>    setAge(<span class="hljs-function"><span class="hljs-params">a</span> =&gt;</span> a + <span class="hljs-number">1</span>); <span class="hljs-comment">// 函数式更新</span><br>  &#125;<br><br>  <span class="hljs-keyword">return</span> (<br>    &lt;&gt;<br>      &lt;h1&gt;Your age: &#123;age&#125;&lt;/h1&gt;<br>      &lt;button onClick=&#123;<span class="hljs-function">() =&gt;</span> &#123;<br>        increment();<br>        increment();<br>        increment();<br>      &#125;&#125;&gt;+<span class="hljs-number">3</span>&lt;/button&gt;<br>    &lt;/&gt;<br>  );<br>&#125;<br><span class="hljs-comment">// 结果：点击 +3 时，age 更新为 45。</span><br><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 示例2: 使用直接更新</span><br><span class="hljs-keyword">import</span> &#123; useState &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span>;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Counter</span>(<span class="hljs-params"></span>) </span>&#123;<br>  <span class="hljs-keyword">const</span> [age, setAge] = useState(<span class="hljs-number">42</span>);<br>  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">increment</span>(<span class="hljs-params"></span>) </span>&#123;<br>    setAge(age + <span class="hljs-number">1</span>); <span class="hljs-comment">// 直接更新</span><br>  &#125;<br>  <span class="hljs-keyword">return</span> (<br>    &lt;&gt;<br>      &lt;h1&gt;Your age: &#123;age&#125;&lt;/h1&gt;<br>      &lt;button onClick=&#123;<span class="hljs-function">() =&gt;</span> &#123;<br>        increment();<br>        increment();<br>        increment();<br>      &#125;&#125;&gt;+<span class="hljs-number">3</span>&lt;/button&gt;<br>    &lt;/&gt;<br>  );<br>&#125;<br><span class="hljs-comment">// 结果：点击 +3 时，可能只更新为 43。</span><br></code></pre></td></tr></table></figure>
+
+<h5 id="在-React-中，当你直接更新状态，每次调用-setAge-age-1-时，如果这些调用在同一个渲染周期中执行，它们可能都会使用相同的初始状态（即在函数组件体的开始时捕获的状态值）。这是因为-React-的状态更新可能是异步的，特别是在批量处理或并发模式下，状态的更新可能还没有被应用，就已经触发了下一个更新。"><a href="#在-React-中，当你直接更新状态，每次调用-setAge-age-1-时，如果这些调用在同一个渲染周期中执行，它们可能都会使用相同的初始状态（即在函数组件体的开始时捕获的状态值）。这是因为-React-的状态更新可能是异步的，特别是在批量处理或并发模式下，状态的更新可能还没有被应用，就已经触发了下一个更新。" class="headerlink" title="在 React 中，当你直接更新状态，每次调用 setAge(age + 1) 时，如果这些调用在同一个渲染周期中执行，它们可能都会使用相同的初始状态（即在函数组件体的开始时捕获的状态值）。这是因为 React 的状态更新可能是异步的，特别是在批量处理或并发模式下，状态的更新可能还没有被应用，就已经触发了下一个更新。"></a>在 React 中，当你直接更新状态，每次调用 <code>setAge(age + 1)</code> 时，如果这些调用在同一个渲染周期中执行，它们可能都会使用相同的初始状态（即在函数组件体的开始时捕获的状态值）。这是因为 React 的状态更新可能是异步的，特别是在批量处理或并发模式下，状态的更新可能还没有被应用，就已经触发了下一个更新。</h5><p>在你的第二个示例中，每次调用 <code>increment()</code> 都直接使用了组件当前渲染周期中的 <code>age</code> 值，而这个值在连续调用 <code>increment</code> 时不会改变（始终为 42）。因此，尽管 <code>increment()</code> 被调用了三次，每次都是基于 42 的状态值来计算的，只有一次有效更新将被执行，使得 <code>age</code> 最终只增加 1，变为 43。<br>相反，使用函数式更新（如 <code>setAge(a =&gt; a + 1)</code>），每次更新都会接收到最新的状态作为参数，即使这些更新是在同一个渲染周期内触发的。这种方式确保了每次调用都基于前一次更新后的最新状态进行，从而正确地将 <code>age</code> 增加三次，达到预期的 45。</p>
+<p>在并发模式下，因为状态更新可能是异步的，直接使用状态值进行更新时可能会遇到竞态条件，这时函数式更新显得尤为重要。函数式更新通过使用最新的状态值来保证状态更新的连贯性和正确性，尤其是在多次状态更新需要被顺序应用时。</p>
+<h4 id="对象与数组的更新"><a href="#对象与数组的更新" class="headerlink" title="对象与数组的更新"></a>对象与数组的更新</h4><p>对象和数组的更新需要创建新的引用，而不是直接修改原状态。</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs awk">setForm(&#123;<br>  ...form,<br>  name: e.target.value <span class="hljs-regexp">//</span> 更新这个属性<br>&#125;);<br><br><span class="hljs-regexp">//</span> 错误示例：<br><span class="hljs-regexp">//</span> form.name = e.target.value<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs awk">setTodos([<br>  ...todos,<br>  &#123;<br>    id: nextId++,<br>    title: title,<br>    done: false<br>  &#125;<br>]);<br><br><span class="hljs-regexp">//</span> 错误示例<br><span class="hljs-regexp">//</span> todos.push(&#123;<br><span class="hljs-regexp">//</span>   id: nextId++,<br><span class="hljs-regexp">//</span>   title: title,<br><span class="hljs-regexp">//</span>   done: false<br><span class="hljs-regexp">//</span> &#125;);<br><span class="hljs-regexp">//</span> setTodos(todos);<br></code></pre></td></tr></table></figure>
+<h4 id="函数的更新"><a href="#函数的更新" class="headerlink" title="函数的更新"></a>函数的更新</h4><p>把函数存储到state里是很少见的做法，但某些情况下，我们有可能需要这么做。</p>
+<p>先看一个错误的示例：</p>
+<figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">const <span class="hljs-literal">[<span class="hljs-identifier">fn</span>, <span class="hljs-identifier">setFn</span>]</span> = use<span class="hljs-constructor">State(<span class="hljs-params">someFunction</span>)</span>;<br><br><span class="hljs-keyword">function</span> handle<span class="hljs-constructor">Click()</span> &#123;<br>  set<span class="hljs-constructor">Fn(<span class="hljs-params">someOtherFunction</span>)</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>根据上文，我们知道这样的用法是把函数的返回值存储或更新到状态中，并不是把函数存储到状态中。</p>
+<p>如果你想在状态中存储一个函数，你需要使用一个箭头函数来“包裹”它。这是正确的做法：</p>
+<figure class="highlight zephir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs zephir"><span class="hljs-keyword">const</span> [<span class="hljs-function"><span class="hljs-keyword">fn</span>, <span class="hljs-title">setFn</span>] = <span class="hljs-title">useState</span><span class="hljs-params">(<span class="hljs-params">()</span> =&gt; someFunction)</span></span>;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">handleClick</span><span class="hljs-params">()</span> </span>&#123;<br>  setFn(() =&gt; someOtherFunction);<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>那么我们什么时候会需要这样使用？这里介绍一些可能的场景：</p>
+<ol>
+<li>可配置的行为: 你可能有一个组件，它的行为可以由父组件进行配置。在这种情况下，你可以将函数作为状态存储，以便在组件的生命周期中更改或更新它。</li>
+<li>动态创建的函数: 在某些情况下，你可能需要基于组件的某些属性或状态动态创建函数。将这些函数存储为状态可以确保你只在必要时重新创建它们。</li>
+<li>回调和外部交互: 如果你的组件与外部系统交互，并且需要提供回调函数，你可能希望在状态中存储这些回调函数，以便在适当的时候更改或更新它们。</li>
+<li>延迟执行的函数: 在某些情况下，你可能想要在将来的某个时间点执行函数（例如，使用setTimeout）。将函数存储为状态可以确保即使组件的其他部分发生变化，你也可以访问到最初的函数引用。</li>
+<li>与第三方库的集成: 有些第三方库可能要求你提供并在后续更改函数。在这种情况下，将函数作为状态存储可能会更加方便。</li>
+</ol>
+<h5 id="在-React-开发中，通常我们不会把函数直接存储在状态（state）中，因为函数通常作为固定的逻辑存在而不需要存储为变化的状态。然而，有一些特定场景下，存储函数到状态中可能是有益的或必要的。这些场景通常涉及到动态行为的配置、动态函数的创建、对外部交互的处理、计划执行任务，或者是与某些需要动态改变函数的第三方库集成。下面我会详细解释每一个场景："><a href="#在-React-开发中，通常我们不会把函数直接存储在状态（state）中，因为函数通常作为固定的逻辑存在而不需要存储为变化的状态。然而，有一些特定场景下，存储函数到状态中可能是有益的或必要的。这些场景通常涉及到动态行为的配置、动态函数的创建、对外部交互的处理、计划执行任务，或者是与某些需要动态改变函数的第三方库集成。下面我会详细解释每一个场景：" class="headerlink" title="在 React 开发中，通常我们不会把函数直接存储在状态（state）中，因为函数通常作为固定的逻辑存在而不需要存储为变化的状态。然而，有一些特定场景下，存储函数到状态中可能是有益的或必要的。这些场景通常涉及到动态行为的配置、动态函数的创建、对外部交互的处理、计划执行任务，或者是与某些需要动态改变函数的第三方库集成。下面我会详细解释每一个场景："></a>在 React 开发中，通常我们不会把函数直接存储在状态（state）中，因为函数通常作为固定的逻辑存在而不需要存储为变化的状态。然而，有一些特定场景下，存储函数到状态中可能是有益的或必要的。这些场景通常涉及到动态行为的配置、动态函数的创建、对外部交互的处理、计划执行任务，或者是与某些需要动态改变函数的第三方库集成。下面我会详细解释每一个场景：</h5><ol>
+<li><p><strong>可配置的行为</strong>:</p>
+<ul>
+<li>在某些情况下，组件的行为可能需要根据父组件的配置来动态改变。例如，如果你有一个通用的按钮组件，其点击行为（如打开模态框、提交表单等）可以通过父组件传入的函数来定义。这时，你可以在状态中存储这个行为函数，并在需要时更新它，以改变按钮的功能。</li>
+</ul>
+</li>
+<li><p><strong>动态创建的函数</strong>:</p>
+<ul>
+<li>如果函数的行为需要基于组件的某些属性或状态动态生成，例如一个根据用户角色动态生成的权限验证函数，那么将这些函数存储为状态可以避免在每次渲染时都重新创建它们，优化性能。</li>
+</ul>
+</li>
+<li><p><strong>回调和外部交互</strong>:</p>
+<ul>
+<li>当组件需要与外部系统（如 Web API、浏览器API等）交互时，这些外部系统可能需要回调函数来处理异步事件或数据。将这些回调函数存储在状态中可以在它们需要更新时，方便地进行替换。</li>
+</ul>
+</li>
+<li><p><strong>延迟执行的函数</strong>:</p>
+<ul>
+<li>在使用 <code>setTimeout</code> 或 <code>setInterval</code> 等时，你可能想在未来某个时间点执行某些特定的逻辑。将这个逻辑封装在一个函数中并将其保存在状态里，可以确保即使在组件更新后，你依然可以访问到最初的函数引用，保证执行的一致性。</li>
+</ul>
+</li>
+<li><p><strong>与第三方库的集成</strong>:</p>
+<ul>
+<li>有些第三方库可能要求提供函数并在之后的操作中可能需要更改这些函数。例如，一个事件监听库可能允许你在初始化时提供一个回调函数，并在需要时通过某种方法更新它。在这种情况下，将函数作为状态存储，可以使这一过程更加灵活和可控。</li>
+</ul>
+</li>
+</ol>
+<p>总之，虽然通常不推荐将函数存储在状态中，但在需要高度动态和可配置的行为时，这种方法可以提供额外的灵活性和控制能力。</p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>在这篇文章中，我们深入探讨了 React 的useStateHook，从它的基础用法到一些进阶技巧。掌握好useState是走向 React 高手之路的关键一步。在未来的文章中，我们还将继续探讨其他的 Hooks。</p>
+<h4 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h4><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/7274211579691335695">掘金</a><br><a target="_blank" rel="noopener" href="https://juejin.cn/column/7274211579691319311">精读React hooks</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/React/">React</a>
+                    
+                      <a class="hover-with-bg" href="/categories/React/React-hooks/">React hooks</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/React/">React</a>
+                    
+                      <a class="hover-with-bg" href="/tags/React-hooks/">React hooks</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/04/01/%5B%E6%BA%90%E7%A0%81%5D%E4%B8%BA%E4%BB%80%E4%B9%88Vue2this%E8%83%BD%E5%A4%9F%E7%9B%B4%E6%8E%A5%E8%8E%B7%E5%8F%96%E5%88%B0data%E5%92%8Cmethods/">
+                        <span class="hidden-mobile">源码学习---为什么 Vue2 this 能够直接获取到 data 和 methods ?</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>

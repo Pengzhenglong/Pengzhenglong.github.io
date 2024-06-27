@@ -180,26 +180,93 @@
     
     
       <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2023/03/04/React%E5%88%9D%E8%AF%86&&JSX&&%E5%87%BD%E6%95%B0%E7%BB%84%E4%BB%B6(1)/" target="_self">
-          <img src="/imageO/react.png" srcset="/img/loading.gif" lazyload alt="React初识&amp;&amp;JSX&amp;&amp;函数式组件">
+        <a href="/2023/03/04/React%E5%88%9D%E8%AF%86&&%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1&&props%E6%A0%A1%E9%AA%8C/" target="_self">
+          <img src="/imageO/react.png" srcset="/img/loading.gif" lazyload alt="React初识&amp;&amp;组件通信&amp;&amp;props校验">
         </a>
       </div>
     
     <article class="col-12 col-md-8 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2023/03/04/React%E5%88%9D%E8%AF%86&&JSX&&%E5%87%BD%E6%95%B0%E7%BB%84%E4%BB%B6(1)/">React初识&amp;&amp;JSX&amp;&amp;函数式组件</a>
+        <a href="/2023/03/04/React%E5%88%9D%E8%AF%86&&%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1&&props%E6%A0%A1%E9%AA%8C/">React初识&amp;&amp;组件通信&amp;&amp;props校验</a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2023/03/04/React%E5%88%9D%E8%AF%86&&JSX&&%E5%87%BD%E6%95%B0%E7%BB%84%E4%BB%B6(1)/">
+        <a href="/2023/03/04/React%E5%88%9D%E8%AF%86&&%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1&&props%E6%A0%A1%E9%AA%8C/">
           
           
             
           
           学习react的笔记
 
-react 项目 npm i 安装依赖报错1创建react工程，提示错误The engine &quot;node&quot; is incompatible with this module. Expected version &quot;^8.10.0 || ^10.13.0 || &gt;=11.10.1&quot;. Got &quot;10.5.0&quot;，导
+React组件通信组件通信的意义组件是独立且封闭的单元，默认情况下组件只能使用自己的数据（state）
+组件化开发的过程中，完整的功能会拆分多个组件，在这个过程中不可避免的需要互相传递一些数据
+为了能让各组件之间可以进行互相沟通，数据传递，这个过程就是组件通信
+
+父子关系 - 最重要的
+兄弟关系 - 自定义事件模式产生技术方法 eventBus / 通过共同的父组件通信
+其
+        </a>
+      </p>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-03-04 11:15" pubdate>
+              2023-03-04
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/React/">React</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/">前端基础</a>
+            
+              <a href="/tags/React/">React</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+      <div class="col-12 col-md-4 m-auto index-img">
+        <a href="/2023/03/04/React%E5%88%9D%E8%AF%86&&%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F&&Hooks/" target="_self">
+          <img src="/imageO/react.png" srcset="/img/loading.gif" lazyload alt="React初识&amp;&amp;生命周期&amp;&amp;Hooks">
+        </a>
+      </div>
+    
+    <article class="col-12 col-md-8 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/03/04/React%E5%88%9D%E8%AF%86&&%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F&&Hooks/">React初识&amp;&amp;生命周期&amp;&amp;Hooks</a>
+      </h1>
+
+      <p class="index-excerpt">
+        <a href="/2023/03/04/React%E5%88%9D%E8%AF%86&&%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F&&Hooks/">
+          
+          
+            
+          
+          学习react的笔记
+
+生命周期 - 概述组件的生命周期是指组件从被创建到挂载到页面中运行起来，再到组件不用时卸载的过程，注意，只有类组件才有生命周期（类组件 实例化 函数组件 不需要实例化）http://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/
+生命周期 - 挂载阶段
+生命周期 - 更新阶段
+生命周期 - 卸载阶段钩子函数 co
         </a>
       </p>
 
@@ -604,86 +671,33 @@ pnpm一、什么是 pnpm ?pnpm 的官方文档是这样说的:
     
     
       <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2022/03/28/%5B%E9%A1%B9%E7%9B%AE%5D%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1/" target="_self">
-          <img src="/imageO/MS.jpg" srcset="/img/loading.gif" lazyload alt="知识图谱基础知识摘要(项目)">
+        <a href="/2022/03/28/%5B%E9%A1%B9%E7%9B%AE%5DMousoul%E6%89%8B%E7%BB%98%E5%95%86%E5%9F%8E%E5%B0%8F%E7%A8%8B%E5%BA%8F/" target="_self">
+          <img src="/imageO/MS.jpg" srcset="/img/loading.gif" lazyload alt="uniapp小程序(项目)">
         </a>
       </div>
     
     <article class="col-12 col-md-8 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2022/03/28/%5B%E9%A1%B9%E7%9B%AE%5D%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1/">知识图谱基础知识摘要(项目)</a>
+        <a href="/2022/03/28/%5B%E9%A1%B9%E7%9B%AE%5DMousoul%E6%89%8B%E7%BB%98%E5%95%86%E5%9F%8E%E5%B0%8F%E7%A8%8B%E5%BA%8F/">uniapp小程序(项目)</a>
       </h1>
 
       <p class="index-excerpt">
-        <a href="/2022/03/28/%5B%E9%A1%B9%E7%9B%AE%5D%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1/">
+        <a href="/2022/03/28/%5B%E9%A1%B9%E7%9B%AE%5DMousoul%E6%89%8B%E7%BB%98%E5%95%86%E5%9F%8E%E5%B0%8F%E7%A8%8B%E5%BA%8F/">
           
           
             
           
           
-知识图谱基础知识摘要什么是知识图谱？简单理解就是一个图，节点是各种各样的现实当中的实体，如人、物、组织等，线是反应节点之间的关系或者属性。如图所示。
-知识图谱的作用如今知识图谱广泛应用于聊天机器人，推荐系统等方面，而在金融、农业、电商、医疗健康、环境保护、工业制造场景等各种不同的垂直领域，得益于知识图谱的先验知识的特性，均得到了广泛的应用。说的抽象点，知识图谱就是把离散的符号表述，变成了连续的向
-        </a>
-      </p>
+封装各类通用组件如自定导航栏、返回上一页自动更新数据功能以及其他基础功能实现这样的功能可以通过以下步骤：
 
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-03-28 23:15" pubdate>
-              2022-03-28
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/%E9%A1%B9%E7%9B%AE%E4%BC%98%E5%8C%96/">项目优化</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E5%89%8D%E7%AB%AF%E5%9F%BA%E7%A1%80/">前端基础</a>
-            
-              <a href="/tags/JS/">JS</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
+创建自定义导航栏组件和返回按钮组件，将其封装为独立的组件。
 
-  <div class="row mx-auto index-card">
-    
-    
-      <div class="col-12 col-md-4 m-auto index-img">
-        <a href="/2022/03/28/%5B%E9%A1%B9%E7%9B%AE%5D%E9%85%8D%E7%BD%AE%E4%B8%80%E5%A5%97%E7%AC%A6%E5%90%88%E5%9B%A2%E9%98%9F%E4%B9%A0%E6%83%AF%E4%B8%94%E8%A7%84%E8%8C%83%E7%9A%84husky/" target="_self">
-          <img src="/imageO/MS.jpg" srcset="/img/loading.gif" lazyload alt="配置一套符合团队习惯且规范的husky(项目)">
-        </a>
-      </div>
-    
-    <article class="col-12 col-md-8 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/03/28/%5B%E9%A1%B9%E7%9B%AE%5D%E9%85%8D%E7%BD%AE%E4%B8%80%E5%A5%97%E7%AC%A6%E5%90%88%E5%9B%A2%E9%98%9F%E4%B9%A0%E6%83%AF%E4%B8%94%E8%A7%84%E8%8C%83%E7%9A%84husky/">配置一套符合团队习惯且规范的husky(项目)</a>
-      </h1>
+在每个页面中引入该自定义导航栏组件，并设置相应的参数（如标题、菜单项等）。
 
-      <p class="index-excerpt">
-        <a href="/2022/03/28/%5B%E9%A1%B9%E7%9B%AE%5D%E9%85%8D%E7%BD%AE%E4%B8%80%E5%A5%97%E7%AC%A6%E5%90%88%E5%9B%A2%E9%98%9F%E4%B9%A0%E6%83%AF%E4%B8%94%E8%A7%84%E8%8C%83%E7%9A%84husky/">
-          
-          
-            
-          
-          
-配置一套符合团队习惯且规范的huskygit提交信息规范具体规范推荐基于开源的 commitlint 来实现公司在git提交信息的规范，通过覆盖等手段扩展该开源规范以适应公司前端团队的需求。
-主要使用的是commitlint的@commitlint/config-conventional规则，其中在type-enum新增了“merge”类型，具体细则如下：
+在返回按钮组件中使用路由API实现返回上一页的功能，并通过 props 将需要更新的数据传递给上一页。
 
-type-enum：类型允许范围改为
+在需要更新数据的页面中，在路由钩子函数中监听
         </a>
       </p>
 
