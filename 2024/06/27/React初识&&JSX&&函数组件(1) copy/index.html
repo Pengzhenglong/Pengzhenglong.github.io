@@ -241,12 +241,6 @@
 </ol>
 <p>对于需要计算得到的初始状态，可以使用函数传递给useState。这样，函数只在初次渲染时执行，而非每次渲染。</p>
 <figure class="highlight reasonml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs reasonml">const <span class="hljs-literal">[<span class="hljs-identifier">todos</span>, <span class="hljs-identifier">setTodos</span>]</span> = use<span class="hljs-constructor">State(<span class="hljs-params">createInitialTodos</span>)</span>; <span class="hljs-comment">// 注意：传递函数本身，非执行结果</span><br></code></pre></td></tr></table></figure>
-
-
-
-
-
-
 <h4 id="更新状态"><a href="#更新状态" class="headerlink" title="更新状态"></a>更新状态</h4><p><strong>直接更新vs函数式更新</strong><br>大部分情况，直接更新状态即可：</p>
 <figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs haxe">setAge(<span class="hljs-keyword">new</span><span class="hljs-type">State</span>);<br></code></pre></td></tr></table></figure>
 <p>但当新状态依赖于前一个状态时，推荐使用函数式更新。这确保了更新准确性，特别是在并发模式下。</p>
