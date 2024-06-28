@@ -1,0 +1,564 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/2.jpg">
+  <link rel="icon" href="/img/2.jpg">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="DragonPeng">
+  <meta name="keywords" content="">
+  
+  <title>React hooks（二）：全面掌握useReducer - DragonPeng的博客</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>DragonPeng' blog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner" id="banner" parallax=true
+         style="background: url('/img/page1.jpg') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="React hooks（二）：全面掌握useReducer">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2024-06-27 18:15" pubdate>
+        June 27, 2024 pm
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      2.4k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      31
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">React hooks（二）：全面掌握useReducer</h1>
+            
+            <div class="markdown-body">
+              <p>学习react Hooks的笔记</p>
+<p>上一篇文章中，我们学习了useState的一些基础用法和进阶技巧，useState是React的一个基础Hook，允许我们在函数组件中存储状态。</p>
+<p>随着应用逐渐复杂，我们经常发现useState在管理复杂的状态逻辑时显得有些力不从心。这时，React为我们提供的另一个更为强大的hook——useReducer——可以帮助我们优雅地处理复杂状态。</p>
+<p>useReducer允许我们使用 action 和 reducer 的方式来组织复杂的状态逻辑，使其变得更加清晰和模块化，弥补了useState的局限性。</p>
+<hr>
+<h3 id="基础用法"><a href="#基础用法" class="headerlink" title="基础用法"></a>基础用法</h3><p>与useState相似，useReducer也是 React 的 Hook，而且也只能放在组件最顶层使用。与前者不同的地方在于，它是通过 action 来更新状态的，使状态更新逻辑更具可读性。</p>
+<p>useReducer接收三个参数：</p>
+<p>reducer 函数：指定如何更新状态的还原函数，它必须是纯函数，以 state 和 dispatch 为参数，并返回下一个状态。<br>初始状态：初始状态的计算值。<br>（可选的）初始化参数：用于返回初始状态。如果未指定，初始状态将设置为 initialArg；如果有指定，初始状态将被设置为调用init(initialArg)的结果。</p>
+<p>useReducer返回两个参数：</p>
+<p>当前的状态：当前状态。在第一次渲染时，它会被设置为init(initialArg)或 initialArg（如果没有 init 的情况下）。<br>dispatch：调度函数，用于调用 reducer 函数，以更新状态并触发重新渲染。<br>基本形式如下：</p>
+<figure class="highlight pf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs pf"><span class="hljs-keyword">const</span> [<span class="hljs-keyword">state</span>, dispatch] = useReducer(reducer, initialArg, init?)<br></code></pre></td></tr></table></figure>
+<p>通常情况下，我们只会用到useReducer的前两个参数，如这个计数器组件：</p>
+<figure class="highlight pf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs pf"><span class="hljs-keyword">const</span> initialState = &#123; count: <span class="hljs-number">0</span> &#125;;<br><br>function reducer(<span class="hljs-keyword">state</span>, action) &#123;<br>  switch (action.type) &#123;<br>    case &#x27;increment&#x27;:<br>      return &#123; count: <span class="hljs-keyword">state</span>.count + <span class="hljs-number">1</span> &#125;;<br>    case &#x27;decrement&#x27;:<br>      return &#123; count: <span class="hljs-keyword">state</span>.count - <span class="hljs-number">1</span> &#125;;<br>    <span class="hljs-keyword">default</span>:<br>      throw new Error();<br>  &#125;<br>&#125;<br><br>function Counter() &#123;<br>  <span class="hljs-keyword">const</span> [<span class="hljs-keyword">state</span>, dispatch] = useReducer(reducer, initialState);<br><br>  return (<br>    <span class="hljs-variable">&lt;&gt;</span><br>      Count: &#123;<span class="hljs-keyword">state</span>.count&#125;<br>      <span class="hljs-variable">&lt;button onClick=&#123;() =&gt;</span> dispatch(&#123; type: &#x27;decrement&#x27; &#125;)&#125;&gt;-&lt;/button&gt;<br>      <span class="hljs-variable">&lt;button onClick=&#123;() =&gt;</span> dispatch(&#123; type: &#x27;increment&#x27; &#125;)&#125;&gt;+&lt;/button&gt;<br>    &lt;/&gt;<br>  );<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>使用dispatch的注意事项</p>
+<ul>
+<li>dispatch调用后，状态更新是异步的，因此立刻读取状态可能仍是旧的。</li>
+</ul>
+<figure class="highlight pf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs pf">function addCount() &#123;<br>	dispatch(&#123; type: &#x27;increment&#x27; &#125;)<br>	console.<span class="hljs-keyword">log</span>(<span class="hljs-keyword">state</span>.count) // 打印出来的不是新值<br>&#125;<br><br><span class="hljs-variable">&lt;button onClick=&#123;addCount&#125;&gt;</span>+&lt;/button&gt;<br></code></pre></td></tr></table></figure>
+<ul>
+<li>React 对dispatch有一个优化机制：如果dispatch触发更新前后的值相等（使用Object.is判断），实际上 React 不会进行重新渲染，这是出于性能考虑。</li>
+</ul>
+<h4 id="使用reducer函数的注意事项"><a href="#使用reducer函数的注意事项" class="headerlink" title="使用reducer函数的注意事项"></a>使用reducer函数的注意事项</h4><p>你在reducer里面更新对象和数组的状态，需要创建一个新的对象或数组，而不是在原对象和数组上修改，这一点和useState是一样的。</p>
+<h3 id="初始化状态：使用init函数"><a href="#初始化状态：使用init函数" class="headerlink" title="初始化状态：使用init函数"></a>初始化状态：使用init函数</h3><p>上一节我们提到了useReducer还有第三个参数init，那么它的作用是什么？它也是为了性能优化而来。</p>
+<p>我们先假设一个场景，计数器的值保存在localStorage里面，进入页面的时候，我们希望从localStorage中读取值来作为useReducer初值，如果没有init，我们可以这样做：</p>
+<figure class="highlight pf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs pf">function getInitialCount() &#123;<br>  <span class="hljs-keyword">const</span> savedCount = localStorage.getItem(<span class="hljs-string">&quot;count&quot;</span>);<br>  return savedCount ? Number(savedCount) : <span class="hljs-number">0</span>;<br>&#125;<br><br>function counterReducer(<span class="hljs-keyword">state</span>, action) &#123;<br>  switch (action.type) &#123;<br>    case <span class="hljs-string">&quot;INCREMENT&quot;</span>:<br>      return &#123; count: <span class="hljs-keyword">state</span>.count + <span class="hljs-number">1</span> &#125;;<br>    case <span class="hljs-string">&quot;DECREMENT&quot;</span>:<br>      return &#123; count: <span class="hljs-keyword">state</span>.count - <span class="hljs-number">1</span> &#125;;<br>    <span class="hljs-keyword">default</span>:<br>      return <span class="hljs-keyword">state</span>;<br>  &#125;<br>&#125;<br><br>function Counter() &#123;<br>  <span class="hljs-keyword">const</span> [<span class="hljs-keyword">state</span>, dispatch] = useReducer(counterReducer, getInitialCount());<br><br>  // 使用useEffect来监听状态的变化，并将其保存到localStorage<br>  useEffect(() =&gt; &#123;<br>    localStorage.<span class="hljs-built_in">set</span>Item(<span class="hljs-string">&quot;count&quot;</span>, <span class="hljs-keyword">state</span>.count);<br>  &#125;, [<span class="hljs-keyword">state</span>.count]);<br><br>  return (<br>    <span class="hljs-variable">&lt;&gt;</span><br>      Count: &#123;<span class="hljs-keyword">state</span>.count&#125;<br>      <span class="hljs-variable">&lt;button onClick=&#123;() =&gt;</span> dispatch(&#123; type: <span class="hljs-string">&quot;INCREMENT&quot;</span> &#125;)&#125;&gt;+<span class="hljs-number">1</span>&lt;/button&gt;<br>      <span class="hljs-variable">&lt;button onClick=&#123;() =&gt;</span> dispatch(&#123; type: <span class="hljs-string">&quot;DECREMENT&quot;</span> &#125;)&#125;&gt;-<span class="hljs-number">1</span>&lt;/button&gt;<br>    &lt;/&gt;<br>  );<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>在这个例子中，我们直接调用getInitialCount函数作为useReducer的第二个参数，从而得到初始状态。当React初始化这个组件时，它会执行这个函数并使用其返回值作为初始状态。</p>
+<p>如果在第三个参数里进行初始化，代码是这样写：</p>
+<figure class="highlight pf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs pf">function init(initialValue) &#123;<br>  // 尝试从localStorage中读取值<br>  <span class="hljs-keyword">const</span> savedCount = localStorage.getItem(<span class="hljs-string">&quot;count&quot;</span>);<br><br>  // 如果有值并且可以被解析为数字，则返回它，否则返回initialValue<br>  return &#123; count: savedCount ? Number(savedCount) : initialValue &#125;;<br>&#125;<br><br>function counterReducer(<span class="hljs-keyword">state</span>, action) &#123;<br>  switch (action.type) &#123;<br>    case <span class="hljs-string">&quot;INCREMENT&quot;</span>:<br>      return &#123; count: <span class="hljs-keyword">state</span>.count + <span class="hljs-number">1</span> &#125;;<br>    case <span class="hljs-string">&quot;DECREMENT&quot;</span>:<br>      return &#123; count: <span class="hljs-keyword">state</span>.count - <span class="hljs-number">1</span> &#125;;<br>    <span class="hljs-keyword">default</span>:<br>      return <span class="hljs-keyword">state</span>;<br>  &#125;<br>&#125;<br><br>function Counter() &#123;<br>  <span class="hljs-keyword">const</span> [<span class="hljs-keyword">state</span>, dispatch] = useReducer(counterReducer, <span class="hljs-number">0</span>, init);<br><br>  // 使用useEffect来监听状态的变化，并将其保存到localStorage<br>  useEffect(() =&gt; &#123;<br>    localStorage.<span class="hljs-built_in">set</span>Item(<span class="hljs-string">&quot;count&quot;</span>, <span class="hljs-keyword">state</span>.count);<br>  &#125;, [<span class="hljs-keyword">state</span>.count]);<br><br>  return (<br>    <span class="hljs-variable">&lt;&gt;</span><br>      Count: &#123;<span class="hljs-keyword">state</span>.count&#125;<br>      <span class="hljs-variable">&lt;button onClick=&#123;() =&gt;</span> dispatch(&#123; type: <span class="hljs-string">&quot;INCREMENT&quot;</span> &#125;)&#125;&gt;+<span class="hljs-number">1</span>&lt;/button&gt;<br>      <span class="hljs-variable">&lt;button onClick=&#123;() =&gt;</span> dispatch(&#123; type: <span class="hljs-string">&quot;DECREMENT&quot;</span> &#125;)&#125;&gt;-<span class="hljs-number">1</span>&lt;/button&gt;<br>    &lt;/&gt;<br>  );<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>这两种方式看似差不多，但它们区别很大：</p>
+<ol>
+<li>执行时机：</li>
+</ol>
+<ul>
+<li>直接调用函数作为第二个参数：这个函数会在每次组件渲染时执行。</li>
+<li>使用init函数：init函数只在组件初次渲染时执行一次。</li>
+</ul>
+<ol start="2">
+<li>访问到的数据：</li>
+</ol>
+<ul>
+<li>直接调用函数作为第二个参数：这个函数只能访问到定义它时的作用域内的数据。</li>
+<li>使用init函数：由于init函数接受initialArg作为参数，这使得init函数具有更大的灵活性，能够基于传入的参数进行计算。</li>
+</ul>
+<ol start="3">
+<li>代码组织：</li>
+</ol>
+<ul>
+<li>直接调用函数作为第二个参数：这通常更简洁，适合那些简单的初始化逻辑。</li>
+<li>使用init函数：它提供了更清晰的代码组织结构，特别是当初始化逻辑相对复杂或需要根据传入的参数变化时。</li>
+</ul>
+<ol start="4">
+<li>性能：</li>
+</ol>
+<ul>
+<li>直接调用函数作为第二个参数：如果这个函数执行了一些计算密集或副作用的操作，那么在每次组件渲染时都会执行，可能会导致性能问题。</li>
+<li>使用init函数：由于它只在组件的初始化阶段执行一次，所以对于那些计算密集的初始化操作，使用init函数可能会更为高效。<h4 id="总结一下，两者都可以用于初始化状态，如果你的初始化逻辑简单并且没有性能顾虑，可以直接使用一个函数作为useReducer的第二个参数，但如果你需要基于传入的参数来决定初始化逻辑或者想确保性能最优的做法，那么应该使用init函数。"><a href="#总结一下，两者都可以用于初始化状态，如果你的初始化逻辑简单并且没有性能顾虑，可以直接使用一个函数作为useReducer的第二个参数，但如果你需要基于传入的参数来决定初始化逻辑或者想确保性能最优的做法，那么应该使用init函数。" class="headerlink" title="总结一下，两者都可以用于初始化状态，如果你的初始化逻辑简单并且没有性能顾虑，可以直接使用一个函数作为useReducer的第二个参数，但如果你需要基于传入的参数来决定初始化逻辑或者想确保性能最优的做法，那么应该使用init函数。"></a>总结一下，两者都可以用于初始化状态，如果你的初始化逻辑简单并且没有性能顾虑，可以直接使用一个函数作为useReducer的第二个参数，但如果你需要基于传入的参数来决定初始化逻辑或者想确保性能最优的做法，那么应该使用init函数。</h4><h3 id="高级技巧"><a href="#高级技巧" class="headerlink" title="高级技巧"></a>高级技巧</h3><h4 id="中间件"><a href="#中间件" class="headerlink" title="中间件"></a>中间件</h4>就像Redux中的中间件，我们可以利用dispatch创建一个中间件方法，支持调用dispatch之前或之后执行代码。<figure class="highlight arcade"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs arcade"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">thunkMiddleware</span>(<span class="hljs-params">dispatch</span>) </span>&#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">action</span>) </span>&#123;<br>        <span class="hljs-keyword">if</span> (typeof action === <span class="hljs-string">&#x27;function&#x27;</span>) &#123;<br>            action(dispatch);<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            dispatch(action);<br>        &#125;<br>				 <span class="hljs-comment">// 代码在dispatch之后执行</span><br>        console.log(<span class="hljs-string">&quot;Action dispatched at: &quot;</span>, <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>().toISOString());<br>    &#125;;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fetchData</span>(<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-params">dispatch</span> =&gt;</span> &#123;<br>        fetch(<span class="hljs-string">&quot;/api/data&quot;</span>)<br>            .then(<span class="hljs-function"><span class="hljs-params">res</span> =&gt;</span> res.json())<br>            .then(<span class="hljs-function"><span class="hljs-params">data</span> =&gt;</span> dispatch(&#123; <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;SET_DATA&#x27;</span>, <span class="hljs-attr">payload</span>: data &#125;));<br>    &#125;;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">App</span>(<span class="hljs-params"></span>) </span>&#123;<br>    const [state, unenhancedDispatch] = useReducer(reducer, initialState);<br>    const dispatch = thunkMiddleware(unenhancedDispatch);<br>    <br>    useEffect(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> &#123;<br>        dispatch(fetchData());<br>    &#125;, [dispatch]);<br>&#125;<br></code></pre></td></tr></table></figure>
+在这个示例中，通过将原始的dispatch包裹在另一个函数内部，中间件为我们提供了一个在真正的状态更新前后注入自定义逻辑的机会。</li>
+</ul>
+<p>示例中，我们在调用原始的dispatch之前首先检查了action的类型。实际上，你可以在这里添加任何你想要的逻辑，例如日志记录、错误处理、请求API等。在dispatch调用之后，依然可以添加额外的逻辑。</p>
+<h3 id="与useContext一起使用"><a href="#与useContext一起使用" class="headerlink" title="与useContext一起使用"></a>与useContext一起使用</h3><p>结合useContext和useReducer可以创建简单的全局状态管理系统。</p>
+<p>我们就以此来尝试创建一个完整的主题切换系统：</p>
+<p>首先，定义状态、reducer 和 context:</p>
+<figure class="highlight pf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs pf"><span class="hljs-keyword">const</span> ThemeContext = React.createContext();<br><br><span class="hljs-keyword">const</span> initialState = &#123; theme: &#x27;light&#x27; &#125;;<br><br>function themeReducer(<span class="hljs-keyword">state</span>, action) &#123;<br>    switch (action.type) &#123;<br>        case &#x27;TOGGLE_THEME&#x27;:<br>            return &#123; theme: <span class="hljs-keyword">state</span>.theme === &#x27;light&#x27; ? &#x27;dark&#x27; : &#x27;light&#x27; &#125;;<br>        <span class="hljs-keyword">default</span>:<br>            return <span class="hljs-keyword">state</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>接下来，创建一个Provider组件：</p>
+<figure class="highlight handlebars"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs handlebars"><span class="xml">function ThemeProvider(&#123; children &#125;) &#123;</span><br><span class="xml">    const [state, dispatch] = useReducer(themeReducer, initialState);</span><br><br><span class="xml">    return (</span><br><span class="xml">        <span class="hljs-tag">&lt;<span class="hljs-name">ThemeContext.Provider</span> <span class="hljs-attr">value</span>=</span></span><span class="hljs-template-variable">&#123;&#123; <span class="hljs-name">theme:</span> state.theme, toggleTheme: () =&gt; dispatch(&#123; <span class="hljs-name">type:</span> <span class="hljs-string">&#x27;TOGGLE_THEME&#x27;</span> &#125;) &#125;&#125;</span><span class="xml"><span class="hljs-tag">&gt;</span></span><br><span class="xml">            &#123;children&#125;</span><br><span class="xml">        <span class="hljs-tag">&lt;/<span class="hljs-name">ThemeContext.Provider</span>&gt;</span></span><br><span class="xml">    );</span><br><span class="xml">&#125;</span><br></code></pre></td></tr></table></figure>
+<p>在子组件中，你可以轻松切换和读取主题：</p>
+<figure class="highlight handlebars"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs handlebars"><span class="xml">function ThemedButton() &#123;</span><br><span class="xml">    const &#123; theme, toggleTheme &#125; = useContext(ThemeContext);</span><br><br><span class="xml">    return (</span><br><span class="xml">        <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">style</span>=</span></span><span class="hljs-template-variable">&#123;&#123; <span class="hljs-name">backgroundColor:</span> theme === <span class="hljs-string">&#x27;light&#x27;</span> ? <span class="hljs-string">&#x27;#fff&#x27;</span> : <span class="hljs-string">&#x27;#000&#x27;</span> &#125;&#125;</span><span class="xml"><span class="hljs-tag"> <span class="hljs-attr">onClick</span>=<span class="hljs-string">&#123;toggleTheme&#125;</span>&gt;</span></span><br><span class="xml">            Toggle Theme</span><br><span class="xml">        <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br><span class="xml">    );</span><br><span class="xml">&#125;</span><br></code></pre></td></tr></table></figure>
+<p>这部分代码只是示例说明，完整的使用逻辑和 TypeScript 实现的源码已经发布到我的Github：useReducer-useContext实现主题切换</p>
+<h3 id="useReducer与-Redux-的差异"><a href="#useReducer与-Redux-的差异" class="headerlink" title="useReducer与 Redux 的差异"></a>useReducer与 Redux 的差异</h3><p>虽然useReducer和 Redux 都采用了 action 和 reducer 的模式来处理状态，但它们在实现和使用上有几个主要的区别：</p>
+<ul>
+<li>范围：useReducer通常在组件或小型应用中使用，而Redux被设计为大型应用的全局状态管理工具。</li>
+<li>中间件和扩展：Redux支持中间件，这允许开发者插入自定义逻辑，例如日志、异步操作等。而useReducer本身不直接支持，但我们可以模拟中间件的效果。</li>
+<li>复杂性：对于简单的状态管理，useReducer通常更简单和直接。但当涉及到复杂的状态逻辑和中间件时，Redux可能更具优势。</li>
+</ul>
+<h3 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h3><p>useReducer作为 React 的一部分，它比useState强大，又比 Redux 轻量，尤其适合中小型应用或组件级状态管理。本文把useReducer的用法和注意项完整的讲解了一遍，吃透其中的知识点就能保证你对useReducer有足够的了解了。</p>
+<h4 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h4><p><a target="_blank" rel="noopener" href="https://juejin.cn/post/7274789845754445859">掘金</a><br><a target="_blank" rel="noopener" href="https://juejin.cn/column/7274211579691319311">精读React hooks</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/React/">React</a>
+                    
+                      <a class="hover-with-bg" href="/categories/React/React-hooks/">React hooks</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/React/">React</a>
+                    
+                      <a class="hover-with-bg" href="/tags/React-hooks/">React hooks</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">
+                  
+                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
+                  
+                </p>
+              
+              
+                <div class="post-prevnext">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/06/27/ReactHook-useState(1)/">
+                        <span class="hidden-mobile">React hooks（一）：useState 的几个基础用法和进阶技巧</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;TOC</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+
+  <!-- SCRIPTS -->
+  
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      $('#local-search-input').on('click', function() {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      });
+      $('#modalSearch').on('shown.bs.modal', function() {
+        $('#local-search-input').focus();
+      });
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+</body>
+</html>
